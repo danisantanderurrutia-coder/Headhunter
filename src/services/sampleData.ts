@@ -278,10 +278,10 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-3',
-      title: 'Certificación de 45 Corresponsales Ciudadanos en Periodismo Popular',
-      description: 'Diseño pedagógico y graduación de 45 vecinos rurales en reportería comunitaria móvil, verificación de hechos y cobertura de la crisis hídrica en el Maule.',
-      metrics: '45 Corresponsales Rurales Certificados',
-      tags: ['Educación Popular', 'Maule Sur', 'Fact-Checking', 'Medios'],
+      title: 'Taller de Corresponsales Populares en Territorio',
+      description: 'Creación y relatoría del taller de reportería comunitaria móvil y ética, capacitando y certificando a más de 45 voceros y vecinos rurales frente a la crisis hídrica en Maule Sur.',
+      metrics: '45+ Corresponsales Capacitados',
+      tags: ['Educación Popular', 'Maule Sur', 'Reportería Móvil', 'Medios'],
       date: '2021-12-01',
       isVerified: true
     },
@@ -314,10 +314,10 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-7',
-      title: 'Operativo Territorial de Emergencia para 1.000+ Familias Rurales Aisladas',
-      description: 'Canalización logística autónoma de agua potable, insumos y forraje para más de 1.000 familias campesinas durante megaincendios e inundaciones catastróficas en Maule Sur.',
-      metrics: '1.000 Familias Asistidas',
-      tags: ['Emergencias', 'Maule Sur', 'Solidaridad Territorial'],
+      title: 'Coordinación Logística de Emergencia "Solo el pueblo ayuda al pueblo"',
+      description: 'Despliegue operativo de centros de acopio y caravanas 4x4 transportando decenas de toneladas de víveres, agua potable y herramientas a comunidades rurales damnificadas en 4 regiones.',
+      metrics: 'Despliegue en 4 Regiones // Caravanas 4x4',
+      tags: ['Emergencias', 'Solidaridad Popular', 'Catástrofes', 'Maule Sur'],
       date: '2023-03-01',
       isVerified: true
     },
