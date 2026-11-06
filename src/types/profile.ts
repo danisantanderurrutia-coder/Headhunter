@@ -68,6 +68,41 @@ export interface TargetRole {
   keywords: string[];
 }
 
+export interface PublicationProfileItem {
+  id: string;
+  title: string;
+  outlet: string;
+  date: string;
+  url?: string;
+  category: 'policy' | 'press' | 'essays' | 'scientific';
+  summary: string;
+  tags: string[];
+}
+
+export interface KeyProjectProfileItem {
+  id: string;
+  title: string;
+  role: string;
+  period: string;
+  category: string;
+  description: string;
+  deliverables: string[];
+  techStack: string[];
+  url?: string;
+  githubUrl?: string;
+}
+
+export interface ConferenceProfileItem {
+  id: string;
+  title: string;
+  event: string;
+  location: string;
+  date: string;
+  role: string;
+  summary: string;
+  tags: string[];
+}
+
 export interface MasterProfile {
   fullName: string;
   email: string;
@@ -88,6 +123,9 @@ export interface MasterProfile {
   languages: LanguageItem[];
   achievementsBank: Achievement[];
   otherCourses?: string[];
+  publications?: PublicationProfileItem[];
+  keyProjects?: KeyProjectProfileItem[];
+  conferences?: ConferenceProfileItem[];
   pendingFields: string[]; // List of unverified or missing profile items
   lastUpdated: string;
 }

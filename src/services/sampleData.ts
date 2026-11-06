@@ -91,86 +91,202 @@ export const initialProfile: MasterProfile = {
   targetRoles: [
     { id: 'tr-1', title: 'Científico Ambiental / Investigador Biofísico (Suelos & GEI)', minSalaryExpected: 42000, desiredSalary: 55000, seniorityLevel: 'Senior', keywords: ['Suelos', 'GEI', 'Eddy Covariance', 'R', 'GIS'] },
     { id: 'tr-2', title: 'Asesor en Políticas Ambientales y Gobernanza del Territorio', minSalaryExpected: 42000, desiredSalary: 52000, seniorityLevel: 'Senior', keywords: ['Gobernanza', 'Incidencia', 'Políticas Clima', 'Cuencas'] },
-    { id: 'tr-3', title: 'Especialista en Teledetección y Modelación Espacial', minSalaryExpected: 40000, desiredSalary: 50000, seniorityLevel: 'Mid-Senior', keywords: ['QGIS', 'Python', 'Google Earth Engine', 'SWAT'] }
+    { id: 'tr-3', title: 'Especialista en Teledetección y Modelación Espacial', minSalaryExpected: 40000, desiredSalary: 50000, seniorityLevel: 'Mid-Senior', keywords: ['QGIS', 'Python', 'Google Earth Engine', 'SWAT'] },
+    { id: 'tr-4', title: 'Director de Campañas & Estratega de Comunicación Científica', minSalaryExpected: 40000, desiredSalary: 52000, seniorityLevel: 'Lead / Director', keywords: ['Comunicaciones', 'Campañas', 'Incidencia', 'Territorio'] }
   ],
   minSalary: 40000,
   desiredSalary: 52000,
-  summary: 'Científico ambiental interdisciplinario con base fundacional en Geofísica (FCFM, Universidad de Chile) y Doble Maestría Europea en Manejo y Protección Ambiental (CAU Kiel, Alemania / AMU Poznań, Polonia). Especializado en cuantificación biofísica, dinámica de flujos de gases de efecto invernadero (torres eddy covariance en turberas), balance hídrico de cuencas frente a monocultivos forestales, ordenamiento territorial y gobernanza multiactor. Trayectoria comprobada en Europa y América Latina vinculando ciencia empírica con salvaguardias ambientales, incidencia parlamentaria y análisis de políticas públicas.',
+  summary: 'Geofísico (Universidad de Chile, Licenciatura aprobada Con Distinción) y candidato a doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Integra investigación cuantitativa y mediciones de terreno en hidrogeofísica y flujos de gases de efecto invernadero (Eddy Covariance y cámaras cerradas en turberas templadas de Wallener Au) con modelación computacional, desarrollo de gemelos digitales (Wetland Monitor, AgriTwin, Rewilding Field Suite), testimonio pericial ante la Cámara de Diputadas y Diputados de Chile en prevención de megaincendios y ordenamiento de cuencas, y dirección de campañas de comunicación masiva y periodismo de investigación (+700k audiencia).',
   experiences: [
     {
       id: 'exp-cau-kiel',
       company: 'Christian-Albrechts-Universität zu Kiel & Adam Mickiewicz University',
-      role: 'Investigador en Sistemas Biofísicos y Dinámica de GEI en Turberas',
+      role: 'Investigador en Hidrogeofísica, Suelos y Dinámica de GEI en Turberas',
       location: 'Kiel (Alemania) / Poznań (Polonia)',
       startDate: '2023',
       endDate: 'Presente',
       isCurrent: true,
-      summary: 'Cuantificación empírica de flujos de gases de efecto invernadero (CO2/CH4) en turberas rehumedecidas mediante torres micrometeorológicas de covarianza de torbellinos (Eddy Covariance) y cámaras estáticas. Muestreo de suelos y vegetación, modelación estadística y geoespacial (R, GIS).',
+      summary: 'Cuantificación empírica de flujos de gases de efecto invernadero (CO2, CH4) en la turbera templada rehumedecida Wallener Au (Schleswig-Holstein) mediante torres micrometeorológicas de covarianza de torbellinos (Eddy Covariance) y cámaras de flujo cerrado. Caracterización hidrofísica y mecánica de suelos (curvas de retención hídrica y tensión de preconsolidación edáfica σp = 62,4 kPa) bajo legado de drenaje y maquinaria agrícola. Monitoreo limnológico de calidad de agua y bioindicadores en lagos y estanques de Poznań bajo la Directiva Marco del Agua de la UE. Desarrollo del gemelo digital y visor 3D "Wetland Monitor".',
       achievements: [
-        'Análisis continuo de balances de carbono y flujos de metano en humedales en transición ecológica.',
-        'Integración de mediciones micrometeorológicas con teledetección satelital.'
+        'Cuantificación continua de balances de carbono y detección de picos de emisión de CH4 en turberas rehumedecidas bajo forzantes micrometeorológicos.',
+        'Determinación de tensión de preconsolidación del suelo (σp = 62,4 kPa) para evaluar el impacto de la maquinaria agrícola sobre la estructura edáfica.',
+        'Desarrollo y publicación del gemelo digital 3D "Wetland Monitor" con simulador diurno/estacional de balances de carbono.',
+        'Evaluación limnológica y de bioindicadores in situ y en laboratorio en lagos y estanques de Polonia (AMU Poznań) según la Directiva Marco del Agua.'
       ],
-      technologies: ['R', 'Python', 'QGIS', 'ArcGIS', 'Google Earth Engine', 'Eddy Covariance'],
+      technologies: ['R', 'Python', 'QGIS', 'Eddy Covariance', 'Cámaras de Flujo', 'Física de Suelos', 'Directiva Marco del Agua', 'Three.js'],
+      isVerified: true
+    },
+    {
+      id: 'exp-uchile-geophysics',
+      company: 'Universidad de Chile (Facultad de Ciencias Físicas y Matemáticas - FCFM)',
+      role: 'Geofísico de Terreno & Modelación Hidrogeofísica de Cuencas',
+      location: 'Santiago & Cuenca del Maule, Chile',
+      startDate: '2015',
+      endDate: '2021',
+      isCurrent: false,
+      summary: 'Investigación cuantitativa y trabajo de terreno en física de la Tierra e hidrogeofísica aplicada. Memoria de título aprobada Con Distinción centrada en la Cuenca del Río Maule: campañas de adquisición e inversión de resistividad eléctrica del subsuelo (Sondeos Eléctricos Verticales - SEV) y prospección gravimétrica, cuantificando la relación entre el avance de monocultivos forestales industriales, sequía por cambio climático y el abatimiento sostenido del nivel freático.',
+      achievements: [
+        'Aprobación de la memoria y título de Geofísico Con Distinción por la Universidad de Chile.',
+        'Diseño y ejecución de campañas de prospección con Sondeos Eléctricos Verticales (SEV) y gravimetría en la Cuenca del Maule.',
+        'Modelación de la dinámica de recarga y abatimiento del nivel freático frente a plantaciones forestales y déficit de precipitaciones.'
+      ],
+      technologies: ['Sondeos Eléctricos Verticales (SEV)', 'Gravimetría', 'Python', 'Inversión Geofísica', 'Hidrología Subterránea', 'MATLAB'],
       isVerified: true
     },
     {
       id: 'exp-advocacy-policy',
-      company: 'Asesoría en Políticas Ambientales e Incidencia Legislativa',
-      role: 'Asesor Técnico en Políticas Ambientales y Cuencas',
-      location: 'Chile & Alemania',
+      company: 'Cámara de Diputadas y Diputados de Chile & Asesoría Legislativa en Cuencas',
+      role: 'Expositor Técnico Parlamentario & Asesor en Políticas de Cuencas y Desastres',
+      location: 'Valparaíso / Santiago, Chile & Europa',
       startDate: '2021',
       endDate: 'Presente',
       isCurrent: true,
-      summary: 'Asesoría técnica parlamentaria y comunitaria sobre política de prevención de incendios forestales, gestión integrada del agua y transición agroecológica. Presentación oficial ante la Comisión de Emergencia, Desastres y Bomberos de la Cámara de Diputadas y Diputados de Chile sobre la correlación estructural entre monocultivos forestales y riesgo de megaincendios.',
+      summary: 'Asesoría técnica parlamentaria y comunitaria sobre políticas públicas de prevención de megaincendios, gestión integrada del agua y transición ecológica territorial. Comparecencia oficial como perito técnico ante la Comisión Especial de Emergencia, Desastres y Bomberos de la Cámara de Diputadas y Diputados de Chile, fundamentando la relación biofísica estructural entre monocultivos forestales y riesgo de incendios. Redacción técnica de propuestas de ordenamiento por cuencas y salvaguardias en el proceso constitucional chileno.',
       achievements: [
-        'Exposición y testimonio oficial en el Congreso Nacional de Chile sobre ordenamiento territorial y modelo forestal.',
-        'Acompañamiento a comités de agua potable rural y comunidades en gobernanza de cuencas.'
+        'Testimonio oficial ante la Cámara de Diputadas y Diputados de Chile sobre causalidad territorial del riesgo de incendios forestales.',
+        'Redacción de propuestas normativas sobre ordenamiento de cuencas hidrográficas y protección ecosistémica ante la Convención Constitucional.',
+        'Asesoría técnica y legal a Comités de Agua Potable Rural (APR) y asambleas territoriales en derechos hídricos.'
       ],
-      technologies: ['Gobernanza Ambiental', 'Políticas Públicas', 'Incidencia Legislativa', 'Gestión de Cuencas'],
+      technologies: ['Incidencia Legislativa', 'Políticas Públicas', 'Gobernanza de Cuencas', 'Salvaguardias Ambientales', 'Ordenamiento Territorial'],
       isVerified: true
     },
     {
       id: 'exp-biomass-epn',
-      company: 'Environmental Paper Network & Global Forest Coalition',
-      role: 'Investigador de Impactos de la Industria de Biomasa y Celulosa',
-      location: 'América Latina & Europa',
-      startDate: '2022',
-      endDate: '2024',
+      company: 'Environmental Paper Network (EPN) & Global Forest Coalition',
+      role: 'Autor Técnico Principal & Auditor de Contabilidad de Carbono en Biomasa',
+      location: 'Internacional / Chile & Europa',
+      startDate: '2023',
+      endDate: '2023',
       isCurrent: false,
-      summary: 'Investigación técnica independiente sobre los impactos biofísicos y socioecológicos de las plantaciones forestales a gran escala, bioenergía y metodologías de contabilidad de carbono. Coordinación con redes socioambientales e instituciones internacionales.',
+      summary: 'Investigación internacional independiente y autoría principal del informe "Spotlight on Burning Biomass for Energy in South America: Community Opposition to a Power Plant in Parral, Chile". Análisis riguroso de vacíos metodológicos en la contabilidad de carbono de la biomasa forestal, desmintiendo la neutralidad climática y fiscalizando los subsidios de energía renovable otorgados bajo directivas europeas (RED III). Coordinación multiactor con redes socioambientales globales.',
       achievements: [
-        'Elaboración de informes de integridad ambiental y contabilidad de carbono en cadenas de suministro forestal.',
-        'Articulación de diálogos internacionales sobre manejo y protección comunitaria de bosques.'
+        'Publicación internacional como Autor Principal del informe técnico de caso EPN (Parral, Maule).',
+        'Demostración de los vacíos en los balances de carbono de centrales de bioenergía y su impacto en la salud comunitaria.',
+        'Presentación y difusión internacional del informe en redes de monitoreo de biomasa y políticas forestales en Europa y Latinoamérica.'
       ],
-      technologies: ['Contabilidad de Carbono', 'Salvaguardias Ambientales', 'Facilitación Multiactor'],
+      technologies: ['Contabilidad de Carbono', 'Auditoría RED III', 'Bioenergía', 'Salvaguardias Forestales', 'Facilitación Multiactor'],
+      isVerified: true
+    },
+    {
+      id: 'exp-software-digital-twins',
+      company: 'Chile Agrotech / AgriTwin / Rewilding Field Suite / Smart Food Parks',
+      role: 'Arquitecto de Software Científico, Gemelos Digitales & Agrotech',
+      location: 'Chile, Portugal & Europa',
+      startDate: '2023',
+      endDate: 'Presente',
+      isCurrent: true,
+      summary: 'Diseño, desarrollo y despliegue de plataformas de ingeniería ambiental y software geoespacial. Creador de AgriTwin (gemelo digital que integra telemetría IoT LoRaWAN de humedad de suelo con índices satelitales Sentinel-2 NDVI/NDRE en viñedos del Maule). Diseñador de Rewilding Field Suite (PWA offline-first con IndexedDB para monitoreo de biomasa y riesgo de incendios en Aljezur, Portugal). Co-diseñador de Smart Food Parks, seleccionado como Semifinalista Internacional en el UN Citiverse Challenge (SDG Cities) de la ONU.',
+      achievements: [
+        'Semifinalista Internacional en el UN Citiverse Challenge (SDG Cities) de Naciones Unidas con Smart Food Parks.',
+        'Despliegue operativo del gemelo digital de telemetría de suelo y satélites Copernicus AgriTwin en el Maule.',
+        'Desarrollo de PWA offline-first con IndexedDB para levantamiento de campo en el Municipio de Aljezur (Portugal).'
+      ],
+      technologies: ['TypeScript', 'React', 'PWA Offline-First', 'IndexedDB', 'Python', 'Google Earth Engine', 'Copernicus Sentinel-2', 'IoT LoRaWAN', 'GIS'],
+      isVerified: true
+    },
+    {
+      id: 'exp-apruebo-rural',
+      company: 'Campaña Nacional "Apruebo Rural"',
+      role: 'Director General de Campaña & Coordinador de Prensa Nacional',
+      location: 'Chile (Cobertura Nacional)',
+      startDate: '2020',
+      endDate: '2023',
+      isCurrent: false,
+      summary: 'Dirección ejecutiva y estratégica de la campaña nacional transmedia Apruebo Rural, articulando la voz de más de 100 asambleas campesinas, comités de regantes y colectivos agrarios de todo Chile. Producción de piezas audiovisuales, narrativa de datos sobre la crisis hídrica y ordenamiento de cuencas, y coordinación de giras y actos de cierre territoriales con un alcance medido de más de 700.000 personas.',
+      achievements: [
+        'Dirección ejecutiva de campaña nacional transmedia con alcance superior a 700.000 personas en medios y redes.',
+        'Coordinación y articulación de una red de más de 100 organizaciones territoriales campesinas e indígenas.',
+        'Producción y difusión de contenidos pedagógicos de datos científicos sobre gestión hídrica, suelo y derechos ambientales.'
+      ],
+      technologies: ['Dirección de Campañas', 'Comunicaciones Estratégicas', 'Storytelling Transmedia', 'Coordinación Multiactor', 'Producción Audiovisual'],
+      isVerified: true
+    },
+    {
+      id: 'exp-primera-linea-prensa',
+      company: 'Primera Línea Prensa & Red Maule Sur',
+      role: 'Fundador, Director Editorial & Periodista de Investigación Socioambiental',
+      location: 'Chile',
+      startDate: '2019',
+      endDate: '2023',
+      isCurrent: false,
+      summary: 'Cofundador y director editorial de medio digital independiente enfocado en periodismo ciudadano, crisis climática, desastres forestales y derechos humanos, alcanzando más de 700.000 seguidores orgánicos en redes sociales. Panelista semanal en Radio Cristalina (96.3 FM) y MauleRed. Diseñador y relator del "Taller de Corresponsales Populares", capacitando y certificando a 45 vecinos rurales en reportería móvil, ética y verificación de hechos.',
+      achievements: [
+        'Crecimiento de audiencia digital de 0 a +700.000 seguidores en redes sociales con millones de impresiones mensuales.',
+        'Capacitación y graduación de 45 corresponsales ciudadanos rurales a través del Taller de Comunicación Popular.',
+        'Publicación de investigaciones y columnas en Tomate Rojo, El Desconcierto, Resumen.cl, El Regionalista y OLCA.'
+      ],
+      technologies: ['Periodismo de Investigación', 'Dirección Editorial', 'Radio & Podcasts', 'Gestión de Redes Sociales', 'Fact-Checking', 'Capacitación'],
+      isVerified: true
+    },
+    {
+      id: 'exp-crisis-response-maule',
+      company: 'Campaña de Solidaridad Territorial "Solo el Pueblo Ayuda al Pueblo"',
+      role: 'Coordinador Territorial de Respuesta a Emergencias y Catástrofes',
+      location: 'Maule Sur, Chile',
+      startDate: '2023',
+      endDate: '2023',
+      isCurrent: false,
+      summary: 'Coordinación logística, relevamiento territorial y distribución de ayuda humanitaria de emergencia durante los megaincendios e inundaciones catastróficas de 2023 en el Maule Sur. Gestión de centros de acopio, articulación directa con compañías de bomberos, juntas de vecinos y comités de damnificados para abastecimiento de más de 1.000 familias rurales.',
+      achievements: [
+        'Canalización y entrega transparente de suministros vitales a más de 1.000 familias damnificadas sin intermediación burocrática.',
+        'Mapeo comunitario de zonas críticas de aislamiento y daño en infraestructura de agua potable rural.'
+      ],
+      technologies: ['Gestión de Emergencias y Desastres', 'Logística Territorial', 'Mapeo Crítico', 'Coordinación Comunitaria'],
+      isVerified: true
+    },
+    {
+      id: 'exp-ong-raiz-ecoaccion',
+      company: 'ONG Raíz EcoAcción & Geofísica Libre',
+      role: 'Cofundador, Expresidente & Divulgador Científico',
+      location: 'Chile',
+      startDate: '2019',
+      endDate: '2022',
+      isCurrent: false,
+      summary: 'Liderazgo institucional de organización socioambiental sin fines de lucro dedicada a la regeneración ecológica y la educación científica popular. Organización de jornadas masivas de voluntariado de siembra nativa, conservación de suelos y huertos comunitarios. Creación de Geofísica Libre: canal de divulgación abierta de conceptos geocientíficos, riesgo sísmico y crisis hídrica para el público general.',
+      achievements: [
+        'Organización de jornadas masivas de restauración ecológica comunitaria y plantación de especies nativas.',
+        'Fundación de Geofísica Libre para la democratización del conocimiento de la física de la Tierra.'
+      ],
+      technologies: ['Restauración Ecológica', 'Educación Científica Abierta', 'Liderazgo de Voluntariado', 'Gestión de Proyectos Comunitarios'],
       isVerified: true
     }
   ],
   education: [
     {
-      id: 'edu-msc-kiel-amu',
-      institution: 'Christian-Albrechts-Universität zu Kiel (Alemania) & Adam Mickiewicz University in Poznań (Polonia)',
-      degree: 'Doble Máster en Environmental Management & Environmental Protection',
-      fieldOfStudy: 'Ciencias Ambientales, Manejo Integrado de Cuencas y Protección Ecosistémica',
+      id: 'edu-msc-kiel',
+      institution: 'Christian-Albrechts-Universität zu Kiel (CAU Kiel, Alemania)',
+      degree: 'M.Sc. en Manejo Ambiental (Environmental Management)',
+      fieldOfStudy: 'Ciencias Ambientales, Hidrofísica de Suelos, Flujos de GEI y Manejo de Cuencas',
       startDate: '2023',
       endDate: '2026',
-      location: 'Kiel (Alemania) y Poznań (Polonia)',
+      location: 'Kiel, Alemania',
+      isVerified: true
+    },
+    {
+      id: 'edu-msc-amu',
+      institution: 'Adam Mickiewicz University (AMU Poznań, Polonia)',
+      degree: 'M.Sc. en Protección Ambiental (Environmental Protection)',
+      fieldOfStudy: 'Limnología, Bioindicadores Acuáticos y Directiva Marco del Agua de la UE',
+      startDate: '2023',
+      endDate: '2026',
+      location: 'Poznań, Polonia',
       isVerified: true
     },
     {
       id: 'edu-geophysics-uchile',
-      institution: 'Universidad de Chile (FCFM)',
-      degree: 'Licenciatura en Geofísica (con Distinción)',
-      fieldOfStudy: 'Geofísica de la Tierra Sólida, Hidrogeofísica y Física de Fluidos',
-      startDate: '2016',
+      institution: 'Universidad de Chile (Facultad de Ciencias Físicas y Matemáticas - FCFM)',
+      degree: 'Geofísico y Licenciado en Ciencias, mención Geofísica (Con Distinción)',
+      fieldOfStudy: 'Geofísica de la Tierra Sólida, Hidrogeofísica, Sondeos Eléctricos (SEV) y Fluidodinámica',
+      startDate: '2015',
       endDate: '2021',
       location: 'Santiago, Chile',
+      grade: 'Aprobado Con Distinción',
       isVerified: true
     },
     {
       id: 'edu-permaculture-epac',
       institution: 'Escuela de Permacultura y Agroecología de Chile (EPAC)',
-      degree: 'Certified Permaculture Designer (CDP)',
+      degree: 'Certified Permaculture Designer (CDP, 80 h)',
       fieldOfStudy: 'Diseño Hidrológico Keyline, Regeneración Edáfica y Restauración Ecosistémica',
       startDate: '2023',
       endDate: '2023',
@@ -180,21 +296,25 @@ export const initialProfile: MasterProfile = {
   ],
   skills: [
     { id: 'sk-1', name: 'R', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
-    { id: 'sk-2', name: 'Python', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
-    { id: 'sk-3', name: 'QGIS', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
-    { id: 'sk-4', name: 'ArcGIS', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
-    { id: 'sk-5', name: 'Google Earth Engine', category: 'Tech', level: 'Intermedio', yearsOfExperience: 3 },
-    { id: 'sk-6', name: 'Eddy Covariance', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
-    { id: 'sk-7', name: 'Gobernanza Ambiental', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-8', name: 'Incidencia Política & Legislativa', category: 'Soft', level: 'Experto', yearsOfExperience: 5 },
-    { id: 'sk-9', name: 'Facilitación Multiactor', category: 'Soft', level: 'Experto', yearsOfExperience: 5 },
-    { id: 'sk-10', name: 'Sistemas Biofísicos & Suelos', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 }
+    { id: 'sk-2', name: 'Python (GeoPandas, NumPy, SciPy, Rasterio)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
+    { id: 'sk-3', name: 'QGIS & ArcGIS Pro', category: 'Tools', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-4', name: 'Google Earth Engine (GEE)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
+    { id: 'sk-5', name: 'Torres Eddy Covariance & Flujos GEI', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-6', name: 'Sondeos Eléctricos Verticales (SEV/VES)', category: 'Domain', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-7', name: 'Física y Mecánica de Suelos (σp = 62.4 kPa)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-8', name: 'Limnología & Bioindicadores Dulceacuícolas', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-9', name: 'TypeScript, React & Gemelos Digitales 3D', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
+    { id: 'sk-10', name: 'PWA Offline-First (IndexedDB)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-11', name: 'Incidencia Legislativa & Políticas Públicas', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-12', name: 'Dirección de Campañas Masivas (+700k)', category: 'Soft', level: 'Experto', yearsOfExperience: 5 },
+    { id: 'sk-13', name: 'Contabilidad de Carbono & Auditoría RED III', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-14', name: 'Gestión Integrada de Cuencas Hidrográficas', category: 'Domain', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-15', name: 'Facilitación Multiactor & Resolución de Conflictos', category: 'Soft', level: 'Experto', yearsOfExperience: 6 }
   ],
   languages: [
     { id: 'lang-1', language: 'Español', proficiency: 'Nativo' },
-    { id: 'lang-2', language: 'Inglés', proficiency: 'C2' },
-    { id: 'lang-3', language: 'Alemán', proficiency: 'B1' },
-    { id: 'lang-4', language: 'Polaco', proficiency: 'A1' }
+    { id: 'lang-2', language: 'Inglés', proficiency: 'C2', certificate: 'C2 - Competencia Profesional Completa' },
+    { id: 'lang-3', language: 'Alemán', proficiency: 'B2', certificate: 'B1–B2 - Formación y Trabajo en CAU Kiel' }
   ],
   achievementsBank: [
     {
@@ -202,49 +322,370 @@ export const initialProfile: MasterProfile = {
       title: 'Comparecencia e Intervención Oficial en la Cámara de Diputadas y Diputados de Chile',
       description: 'Demostración técnica de la correlación estructural entre el monocultivo forestal y el riesgo de megaincendios ante la Comisión de Emergencia, Desastres y Bomberos.',
       metrics: 'Intervención Legislativa Oficial',
-      tags: ['Congreso', 'Incidencia', 'Modelo Forestal', 'Incendios'],
+      tags: ['Congreso', 'Incidencia', 'Modelo Forestal', 'Incendios', 'Cuencas'],
       date: '2024-03-01',
       isVerified: true
     },
     {
       id: 'ach-2',
-      title: 'Investigación Internacional de Impactos de la Industria de Biomasa',
-      description: 'Estudio de balances de carbono y salvaguardias socioambientales en conjunto con Global Forest Coalition y Environmental Paper Network.',
-      metrics: 'Publicación e Informe Internacional',
-      tags: ['Biomasa', 'Carbono', 'Bosques', 'EPN'],
-      date: '2024-06-01',
+      title: 'Investigación Internacional de Impactos de la Industria de Biomasa (EPN)',
+      description: 'Lead Technical Author del informe Spotlight on Burning Biomass (Parral, Chile) con Environmental Paper Network y Global Forest Coalition sobre vacíos contables en RED III.',
+      metrics: 'Publicación Internacional',
+      tags: ['Biomasa', 'Carbono', 'Bosques', 'EPN', 'RED III'],
+      date: '2023-06-01',
       isVerified: true
     },
     {
       id: 'ach-3',
-      title: 'Semifinalista UN Citiverse Challenge para Ciudades Sostenibles (SDG Cities)',
-      description: 'Desarrollo del concepto Smart Food Parks integrando gemelos digitales, IoT y teledetección espacial para ordenamiento urbano y resiliencia climática.',
+      title: 'Semifinalista Internacional UN Citiverse Challenge (SDG Cities)',
+      description: 'Seleccionado por Naciones Unidas por el desarrollo del concepto Smart Food Parks integrando gemelos digitales, IoT de suelo y teledetección espacial para resiliencia urbana.',
       metrics: 'Semifinalista Internacional ONU',
-      tags: ['UN', 'Gemelo Digital', 'IoT', 'Resiliencia'],
+      tags: ['UN', 'Gemelo Digital', 'IoT', 'Resiliencia', 'SDG Cities'],
       date: '2024-11-01',
       isVerified: true
     },
     {
       id: 'ach-4',
+      title: 'Dirección de la Campaña Nacional Transmedia "Apruebo Rural"',
+      description: 'Dirección general y coordinación de más de 100 asambleas y colectivos agrarios de todo Chile con un alcance auditado superior a 700.000 personas en medios y redes.',
+      metrics: 'Dirección de Campaña Nacional',
+      tags: ['Comunicaciones', 'Apruebo Rural', 'Campañas', 'Territorio'],
+      date: '2022-09-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-5',
+      title: 'Fundación y Dirección Editorial de Primera Línea Prensa',
+      description: 'Creación y liderazgo de medio digital independiente con más de 700.000 seguidores orgánicos enfocado en periodismo ciudadano, crisis hídrica y derechos socioambientales.',
+      metrics: 'Dirección Editorial & Medio Digital',
+      tags: ['Prensa', 'Periodismo', 'Redes Sociales', 'Maule Sur'],
+      date: '2021-12-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-6',
       title: 'Ponencias en Conferencias Internacionales de Clima y Decrecimiento',
-      description: 'Presentaciones en Degrowth Conference Oslo 2025, Environmental Justice Conference Bonn 2025 y Foro Latinoamericano en Bogotá.',
-      metrics: '5+ Ponencias en Europa y América Latina',
-      tags: ['Conferencias', 'Internacional', 'Transición Justa'],
+      description: 'Presentaciones en Degrowth Conference Oslo 2025, Environmental Justice Conference Bonn 2025, Foro Latinoamericano en Bogotá 2023 y Cumbre de Jóvenes en Costa Rica 2023.',
+      metrics: 'Ponencias en Europa y América Latina',
+      tags: ['Conferencias', 'Internacional', 'Transición Justa', 'Bonn', 'Oslo'],
       date: '2025-01-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-7',
+      title: 'Licenciatura en Geofísica Aprobada Con Distinción (U. de Chile)',
+      description: 'Memoria de título en la Cuenca del Maule con Sondeos Eléctricos Verticales (SEV) y prospección gravimétrica sobre el impacto del monocultivo en el nivel freático.',
+      metrics: 'Licenciatura Aprobada Con Distinción',
+      tags: ['Geofísica', 'UChile', 'SEV', 'Hidrogeofísica', 'Maule'],
+      date: '2021-04-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-8',
+      title: 'Doble Maestría Europea en Manejo y Protección Ambiental',
+      description: 'Investigación en CAU Kiel (Alemania) sobre balances de GEI en turberas con Eddy Covariance y σp = 62,4 kPa, y en AMU Poznań (Polonia) sobre limnología bajo la Directiva Marco del Agua.',
+      metrics: 'Doble M.Sc. Europeo en Ciencias',
+      tags: ['Doble Master', 'Kiel', 'Poznań', 'Eddy Covariance', 'Turberas'],
+      date: '2026-03-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-9',
+      title: 'Desarrollo de Gemelos Digitales de Impacto: Wetland Monitor & AgriTwin',
+      description: 'Creación de software científico interactivo: visor 3D de balances de carbono en turberas (Wetland Monitor) y plataforma IoT + Sentinel-2 de telemetría de viñedos (AgriTwin).',
+      metrics: 'Gemelo Digital Operativo',
+      tags: ['Wetland Monitor', 'AgriTwin', 'Copernicus', 'Software Científico'],
+      date: '2024-08-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-10',
+      title: 'Coordinación Territorial Humanitaria "Solo el Pueblo Ayuda al Pueblo"',
+      description: 'Coordinación logística directa de ayuda humanitaria de emergencia a más de 1.000 familias rurales damnificadas por megaincendios e inundaciones catastróficas en Maule Sur.',
+      metrics: 'Coordinación Territorial Humanitaria',
+      tags: ['Solidaridad', 'Emergencias', 'Catástrofes', 'Maule Sur'],
+      date: '2023-03-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-11',
+      title: 'Tetralogía de Ensayos Político-Ecológicos en OLCA',
+      description: 'Publicación de la obra ensayística en cuatro partes "Ser libres al borde del abismo" sobre colapso civilizatorio, decrecimiento y ecología comunitaria autónoma.',
+      metrics: 'Tetralogía de Ensayos Político-Ecológicos',
+      tags: ['OLCA', 'Ensayos', 'Ecología Política', 'Decrecimiento'],
+      date: '2025-02-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-12',
+      title: 'Taller de Corresponsales Populares: Formación Comunitaria',
+      description: 'Diseño e impartición de taller que formó y certificó a 45 vecinos y voceros rurales del Maule Sur en reportería móvil, ética informativa y verificación ciudadana.',
+      metrics: 'Capacitación Comunitaria Certificada',
+      tags: ['Educación Popular', 'Corresponsales', 'Comunicación Rural'],
+      date: '2022-06-01',
       isVerified: true
     }
   ],
   otherCourses: [
-    'Green Economy and Financialization of Nature (CENSAT Agua Viva, 2022)',
-    'R Modeling and GIS Satellite Data Management (Escuela Ambiental GIS, 2022)',
-    'Climate Action Plan Design (ClimateReality, Chile 2023)',
-    'Doughnut Economics (DEAL Copenhagen, Denmark, 2025)',
-    'BlueGreen Biodiversity (WSL Davos, Switzerland, 2025)',
-    'Interlinked Justice (Dresden, Germany, 2025)',
-    'Curso de Diseño en Permacultura (EPAC Chile, 2023)'
+    'BlueGreen Biodiversity Summit (WSL Swiss Federal Research Institute, Davos, Suiza, 2025)',
+    'Interlinked Justice & Resilient Landscapes (Leibniz Institute IOER, Dresden, Alemania, 2024–2025)',
+    'Doughnut Economics Practitioner (DEAL Doughnut Economics Action Lab, Copenhague, Dinamarca, 2025)',
+    'Rewilding & Gestión Forestal: Plano de Gestão e StoryMaps (Municipio de Aljezur, Portugal, 2024)',
+    '3ª Escuela de Verano: Costas Resilientes ((CR)2, Universidad de Chile, 2023, 57 h)',
+    'Certified Permaculture Designer (Escuela de Permacultura y Agroecología de Chile - EPAC, 2023, 80 h)',
+    'Modelado de Nicho Ecológico, Teledetección y R (Escuela Ambiental GIS, 2022, 20 h)',
+    'Economía Verde y Financiarización de la Naturaleza (CENSAT Agua Viva, Colombia, 2022, 16 h)',
+    'Diseño de Planes de Acción Climática (The Climate Reality Project, Chile, 2023)'
+  ],
+  publications: [
+    {
+      id: 'pub-epn-parral-biomass',
+      title: 'Spotlight on Burning Biomass: Community Opposition to Power Plant in Parral, Chile',
+      outlet: 'Environmental Paper Network (EPN) & Global Forest Coalition',
+      date: '2023',
+      url: 'https://environmentalpaper.org/2023/06/spotlight-on-burning-biomass-for-energy-in-south-america-community-opposition-to-a-power-plant-in-parral-chile/',
+      category: 'policy',
+      summary: 'Investigación internacional como Autor Principal sobre la oposición comunitaria a la incineración de biomasa forestal en Parral (Maule), desmintiendo la neutralidad de carbono y fiscalizando subsidios europeos (RED III).',
+      tags: ['EPN', 'Parral', 'Maule', 'Biomasa', 'RED III', 'Carbon Accounting']
+    },
+    {
+      id: 'pub-tomaterojo-humedales',
+      title: '¡Aguas, aguas! Humedales bajo fuego: ¿Qué sabemos y qué está haciendo Chile?',
+      outlet: 'Tomate Rojo // Red Plurinacional de Humedales (D. Santander, L. Muñoz, C. Bonifetti)',
+      date: '2023',
+      url: 'https://tomaterojo.cl/aguas-aguas-humedales-bajo-fuego-que-sabemos-y-que-esta-haciendo-chile/',
+      category: 'press',
+      summary: 'Investigación colaborativa con la Red Plurinacional de Humedales sobre el impacto devastador de los megaincendios forestales en ecosistemas de humedales y turberas en Chile.',
+      tags: ['Humedales', 'Incendios', 'Agua', 'Tomate Rojo', 'Turberas']
+    },
+    {
+      id: 'pub-kock-rohwer-soils',
+      title: 'La tierra está en riesgo: ¡Inversiones para la agricultura orgánica ahora!',
+      outlet: 'Resumen.cl & Comestible.info (con el diputado Dirk Kock-Rohwer)',
+      date: '2024',
+      url: 'https://comestible.info/inversiones-para-la-agroecologia-ahora/',
+      category: 'policy',
+      summary: 'Columna parlamentaria conjunta con el diputado de Los Verdes Dirk Kock-Rohwer (Schleswig-Holstein) sobre fertilidad orgánica de suelos, agroecología y subsidios a la transición sin pesticidas.',
+      tags: ['Dirk Kock-Rohwer', 'Alemania', 'Suelos', 'Agroecología', 'Políticas Públicas']
+    },
+    {
+      id: 'pub-el-regionalista-colapso',
+      title: '¿Cómo nos preparamos para un colapso climático?',
+      outlet: 'El Regionalista & Fundación Suelo (Carolina Miranda y Daniel Santander)',
+      date: '2023',
+      url: 'https://elregionalista.cl/como-nos-preparamos-para-un-colapso-climatico/',
+      category: 'press',
+      summary: 'Columna de análisis prospectivo sobre adaptación comunitaria profunda, regeneración de suelos y soberanía territorial frente al colapso ecológico.',
+      tags: ['El Regionalista', 'Fundación Suelo', 'Adaptación', 'Suelos']
+    },
+    {
+      id: 'pub-desconcierto-noruega',
+      title: '¿Países tan ricos que no quieren crecer más? Noruega y Decrecimiento',
+      outlet: 'El Desconcierto // Periodismo de Investigación Internacional',
+      date: '2025',
+      url: 'https://eldesconcierto.cl/2025/07/06/paises-tan-ricos-que-no-quieren-crecer-mas-noruega-acoge-mayor-debate-mundial-sobre-alternativas-al-crecimiento-economico-infinito',
+      category: 'press',
+      summary: 'Crónica especial de investigación desde Oslo sobre la conferencia mundial de decrecimiento, post-extractivismo y los límites ecológicos del crecimiento infinito.',
+      tags: ['El Desconcierto', 'Noruega', 'Decrecimiento', 'Oslo', 'Economía Ecológica']
+    },
+    {
+      id: 'pub-delfino-costa-rica',
+      title: 'Jóvenes activistas climáticos de Latinoamérica tuvieron encuentro en Costa Rica',
+      outlet: 'Delfino.cr // Cobertura de Justicia Climática Internacional',
+      date: '2023',
+      url: 'https://delfino.cr/2023/04/jovenes-activistas-climaticos-de-latinoamerica-tuvieron-encuentro-de-trabajo-en-costa-rica',
+      category: 'press',
+      summary: 'Cobertura de prensa internacional sobre el encuentro de trabajo de líderes socioambientales de América Latina en San José de Costa Rica por justicia climática intergeneracional.',
+      tags: ['Costa Rica', 'Delfino', 'Justicia Climática', 'San José']
+    },
+    {
+      id: 'pub-olca-ser-libres',
+      title: 'Ser libres al borde del abismo (Tetralogía de Ensayos Político-Ecológicos)',
+      outlet: 'Observatorio Latinoamericano de Conflictos Ambientales (OLCA)',
+      date: '2025',
+      url: 'https://olca.cl/articulo/nota.php?id=111288',
+      category: 'essays',
+      summary: 'Obra ensayística de cuatro partes sobre crisis civilizatoria: 1. El colapso económico; 2. Se hunde el Titanic (agonía de los Estados); 3. Cariño, ¿qué nos pasó?; 4. La llamada de la selva (autonomía y ecología regenerativa).',
+      tags: ['OLCA', 'Autonomía', 'Decrecimiento', 'Ecología Política']
+    },
+    {
+      id: 'pub-climatecc-monocultures',
+      title: 'Monocultivos Forestales y Falsas Soluciones Climáticas',
+      outlet: 'ClimateCC // Portal Climático Internacional',
+      date: '2024',
+      url: 'https://www.climatecc.org/forests/tree-monocultures',
+      category: 'essays',
+      summary: 'Serie analítica internacional que disecciona los monocultivos forestales industriales, los créditos de carbono y las falsas soluciones climáticas.',
+      tags: ['ClimateCC', 'Falsas Soluciones', 'Carbon Credits', 'Bosques']
+    },
+    {
+      id: 'pub-libro-cientifico-incendios',
+      title: 'Libro Científico Internacional: Dinámica de Incendios y Monocultivos Forestales',
+      outlet: 'Editor Principal & Coordinación Internacional Multiautor',
+      date: '2024–2026',
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/dossier',
+      category: 'scientific',
+      summary: 'Libro científico internacional multiautor que investiga la física de propagación de megaincendios, interacción suelo-combustible y vulnerabilidad de cuencas frente a monocultivos forestales.',
+      tags: ['Libro Científico', 'Megaincendios', 'Monocultivo Forestal', 'Hidrología de Cuencas']
+    },
+    {
+      id: 'pub-rewilding-aljezur',
+      title: 'Rewilding & Gestión Forestal: Plano de Gestão Florestal e StoryMaps',
+      outlet: 'Municipio de Aljezur (Portugal) & Plano de Gestão Florestal',
+      date: '2024',
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/',
+      category: 'policy',
+      summary: 'Policy brief y StoryMaps entregados al Municipio de Aljezur (Portugal) sobre renaturalización (rewilding), mosaicismo del paisaje y resiliencia frente al fuego en la costa suroeste.',
+      tags: ['Rewilding', 'Aljezur', 'Portugal', 'Gestión Forestal', 'StoryMaps']
+    }
+  ],
+  conferences: [
+    {
+      id: 'conf-bonn-2025',
+      title: 'Carbon Offsets e Impactos Socioecológicos de Monocultivos Forestales',
+      event: 'Environmental Justice Conference (ENJUST)',
+      location: 'Bonn, Alemania',
+      date: '2025',
+      role: 'Conferencista Internacional',
+      summary: 'Presentación sobre los vacíos contables en proyectos de compensación de carbono y las consecuencias biofísicas de las plantaciones forestales a gran escala en el Sur Global.',
+      tags: ['Bonn', 'Alemania', 'ENJUST', 'Carbon Offsets', 'Monocultivos']
+    },
+    {
+      id: 'conf-oslo-2025',
+      title: 'Alternativas al Crecimiento Infinito y Límites Biofísicos Planetarios',
+      event: 'World Degrowth Conference',
+      location: 'Oslo, Noruega',
+      date: '2025',
+      role: 'Ponente y Corresponsal Internacional',
+      summary: 'Ponencia y despacho de investigación periodística sobre post-extractivismo, soberanía ecológica y decrecimiento planificado en economías nórdicas y del sur.',
+      tags: ['Oslo', 'Noruega', 'Decrecimiento', 'Límites Planetarios']
+    },
+    {
+      id: 'conf-bogota-2023',
+      title: 'Conflictos de Uso de Suelo y Extracción de Biomasa en América Latina',
+      event: 'Foro Latinoamericano y del Caribe de Transición Justa',
+      location: 'Bogotá, Colombia',
+      date: '2023',
+      role: 'Panelista Invitado',
+      summary: 'Mesa de discusión multilateral sobre impactos del modelo agroforestal, estrés hídrico en cuencas rurales y transición energética justa.',
+      tags: ['Bogotá', 'Colombia', 'Biomasa', 'Uso de Suelo', 'Transición Justa']
+    },
+    {
+      id: 'conf-sanjose-2023',
+      title: 'Gobernanza Hídrica Intergeneracional y Justicia Climática',
+      event: 'Cumbre Latinoamericana de Líderes Socioambientales',
+      location: 'San José, Costa Rica',
+      date: '2023',
+      role: 'Delegado por Chile',
+      summary: 'Mesas de articulación internacional de jóvenes líderes socioambientales para la defensa de cuencas hidrográficas y salvaguardias ambientales vinculantes.',
+      tags: ['Costa Rica', 'San José', 'Justicia Climática', 'Gobernanza Hídrica']
+    },
+    {
+      id: 'conf-valparaiso-2023',
+      title: 'Evidencia Territorial sobre Monocultivos Forestales y Megaincendios',
+      event: 'Comisión Especial de Emergencias, Desastres y Bomberos (Cámara de Diputadas/os)',
+      location: 'Valparaíso, Chile',
+      date: '2023–2024',
+      role: 'Expositor y Perito Técnico Oficial',
+      summary: 'Intervención oficial ante parlamentarios demostrando la correlación biofísica entre el régimen de monocultivos de pino y eucalipto y la frecuencia y severidad de megaincendios.',
+      tags: ['Congreso Nacional', 'Valparaíso', 'Megaincendios', 'Incidencia Legislativa']
+    }
+  ],
+  keyProjects: [
+    {
+      id: 'proj-agritwin',
+      title: 'Chile Agrotech & Plataforma AgriTwin',
+      role: 'Lead Architect & Systems Modeler',
+      period: '2023 – Presente',
+      category: 'Agrotech, IoT & Satélites',
+      description: 'Gemelo digital de telemetría de suelo IoT LoRaWAN combinado con pipeline automatizado de índices satelitales Copernicus Sentinel-2 (NDVI/NDRE) para prevención de estrés hídrico en viticultura del Maule.',
+      deliverables: [
+        'Dashboard de telemetría de humedad y potencial mátrico de suelo en tiempo real',
+        'Pipeline automatizado de índices multiespectrales Sentinel-2 (Copernicus)',
+        'Diseño hidrológico Keyline para retención de agua en laderas agrícolas'
+      ],
+      techStack: ['Python', 'Sentinel-2', 'Copernicus', 'IoT LoRaWAN', 'TypeScript', 'Leaflet'],
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    },
+    {
+      id: 'proj-wetland-monitor',
+      title: 'Wetland Monitor (Gemelo Digital Wallener Au)',
+      role: 'Full-Stack Developer & Modeler',
+      period: '2023 – 2026',
+      category: 'Gemelo Digital & Software Científico',
+      description: 'Aplicación web 3D interactiva que simula la transición entre sumidero y fuente de carbono en turberas templadas rehumedecidas con forzantes micrometeorológicos (Eddy Covariance) y compactación edáfica (σp = 62,4 kPa).',
+      deliverables: [
+        'Simulador diurno y estacional de emisiones de CO2 y picos de CH4',
+        'Visualizador tridimensional interactivo con Three.js del ecosistema de turbera',
+        'Integración de curvas de retención hídrica y datos micrometeorológicos'
+      ],
+      techStack: ['React', 'Three.js', 'TypeScript', 'R', 'Eddy Covariance', 'Tailwind CSS'],
+      githubUrl: 'https://github.com/danisantanderurrutia-coder',
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/science?mission=wetland-monitor-app'
+    },
+    {
+      id: 'proj-rewilding-suite',
+      title: 'Rewilding Field Suite (Aljezur, Portugal)',
+      role: 'Product Owner & Lead Developer',
+      period: '2024 – Presente',
+      category: 'PWA Offline-First & Analítica Forestal',
+      description: 'Progressive Web App (PWA) offline-first con motor de persistencia local IndexedDB para levantamiento de campo en rewilding, fusión de capas GIS, monitoreo de biomasa y mapas de mitigación de incendios en Portugal.',
+      deliverables: [
+        'Arquitectura modular offline-first con sincronización automática en red',
+        'Motor de captura de datos de campo sin conexión a internet',
+        'Fusión de capas GIS para planes de prevención de incendios forestales'
+      ],
+      techStack: ['PWA', 'IndexedDB', 'TypeScript', 'QGIS', 'StoryMaps', 'Leaflet'],
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    },
+    {
+      id: 'proj-smart-food-parks',
+      title: 'Smart Food Parks (UN SDG Cities Semifinalist)',
+      role: 'Co-Diseñador & Modelador Geoespacial',
+      period: '2024',
+      category: 'Gemelo Digital Urbano & Resiliencia Climática',
+      description: 'Propuesta de gemelo digital urbano y agro-IoT seleccionada como Semifinalista Internacional en el UN Citiverse Challenge (SDG Cities) de Naciones Unidas para soberanía alimentaria y reducción de islas de calor.',
+      deliverables: [
+        'Modelo geoespacial de microclimas urbanos e islas de calor',
+        'Diseño de arquitectura de sensores IoT para parques agroalimentarios',
+        'Presentación técnica y pitch ante comités evaluadores de la ONU'
+      ],
+      techStack: ['Python', 'QGIS', 'IoT', 'Google Earth Engine', 'Modelación Urbana'],
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    },
+    {
+      id: 'proj-primera-linea',
+      title: 'Primera Línea Prensa: Red de Periodismo Ciudadano',
+      role: 'Fundador & Director Editorial',
+      period: '2019 – 2023',
+      category: 'Prensa de Investigación & Medios Digitales',
+      description: 'Medio de comunicación digital independiente enfocado en conflictos de agua, megaincendios y derechos humanos, alcanzando una comunidad orgánica de más de 700.000 seguidores.',
+      deliverables: [
+        'Redacción y publicación de más de 100 reportajes de investigación',
+        'Capacitación y graduación de 45 corresponsales ciudadanos rurales',
+        'Producción y panel radial semanal en Radio Cristalina 96.3 FM'
+      ],
+      techStack: ['Periodismo Móvil', 'Social Media Management', 'Radio Broadcasting', 'Fact-Checking'],
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    },
+    {
+      id: 'proj-apruebo-rural',
+      title: 'Apruebo Rural: Dirección de Campaña Transmedia',
+      role: 'Director General de Campaña',
+      period: '2020 – 2023',
+      category: 'Comunicaciones Estratégicas & Campañas Territoriales',
+      description: 'Dirección nacional de campaña transmedia articulando a más de 100 organizaciones campesinas e indígenas de todo Chile con más de 700.000 personas alcanzadas.',
+      deliverables: [
+        'Diseño de narrativa transmedia basada en evidencia científica y derechos de agua',
+        'Coordinación de despliegue territorial y giras de norte a sur',
+        'Producción de contenido audiovisual y pedagogía social'
+      ],
+      techStack: ['Dirección Estratégica', 'Producción Audiovisual', 'Coordinación Multiactor'],
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    }
   ],
   pendingFields: [],
-  lastUpdated: '2026-10-14'
+  lastUpdated: '2026-11-06'
 };
 
 export const initialSources: JobSource[] = [

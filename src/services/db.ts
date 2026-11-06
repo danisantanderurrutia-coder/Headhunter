@@ -78,15 +78,63 @@ export const getStoredProfile = (): MasterProfile => {
   }
   try {
     const parsed = JSON.parse(data);
+
+    // Merge experiences by ID (ensuring all verified portfolio experiences are included)
+    const expMap = new Map();
+    (initialProfile.experiences || []).forEach(e => expMap.set(e.id, e));
+    (parsed.experiences || []).forEach((e: any) => {
+      if (e && e.id) {
+        expMap.set(e.id, { ...expMap.get(e.id), ...e });
+      }
+    });
+    const mergedExperiences = Array.from(expMap.values());
+
+    // Merge achievements by ID
+    const achMap = new Map();
+    (initialProfile.achievementsBank || []).forEach(a => achMap.set(a.id, a));
+    (parsed.achievementsBank || []).forEach((a: any) => {
+      if (a && a.id) {
+        achMap.set(a.id, { ...achMap.get(a.id), ...a });
+      }
+    });
+    const mergedAchievements = Array.from(achMap.values());
+
+    // Merge education by ID
+    const eduMap = new Map();
+    (initialProfile.education || []).forEach(ed => eduMap.set(ed.id, ed));
+    (parsed.education || []).forEach((ed: any) => {
+      if (ed && ed.id) {
+        eduMap.set(ed.id, { ...eduMap.get(ed.id), ...ed });
+      }
+    });
+    const mergedEducation = Array.from(eduMap.values());
+
+    // Merge skills by ID
+    const skillMap = new Map();
+    (initialProfile.skills || []).forEach(s => skillMap.set(s.id, s));
+    (parsed.skills || []).forEach((s: any) => {
+      if (s && s.id) {
+        skillMap.set(s.id, { ...skillMap.get(s.id), ...s });
+      }
+    });
+    const mergedSkills = Array.from(skillMap.values());
+
+    // Merge other courses
+    const mergedCourses = Array.from(new Set([...(initialProfile.otherCourses || []), ...(parsed.otherCourses || [])]));
+
     const merged: MasterProfile = {
       ...initialProfile,
       ...parsed,
-      education: (parsed.education && parsed.education.length > 0) ? parsed.education : initialProfile.education,
-      experiences: (parsed.experiences && parsed.experiences.length > 0) ? parsed.experiences : initialProfile.experiences,
-      skills: (parsed.skills && parsed.skills.length > 0) ? parsed.skills : initialProfile.skills,
+      education: mergedEducation,
+      experiences: mergedExperiences,
+      skills: mergedSkills,
       languages: (parsed.languages && parsed.languages.length > 0) ? parsed.languages : initialProfile.languages,
-      achievementsBank: (parsed.achievementsBank && parsed.achievementsBank.length > 0) ? parsed.achievementsBank : initialProfile.achievementsBank,
-      otherCourses: (parsed.otherCourses && parsed.otherCourses.length > 0) ? parsed.otherCourses : initialProfile.otherCourses
+      achievementsBank: mergedAchievements,
+      otherCourses: mergedCourses,
+      publications: (parsed.publications && parsed.publications.length > 0) ? parsed.publications : initialProfile.publications,
+      keyProjects: (parsed.keyProjects && parsed.keyProjects.length > 0) ? parsed.keyProjects : initialProfile.keyProjects,
+      conferences: (parsed.conferences && parsed.conferences.length > 0) ? parsed.conferences : initialProfile.conferences,
+      lastUpdated: initialProfile.lastUpdated
     };
     return merged;
   } catch {
