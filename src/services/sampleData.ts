@@ -325,7 +325,7 @@ export const initialProfile: MasterProfile = {
     {
       id: 'ach-8',
       title: 'Dirección de Campaña Nacional Transmedia "Apruebo Rural"',
-      description: 'Gira nacional de despliegue territorial por 14 regiones del centro y sur de Chile realizando más de 80 asambleas y encuentros comunales, con más de 60 publicaciones y notas en medios y más de 500.000 volantes y kits pedagógicos distribuidos.',
+      description: 'Liderazgo de campaña transmedia y articulación político-territorial: despliegue en 14 regiones con 80+ asambleas comunales, organización del histórico acto de cierre nacional, colocación de 60+ columnas y coberturas en medios, y distribución de 500K+ kits y volantes pedagógicos.',
       metrics: '14 Regiones // 80+ Asambleas // 500K+ Kits',
       tags: ['Apruebo Rural', 'Gobernanza del Agua', 'Movilización'],
       date: '2022-09-01',

@@ -338,18 +338,18 @@ export const VERIFIED_FACTS: CvFact[] = [
     tags: ['communication', 'comunicación', 'kommunikation', 'campaign', 'campaña', 'kampagne', 'outreach', 'storytelling', 'media', 'medios', 'community', 'comunidad', 'stakeholder', 'public engagement'],
     source: 'Portafolio · Comunicaciones (Apruebo Rural, 2020-2023)',
     es: {
-      title: 'Dirección de campaña',
+      title: 'Coordinador General de Campaña y Director de Prensa Nacional',
       org: 'Apruebo Rural',
-      place: 'Chile',
-      short: 'Campaña nacional con alcance de más de 700.000 personas; narrativa transmedia y divulgación de datos.',
-      long: ['Dirección de una campaña nacional con alcance de más de 700.000 personas, con narrativa transmedia y divulgación de datos.']
+      place: 'Chile (14 Regiones)',
+      short: 'Campaña nacional transmedia (14 regiones, 80+ asambleas, 500K+ kits); 60+ columnas y acto de cierre.',
+      long: ['Coordinación general de campaña nacional transmedia y despliegue territorial en 14 regiones con 80+ asambleas comunales, organización del acto de cierre nacional, 60+ columnas y notas de prensa, y más de 500.000 volantes y kits pedagógicos distribuidos.']
     },
     en: {
-      title: 'Campaign Direction',
+      title: 'Lead Campaign Coordinator & National Press Director',
       org: 'Apruebo Rural',
-      place: 'Chile',
-      short: 'National campaign reaching 700,000+ people; transmedia and data storytelling.',
-      long: ['Directed a national campaign reaching 700,000+ people, using transmedia and data storytelling.']
+      place: 'Chile (14 Regions)',
+      short: 'Nationwide transmedia campaign (14 regions, 80+ assemblies, 500K+ kits); 60+ op-eds and historic closing rally.',
+      long: ['Led nationwide transmedia communication and field campaign across 14 regions with 80+ town hall assemblies, organized the historic closing rally, placed 60+ op-eds/media interviews, and distributed 500K+ educational kits.']
     }
   },
   {
@@ -507,14 +507,14 @@ export const VERIFIED_FACTS: CvFact[] = [
     en: { title: 'Green Economy & Financialization of Nature (16 h)', org: 'CENSAT Agua Viva' }
   },
   {
-    id: 'crs-climatereality',
+    id: 'crs-rewilding-aljezur',
     section: 'courses',
-    priority: 2,
-    period: '2023',
-    tags: ['climate action', 'acción climática', 'climate plan', 'plan climático', 'advocacy', 'incidencia'],
-    source: 'Perfil de Empleo (otherCourses) · ClimateReality Chile, 2023',
-    es: { title: 'Diseño de Planes de Acción Climática', org: 'ClimateReality Chile' },
-    en: { title: 'Climate Action Plan Design', org: 'ClimateReality Chile' }
+    priority: 3,
+    period: '2024',
+    tags: ['rewilding', 'gestión forestal', 'storymaps', 'portugal', 'aljezur', 'fire resilience'],
+    source: 'Portafolio · Títulos (Plano de Gestão Florestal & StoryMaps, Aljezur, Portugal, 2024)',
+    es: { title: 'Rewilding & Gestión Forestal (Plano de Gestão Florestal & StoryMaps)', org: 'Município de Aljezur, Portugal' },
+    en: { title: 'Rewilding & Forest Management (Plano de Gestão Florestal & StoryMaps)', org: 'Municipality of Aljezur, Portugal' }
   },
 
   // --------------------------------------------------------------------- SKILLS
