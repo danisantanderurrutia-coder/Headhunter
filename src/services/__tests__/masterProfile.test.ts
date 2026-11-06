@@ -3,7 +3,7 @@ import { initialProfile } from '../sampleData';
 import { generateMasterProfileMarkdown } from '../../utils/masterProfileMarkdown';
 import { auditProfile } from '../cvStudio';
 
-describe('MasterProfile & Expediente Maestro Verification', () => {
+describe('MasterProfile & Expediente Maestro Consolidado', () => {
   it('contiene los datos canónicos verificados sin alucinaciones', () => {
     expect(initialProfile.fullName).toBe('DANIEL SEBASTIÁN SANTANDER URRUTIA');
     expect(initialProfile.email).toBe('danisantander.urrutia@gmail.com');
@@ -12,22 +12,36 @@ describe('MasterProfile & Expediente Maestro Verification', () => {
     expect(initialProfile.github).toBe('https://github.com/danisantanderurrutia-coder');
   });
 
-  it('integra la totalidad de las 9 experiencias laborales verificadas', () => {
-    expect(initialProfile.experiences.length).toBe(9);
+  it('integra el consolidado de las 6 experiencias profesionales sin duplicados', () => {
+    expect(initialProfile.experiences.length).toBe(6);
     const expIds = initialProfile.experiences.map((e) => e.id);
     expect(expIds).toContain('exp-cau-kiel');
     expect(expIds).toContain('exp-uchile-geophysics');
     expect(expIds).toContain('exp-advocacy-policy');
     expect(expIds).toContain('exp-biomass-epn');
-    expect(expIds).toContain('exp-software-digital-twins');
     expect(expIds).toContain('exp-apruebo-rural');
     expect(expIds).toContain('exp-primera-linea-prensa');
-    expect(expIds).toContain('exp-crisis-response-maule');
-    expect(expIds).toContain('exp-ong-raiz-ecoaccion');
   });
 
-  it('integra las 10 publicaciones, policy briefs e investigaciones reales', () => {
-    expect(initialProfile.publications?.length).toBe(10);
+  it('las titulaciones universitarias contienen exclusivamente los 3 títulos oficiales', () => {
+    expect(initialProfile.education.length).toBe(3);
+    const degrees = initialProfile.education.map((e) => e.institution).join(' ');
+    expect(degrees).toContain('Kiel');
+    expect(degrees).toContain('Poznań');
+    expect(degrees).toContain('Chile');
+  });
+
+  it('los cursos y certificaciones de posgrado contienen 8 acreditaciones no repetidas', () => {
+    expect(initialProfile.otherCourses?.length).toBe(8);
+    const courses = initialProfile.otherCourses?.join(' ') || '';
+    expect(courses).toContain('WSL');
+    expect(courses).toContain('Dresden');
+    expect(courses).toContain('DEAL');
+    expect(courses).toContain('EPAC');
+  });
+
+  it('integra el consolidado de publicaciones sin redundancias', () => {
+    expect(initialProfile.publications?.length).toBe(8);
     const pubTitles = initialProfile.publications?.map((p) => p.title).join(' ');
     expect(pubTitles).toContain('Spotlight on Burning Biomass');
     expect(pubTitles).toContain('Humedales bajo fuego');
@@ -35,16 +49,17 @@ describe('MasterProfile & Expediente Maestro Verification', () => {
     expect(pubTitles).toContain('Ser libres al borde del abismo');
   });
 
-  it('integra las 5 conferencias internacionales y comparecencia parlamentaria', () => {
-    expect(initialProfile.conferences?.length).toBe(5);
-    const events = initialProfile.conferences?.map((c) => c.event).join(' ');
+  it('las conferencias internacionales incluyen 4 cumbres multilaterales', () => {
+    expect(initialProfile.conferences?.length).toBe(4);
+    const events = initialProfile.conferences?.map((c) => `${c.event} ${c.location}`).join(' ');
     expect(events).toContain('ENJUST');
     expect(events).toContain('Degrowth');
-    expect(events).toContain('Cámara de Diputadas/os');
+    expect(events).toContain('Bogotá');
+    expect(events).toContain('Costa Rica');
   });
 
-  it('integra los gemelos digitales y software científico verificado', () => {
-    expect(initialProfile.keyProjects?.length).toBe(6);
+  it('los proyectos tecnológicos agrupan exclusivamente los 4 gemelos digitales', () => {
+    expect(initialProfile.keyProjects?.length).toBe(4);
     const projIds = initialProfile.keyProjects?.map((p) => p.id);
     expect(projIds).toContain('proj-agritwin');
     expect(projIds).toContain('proj-wetland-monitor');

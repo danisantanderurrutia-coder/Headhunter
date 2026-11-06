@@ -168,23 +168,6 @@ export const initialProfile: MasterProfile = {
       isVerified: true
     },
     {
-      id: 'exp-software-digital-twins',
-      company: 'Chile Agrotech / AgriTwin / Rewilding Field Suite / Smart Food Parks',
-      role: 'Arquitecto de Software Científico, Gemelos Digitales & Agrotech',
-      location: 'Chile, Portugal & Europa',
-      startDate: '2023',
-      endDate: 'Presente',
-      isCurrent: true,
-      summary: 'Diseño, desarrollo y despliegue de plataformas de ingeniería ambiental y software geoespacial. Creador de AgriTwin (gemelo digital que integra telemetría IoT LoRaWAN de humedad de suelo con índices satelitales Sentinel-2 NDVI/NDRE en viñedos del Maule). Diseñador de Rewilding Field Suite (PWA offline-first con IndexedDB para monitoreo de biomasa y riesgo de incendios en Aljezur, Portugal). Co-diseñador de Smart Food Parks, seleccionado como Semifinalista Internacional en el UN Citiverse Challenge (SDG Cities) de la ONU.',
-      achievements: [
-        'Semifinalista Internacional en el UN Citiverse Challenge (SDG Cities) de Naciones Unidas con Smart Food Parks.',
-        'Despliegue operativo del gemelo digital de telemetría de suelo y satélites Copernicus AgriTwin en el Maule.',
-        'Desarrollo de PWA offline-first con IndexedDB para levantamiento de campo en el Municipio de Aljezur (Portugal).'
-      ],
-      technologies: ['TypeScript', 'React', 'PWA Offline-First', 'IndexedDB', 'Python', 'Google Earth Engine', 'Copernicus Sentinel-2', 'IoT LoRaWAN', 'GIS'],
-      isVerified: true
-    },
-    {
       id: 'exp-apruebo-rural',
       company: 'Campaña Nacional "Apruebo Rural"',
       role: 'Director General de Campaña & Coordinador de Prensa Nacional',
@@ -216,38 +199,6 @@ export const initialProfile: MasterProfile = {
         'Publicación de investigaciones y columnas en Tomate Rojo, El Desconcierto, Resumen.cl, El Regionalista y OLCA.'
       ],
       technologies: ['Periodismo de Investigación', 'Dirección Editorial', 'Radio & Podcasts', 'Gestión de Redes Sociales', 'Fact-Checking', 'Capacitación'],
-      isVerified: true
-    },
-    {
-      id: 'exp-crisis-response-maule',
-      company: 'Campaña de Solidaridad Territorial "Solo el Pueblo Ayuda al Pueblo"',
-      role: 'Coordinador Territorial de Respuesta a Emergencias y Catástrofes',
-      location: 'Maule Sur, Chile',
-      startDate: '2023',
-      endDate: '2023',
-      isCurrent: false,
-      summary: 'Coordinación logística, relevamiento territorial y distribución de ayuda humanitaria de emergencia durante los megaincendios e inundaciones catastróficas de 2023 en el Maule Sur. Gestión de centros de acopio, articulación directa con compañías de bomberos, juntas de vecinos y comités de damnificados para abastecimiento de más de 1.000 familias rurales.',
-      achievements: [
-        'Canalización y entrega transparente de suministros vitales a más de 1.000 familias damnificadas sin intermediación burocrática.',
-        'Mapeo comunitario de zonas críticas de aislamiento y daño en infraestructura de agua potable rural.'
-      ],
-      technologies: ['Gestión de Emergencias y Desastres', 'Logística Territorial', 'Mapeo Crítico', 'Coordinación Comunitaria'],
-      isVerified: true
-    },
-    {
-      id: 'exp-ong-raiz-ecoaccion',
-      company: 'ONG Raíz EcoAcción & Geofísica Libre',
-      role: 'Cofundador, Expresidente & Divulgador Científico',
-      location: 'Chile',
-      startDate: '2019',
-      endDate: '2022',
-      isCurrent: false,
-      summary: 'Liderazgo institucional de organización socioambiental sin fines de lucro dedicada a la regeneración ecológica y la educación científica popular. Organización de jornadas masivas de voluntariado de siembra nativa, conservación de suelos y huertos comunitarios. Creación de Geofísica Libre: canal de divulgación abierta de conceptos geocientíficos, riesgo sísmico y crisis hídrica para el público general.',
-      achievements: [
-        'Organización de jornadas masivas de restauración ecológica comunitaria y plantación de especies nativas.',
-        'Fundación de Geofísica Libre para la democratización del conocimiento de la física de la Tierra.'
-      ],
-      technologies: ['Restauración Ecológica', 'Educación Científica Abierta', 'Liderazgo de Voluntariado', 'Gestión de Proyectos Comunitarios'],
       isVerified: true
     }
   ],
@@ -282,16 +233,6 @@ export const initialProfile: MasterProfile = {
       location: 'Santiago, Chile',
       grade: 'Aprobado Con Distinción',
       isVerified: true
-    },
-    {
-      id: 'edu-permaculture-epac',
-      institution: 'Escuela de Permacultura y Agroecología de Chile (EPAC)',
-      degree: 'Certified Permaculture Designer (CDP, 80 h)',
-      fieldOfStudy: 'Diseño Hidrológico Keyline, Regeneración Edáfica y Restauración Ecosistémica',
-      startDate: '2023',
-      endDate: '2023',
-      location: 'Chile',
-      isVerified: true
     }
   ],
   skills: [
@@ -319,8 +260,8 @@ export const initialProfile: MasterProfile = {
   achievementsBank: [
     {
       id: 'ach-1',
-      title: 'Comparecencia e Intervención Oficial en la Cámara de Diputadas y Diputados de Chile',
-      description: 'Demostración técnica de la correlación estructural entre el monocultivo forestal y el riesgo de megaincendios ante la Comisión de Emergencia, Desastres y Bomberos.',
+      title: 'Testimonio Oficial ante el Congreso Nacional de Chile',
+      description: 'Demostración técnica de la correlación estructural entre el monocultivo forestal y el riesgo de megaincendios ante la Comisión Especial de Emergencia, Desastres y Bomberos de la Cámara de Diputadas y Diputados.',
       metrics: 'Intervención Legislativa Oficial',
       tags: ['Congreso', 'Incidencia', 'Modelo Forestal', 'Incendios', 'Cuencas'],
       date: '2024-03-01',
@@ -328,8 +269,8 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-2',
-      title: 'Investigación Internacional de Impactos de la Industria de Biomasa (EPN)',
-      description: 'Lead Technical Author del informe Spotlight on Burning Biomass (Parral, Chile) con Environmental Paper Network y Global Forest Coalition sobre vacíos contables en RED III.',
+      title: 'Lead Technical Author en Informe Internacional EPN',
+      description: 'Autoría principal del informe técnico Spotlight on Burning Biomass (Parral, Chile) con Environmental Paper Network y Global Forest Coalition sobre vacíos contables en RED III.',
       metrics: 'Publicación Internacional',
       tags: ['Biomasa', 'Carbono', 'Bosques', 'EPN', 'RED III'],
       date: '2023-06-01',
@@ -355,7 +296,7 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-5',
-      title: 'Fundación y Dirección Editorial de Primera Línea Prensa',
+      title: 'Fundación y Crecimiento de Primera Línea Prensa (+700k)',
       description: 'Creación y liderazgo de medio digital independiente con más de 700.000 seguidores orgánicos enfocado en periodismo ciudadano, crisis hídrica y derechos socioambientales.',
       metrics: 'Dirección Editorial & Medio Digital',
       tags: ['Prensa', 'Periodismo', 'Redes Sociales', 'Maule Sur'],
@@ -364,15 +305,6 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-6',
-      title: 'Ponencias en Conferencias Internacionales de Clima y Decrecimiento',
-      description: 'Presentaciones en Degrowth Conference Oslo 2025, Environmental Justice Conference Bonn 2025, Foro Latinoamericano en Bogotá 2023 y Cumbre de Jóvenes en Costa Rica 2023.',
-      metrics: 'Ponencias en Europa y América Latina',
-      tags: ['Conferencias', 'Internacional', 'Transición Justa', 'Bonn', 'Oslo'],
-      date: '2025-01-01',
-      isVerified: true
-    },
-    {
-      id: 'ach-7',
       title: 'Licenciatura en Geofísica Aprobada Con Distinción (U. de Chile)',
       description: 'Memoria de título en la Cuenca del Maule con Sondeos Eléctricos Verticales (SEV) y prospección gravimétrica sobre el impacto del monocultivo en el nivel freático.',
       metrics: 'Licenciatura Aprobada Con Distinción',
@@ -381,17 +313,8 @@ export const initialProfile: MasterProfile = {
       isVerified: true
     },
     {
-      id: 'ach-8',
-      title: 'Doble Maestría Europea en Manejo y Protección Ambiental',
-      description: 'Investigación en CAU Kiel (Alemania) sobre balances de GEI en turberas con Eddy Covariance y σp = 62,4 kPa, y en AMU Poznań (Polonia) sobre limnología bajo la Directiva Marco del Agua.',
-      metrics: 'Doble M.Sc. Europeo en Ciencias',
-      tags: ['Doble Master', 'Kiel', 'Poznań', 'Eddy Covariance', 'Turberas'],
-      date: '2026-03-01',
-      isVerified: true
-    },
-    {
-      id: 'ach-9',
-      title: 'Desarrollo de Gemelos Digitales de Impacto: Wetland Monitor & AgriTwin',
+      id: 'ach-7',
+      title: 'Despliegue de Gemelos Digitales de Impacto: Wetland Monitor & AgriTwin',
       description: 'Creación de software científico interactivo: visor 3D de balances de carbono en turberas (Wetland Monitor) y plataforma IoT + Sentinel-2 de telemetría de viñedos (AgriTwin).',
       metrics: 'Gemelo Digital Operativo',
       tags: ['Wetland Monitor', 'AgriTwin', 'Copernicus', 'Software Científico'],
@@ -399,30 +322,12 @@ export const initialProfile: MasterProfile = {
       isVerified: true
     },
     {
-      id: 'ach-10',
+      id: 'ach-8',
       title: 'Coordinación Territorial Humanitaria "Solo el Pueblo Ayuda al Pueblo"',
       description: 'Coordinación logística directa de ayuda humanitaria de emergencia a más de 1.000 familias rurales damnificadas por megaincendios e inundaciones catastróficas en Maule Sur.',
       metrics: 'Coordinación Territorial Humanitaria',
       tags: ['Solidaridad', 'Emergencias', 'Catástrofes', 'Maule Sur'],
       date: '2023-03-01',
-      isVerified: true
-    },
-    {
-      id: 'ach-11',
-      title: 'Tetralogía de Ensayos Político-Ecológicos en OLCA',
-      description: 'Publicación de la obra ensayística en cuatro partes "Ser libres al borde del abismo" sobre colapso civilizatorio, decrecimiento y ecología comunitaria autónoma.',
-      metrics: 'Tetralogía de Ensayos Político-Ecológicos',
-      tags: ['OLCA', 'Ensayos', 'Ecología Política', 'Decrecimiento'],
-      date: '2025-02-01',
-      isVerified: true
-    },
-    {
-      id: 'ach-12',
-      title: 'Taller de Corresponsales Populares: Formación Comunitaria',
-      description: 'Diseño e impartición de taller que formó y certificó a 45 vecinos y voceros rurales del Maule Sur en reportería móvil, ética informativa y verificación ciudadana.',
-      metrics: 'Capacitación Comunitaria Certificada',
-      tags: ['Educación Popular', 'Corresponsales', 'Comunicación Rural'],
-      date: '2022-06-01',
       isVerified: true
     }
   ],
@@ -430,7 +335,6 @@ export const initialProfile: MasterProfile = {
     'BlueGreen Biodiversity Summit (WSL Swiss Federal Research Institute, Davos, Suiza, 2025)',
     'Interlinked Justice & Resilient Landscapes (Leibniz Institute IOER, Dresden, Alemania, 2024–2025)',
     'Doughnut Economics Practitioner (DEAL Doughnut Economics Action Lab, Copenhague, Dinamarca, 2025)',
-    'Rewilding & Gestión Forestal: Plano de Gestão e StoryMaps (Municipio de Aljezur, Portugal, 2024)',
     '3ª Escuela de Verano: Costas Resilientes ((CR)2, Universidad de Chile, 2023, 57 h)',
     'Certified Permaculture Designer (Escuela de Permacultura y Agroecología de Chile - EPAC, 2023, 80 h)',
     'Modelado de Nicho Ecológico, Teledetección y R (Escuela Ambiental GIS, 2022, 20 h)',
@@ -517,26 +421,6 @@ export const initialProfile: MasterProfile = {
       category: 'essays',
       summary: 'Serie analítica internacional que disecciona los monocultivos forestales industriales, los créditos de carbono y las falsas soluciones climáticas.',
       tags: ['ClimateCC', 'Falsas Soluciones', 'Carbon Credits', 'Bosques']
-    },
-    {
-      id: 'pub-libro-cientifico-incendios',
-      title: 'Libro Científico Internacional: Dinámica de Incendios y Monocultivos Forestales',
-      outlet: 'Editor Principal & Coordinación Internacional Multiautor',
-      date: '2024–2026',
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/dossier',
-      category: 'scientific',
-      summary: 'Libro científico internacional multiautor que investiga la física de propagación de megaincendios, interacción suelo-combustible y vulnerabilidad de cuencas frente a monocultivos forestales.',
-      tags: ['Libro Científico', 'Megaincendios', 'Monocultivo Forestal', 'Hidrología de Cuencas']
-    },
-    {
-      id: 'pub-rewilding-aljezur',
-      title: 'Rewilding & Gestión Forestal: Plano de Gestão Florestal e StoryMaps',
-      outlet: 'Municipio de Aljezur (Portugal) & Plano de Gestão Florestal',
-      date: '2024',
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/',
-      category: 'policy',
-      summary: 'Policy brief y StoryMaps entregados al Municipio de Aljezur (Portugal) sobre renaturalización (rewilding), mosaicismo del paisaje y resiliencia frente al fuego en la costa suroeste.',
-      tags: ['Rewilding', 'Aljezur', 'Portugal', 'Gestión Forestal', 'StoryMaps']
     }
   ],
   conferences: [
@@ -579,16 +463,6 @@ export const initialProfile: MasterProfile = {
       role: 'Delegado por Chile',
       summary: 'Mesas de articulación internacional de jóvenes líderes socioambientales para la defensa de cuencas hidrográficas y salvaguardias ambientales vinculantes.',
       tags: ['Costa Rica', 'San José', 'Justicia Climática', 'Gobernanza Hídrica']
-    },
-    {
-      id: 'conf-valparaiso-2023',
-      title: 'Evidencia Territorial sobre Monocultivos Forestales y Megaincendios',
-      event: 'Comisión Especial de Emergencias, Desastres y Bomberos (Cámara de Diputadas/os)',
-      location: 'Valparaíso, Chile',
-      date: '2023–2024',
-      role: 'Expositor y Perito Técnico Oficial',
-      summary: 'Intervención oficial ante parlamentarios demostrando la correlación biofísica entre el régimen de monocultivos de pino y eucalipto y la frecuencia y severidad de megaincendios.',
-      tags: ['Congreso Nacional', 'Valparaíso', 'Megaincendios', 'Incidencia Legislativa']
     }
   ],
   keyProjects: [
@@ -651,36 +525,6 @@ export const initialProfile: MasterProfile = {
         'Presentación técnica y pitch ante comités evaluadores de la ONU'
       ],
       techStack: ['Python', 'QGIS', 'IoT', 'Google Earth Engine', 'Modelación Urbana'],
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
-    },
-    {
-      id: 'proj-primera-linea',
-      title: 'Primera Línea Prensa: Red de Periodismo Ciudadano',
-      role: 'Fundador & Director Editorial',
-      period: '2019 – 2023',
-      category: 'Prensa de Investigación & Medios Digitales',
-      description: 'Medio de comunicación digital independiente enfocado en conflictos de agua, megaincendios y derechos humanos, alcanzando una comunidad orgánica de más de 700.000 seguidores.',
-      deliverables: [
-        'Redacción y publicación de más de 100 reportajes de investigación',
-        'Capacitación y graduación de 45 corresponsales ciudadanos rurales',
-        'Producción y panel radial semanal en Radio Cristalina 96.3 FM'
-      ],
-      techStack: ['Periodismo Móvil', 'Social Media Management', 'Radio Broadcasting', 'Fact-Checking'],
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
-    },
-    {
-      id: 'proj-apruebo-rural',
-      title: 'Apruebo Rural: Dirección de Campaña Transmedia',
-      role: 'Director General de Campaña',
-      period: '2020 – 2023',
-      category: 'Comunicaciones Estratégicas & Campañas Territoriales',
-      description: 'Dirección nacional de campaña transmedia articulando a más de 100 organizaciones campesinas e indígenas de todo Chile con más de 700.000 personas alcanzadas.',
-      deliverables: [
-        'Diseño de narrativa transmedia basada en evidencia científica y derechos de agua',
-        'Coordinación de despliegue territorial y giras de norte a sur',
-        'Producción de contenido audiovisual y pedagogía social'
-      ],
-      techStack: ['Dirección Estratégica', 'Producción Audiovisual', 'Coordinación Multiactor'],
       url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
     }
   ],
