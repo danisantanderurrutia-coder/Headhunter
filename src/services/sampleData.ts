@@ -170,16 +170,17 @@ export const initialProfile: MasterProfile = {
     {
       id: 'exp-apruebo-rural',
       company: 'Campaña Nacional "Apruebo Rural"',
-      role: 'Director General de Campaña & Coordinador de Prensa Nacional',
-      location: 'Chile (Cobertura Nacional)',
+      role: 'Coordinador General de Campaña y Director de Prensa Nacional',
+      location: 'Chile (14 Regiones)',
       startDate: '2020',
       endDate: '2023',
       isCurrent: false,
-      summary: 'Dirección ejecutiva y estratégica de la campaña nacional transmedia Apruebo Rural, articulando la voz de más de 100 asambleas campesinas, comités de regantes y colectivos agrarios de todo Chile. Producción de piezas audiovisuales, narrativa de datos sobre la crisis hídrica y ordenamiento de cuencas, y coordinación de giras y actos de cierre territoriales con un alcance medido de más de 700.000 personas.',
+      summary: 'Lideró la coordinación general de la campaña comunicacional y despliegue territorial de "Apruebo Rural" (2020-2023), articulando a pequeños agricultores familiares campesinos, comités de agua potable rural (APR) y poblados cercados por monocultivos forestales con las cadenas nacionales de TV, radios comunales y masivos actos públicos, coordinando el histórico acto de cierre de campaña con miles de familias rurales.',
       achievements: [
-        'Dirección ejecutiva de campaña nacional transmedia con alcance superior a 700.000 personas en medios y redes.',
-        'Coordinación y articulación de una red de más de 100 organizaciones territoriales campesinas e indígenas.',
-        'Producción y difusión de contenidos pedagógicos de datos científicos sobre gestión hídrica, suelo y derechos ambientales.'
+        'Gira nacional por 14 regiones del centro y sur de Chile realizando más de 80 asambleas y encuentros comunales.',
+        'Creación de escuelas de formación digital y webinars de verificación de datos (fact-checking) para informar a comunidades rurales.',
+        'Publicación de más de 60 columnas de opinión, notas en televisión y especiales radiales sobre soberanía del agua y agroecología.',
+        'Distribución de más de 500.000 volantes y kits pedagógicos en terreno y organización del acto de cierre de campaña.'
       ],
       technologies: ['Dirección de Campañas', 'Comunicaciones Estratégicas', 'Storytelling Transmedia', 'Coordinación Multiactor', 'Producción Audiovisual'],
       isVerified: true
@@ -323,9 +324,9 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-8',
-      title: 'Articulación Federal de +100 Organizaciones Agrarias y del Agua',
-      description: 'Coordinación nacional de más de 100 comités de regantes y asambleas territoriales en la campaña Apruebo Rural, logrando un alcance medido de más de 700.000 personas.',
-      metrics: '100+ Organizaciones Federadas',
+      title: 'Dirección de Campaña Nacional Transmedia "Apruebo Rural"',
+      description: 'Gira nacional de despliegue territorial por 14 regiones del centro y sur de Chile realizando más de 80 asambleas y encuentros comunales, con más de 60 publicaciones y notas en medios y más de 500.000 volantes y kits pedagógicos distribuidos.',
+      metrics: '14 Regiones // 80+ Asambleas // 500K+ Kits',
       tags: ['Apruebo Rural', 'Gobernanza del Agua', 'Movilización'],
       date: '2022-09-01',
       isVerified: true
