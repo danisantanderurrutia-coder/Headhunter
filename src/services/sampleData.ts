@@ -153,18 +153,18 @@ export const initialProfile: MasterProfile = {
     {
       id: 'exp-biomass-epn',
       company: 'Environmental Paper Network (EPN) & Global Forest Coalition',
-      role: 'Autor Técnico Principal & Auditor de Contabilidad de Carbono en Biomasa',
+      role: 'Autor Técnico Principal & Investigador de Impactos de Biomasa Forestal',
       location: 'Internacional / Chile & Europa',
       startDate: '2023',
       endDate: '2023',
       isCurrent: false,
-      summary: 'Investigación internacional independiente y autoría principal del informe "Spotlight on Burning Biomass for Energy in South America: Community Opposition to a Power Plant in Parral, Chile". Análisis riguroso de vacíos metodológicos en la contabilidad de carbono de la biomasa forestal, desmintiendo la neutralidad climática y fiscalizando los subsidios de energía renovable otorgados bajo directivas europeas (RED III). Coordinación multiactor con redes socioambientales globales.',
+      summary: 'Investigación internacional independiente y autoría principal del informe "Spotlight on Burning Biomass for Energy in South America: Community Opposition to a Power Plant in Parral, Chile". Análisis riguroso de vacíos metodológicos en la contabilidad de carbono de la biomasa forestal, desmintiendo la neutralidad climática y fiscalizando los subsidios de energía renovable otorgados bajo directivas europeas (RED III y ETS). Coordinación multiactor con redes socioambientales globales.',
       achievements: [
         'Publicación internacional como Autor Principal del informe técnico de caso EPN (Parral, Maule).',
         'Demostración de los vacíos en los balances de carbono de centrales de bioenergía y su impacto en la salud comunitaria.',
         'Presentación y difusión internacional del informe en redes de monitoreo de biomasa y políticas forestales en Europa y Latinoamérica.'
       ],
-      technologies: ['Contabilidad de Carbono', 'Auditoría RED III', 'Bioenergía', 'Salvaguardias Forestales', 'Facilitación Multiactor'],
+      technologies: ['Contabilidad de Carbono', 'Directiva UE RED III / ETS', 'Bioenergía', 'Salvaguardias Forestales', 'Facilitación Multiactor'],
       isVerified: true
     },
     {
@@ -254,7 +254,7 @@ export const initialProfile: MasterProfile = {
   ],
   languages: [
     { id: 'lang-1', language: 'Español', proficiency: 'Nativo', certificate: 'Nativo — Oratoria pública, vocería parlamentaria, redacción editorial y legislativa' },
-    { id: 'lang-2', language: 'Inglés', proficiency: 'C1', certificate: 'C1 / Fluent — Ponencias en cumbres internacionales (Oslo, Bonn, Davos) y redacción científica' },
+    { id: 'lang-2', language: 'Inglés', proficiency: 'C2', certificate: 'C2 — Competencia Profesional Completa (C1 IELTS + años de trabajo y residencia en el extranjero)' },
     { id: 'lang-3', language: 'Alemán', proficiency: 'B1', certificate: 'B1 / B2 — M.Sc. en CAU Kiel, comunicación técnica y trabajo en Alemania' }
   ],
   achievementsBank: [
@@ -287,9 +287,9 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-4',
-      title: 'Auditoría Técnica Internacional de Carbono en Bioenergía bajo RED III',
-      description: 'Autoría principal del informe internacional EPN demostrando los vacíos de contabilidad de carbono en plantas de incineración de biomasa forestal en Parral.',
-      metrics: 'Publicación Técnica Internacional EPN',
+      title: 'Autor Principal en Investigación Internacional EPN sobre Carbono y RED III',
+      description: 'Autoría principal del informe internacional de EPN que expuso los vacíos contables de carbono y las falsas declaraciones de energía renovable en bioenergía forestal (Parral) frente a las directivas europeas RED III y ETS.',
+      metrics: 'Lead Author // Informe Internacional EPN',
       tags: ['Biomasa', 'Carbono', 'RED III', 'EPN'],
       date: '2023-06-01',
       isVerified: true

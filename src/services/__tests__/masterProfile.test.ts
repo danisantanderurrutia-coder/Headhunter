@@ -81,9 +81,9 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(eqNames).toContain('Barrenas Edelman');
   });
 
-  it('los idiomas corresponden exactamente a las acreditaciones del portafolio (C1 inglés, B1/B2 alemán)', () => {
+  it('los idiomas corresponden a las competencias consolidadas (C2 inglés, B1/B2 alemán)', () => {
     const en = initialProfile.languages.find((l) => l.language === 'Inglés');
-    expect(en?.proficiency).toBe('C1');
+    expect(en?.proficiency).toBe('C2');
     const de = initialProfile.languages.find((l) => l.language === 'Alemán');
     expect(de?.proficiency).toBe('B1');
   });
