@@ -68,9 +68,14 @@ const segBtn = (active: boolean) =>
 interface CVStudioTabProps {
   initialOfferId?: string;
   initialDocType?: 'cv' | 'cover_letter';
+  onDocTypeChange?: (docType: 'cv' | 'cover_letter') => void;
 }
 
-export const CVStudioTab: React.FC<CVStudioTabProps> = ({ initialOfferId = '', initialDocType = 'cv' }) => {
+export const CVStudioTab: React.FC<CVStudioTabProps> = ({ 
+  initialOfferId = '', 
+  initialDocType = 'cv',
+  onDocTypeChange
+}) => {
   const [profile, setProfile] = useState(getStoredProfile());
   const offers = useMemo(() => getStoredOffers(), []);
 
@@ -311,7 +316,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({ initialOfferId = '', i
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer ${
                     docMode === 'cv' ? 'bg-sky-600 text-white shadow font-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
-                  onClick={() => setDocMode('cv')}
+                  onClick={() => {
+                    setDocMode('cv');
+                    onDocTypeChange?.('cv');
+                  }}
                 >
                   <BadgeCheck className="h-4 w-4" />
                   <span>1. CV Studio (A4)</span>
@@ -320,7 +328,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({ initialOfferId = '', i
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer ${
                     docMode === 'cover_letter' ? 'bg-purple-600 text-white shadow font-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
-                  onClick={() => setDocMode('cover_letter')}
+                  onClick={() => {
+                    setDocMode('cover_letter');
+                    onDocTypeChange?.('cover_letter');
+                  }}
                 >
                   <Mail className="h-4 w-4" />
                   <span>2. Cover Letter Studio (DIN/A4)</span>

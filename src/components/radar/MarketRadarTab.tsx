@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Building2, 
   Compass, 
@@ -15,6 +15,7 @@ import type { CompanySectorCluster, QuadrantType } from '../../types/companies';
 interface MarketRadarTabProps {
   initialSubTab?: 'organizations' | 'benchmark' | 'portals' | string;
   initialFilter?: string;
+  onSubTabChange?: (subTab: 'organizations' | 'benchmark' | 'portals') => void;
   onStartApplication?: (offerId: string) => void;
   onStartPipelineFromCompany?: (companyId: string) => void;
   onOpenStudio?: (offerId?: string, docType?: 'cv' | 'cover_letter') => void;
@@ -24,6 +25,7 @@ interface MarketRadarTabProps {
 export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({ 
   initialSubTab = 'organizations', 
   initialFilter = 'ALL',
+  onSubTabChange,
   onStartApplication,
   onStartPipelineFromCompany,
   onReturnToHub: _onReturnToHub
@@ -35,13 +37,24 @@ export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({
   const [drilldownQuadrant, setDrilldownQuadrant] = useState<string>(initialFilter);
   const [drilldownSectorCluster, setDrilldownSectorCluster] = useState<CompanySectorCluster>('ALL');
 
+  useEffect(() => {
+    if (initialSubTab === 'portals') setActiveSubTab('portals');
+    else if (initialSubTab === 'benchmark') setActiveSubTab('benchmark');
+    else if (initialSubTab === 'organizations') setActiveSubTab('organizations');
+  }, [initialSubTab]);
+
+  const handleSubTabChange = (tab: 'organizations' | 'benchmark' | 'portals') => {
+    setActiveSubTab(tab);
+    onSubTabChange?.(tab);
+  };
+
   const companies = getStoredCompanies();
   const portalsCount = DAILY_PORTALS.length;
 
   const handleBenchmarkDrilldown = (cluster: CompanySectorCluster, quadrant: QuadrantType) => {
     setDrilldownQuadrant(quadrant);
     setDrilldownSectorCluster(cluster);
-    setActiveSubTab('organizations');
+    handleSubTabChange('organizations');
   };
 
   return (
@@ -85,7 +98,7 @@ export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({
           }}
         >
           <button
-            onClick={() => setActiveSubTab('organizations')}
+            onClick={() => handleSubTabChange('organizations')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer whitespace-nowrap ${
               activeSubTab === 'organizations'
                 ? 'bg-sky-600 text-white shadow font-black'
@@ -97,7 +110,7 @@ export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveSubTab('portals')}
+            onClick={() => handleSubTabChange('portals')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer whitespace-nowrap ${
               activeSubTab === 'portals'
                 ? 'bg-sky-600 text-white shadow font-black'
@@ -109,7 +122,7 @@ export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveSubTab('benchmark')}
+            onClick={() => handleSubTabChange('benchmark')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer whitespace-nowrap ${
               activeSubTab === 'benchmark'
                 ? 'bg-sky-600 text-white shadow font-black'

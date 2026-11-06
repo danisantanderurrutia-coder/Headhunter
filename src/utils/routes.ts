@@ -16,27 +16,43 @@ export const APP_SLUGS = {
 
   // 2. Submódulos de Mercado
   MARKET_ORGANIZATIONS: '/mercado/organizaciones',
+  MARKET_BENCHMARK: '/mercado/benchmark',
   MARKET_PORTALS: '/mercado/portales',
   MARKET_OFFERS: '/mercado/ofertas',
   MARKET_SOURCES: '/mercado/fuentes',
   MARKET_COMPANIES: '/mercado/empresas',
+  MARKET_DIRECTORIO: '/mercado/directorio',
 
-  // 3. Submódulos de Perfil / Operators
+  // 3. Submódulos de Perfil / Operador (Expediente, Competencias & CV Studio)
+  DOSSIER_EXPEDIENTE: '/perfil/expediente',
+  DOSSIER_PROFILE: '/perfil/expediente',
+  DOSSIER_EXPEDIENTE_MAESTRO: '/perfil/expediente-maestro',
   DOSSIER_SHOWCASE: '/perfil/resumen',
-  DOSSIER_PROFILE: '/perfil/maestro',
+  DOSSIER_COMPETENCIAS: '/perfil/competencias',
+  DOSSIER_HABILIDADES: '/perfil/habilidades',
   DOSSIER_CV_STUDIO: '/perfil/cv-studio',
+  DOSSIER_PLANTILLAS: '/perfil/plantillas',
   DOSSIER_COVER_LETTER: '/perfil/cover-letter',
+  DOSSIER_CARTAS: '/perfil/cartas',
 
   // 4. Submódulos de Candidaturas
   APPLICATIONS_ACTIVE: '/candidaturas/activas',
+  APPLICATIONS_PIPELINE: '/candidaturas/pipeline',
   APPLICATIONS_BATCH: '/candidaturas/lote',
   APPLICATIONS_INTELLIGENCE: '/candidaturas/inteligencia',
+  APPLICATIONS_WINGMAN: '/candidaturas/wingman',
 
   // 5. Convocatorias I+D
   FUNDING_ACTIVE: '/convocatorias/activas',
   FUNDING_EU: '/convocatorias/horizon-ue',
   FUNDING_DACH: '/convocatorias/alemania-dach',
-  FUNDING_EUSKADI: '/convocatorias/euskadi'
+  FUNDING_EUSKADI: '/convocatorias/euskadi',
+  FUNDING_FONDOS: '/convocatorias/fondos',
+
+  // 6. Academia Formativa & Radar
+  ACADEMY_RADAR: '/academia/radar',
+  ACADEMY_BRECHAS: '/academia/brechas',
+  ACADEMY_CURSOS: '/academia/cursos'
 } as const;
 
 export interface ParsedRouteState {
@@ -55,6 +71,7 @@ export const getSlugForState = (
   docType: 'cv' | 'cover_letter' = 'cv'
 ): string => {
   if (stationId === 'market_radar') {
+    if (subTab === 'benchmark') return APP_SLUGS.MARKET_BENCHMARK;
     if (subTab === 'portals') return APP_SLUGS.MARKET_PORTALS;
     if (subTab === 'sources') return APP_SLUGS.MARKET_SOURCES;
     if (subTab === 'companies' || subTab === 'organizations') return APP_SLUGS.MARKET_ORGANIZATIONS;
@@ -66,7 +83,8 @@ export const getSlugForState = (
     if (subTab === 'studio') {
       return docType === 'cover_letter' ? APP_SLUGS.DOSSIER_COVER_LETTER : APP_SLUGS.DOSSIER_CV_STUDIO;
     }
-    if (subTab === 'profile') return APP_SLUGS.DOSSIER_PROFILE;
+    if (subTab === 'profile' || subTab === 'expediente') return APP_SLUGS.DOSSIER_EXPEDIENTE;
+    if (subTab === 'skills' || subTab === 'competencias') return APP_SLUGS.DOSSIER_COMPETENCIAS;
     return APP_SLUGS.DOSSIER_SHOWCASE;
   }
 
@@ -104,13 +122,13 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
   const clean = path.toLowerCase().replace(/\/+$/, '') || '/';
 
   // 1. Mercado
-  if (clean === '/mercado/portales' || clean.startsWith('/mercado/portales/')) {
+  if (clean === '/mercado/benchmark' || clean === '/mercado/matriz' || clean === '/mercado/probabilidad' || clean.startsWith('/mercado/benchmark/')) {
+    return { station: 'market_radar', subTab: 'benchmark' };
+  }
+  if (clean === '/mercado/portales' || clean === '/mercado/radares' || clean === '/mercado/buscadores' || clean.startsWith('/mercado/portales/')) {
     return { station: 'market_radar', subTab: 'portals' };
   }
-  if (clean === '/mercado/organizaciones' || clean.startsWith('/mercado/organizaciones/')) {
-    return { station: 'market_radar', subTab: 'organizations' };
-  }
-  if (clean === '/mercado/empresas' || clean.startsWith('/mercado/empresas/')) {
+  if (clean === '/mercado/organizaciones' || clean === '/mercado/empresas' || clean === '/mercado/directorio' || clean.startsWith('/mercado/organizaciones/') || clean.startsWith('/mercado/empresas/')) {
     return { station: 'market_radar', subTab: 'organizations' };
   }
   if (clean === '/mercado/fuentes') {
@@ -121,24 +139,34 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
   }
 
   // 1.5. Academia Formativa
-  if (clean === '/academia' || clean === '/academy' || clean.startsWith('/academia/') || clean.startsWith('/academy/')) {
+  if (clean === '/academia' || clean === '/academy' || clean.startsWith('/academia') || clean.startsWith('/academy')) {
     return { station: 'academy' };
   }
 
-  // 2. Perfil
-  if (clean === '/perfil/academia' || clean === '/perfil/academy' || clean.startsWith('/perfil/academia')) {
+  // 2. Perfil & Expediente
+  if (clean === '/perfil/academia' || clean === '/perfil/academy' || clean.startsWith('/perfil/academia') || clean.startsWith('/perfil/academy')) {
     return { station: 'academy' };
   }
-  if (clean === '/perfil/cv-studio' || clean.startsWith('/perfil/cv-studio')) {
-    return { station: 'agent_dossier', subTab: 'studio', docType: 'cv' };
-  }
-  if (clean === '/perfil/cover-letter' || clean === '/perfil/carta' || clean.startsWith('/perfil/cover-letter')) {
-    return { station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' };
-  }
-  if (clean === '/perfil/maestro' || clean === '/perfil/datos') {
+  if (
+    clean === '/perfil/expediente' || 
+    clean === '/perfil/expediente-maestro' || 
+    clean === '/perfil/maestro' || 
+    clean === '/perfil/datos' ||
+    clean === '/perfil/dossier' ||
+    clean.startsWith('/perfil/expediente')
+  ) {
     return { station: 'agent_dossier', subTab: 'profile' };
   }
-  if (clean === '/perfil' || clean === '/perfil/resumen') {
+  if (clean === '/perfil/cv-studio' || clean === '/perfil/cv' || clean === '/perfil/curriculum' || clean === '/perfil/plantillas' || clean.startsWith('/perfil/cv-studio')) {
+    return { station: 'agent_dossier', subTab: 'studio', docType: 'cv' };
+  }
+  if (clean === '/perfil/cover-letter' || clean === '/perfil/carta' || clean === '/perfil/cartas' || clean.startsWith('/perfil/cover-letter')) {
+    return { station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' };
+  }
+  if (clean === '/perfil/resumen' || clean === '/perfil/competencias' || clean === '/perfil/habilidades' || clean === '/perfil/skills' || clean === '/perfil/showcase') {
+    return { station: 'agent_dossier', subTab: 'showcase' };
+  }
+  if (clean === '/perfil') {
     return { station: 'agent_dossier', subTab: 'showcase' };
   }
 
@@ -146,20 +174,20 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
   if (clean === '/candidaturas/lote' || clean === '/candidaturas/batch') {
     return { station: 'mission_control', subTab: 'batch' };
   }
-  if (clean === '/candidaturas/inteligencia' || clean === '/candidaturas/wingman') {
+  if (clean === '/candidaturas/inteligencia' || clean === '/candidaturas/wingman' || clean === '/candidaturas/radar-ia') {
     return { station: 'mission_control', subTab: 'intelligence' };
   }
-  if (clean === '/candidaturas' || clean === '/candidaturas/activas' || clean.startsWith('/candidaturas/')) {
+  if (clean === '/candidaturas' || clean === '/candidaturas/activas' || clean === '/candidaturas/pipeline' || clean === '/candidaturas/flujo' || clean.startsWith('/candidaturas/')) {
     return { station: 'mission_control', subTab: 'applications' };
   }
 
   // 4. Convocatorias
-  if (clean.startsWith('/convocatorias')) {
+  if (clean.startsWith('/convocatorias') || clean.startsWith('/funding')) {
     return { station: 'funding' };
   }
 
   // 5. Ajustes
-  if (clean.startsWith('/ajustes') || clean === '/configuracion') {
+  if (clean.startsWith('/ajustes') || clean === '/configuracion' || clean.startsWith('/settings')) {
     return { station: 'settings' };
   }
 

@@ -19,9 +19,11 @@ import { getStoredProfile, getStoredCVs } from '../../services/db';
 import type { CVVersion } from '../../types/cv';
 
 interface AgentDossierTabProps {
-  initialSubTab?: 'showcase' | 'skills' | 'profile' | 'cvs' | 'studio';
+  initialSubTab?: 'showcase' | 'skills' | 'profile' | 'cvs' | 'studio' | string;
   initialStudioOfferId?: string;
   initialStudioDocType?: 'cv' | 'cover_letter';
+  onSubTabChange?: (subTab: 'showcase' | 'profile' | 'studio') => void;
+  onDocTypeChange?: (docType: 'cv' | 'cover_letter') => void;
   onReturnToHub?: () => void;
   onOpenSettings?: () => void;
   onNavigateToAcademy?: (gapId?: string) => void;
@@ -31,6 +33,8 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
   initialSubTab = 'showcase',
   initialStudioOfferId,
   initialStudioDocType,
+  onSubTabChange,
+  onDocTypeChange,
   onReturnToHub: _onReturnToHub,
   onOpenSettings,
   onNavigateToAcademy
@@ -38,6 +42,7 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
   const normalizedInitial = (
     initialSubTab === 'skills' ? 'showcase' : 
     initialSubTab === 'cvs' ? 'studio' : 
+    initialSubTab === 'expediente' ? 'profile' :
     initialSubTab
   ) as 'showcase' | 'profile' | 'studio';
 
@@ -47,8 +52,15 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
   useEffect(() => {
     if (initialSubTab === 'skills') setActiveSubTab('showcase');
     else if (initialSubTab === 'cvs') setActiveSubTab('studio');
-    else setActiveSubTab(initialSubTab as any);
+    else if (initialSubTab === 'profile' || initialSubTab === 'expediente') setActiveSubTab('profile');
+    else if (initialSubTab === 'studio') setActiveSubTab('studio');
+    else if (initialSubTab === 'showcase') setActiveSubTab('showcase');
   }, [initialSubTab]);
+
+  const handleSubTabChange = (tab: 'showcase' | 'profile' | 'studio') => {
+    setActiveSubTab(tab);
+    onSubTabChange?.(tab);
+  };
 
   const profile = getStoredProfile();
   const cvList = getStoredCVs();
@@ -97,7 +109,7 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
             }}
           >
             <button
-              onClick={() => setActiveSubTab('showcase')}
+              onClick={() => handleSubTabChange('showcase')}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 activeSubTab === 'showcase'
                   ? 'bg-sky-600 text-white shadow font-black'
@@ -109,7 +121,7 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
             </button>
 
             <button
-              onClick={() => setActiveSubTab('profile')}
+              onClick={() => handleSubTabChange('profile')}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 activeSubTab === 'profile'
                   ? 'bg-sky-600 text-white shadow font-black'
@@ -121,7 +133,7 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
             </button>
 
             <button
-              onClick={() => setActiveSubTab('studio')}
+              onClick={() => handleSubTabChange('studio')}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 activeSubTab === 'studio'
                   ? 'bg-sky-600 text-white shadow font-black'
@@ -568,7 +580,11 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
       {/* SUB-PANEL 3: CV STUDIO (A4, datos verificados, adaptación por oferta y plantillas) */}
       {activeSubTab === 'studio' && (
         <div className="space-y-4">
-          <CVStudioTab initialOfferId={initialStudioOfferId} initialDocType={initialStudioDocType} />
+          <CVStudioTab 
+            initialOfferId={initialStudioOfferId} 
+            initialDocType={initialStudioDocType} 
+            onDocTypeChange={onDocTypeChange}
+          />
         </div>
       )}
 

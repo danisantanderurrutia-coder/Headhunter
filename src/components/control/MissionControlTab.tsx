@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Send, 
   KanbanSquare, 
@@ -9,18 +9,30 @@ import { IntelligenceTab } from '../intelligence/IntelligenceTab';
 
 interface MissionControlTabProps {
   initialSubTab?: 'applications' | 'intelligence' | string;
+  onSubTabChange?: (subTab: 'applications' | 'intelligence') => void;
   onReturnToHub?: () => void;
   onOpenStudio?: (offerId: string, docType?: 'cv' | 'cover_letter') => void;
 }
 
 export const MissionControlTab: React.FC<MissionControlTabProps> = ({ 
   initialSubTab = 'applications',
+  onSubTabChange,
   onReturnToHub: _onReturnToHub,
   onOpenStudio
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<'applications' | 'intelligence'>(
     initialSubTab === 'intelligence' ? 'intelligence' : 'applications'
   );
+
+  useEffect(() => {
+    if (initialSubTab === 'intelligence') setActiveSubTab('intelligence');
+    else if (initialSubTab === 'applications') setActiveSubTab('applications');
+  }, [initialSubTab]);
+
+  const handleSubTabChange = (tab: 'applications' | 'intelligence') => {
+    setActiveSubTab(tab);
+    onSubTabChange?.(tab);
+  };
 
   return (
     <div className="space-y-5 text-[var(--text-primary)] animate-fadeIn">
@@ -56,7 +68,7 @@ export const MissionControlTab: React.FC<MissionControlTabProps> = ({
           }}
         >
           <button
-            onClick={() => setActiveSubTab('applications')}
+            onClick={() => handleSubTabChange('applications')}
             className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
               activeSubTab === 'applications'
                 ? 'bg-purple-600 text-white shadow-md'
@@ -68,7 +80,7 @@ export const MissionControlTab: React.FC<MissionControlTabProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveSubTab('intelligence')}
+            onClick={() => handleSubTabChange('intelligence')}
             className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
               activeSubTab === 'intelligence'
                 ? 'bg-purple-600 text-white shadow-md'
