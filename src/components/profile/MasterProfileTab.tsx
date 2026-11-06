@@ -17,7 +17,9 @@ import {
   Check,
   ExternalLink,
   FileText,
-  Cpu
+  Cpu,
+  Activity,
+  Compass
 } from 'lucide-react';
 import { getStoredProfile, saveStoredProfile } from '../../services/db';
 import { initialProfile } from '../../services/sampleData';
@@ -914,6 +916,75 @@ export const MasterProfileTab: React.FC = () => {
             />
           </div>
 
+          {/* Section: Perfiles de Incidencia y Enfoques de Carrera del Portafolio */}
+          <div 
+            className="p-5 rounded-2xl border shadow-sm space-y-3"
+            style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+          >
+            <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-2">
+              <h2 className="font-bold text-[var(--text-primary)] text-sm flex items-center space-x-2">
+                <Compass className="h-4 w-4 text-cyan-500" />
+                <span>Enfoques Estratégicos de Carrera (Deep Links del Portafolio 3D)</span>
+              </h2>
+              <span className="text-[11px] font-mono text-[var(--text-muted)]">5 Lentes Profesionales</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
+              {[
+                {
+                  badge: '🇩🇪 ALEMANIA / UE • CIENCIA & TURBERAS',
+                  title: 'Hidrogeofísica, Turberas & Gases GEI',
+                  focus: 'Wallener Au, Eddy Covariance, cámaras cerradas, compactación edáfica (σp = 62.4 kPa) y visor 3D Wetland Monitor.',
+                  url: 'https://danisantanderurrutia-coder.github.io/portafolio/science?mission=kiel-cau'
+                },
+                {
+                  badge: '🇵🇱 POLONIA / UE • AGUA & BIODIVERSIDAD',
+                  title: 'Limnología & Directiva Marco del Agua',
+                  focus: 'Análisis de calidad de agua in situ y en laboratorio en lagos y estanques de Poznań bajo la DMA de la UE.',
+                  url: 'https://danisantanderurrutia-coder.github.io/portafolio/science?mission=poznan-amu'
+                },
+                {
+                  badge: '🇨🇱 CHILE / LATAM • CUENCAS & SEV',
+                  title: 'Hidrogeofísica de Cuencas & Nivel Freático',
+                  focus: 'Sondeos Eléctricos Verticales (SEV/VES) y gravimetría cuantificando el impacto de plantaciones forestales en el acuífero del Maule.',
+                  url: 'https://danisantanderurrutia-coder.github.io/portafolio/science?mission=science-geophysics-soils'
+                },
+                {
+                  badge: '⚖️ POLÍTICAS PÚBLICAS & GOBERNANZA',
+                  title: 'Asesoría Parlamentaria & Desastres',
+                  focus: 'Testimonio oficial ante la Comisión Especial de Emergencia y Bomberos de la Cámara de Diputadas/os y normas de cuencas.',
+                  url: 'https://danisantanderurrutia-coder.github.io/portafolio/policy'
+                },
+                {
+                  badge: '📢 COMUNICACIONES & PRENSA MASIVA',
+                  title: 'Dirección de Medios & Campañas (+700k)',
+                  focus: 'Campaña Apruebo Rural, Primera Línea Prensa (700k seguidores), Radio Cristalina y Taller de 45 Corresponsales.',
+                  url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+                }
+              ].map((lens, i) => (
+                <div 
+                  key={i} 
+                  className="p-3 rounded-xl border text-xs flex flex-col justify-between group hover:border-cyan-500/40 transition"
+                  style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+                >
+                  <div className="space-y-1">
+                    <span className="font-mono text-[9px] font-bold text-cyan-600 dark:text-cyan-400 block">{lens.badge}</span>
+                    <h4 className="font-bold text-[var(--text-primary)] leading-tight">{lens.title}</h4>
+                    <p className="text-[10.5px] text-[var(--text-secondary)] leading-relaxed">{lens.focus}</p>
+                  </div>
+                  <a
+                    href={lens.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2.5 pt-2 border-t border-[var(--panel-border)]/50 text-[10px] font-mono text-cyan-600 dark:text-cyan-400 hover:underline flex items-center justify-between"
+                  >
+                    <span>Ver en Portafolio 3D</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Section 2: Verified Work Experiences (9 Items) */}
           <div 
             className="p-5 rounded-2xl border shadow-sm space-y-4"
@@ -1353,17 +1424,32 @@ export const MasterProfileTab: React.FC = () => {
                         <h3 className="font-bold text-[var(--text-primary)] text-sm leading-snug">{proj.title}</h3>
                         <div className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold">{proj.role} • <span className="font-mono text-[var(--text-muted)]">{proj.period}</span></div>
                       </div>
-                      {proj.url && (
-                        <a 
-                          href={proj.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-[var(--text-muted)] hover:text-blue-400 transition p-1"
-                          title="Ver proyecto en vivo"
-                        >
-                          <ExternalLink className="h-3.5 w-3.5" />
-                        </a>
-                      )}
+                      <div className="flex items-center space-x-1 shrink-0">
+                        {proj.githubUrl && (
+                          <a 
+                            href={proj.githubUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="px-2 py-1 rounded bg-[var(--card-bg)] hover:bg-neutral-800 text-[var(--text-secondary)] hover:text-white border border-[var(--panel-border)] transition flex items-center space-x-1 text-[10px] font-mono"
+                            title="Ver código fuente en GitHub"
+                          >
+                            <span>GitHub</span>
+                            <ExternalLink className="h-2.5 w-2.5" />
+                          </a>
+                        )}
+                        {proj.url && (
+                          <a 
+                            href={proj.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="px-2 py-1 rounded bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30 transition flex items-center space-x-1 text-[10px] font-mono font-bold"
+                            title="Abrir aplicación / demo"
+                          >
+                            <span>Live</span>
+                            <ExternalLink className="h-2.5 w-2.5" />
+                          </a>
+                        )}
+                      </div>
                     </div>
 
                     <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">
@@ -1469,6 +1555,51 @@ export const MasterProfileTab: React.FC = () => {
               ))}
             </div>
           </div>
+
+          {/* Section 8: Instrumental de Campo & Laboratorio Operado (6 Equipos Verificados) */}
+          {profile.fieldEquipment && profile.fieldEquipment.length > 0 && (
+            <div 
+              className="p-5 rounded-2xl border shadow-sm space-y-4"
+              style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+            >
+              <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-2.5">
+                <div>
+                  <h2 className="font-bold text-[var(--text-primary)] text-sm flex items-center space-x-2">
+                    <Activity className="h-4 w-4 text-emerald-500" />
+                    <span>Instrumental de Campo & Laboratorio Operado ({profile.fieldEquipment.length})</span>
+                  </h2>
+                  <p className="text-[11px] text-[var(--text-muted)]">
+                    Equipamiento geofísico, micrometeorológico, edafológico y de teledetección contrastado en terreno.
+                  </p>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                  OPERATIVO IN-SITU
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
+                {profile.fieldEquipment.map((eq) => (
+                  <div 
+                    key={eq.id}
+                    className="p-3.5 rounded-xl border text-xs space-y-1.5 hover:border-emerald-500/40 transition flex flex-col justify-between"
+                    style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="font-bold text-[var(--text-primary)]">{eq.name}</span>
+                      </div>
+                      <span className="inline-block text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold uppercase">
+                        {eq.category}
+                      </span>
+                      <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed pt-1">
+                        {eq.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

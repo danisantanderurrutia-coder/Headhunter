@@ -146,6 +146,7 @@ export const getStoredProfile = (): MasterProfile => {
       skills: (parsed.skills && parsed.skills.length > 0) ? parsed.skills : initialProfile.skills,
       languages: initialProfile.languages,
       otherCourses: finalCourses,
+      fieldEquipment: (parsed.fieldEquipment && parsed.fieldEquipment.length > 0) ? parsed.fieldEquipment : initialProfile.fieldEquipment,
       lastUpdated: initialProfile.lastUpdated
     };
 

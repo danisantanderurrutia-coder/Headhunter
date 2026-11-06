@@ -41,12 +41,13 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
   });
 
   it('integra el consolidado de publicaciones sin redundancias', () => {
-    expect(initialProfile.publications?.length).toBe(8);
+    expect(initialProfile.publications?.length).toBe(9);
     const pubTitles = initialProfile.publications?.map((p) => p.title).join(' ');
     expect(pubTitles).toContain('Spotlight on Burning Biomass');
     expect(pubTitles).toContain('Humedales bajo fuego');
     expect(pubTitles).toContain('agricultura orgánica');
     expect(pubTitles).toContain('Ser libres al borde del abismo');
+    expect(pubTitles).toContain('Libro Científico Internacional');
   });
 
   it('las conferencias internacionales incluyen 4 cumbres multilaterales', () => {
@@ -58,16 +59,33 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(events).toContain('Costa Rica');
   });
 
-  it('los proyectos tecnológicos agrupan exclusivamente los 4 gemelos digitales sin duplicar campañas de experiencias', () => {
-    expect(initialProfile.keyProjects?.length).toBe(4);
+  it('los proyectos tecnológicos agrupan los 5 proyectos de innovación sin duplicar campañas de experiencias', () => {
+    expect(initialProfile.keyProjects?.length).toBe(5);
     const projIds = initialProfile.keyProjects?.map((p) => p.id);
     expect(projIds).toContain('proj-agritwin');
     expect(projIds).toContain('proj-wetland-monitor');
-    expect(projIds).toContain('proj-rewilding-suite');
+    expect(projIds).toContain('proj-rewild-resumof');
     expect(projIds).toContain('proj-smart-food-parks');
+    expect(projIds).toContain('proj-lauwersmeer-hydro');
     // Asegurar que campañas de comunicación (Apruebo Rural, Primera Línea) viven en experiences y no como proyectos
     expect(projIds).not.toContain('proj-apruebo-rural');
     expect(projIds).not.toContain('proj-primera-linea');
+  });
+
+  it('el instrumental de campo contiene los 6 equipos y sensores operados en terreno', () => {
+    expect(initialProfile.fieldEquipment?.length).toBe(6);
+    const eqNames = initialProfile.fieldEquipment?.map((e) => e.name).join(' ');
+    expect(eqNames).toContain('Syscal Pro');
+    expect(eqNames).toContain('LI-COR');
+    expect(eqNames).toContain('CTD Divers');
+    expect(eqNames).toContain('Barrenas Edelman');
+  });
+
+  it('los idiomas corresponden exactamente a las acreditaciones del portafolio (C1 inglés, B1/B2 alemán)', () => {
+    const en = initialProfile.languages.find((l) => l.language === 'Inglés');
+    expect(en?.proficiency).toBe('C1');
+    const de = initialProfile.languages.find((l) => l.language === 'Alemán');
+    expect(de?.proficiency).toBe('B1');
   });
 
   it('no existe duplicación cruzada entre educación formal y cursos de permacultura', () => {
@@ -77,7 +95,7 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(initialProfile.education.length).toBe(3);
 
     // Permacultura vive estrictamente como certificación en otherCourses
-    const permacultureInCourses = initialProfile.otherCourses?.some((c) => c.includes('Permaculture Designer'));
+    const permacultureInCourses = initialProfile.otherCourses?.some((c) => c.toLowerCase().includes('permacultur'));
     expect(permacultureInCourses).toBe(true);
   });
 
@@ -104,7 +122,8 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(md).toContain('## 7. CONFERENCIAS INTERNACIONALES Y TESTIMONIOS OFICIALES');
     expect(md).toContain('## 8. GEMELOS DIGITALES Y PROYECTOS DE INNOVACIÓN');
     expect(md).toContain('## 9. BANCO DE LOGROS DE ALTO IMPACTO');
-    expect(md).toContain('## 10. COMPETENCIAS TÉCNICAS E IDIOMAS');
+    expect(md).toContain('## 10. INSTRUMENTAL DE CAMPO Y LABORATORIO OPERADO');
+    expect(md).toContain('## 11. COMPETENCIAS TÉCNICAS E IDIOMAS');
   });
 
   it('auditProfile no detecta discrepancias de enlaces ni fechas con el portafolio', () => {

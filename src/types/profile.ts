@@ -103,6 +103,13 @@ export interface ConferenceProfileItem {
   tags: string[];
 }
 
+export interface FieldEquipmentItem {
+  id: string;
+  name: string;
+  category: 'Geophysics' | 'Atmosphere' | 'Hydrology' | 'Soils' | 'Remote Sensing';
+  description: string;
+}
+
 export interface MasterProfile {
   fullName: string;
   email: string;
@@ -126,6 +133,7 @@ export interface MasterProfile {
   publications?: PublicationProfileItem[];
   keyProjects?: KeyProjectProfileItem[];
   conferences?: ConferenceProfileItem[];
+  fieldEquipment?: FieldEquipmentItem[];
   pendingFields: string[]; // List of unverified or missing profile items
   lastUpdated: string;
 }

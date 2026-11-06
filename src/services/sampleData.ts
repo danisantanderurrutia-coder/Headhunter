@@ -236,26 +236,26 @@ export const initialProfile: MasterProfile = {
     }
   ],
   skills: [
-    { id: 'sk-1', name: 'R', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
-    { id: 'sk-2', name: 'Python (GeoPandas, NumPy, SciPy, Rasterio)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
-    { id: 'sk-3', name: 'QGIS & ArcGIS Pro', category: 'Tools', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-4', name: 'Google Earth Engine (GEE)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
-    { id: 'sk-5', name: 'Torres Eddy Covariance & Flujos GEI', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
-    { id: 'sk-6', name: 'Sondeos Eléctricos Verticales (SEV/VES)', category: 'Domain', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-7', name: 'Física y Mecánica de Suelos (σp = 62.4 kPa)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
-    { id: 'sk-8', name: 'Limnología & Bioindicadores Dulceacuícolas', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
-    { id: 'sk-9', name: 'TypeScript, React & Gemelos Digitales 3D', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
-    { id: 'sk-10', name: 'PWA Offline-First (IndexedDB)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
-    { id: 'sk-11', name: 'Incidencia Legislativa & Políticas Públicas', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-12', name: 'Dirección de Campañas Masivas (+700k)', category: 'Soft', level: 'Experto', yearsOfExperience: 5 },
-    { id: 'sk-13', name: 'Contabilidad de Carbono & Auditoría RED III', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
-    { id: 'sk-14', name: 'Gestión Integrada de Cuencas Hidrográficas', category: 'Domain', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-15', name: 'Facilitación Multiactor & Resolución de Conflictos', category: 'Soft', level: 'Experto', yearsOfExperience: 6 }
+    { id: 'sk-1', name: 'Python (GeoPandas, NumPy, SciPy, Rasterio, GDAL)', category: 'Tech', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-2', name: 'QGIS & ArcGIS Pro (LiDAR, DEMs, Hidrogeología)', category: 'Tools', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-3', name: 'R (sf, ggplot2, Series Temporales, Modelado Ecológico)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 5 },
+    { id: 'sk-4', name: 'Google Earth Engine (GEE, Sentinel-2, Landsat)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
+    { id: 'sk-5', name: 'Delft3D / Modelación Hidrodinámica 2D Costera', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-6', name: 'Torres Eddy Covariance & Flujos GEI (LI-COR)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-7', name: 'Tomografía Eléctrica ERT & Sondeos SEV (Syscal Pro)', category: 'Domain', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-8', name: 'Física y Mecánica de Suelos (σp = 62.4 kPa)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-9', name: 'Limnología, Bioindicadores & Directiva Marco del Agua', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-10', name: 'TypeScript, React & Gemelos Digitales 3D', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
+    { id: 'sk-11', name: 'FastAPI, Docker & PostgreSQL / PostGIS', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-12', name: 'Unity 3D (Simulación Ciberfísica & UN Citiverse)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-13', name: 'LaTeX / Typst (Tipografía Científica y Tesis)', category: 'Tools', level: 'Experto', yearsOfExperience: 5 },
+    { id: 'sk-14', name: 'Incidencia Legislativa & Políticas de Cuencas', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
+    { id: 'sk-15', name: 'Dirección de Campañas Masivas & Medios (+700k)', category: 'Soft', level: 'Experto', yearsOfExperience: 5 }
   ],
   languages: [
-    { id: 'lang-1', language: 'Español', proficiency: 'Nativo' },
-    { id: 'lang-2', language: 'Inglés', proficiency: 'C2', certificate: 'C2 - Competencia Profesional Completa' },
-    { id: 'lang-3', language: 'Alemán', proficiency: 'B2', certificate: 'B1–B2 - Formación y Trabajo en CAU Kiel' }
+    { id: 'lang-1', language: 'Español', proficiency: 'Nativo', certificate: 'Nativo — Oratoria pública, vocería parlamentaria, redacción editorial y legislativa' },
+    { id: 'lang-2', language: 'Inglés', proficiency: 'C1', certificate: 'C1 / Fluent — Ponencias en cumbres internacionales (Oslo, Bonn, Davos) y redacción científica' },
+    { id: 'lang-3', language: 'Alemán', proficiency: 'B1', certificate: 'B1 / B2 — M.Sc. en CAU Kiel, comunicación técnica y trabajo en Alemania' }
   ],
   achievementsBank: [
     {
@@ -335,11 +335,11 @@ export const initialProfile: MasterProfile = {
     'BlueGreen Biodiversity Summit (WSL Swiss Federal Research Institute, Davos, Suiza, 2025)',
     'Interlinked Justice & Resilient Landscapes (Leibniz Institute IOER, Dresden, Alemania, 2024–2025)',
     'Doughnut Economics Practitioner (DEAL Doughnut Economics Action Lab, Copenhague, Dinamarca, 2025)',
-    '3ª Escuela de Verano: Costas Resilientes ((CR)2, Universidad de Chile, 2023, 57 h)',
-    'Certified Permaculture Designer (Escuela de Permacultura y Agroecología de Chile - EPAC, 2023, 80 h)',
-    'Modelado de Nicho Ecológico, Teledetección y R (Escuela Ambiental GIS, 2022, 20 h)',
-    'Economía Verde y Financiarización de la Naturaleza (CENSAT Agua Viva, Colombia, 2022, 16 h)',
-    'Diseño de Planes de Acción Climática (The Climate Reality Project, Chile, 2023)'
+    'Rewilding & Gestión Forestal (Plano de Gestão Florestal & StoryMaps, Aljezur, Portugal, 2024)',
+    'Curso Certificado de Diseño en Permacultura - CDP (Escuela de Permacultura Aplicada Chile - EPAC & Fundación Suelo, 2023, 80 h)',
+    '3ª Escuela de Verano: Costas Resilientes ((CR)2, Universidad de Chile, 2023, 57 h, dir. René Garreaud)',
+    'Modelado de Nicho Ecológico, Teledetección y R (Instituto Ambiental GIS, 2022, 20 h)',
+    'Economía Verde y Financiarización de la Naturaleza (Censat Agua Viva & Amigos de la Tierra Internacional, Bogotá, Colombia, 2022, 16 h)'
   ],
   publications: [
     {
@@ -421,6 +421,16 @@ export const initialProfile: MasterProfile = {
       category: 'essays',
       summary: 'Serie analítica internacional que disecciona los monocultivos forestales industriales, los créditos de carbono y las falsas soluciones climáticas.',
       tags: ['ClimateCC', 'Falsas Soluciones', 'Carbon Credits', 'Bosques']
+    },
+    {
+      id: 'pub-libro-incendios',
+      title: 'Libro Científico Internacional: Dinámica de Incendios y Monocultivos Forestales',
+      outlet: 'Editor Principal & Coordinación Internacional Multiautor',
+      date: '2024-2026',
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/dossier',
+      category: 'scientific',
+      summary: 'Libro científico internacional multiautor que investiga la física de propagación de megaincendios, interacción suelo-combustible y vulnerabilidad de cuencas frente a monocultivos forestales industriales en Sudamérica y ecosistemas mediterráneos.',
+      tags: ['Libro Científico', 'Megaincendios', 'Monocultivo Forestal', 'Hidrología de Cuencas']
     }
   ],
   conferences: [
@@ -478,8 +488,9 @@ export const initialProfile: MasterProfile = {
         'Pipeline automatizado de índices multiespectrales Sentinel-2 (Copernicus)',
         'Diseño hidrológico Keyline para retención de agua en laderas agrícolas'
       ],
-      techStack: ['Python', 'Sentinel-2', 'Copernicus', 'IoT LoRaWAN', 'TypeScript', 'Leaflet'],
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+      techStack: ['Python', 'Sentinel-2 API', 'IoT LoRaWAN', 'FastAPI', 'QGIS', 'PostGIS', 'Next.js'],
+      githubUrl: 'https://github.com/danisantanderurrutia-coder/agritwin-app',
+      url: 'https://danisantanderurrutia-coder.github.io/agritwin-app/'
     },
     {
       id: 'proj-wetland-monitor',
@@ -487,45 +498,99 @@ export const initialProfile: MasterProfile = {
       role: 'Full-Stack Developer & Modeler',
       period: '2023 – 2026',
       category: 'Gemelo Digital & Software Científico',
-      description: 'Aplicación web 3D interactiva que simula la transición entre sumidero y fuente de carbono en turberas templadas rehumedecidas con forzantes micrometeorológicos (Eddy Covariance) y compactación edáfica (σp = 62,4 kPa).',
+      description: 'Aplicación web interactiva que simula la transición entre sumidero y fuente de carbono en turberas templadas rehumedecidas con forzantes micrometeorológicos (Eddy Covariance) y compactación edáfica (σp = 62,4 kPa).',
       deliverables: [
         'Simulador diurno y estacional de emisiones de CO2 y picos de CH4',
-        'Visualizador tridimensional interactivo con Three.js del ecosistema de turbera',
-        'Integración de curvas de retención hídrica y datos micrometeorológicos'
+        'Visualizador interactivo del ecosistema de turbera y curvas de retención hídrica',
+        'Integración de series temporales micrometeorológicas de torres de flujo'
       ],
-      techStack: ['React', 'Three.js', 'TypeScript', 'R', 'Eddy Covariance', 'Tailwind CSS'],
-      githubUrl: 'https://github.com/danisantanderurrutia-coder',
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/science?mission=wetland-monitor-app'
+      techStack: ['React', 'TypeScript', 'R', 'Eddy Covariance', 'Tailwind CSS'],
+      githubUrl: 'https://github.com/danisantanderurrutia-coder/wetland-monitor',
+      url: 'https://danisantanderurrutia-coder.github.io/wetland-monitor/'
     },
     {
-      id: 'proj-rewilding-suite',
-      title: 'Rewilding Field Suite (Aljezur, Portugal)',
-      role: 'Product Owner & Lead Developer',
-      period: '2024 – Presente',
-      category: 'PWA Offline-First & Analítica Forestal',
-      description: 'Progressive Web App (PWA) offline-first con motor de persistencia local IndexedDB para levantamiento de campo en rewilding, fusión de capas GIS, monitoreo de biomasa y mapas de mitigación de incendios en Portugal.',
+      id: 'proj-rewild-resumof',
+      title: 'ReWild: Analítica de Incendios & Mosaicos Nativos (Resumof)',
+      role: 'Lead Spatial Developer & Modeler',
+      period: '2023 – Presente',
+      category: 'Analítica Forestal & Riesgo de Incendios',
+      description: 'Sistema de soporte de decisión espacial para reemplazar monocultivos combustibles de pino/eucalipto por barreras cortafuego vivas de bosque esclerófilo nativo, modelando la amortiguación del fuego y la recuperación hídrica.',
       deliverables: [
-        'Arquitectura modular offline-first con sincronización automática en red',
-        'Motor de captura de datos de campo sin conexión a internet',
-        'Fusión de capas GIS para planes de prevención de incendios forestales'
+        'Cartografía de carga de combustible en interfaz urbano-forestal (IUF)',
+        'Algoritmos de optimización espacial para restauración de mosaicos nativos',
+        'Aplicación web y móvil para monitoreo comunitario y soporte de decisión'
       ],
-      techStack: ['PWA', 'IndexedDB', 'TypeScript', 'QGIS', 'StoryMaps', 'Leaflet'],
+      techStack: ['Google Earth Engine', 'Python GIS', 'Sentinel-2', 'GeoPandas', 'Streamlit', 'Rasterio'],
+      githubUrl: 'https://github.com/danisantanderurrutia-coder/resumof',
       url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
     },
     {
       id: 'proj-smart-food-parks',
-      title: 'Smart Food Parks (UN SDG Cities Semifinalist)',
-      role: 'Co-Diseñador & Modelador Geoespacial',
+      title: 'Smart Food Parks: Gemelo Digital & Agro-IoT Urbano',
+      role: 'Co-Diseñador & Modelador Ciberfísico',
       period: '2024',
-      category: 'Gemelo Digital Urbano & Resiliencia Climática',
-      description: 'Propuesta de gemelo digital urbano y agro-IoT seleccionada como Semifinalista Internacional en el UN Citiverse Challenge (SDG Cities) de Naciones Unidas para soberanía alimentaria y reducción de islas de calor.',
+      category: 'Gemelo Digital & Sistemas Agroalimentarios',
+      description: 'Gemelo digital y plataforma ciberfísica para soberanía alimentaria urbana, control microclimático y redes de sensores IoT, distinguida como Semifinalista Global en el UN Citiverse Challenge (SDG Cities) de Naciones Unidas.',
       deliverables: [
-        'Modelo geoespacial de microclimas urbanos e islas de calor',
-        'Diseño de arquitectura de sensores IoT para parques agroalimentarios',
-        'Presentación técnica y pitch ante comités evaluadores de la ONU'
+        'Gemelo digital en Unity 3D con visualización en tiempo real de torres hidropónicas verticales',
+        'Arquitectura de telemetría micrometeorológica y radicular (LoRaWAN / MQTT)',
+        'Algoritmos neuronales predictivos de rendimiento y microclima'
       ],
-      techStack: ['Python', 'QGIS', 'IoT', 'Google Earth Engine', 'Modelación Urbana'],
+      techStack: ['Unity 3D', 'IoT Telemetry', 'MQTT', 'Python AI', 'Google Earth Engine', 'QGIS'],
       url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    },
+    {
+      id: 'proj-lauwersmeer-hydro',
+      title: 'Lauwersmeer: Simulación Hidrodinámica 2D & Riesgo Costero',
+      role: 'Investigador & Modelador Hidrodinámico (CAU Kiel)',
+      period: '2023 – 2024',
+      category: 'Ingeniería Costera & Modelación Numérica',
+      description: 'Plataforma de modelación hidrodinámica 2D en Delft3D para simular marejadas de tempestad, propagación de oleaje extremo y aumento del nivel del mar bajo escenarios climáticos IPCC en la cuenca del Mar de Wadden (Lauwersmeer, Países Bajos).',
+      deliverables: [
+        'Simulación hidrodinámica 2D de batimetría y oleaje extremo en Delft3D',
+        'Cartografía de riesgo de inundación para periodos de retorno de 100 y 500 años',
+        'Auditoría de vulnerabilidad de infraestructura crítica y diagnóstico de diques costeros'
+      ],
+      techStack: ['Delft3D', 'Python Hydro', 'LiDAR DEM', 'QGIS', 'Copernicus Marine', 'NetCDF'],
+      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+    }
+  ],
+  fieldEquipment: [
+    {
+      id: 'eq-syscal-pro',
+      name: 'Syscal Pro (Iris Instruments)',
+      category: 'Geophysics',
+      description: 'Resistivímetro multielectrodo para tomografía de resistividad eléctrica profunda (ERT) y Sondeos Eléctricos Verticales (SEV).'
+    },
+    {
+      id: 'eq-licor-ghg',
+      name: 'LI-COR LI-7500 / LI-7700',
+      category: 'Atmosphere',
+      description: 'Analizadores de gas infrarrojo de paso abierto para torres micrometeorológicas de flujos turbulentos de CO2 y CH4 (Eddy Covariance).'
+    },
+    {
+      id: 'eq-ctd-divers',
+      name: 'CTD Divers & Piezómetros',
+      category: 'Hydrology',
+      description: 'Registradores continuos de nivel freático, conductividad eléctrica y temperatura del agua subterránea en pozos.'
+    },
+    {
+      id: 'eq-edelman-coring',
+      name: 'Barrenas Edelman & Testigos de Suelo',
+      category: 'Soils',
+      description: 'Extracción de cilindros de suelo no perturbados para densidad aparente, curvas de retención hídrica y conductividad hidráulica.'
+    },
+    {
+      id: 'eq-flux-chambers',
+      name: 'Cámaras Dinámicas de Flujo de Suelo',
+      category: 'Soils',
+      description: 'Medición in-situ de respiración heterótrofa y autótrofa del suelo y emisiones biogénicas de gases de efecto invernadero.'
+    },
+    {
+      id: 'eq-drones-multispectral',
+      name: 'Drones & Sensores Multiespectrales',
+      category: 'Remote Sensing',
+      description: 'Fotogrametría aérea de alta resolución y cálculo de índices multiespectrales de vigor vegetal (NDVI/NDRE).'
     }
   ],
   pendingFields: [],

@@ -101,7 +101,15 @@ export const generateMasterProfileMarkdown = (profile: MasterProfile): string =>
   });
   lines.push(``);
 
-  lines.push(`## 10. COMPETENCIAS TÉCNICAS E IDIOMAS`);
+  if (profile.fieldEquipment && profile.fieldEquipment.length > 0) {
+    lines.push(`## 10. INSTRUMENTAL DE CAMPO Y LABORATORIO OPERADO`);
+    profile.fieldEquipment.forEach((eq) => {
+      lines.push(`- **${eq.name}** [${eq.category}]: ${eq.description}`);
+    });
+    lines.push(``);
+  }
+
+  lines.push(`## 11. COMPETENCIAS TÉCNICAS E IDIOMAS`);
   lines.push(`### Habilidades Principales:`);
   lines.push(profile.skills.map((s) => `${s.name} (${s.level})`).join(' • '));
   lines.push(``);
