@@ -58,13 +58,38 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(events).toContain('Costa Rica');
   });
 
-  it('los proyectos tecnológicos agrupan exclusivamente los 4 gemelos digitales', () => {
+  it('los proyectos tecnológicos agrupan exclusivamente los 4 gemelos digitales sin duplicar campañas de experiencias', () => {
     expect(initialProfile.keyProjects?.length).toBe(4);
     const projIds = initialProfile.keyProjects?.map((p) => p.id);
     expect(projIds).toContain('proj-agritwin');
     expect(projIds).toContain('proj-wetland-monitor');
     expect(projIds).toContain('proj-rewilding-suite');
     expect(projIds).toContain('proj-smart-food-parks');
+    // Asegurar que campañas de comunicación (Apruebo Rural, Primera Línea) viven en experiences y no como proyectos
+    expect(projIds).not.toContain('proj-apruebo-rural');
+    expect(projIds).not.toContain('proj-primera-linea');
+  });
+
+  it('no existe duplicación cruzada entre educación formal y cursos de permacultura', () => {
+    const eduIds = initialProfile.education.map((e) => e.id);
+    expect(eduIds).not.toContain('edu-permaculture-epac');
+    expect(eduIds).not.toContain('edu-msc-kiel-amu');
+    expect(initialProfile.education.length).toBe(3);
+
+    // Permacultura vive estrictamente como certificación en otherCourses
+    const permacultureInCourses = initialProfile.otherCourses?.some((c) => c.includes('Permaculture Designer'));
+    expect(permacultureInCourses).toBe(true);
+  });
+
+  it('el banco de logros contiene 8 hitos verificados con métricas específicas sin redundancia textual', () => {
+    expect(initialProfile.achievementsBank.length).toBe(8);
+    const titles = initialProfile.achievementsBank.map((a) => a.title);
+    expect(new Set(titles).size).toBe(8);
+    // Cada logro tiene métricas no vacías y verificadas
+    initialProfile.achievementsBank.forEach((ach) => {
+      expect(ach.metrics).toBeTruthy();
+      expect(ach.isVerified).toBe(true);
+    });
   });
 
   it('el generador Markdown compila un dossier completo con todas las secciones', () => {

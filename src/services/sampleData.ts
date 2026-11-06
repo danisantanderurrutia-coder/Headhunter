@@ -260,74 +260,74 @@ export const initialProfile: MasterProfile = {
   achievementsBank: [
     {
       id: 'ach-1',
-      title: 'Testimonio Oficial ante el Congreso Nacional de Chile',
-      description: 'Demostración técnica de la correlación estructural entre el monocultivo forestal y el riesgo de megaincendios ante la Comisión Especial de Emergencia, Desastres y Bomberos de la Cámara de Diputadas y Diputados.',
+      title: 'Dictamen Pericial ante Comisión de Emergencia y Bomberos de la Cámara',
+      description: 'Fundamentación física y cartográfica de la correlación estructural entre plantaciones forestales y megaincendios, incorporada formalmente a las actas legislativas del Congreso Nacional de Chile.',
       metrics: 'Intervención Legislativa Oficial',
-      tags: ['Congreso', 'Incidencia', 'Modelo Forestal', 'Incendios', 'Cuencas'],
+      tags: ['Congreso', 'Incendios', 'Modelo Forestal', 'Cuencas'],
       date: '2024-03-01',
       isVerified: true
     },
     {
       id: 'ach-2',
-      title: 'Lead Technical Author en Informe Internacional EPN',
-      description: 'Autoría principal del informe técnico Spotlight on Burning Biomass (Parral, Chile) con Environmental Paper Network y Global Forest Coalition sobre vacíos contables en RED III.',
-      metrics: 'Publicación Internacional',
-      tags: ['Biomasa', 'Carbono', 'Bosques', 'EPN', 'RED III'],
-      date: '2023-06-01',
-      isVerified: true
-    },
-    {
-      id: 'ach-3',
-      title: 'Semifinalista Internacional UN Citiverse Challenge (SDG Cities)',
-      description: 'Seleccionado por Naciones Unidas por el desarrollo del concepto Smart Food Parks integrando gemelos digitales, IoT de suelo y teledetección espacial para resiliencia urbana.',
+      title: 'Distinción Semifinalista Global ONU Citiverse Challenge (SDG Cities)',
+      description: 'Selección internacional por Naciones Unidas por el gemelo digital Smart Food Parks integrando agro-IoT, microclima urbano y teledetección espacial Sentinel-2.',
       metrics: 'Semifinalista Internacional ONU',
       tags: ['UN', 'Gemelo Digital', 'IoT', 'Resiliencia', 'SDG Cities'],
       date: '2024-11-01',
       isVerified: true
     },
     {
-      id: 'ach-4',
-      title: 'Dirección de la Campaña Nacional Transmedia "Apruebo Rural"',
-      description: 'Dirección general y coordinación de más de 100 asambleas y colectivos agrarios de todo Chile con un alcance auditado superior a 700.000 personas en medios y redes.',
-      metrics: 'Dirección de Campaña Nacional',
-      tags: ['Comunicaciones', 'Apruebo Rural', 'Campañas', 'Territorio'],
-      date: '2022-09-01',
-      isVerified: true
-    },
-    {
-      id: 'ach-5',
-      title: 'Fundación y Crecimiento de Primera Línea Prensa (+700k)',
-      description: 'Creación y liderazgo de medio digital independiente con más de 700.000 seguidores orgánicos enfocado en periodismo ciudadano, crisis hídrica y derechos socioambientales.',
-      metrics: 'Dirección Editorial & Medio Digital',
-      tags: ['Prensa', 'Periodismo', 'Redes Sociales', 'Maule Sur'],
+      id: 'ach-3',
+      title: 'Certificación de 45 Corresponsales Ciudadanos en Periodismo Popular',
+      description: 'Diseño pedagógico y graduación de 45 vecinos rurales en reportería comunitaria móvil, verificación de hechos y cobertura de la crisis hídrica en el Maule.',
+      metrics: '45 Corresponsales Rurales Certificados',
+      tags: ['Educación Popular', 'Maule Sur', 'Fact-Checking', 'Medios'],
       date: '2021-12-01',
       isVerified: true
     },
     {
+      id: 'ach-4',
+      title: 'Auditoría Técnica Internacional de Carbono en Bioenergía bajo RED III',
+      description: 'Autoría principal del informe internacional EPN demostrando los vacíos de contabilidad de carbono en plantas de incineración de biomasa forestal en Parral.',
+      metrics: 'Publicación Técnica Internacional EPN',
+      tags: ['Biomasa', 'Carbono', 'RED III', 'EPN'],
+      date: '2023-06-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-5',
+      title: 'Determinación Experimental de Tensión de Preconsolidación Edáfica (σp = 62,4 kPa)',
+      description: 'Medición cuantitativa pionera de la pérdida de volumen de poros y capacidad portante en turberas templadas de Wallener Au bajo maquinaria agrícola pesada en laboratorio de CAU Kiel.',
+      metrics: 'σp = 62.4 kPa (Límite Mecánico)',
+      tags: ['Física de Suelos', 'Turberas', 'Wallener Au', 'CAU Kiel'],
+      date: '2024-05-01',
+      isVerified: true
+    },
+    {
       id: 'ach-6',
-      title: 'Licenciatura en Geofísica Aprobada Con Distinción (U. de Chile)',
-      description: 'Memoria de título en la Cuenca del Maule con Sondeos Eléctricos Verticales (SEV) y prospección gravimétrica sobre el impacto del monocultivo en el nivel freático.',
-      metrics: 'Licenciatura Aprobada Con Distinción',
+      title: 'Licenciatura y Título de Geofísico Aprobados Con Distinción (U. de Chile)',
+      description: 'Distinción máxima otorgada por la FCFM por la investigación cuantitativa de campo con Sondeos Eléctricos Verticales (SEV) y gravimetría en la Cuenca del Maule.',
+      metrics: 'Aprobado Con Distinción',
       tags: ['Geofísica', 'UChile', 'SEV', 'Hidrogeofísica', 'Maule'],
       date: '2021-04-01',
       isVerified: true
     },
     {
       id: 'ach-7',
-      title: 'Despliegue de Gemelos Digitales de Impacto: Wetland Monitor & AgriTwin',
-      description: 'Creación de software científico interactivo: visor 3D de balances de carbono en turberas (Wetland Monitor) y plataforma IoT + Sentinel-2 de telemetría de viñedos (AgriTwin).',
-      metrics: 'Gemelo Digital Operativo',
-      tags: ['Wetland Monitor', 'AgriTwin', 'Copernicus', 'Software Científico'],
-      date: '2024-08-01',
+      title: 'Operativo Territorial de Emergencia para 1.000+ Familias Rurales Aisladas',
+      description: 'Canalización logística autónoma de agua potable, insumos y forraje para más de 1.000 familias campesinas durante megaincendios e inundaciones catastróficas en Maule Sur.',
+      metrics: '1.000 Familias Asistidas',
+      tags: ['Emergencias', 'Maule Sur', 'Solidaridad Territorial'],
+      date: '2023-03-01',
       isVerified: true
     },
     {
       id: 'ach-8',
-      title: 'Coordinación Territorial Humanitaria "Solo el Pueblo Ayuda al Pueblo"',
-      description: 'Coordinación logística directa de ayuda humanitaria de emergencia a más de 1.000 familias rurales damnificadas por megaincendios e inundaciones catastróficas en Maule Sur.',
-      metrics: 'Coordinación Territorial Humanitaria',
-      tags: ['Solidaridad', 'Emergencias', 'Catástrofes', 'Maule Sur'],
-      date: '2023-03-01',
+      title: 'Articulación Federal de +100 Organizaciones Agrarias y del Agua',
+      description: 'Coordinación nacional de más de 100 comités de regantes y asambleas territoriales en la campaña Apruebo Rural, logrando un alcance medido de más de 700.000 personas.',
+      metrics: '100+ Organizaciones Federadas',
+      tags: ['Apruebo Rural', 'Gobernanza del Agua', 'Movilización'],
+      date: '2022-09-01',
       isVerified: true
     }
   ],

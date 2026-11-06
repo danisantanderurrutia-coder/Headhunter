@@ -39,7 +39,7 @@ const defaultSettings: AppSettings = {
 };
 
 const KEYS = {
-  PROFILE: 'job_search_os_profile_v19',
+  PROFILE: 'job_search_os_profile_v20',
   OFFERS: 'job_search_os_offers_v19',
   COMPANIES: 'job_search_os_companies_v19',
   APPLICATIONS: 'job_search_os_applications_v19',
@@ -71,72 +71,85 @@ export const enablePersistentBrowserStorage = async (): Promise<boolean> => {
 enablePersistentBrowserStorage();
 
 export const getStoredProfile = (): MasterProfile => {
-  const data = localStorage.getItem(KEYS.PROFILE);
+  let data = localStorage.getItem(KEYS.PROFILE);
+
+  // Migration from previous v19 cache: import user salary/target preferences while adopting the consolidated canonical dossier
   if (!data) {
+    const legacyData = localStorage.getItem('job_search_os_profile_v19') || localStorage.getItem('job_search_os_profile_v18');
+    if (legacyData) {
+      try {
+        const legacyParsed = JSON.parse(legacyData);
+        const migrated: MasterProfile = {
+          ...initialProfile,
+          targetRoles: legacyParsed.targetRoles && legacyParsed.targetRoles.length > 0 ? legacyParsed.targetRoles : initialProfile.targetRoles,
+          locationPreferences: legacyParsed.locationPreferences && legacyParsed.locationPreferences.length > 0 ? legacyParsed.locationPreferences : initialProfile.locationPreferences,
+          preferredCity: legacyParsed.preferredCity || initialProfile.preferredCity,
+          minSalary: legacyParsed.minSalary || initialProfile.minSalary,
+          desiredSalary: legacyParsed.desiredSalary || initialProfile.desiredSalary
+        };
+        saveStoredProfile(migrated);
+        try {
+          localStorage.removeItem('job_search_os_profile_v19');
+        } catch {
+          // Ignore removal errors
+        }
+        return migrated;
+      } catch {
+        // Fallback to initialProfile
+      }
+    }
     saveStoredProfile(initialProfile);
     return initialProfile;
   }
+
   try {
     const parsed = JSON.parse(data);
 
-    // Merge experiences by ID (ensuring all verified portfolio experiences are included)
-    const expMap = new Map();
-    (initialProfile.experiences || []).forEach(e => expMap.set(e.id, e));
-    (parsed.experiences || []).forEach((e: any) => {
-      if (e && e.id) {
-        expMap.set(e.id, { ...expMap.get(e.id), ...e });
-      }
+    // Filter education: keep only legitimate university degrees, removing permaculture certificates or legacy combined IDs
+    const validEducation = (parsed.education || initialProfile.education).filter((ed: any) =>
+      ed && ed.id !== 'edu-permaculture-epac' && ed.id !== 'edu-msc-kiel-amu' && !ed.degree?.toLowerCase().includes('permaculture')
+    );
+
+    // Filter keyProjects: keep only software & digital twin platforms, never organizational campaigns
+    const validKeyProjects = (parsed.keyProjects || initialProfile.keyProjects).filter((p: any) =>
+      p && p.id !== 'proj-apruebo-rural' && p.id !== 'proj-primera-linea'
+    );
+
+    // Filter otherCourses: purge obsolete English duplicates
+    const obsoleteCourseSnippets = [
+      'green economy and financialization',
+      'r modeling and gis satellite',
+      'climate action plan design (climattereality',
+      'curso de diseño en permacultura (epac chile, 2023)',
+      'doughnut economics (deal copenhagen'
+    ];
+    const candidateCourses: string[] = (parsed.otherCourses && parsed.otherCourses.length > 0)
+      ? parsed.otherCourses
+      : initialProfile.otherCourses || [];
+
+    const cleanedCourses = Array.from(new Set(candidateCourses)).filter((c: string) => {
+      const lower = c.toLowerCase();
+      return !obsoleteCourseSnippets.some(snippet => lower.includes(snippet));
     });
-    const mergedExperiences = Array.from(expMap.values());
 
-    // Merge achievements by ID
-    const achMap = new Map();
-    (initialProfile.achievementsBank || []).forEach(a => achMap.set(a.id, a));
-    (parsed.achievementsBank || []).forEach((a: any) => {
-      if (a && a.id) {
-        achMap.set(a.id, { ...achMap.get(a.id), ...a });
-      }
-    });
-    const mergedAchievements = Array.from(achMap.values());
+    const finalCourses = cleanedCourses.length >= 8 ? cleanedCourses : (initialProfile.otherCourses || []);
 
-    // Merge education by ID
-    const eduMap = new Map();
-    (initialProfile.education || []).forEach(ed => eduMap.set(ed.id, ed));
-    (parsed.education || []).forEach((ed: any) => {
-      if (ed && ed.id) {
-        eduMap.set(ed.id, { ...eduMap.get(ed.id), ...ed });
-      }
-    });
-    const mergedEducation = Array.from(eduMap.values());
-
-    // Merge skills by ID
-    const skillMap = new Map();
-    (initialProfile.skills || []).forEach(s => skillMap.set(s.id, s));
-    (parsed.skills || []).forEach((s: any) => {
-      if (s && s.id) {
-        skillMap.set(s.id, { ...skillMap.get(s.id), ...s });
-      }
-    });
-    const mergedSkills = Array.from(skillMap.values());
-
-    // Merge other courses
-    const mergedCourses = Array.from(new Set([...(initialProfile.otherCourses || []), ...(parsed.otherCourses || [])]));
-
-    const merged: MasterProfile = {
+    const consolidated: MasterProfile = {
       ...initialProfile,
       ...parsed,
-      education: mergedEducation,
-      experiences: mergedExperiences,
-      skills: mergedSkills,
-      languages: (parsed.languages && parsed.languages.length > 0) ? parsed.languages : initialProfile.languages,
-      achievementsBank: mergedAchievements,
-      otherCourses: mergedCourses,
-      publications: (parsed.publications && parsed.publications.length > 0) ? parsed.publications : initialProfile.publications,
-      keyProjects: (parsed.keyProjects && parsed.keyProjects.length > 0) ? parsed.keyProjects : initialProfile.keyProjects,
-      conferences: (parsed.conferences && parsed.conferences.length > 0) ? parsed.conferences : initialProfile.conferences,
+      education: validEducation.length >= 3 ? validEducation : initialProfile.education,
+      experiences: (parsed.experiences && parsed.experiences.length >= 6) ? parsed.experiences : initialProfile.experiences,
+      keyProjects: validKeyProjects.length >= 4 ? validKeyProjects : initialProfile.keyProjects,
+      publications: (parsed.publications && parsed.publications.length >= 8) ? parsed.publications : initialProfile.publications,
+      conferences: (parsed.conferences && parsed.conferences.length >= 4) ? parsed.conferences : initialProfile.conferences,
+      achievementsBank: (parsed.achievementsBank && parsed.achievementsBank.length >= 8) ? parsed.achievementsBank : initialProfile.achievementsBank,
+      skills: (parsed.skills && parsed.skills.length > 0) ? parsed.skills : initialProfile.skills,
+      languages: initialProfile.languages,
+      otherCourses: finalCourses,
       lastUpdated: initialProfile.lastUpdated
     };
-    return merged;
+
+    return consolidated;
   } catch {
     return initialProfile;
   }
