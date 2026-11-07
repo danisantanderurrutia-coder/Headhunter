@@ -118,4 +118,37 @@ describe('coverLetterStudio · buildCoverLetter & Render', () => {
     expect(ubaLetter.audit.detectedCliches).toEqual([]);
     expect(ubaLetter.audit.passed).toBe(true);
   });
+
+  it('detecta reiteraciones mecánicas de palabras e iniciadores monótonos', () => {
+    const textWithRepetitions = `
+      I am applying for this role because coordination is central.
+      I have led the coordination across multiple countries with high coordination impact.
+      I have also managed coordination meetings and daily tasks.
+      Cabe destacar que coordination is vital.
+    `;
+    const audit = auditTextForAiCliches(textWithRepetitions);
+
+    expect(audit.mechanicalRepetitions.length).toBeGreaterThan(0);
+    expect(audit.mechanicalRepetitions[0].word).toBe('coordination');
+    expect(audit.mechanicalRepetitions[0].count).toBeGreaterThanOrEqual(4);
+
+    expect(audit.sentenceStarterRepetitions.length).toBeGreaterThan(0);
+    expect(audit.sentenceStarterRepetitions[0].starter).toContain('I');
+
+    expect(audit.bureaucraticFillers).toContain('cabe destacar que');
+    expect(audit.checklist.some((c) => c.id === 'chk-word-rep')).toBe(true);
+    expect(audit.checklist.some((c) => c.id === 'chk-starters')).toBe(true);
+  });
+
+  it('el prompt exportable incluye el reporte dinámico del checklist y diagnósticos', () => {
+    const prompt = generateAntiAiPrompt(
+      { title: 'Hubs Coordinator', company: 'GARN' },
+      'Sample letter text with Eddy Covariance and SEV.'
+    );
+
+    expect(prompt).toContain('DIAGNÓSTICO EN VIVO DE MI BORRADOR ACTUAL');
+    expect(prompt).toContain('Checklist de Verificación Actual:');
+    expect(prompt).toContain('RUPTURA DE REITERACIONES MECÁNICAS');
+    expect(prompt).toContain('EL HILO CONDUCTOR ("THE GOLDEN THREAD")');
+  });
 });

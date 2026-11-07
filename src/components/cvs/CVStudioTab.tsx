@@ -4,17 +4,24 @@ import {
   BadgeCheck,
   Briefcase,
   CheckCircle2,
+  ChevronDown,
+  ChevronUp,
   Copy,
   FileDown,
+  Layers,
+  Lightbulb,
+  ListChecks,
   Mail,
   Printer,
   RefreshCw,
+  Repeat,
   Save,
+  ShieldAlert,
+  ShieldCheck,
   Sparkles,
   Target,
   Trash2,
-  Wrench,
-  Layers
+  Wrench
 } from 'lucide-react';
 import { getStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs } from '../../services/db';
 import { cvTemplatesList } from '../../services/sampleData';
@@ -107,7 +114,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const [letterVersions, setLetterVersions] = useState<SavedCoverLetterVersion[]>(getSavedLetterVersions());
   const [letterVersionName, setLetterVersionName] = useState('');
   const [copiedPrompt, setCopiedPrompt] = useState(false);
+  const [copiedAudit, setCopiedAudit] = useState(false);
   const [copiedMarkdown, setCopiedMarkdown] = useState(false);
+  const [checklistFilter, setChecklistFilter] = useState<'all' | 'anti_ai' | 'style_repetition' | 'golden_thread' | 'metrics_evidence' | 'tor_compliance'>('all');
+  const [isChecklistExpanded, setIsChecklistExpanded] = useState(true);
 
   useEffect(() => {
     if (initialOfferId) {
@@ -205,10 +215,32 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   };
 
   const copyAntiAiPrompt = () => {
-    const prompt = generateAntiAiPrompt(offer, effectiveLetterBody);
+    const prompt = generateAntiAiPrompt(offer, effectiveLetterBody, builtLetter.audit);
     navigator.clipboard.writeText(prompt);
     setCopiedPrompt(true);
     setTimeout(() => setCopiedPrompt(false), 2200);
+  };
+
+  const copyAuditSummary = () => {
+    const audit = builtLetter.audit;
+    const lines = [
+      `================================================================================`,
+      `DIAGNÓSTICO EDITORIAL Y CHECKLIST DE POSTULACIÓN (SCORE: ${audit.overallScore}/100)`,
+      `Oferta: ${offer?.title || 'General'} — ${offer?.company || 'Organización'}`,
+      `================================================================================`,
+      `• Clichés de IA detectados: ${audit.clicheCount === 0 ? 'Ninguno (0)' : audit.detectedCliches.join(', ')}`,
+      `• Rellenos burocráticos: ${audit.bureaucraticFillers.length === 0 ? 'Ninguno (0)' : audit.bureaucraticFillers.join(', ')}`,
+      `• Palabras mecánicas repetidas: ${audit.mechanicalRepetitions.length === 0 ? 'Ninguna' : audit.mechanicalRepetitions.map((r) => `${r.word} (${r.count}×)`).join(', ')}`,
+      `• Iniciadores monótonos: ${audit.sentenceStarterRepetitions.length === 0 ? 'Ninguno' : audit.sentenceStarterRepetitions.map((s) => `${s.starter} (${s.count}×)`).join(', ')}`,
+      `• ToR Disponibilidad Horaria: ${audit.hasAvailabilityMention ? 'Declarada' : 'Pendiente'}`,
+      `• ToR Expectativas Honorarios: ${audit.hasFeeMention ? 'Declaradas' : 'Pendiente'}`,
+      '',
+      'CHECKLIST DE AUDITORÍA DETALLADO:',
+      ...audit.checklist.map((c) => `[${c.status.toUpperCase()}] ${c.categoryLabel} :: ${c.label} -> ${c.summary}`)
+    ];
+    navigator.clipboard.writeText(lines.join('\n'));
+    setCopiedAudit(true);
+    setTimeout(() => setCopiedAudit(false), 2200);
   };
 
   const resetLetterDraft = () => {
@@ -754,45 +786,219 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
           {/* CONTROLES ESPECÍFICOS: COVER LETTER STUDIO */}
           {docMode === 'cover_letter' && (
             <>
-              {/* Linter Anti-AI */}
+              {/* Linter Anti-AI & Scorecard Integral */}
               <div
-                className={`p-3.5 rounded-2xl border text-xs space-y-2 transition-colors ${
-                  builtLetter.audit.passed
-                    ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-800 dark:text-emerald-300'
-                    : 'bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-900 dark:text-amber-200'
+                className={`p-4 rounded-2xl border text-xs space-y-3 transition-colors ${
+                  builtLetter.audit.overallScore >= 80
+                    ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
+                    : builtLetter.audit.overallScore >= 60
+                    ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-950 dark:text-amber-200'
+                    : 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-500/40 text-rose-950 dark:text-rose-200'
                 }`}
               >
                 <div className="flex items-center justify-between font-mono font-bold">
                   <span className="flex items-center gap-1.5 text-xs uppercase">
-                    {builtLetter.audit.passed ? (
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    ) : (
+                    {builtLetter.audit.overallScore >= 80 ? (
+                      <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    ) : builtLetter.audit.overallScore >= 60 ? (
                       <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                    ) : (
+                      <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
                     )}
                     <span>
-                      {builtLetter.audit.passed
-                        ? 'Filtro Anti-IA: Rigor Científico Acreditado'
-                        : `Alerta Anti-IA: ${builtLetter.audit.clicheCount} Cliché(s) Detectado(s)`}
+                      {builtLetter.audit.overallScore >= 80
+                        ? 'Auditoría Editorial: Rigor y Voz Humana Acreditados'
+                        : builtLetter.audit.overallScore >= 60
+                        ? 'Auditoría Editorial: Alertas y Mejoras Sugeridas'
+                        : 'Auditoría Editorial: Nivel Crítico de Fórmulas IA'}
                     </span>
                   </span>
-                  <span className="text-[9px] px-2 py-0.5 rounded bg-black/10 dark:bg-black/30 border border-slate-300 dark:border-white/10 uppercase text-[var(--text-secondary)]">
-                    Reglas Críticas
+                  <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
+                    builtLetter.audit.overallScore >= 80
+                      ? 'bg-emerald-600 text-white border-emerald-500'
+                      : builtLetter.audit.overallScore >= 60
+                      ? 'bg-amber-500 text-slate-950 border-amber-400'
+                      : 'bg-rose-600 text-white border-rose-500'
+                  }`}>
+                    {builtLetter.audit.overallScore}/100
                   </span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-[var(--text-secondary)]">
-                  {builtLetter.audit.passed
-                    ? 'La carta respeta tu narrativa analítica en primera persona, sustentada en balances de masa, resistividad eléctrica (SEV), Eddy Covariance y modelación en R sin fórmulas infladas.'
-                    : `Se han detectado fórmulas genéricas de IA no deseadas: "${builtLetter.audit.detectedCliches.join(
-                        '", "'
-                      )}". Reemplázalas por descripciones biofísicas concretas.`}
-                </p>
-                <div className="flex flex-wrap gap-1 pt-1 font-mono text-[10px]">
-                  <span className={`px-2 py-0.5 rounded border ${builtLetter.audit.hasMethodology ? 'bg-emerald-100 dark:bg-emerald-500/20 border-emerald-300 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-500/20 border-rose-300 dark:border-rose-500/30 text-rose-800 dark:text-rose-300'}`}>
-                    Metodología (SEV/Eddy): {builtLetter.audit.hasMethodology ? 'OK' : 'Falta'}
-                  </span>
-                  <span className={`px-2 py-0.5 rounded border ${builtLetter.audit.hasMassBalancePerspective ? 'bg-emerald-100 dark:bg-emerald-500/20 border-emerald-300 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-500/20 border-rose-300 dark:border-rose-500/30 text-rose-800 dark:text-rose-300'}`}>
-                    Balance de masa: {builtLetter.audit.hasMassBalancePerspective ? 'OK' : 'Falta'}
-                  </span>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 font-mono text-[10px]">
+                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                    <span className="text-[var(--text-muted)] uppercase text-[9px]">Clichés IA</span>
+                    <span className={`font-bold text-xs ${builtLetter.audit.clicheCount === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                      {builtLetter.audit.clicheCount} detectados
+                    </span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                    <span className="text-[var(--text-muted)] uppercase text-[9px]">Muletillas</span>
+                    <span className={`font-bold text-xs ${builtLetter.audit.bureaucraticFillers.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                      {builtLetter.audit.bureaucraticFillers.length} rellenos
+                    </span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                    <span className="text-[var(--text-muted)] uppercase text-[9px]">Palabras 4+</span>
+                    <span className={`font-bold text-xs ${builtLetter.audit.mechanicalRepetitions.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                      {builtLetter.audit.mechanicalRepetitions.length} repetidas
+                    </span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                    <span className="text-[var(--text-muted)] uppercase text-[9px]">ToR Mandatorios</span>
+                    <span className={`font-bold text-xs ${builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                      {builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'Completos' : 'Pendientes'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Caja de Alerta de Reiteraciones Mecánicas */}
+                {(builtLetter.audit.mechanicalRepetitions.length > 0 || builtLetter.audit.sentenceStarterRepetitions.length > 0) && (
+                  <div className="p-3 rounded-xl bg-black/5 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-2 text-[11px]">
+                    <div className="font-mono font-bold flex items-center gap-1.5 text-purple-600 dark:text-purple-300 uppercase text-[10px]">
+                      <Repeat className="h-3.5 w-3.5" />
+                      <span>Reiteraciones Mecánicas Detectadas en el Texto</span>
+                    </div>
+
+                    {builtLetter.audit.mechanicalRepetitions.length > 0 && (
+                      <div className="space-y-1">
+                        <span className="text-[10px] text-[var(--text-muted)] block">Palabras con alta frecuencia:</span>
+                        <div className="flex flex-wrap gap-1">
+                          {builtLetter.audit.mechanicalRepetitions.map((r, i) => (
+                            <span key={i} className="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-mono text-[10px] border border-amber-300 dark:border-amber-500/30">
+                              «{r.word}» ({r.count}×)
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {builtLetter.audit.sentenceStarterRepetitions.length > 0 && (
+                      <div className="space-y-1 pt-1 border-t border-black/10 dark:border-white/10">
+                        <span className="text-[10px] text-[var(--text-muted)] block">Iniciadores monótonos recurrentes:</span>
+                        <div className="flex flex-wrap gap-1">
+                          {builtLetter.audit.sentenceStarterRepetitions.map((s, i) => (
+                            <span key={i} className="px-2 py-0.5 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-900 dark:text-rose-300 font-mono text-[10px] border border-rose-300 dark:border-rose-500/30">
+                              Iniciador {s.starter} ({s.count} oraciones)
+                            </span>
+                          ))}
+                        </div>
+                        <p className="text-[10px] text-[var(--text-secondary)] italic">
+                          💡 Sugerencia: Varía usando participios (ej. «Having coordinated...»), marcos de contexto («At the intersection of...») o contrastes de enfoque («Rather than...»).
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Menú de Checklist Interactivo y Desplegable */}
+                <div className="pt-1 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={() => setIsChecklistExpanded((prev) => !prev)}
+                      className="font-mono text-xs font-bold flex items-center gap-1.5 text-[var(--text-primary)] hover:text-sky-500 transition cursor-pointer"
+                    >
+                      <ListChecks className="h-4 w-4 text-sky-500" />
+                      <span>Checklist de Verificación ({builtLetter.audit.checklist.length} Criterios)</span>
+                      {isChecklistExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                    </button>
+                    <button
+                      onClick={copyAuditSummary}
+                      className="text-[10px] font-mono text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1 cursor-pointer"
+                      title="Copiar el diagnóstico y los 9 criterios al portapapeles"
+                    >
+                      <Copy className="h-3 w-3" />
+                      <span>{copiedAudit ? '¡Copiado!' : 'Copiar Diagnóstico'}</span>
+                    </button>
+                  </div>
+
+                  {isChecklistExpanded && (
+                    <div className="space-y-2">
+                      {/* Filtro de Categorías */}
+                      <div className="flex flex-wrap gap-1">
+                        {[
+                          { id: 'all', label: 'Todos' },
+                          { id: 'anti_ai', label: 'Anti-IA' },
+                          { id: 'style_repetition', label: 'Reiteraciones' },
+                          { id: 'golden_thread', label: 'Hilo Conductor' },
+                          { id: 'metrics_evidence', label: 'Rigor' },
+                          { id: 'tor_compliance', label: 'ToR Mandatorio' }
+                        ].map((cat) => (
+                          <button
+                            key={cat.id}
+                            onClick={() => setChecklistFilter(cat.id as any)}
+                            className={`px-2 py-0.5 rounded text-[10px] font-mono transition cursor-pointer ${
+                              checklistFilter === cat.id
+                                ? 'bg-purple-600 text-white font-bold'
+                                : 'bg-black/5 dark:bg-black/20 text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                            }`}
+                          >
+                            {cat.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Lista de Criterios */}
+                      <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
+                        {builtLetter.audit.checklist
+                          .filter((c) => checklistFilter === 'all' || c.category === checklistFilter)
+                          .map((item) => (
+                            <div
+                              key={item.id}
+                              className={`p-2.5 rounded-xl border text-[11px] space-y-1 transition ${
+                                item.status === 'pass'
+                                  ? 'bg-emerald-100/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
+                                  : item.status === 'warning'
+                                  ? 'bg-amber-100/50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-500/30'
+                                  : 'bg-rose-100/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-500/30'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-1.5 font-bold">
+                                  {item.status === 'pass' ? (
+                                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                                  ) : item.status === 'warning' ? (
+                                    <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                                  ) : (
+                                    <ShieldAlert className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
+                                  )}
+                                  <span className="text-[var(--text-primary)]">{item.label}</span>
+                                </div>
+                                <span className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded font-bold ${
+                                  item.status === 'pass'
+                                    ? 'bg-emerald-600 text-white'
+                                    : item.status === 'warning'
+                                    ? 'bg-amber-500 text-slate-950'
+                                    : 'bg-rose-600 text-white'
+                                }`}>
+                                  {item.status}
+                                </span>
+                              </div>
+
+                              <p className="text-[10.5px] text-[var(--text-secondary)] leading-relaxed">
+                                {item.summary}
+                              </p>
+
+                              {item.details && item.details.length > 0 && (
+                                <div className="flex flex-wrap gap-1 pt-0.5">
+                                  {item.details.map((d, di) => (
+                                    <span key={di} className="px-1.5 py-0.2 rounded bg-black/10 dark:bg-white/10 text-[9.5px] font-mono">
+                                      {d}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+
+                              {item.suggestion && (
+                                <div className="p-1.5 rounded-lg bg-black/5 dark:bg-black/30 text-[10px] text-sky-700 dark:text-sky-300 flex items-start gap-1">
+                                  <Lightbulb className="h-3 w-3 shrink-0 mt-0.5" />
+                                  <span>{item.suggestion}</span>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -823,11 +1029,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-2">
                   <button
                     onClick={copyAntiAiPrompt}
-                    className="w-full sm:w-auto flex-1 px-3 py-2 rounded-xl bg-purple-600/15 hover:bg-purple-600/25 text-purple-600 dark:text-purple-300 border border-purple-500/40 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
-                    title="Copia el prompt editorial completo con tus 4 reglas críticas para usar en Claude, ChatGPT o Gemini"
+                    className="w-full sm:w-auto flex-1 px-3 py-2.5 rounded-xl bg-purple-600/15 hover:bg-purple-600/25 text-purple-600 dark:text-purple-300 border border-purple-500/40 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                    title="Copia el prompt editorial completo con el diagnóstico en vivo y los 9 criterios del checklist para usar en Claude, ChatGPT o Gemini"
                   >
                     <Copy className="h-3.5 w-3.5 text-purple-400" />
-                    <span>{copiedPrompt ? '¡Prompt Copiado!' : 'Copiar Prompt Anti-AI para LLM'}</span>
+                    <span>{copiedPrompt ? '¡Prompt Editorial Copiado!' : 'Exportar Checklist a Prompt para LLM'}</span>
                   </button>
                 </div>
               </div>

@@ -14,6 +14,30 @@ export interface CoverLetterConfig {
   customBodyText?: string;
 }
 
+export type ChecklistItemStatus = 'pass' | 'warning' | 'fail';
+
+export interface CoverLetterChecklistItem {
+  id: string;
+  category: 'anti_ai' | 'style_repetition' | 'golden_thread' | 'metrics_evidence' | 'tor_compliance';
+  categoryLabel: string;
+  label: string;
+  status: ChecklistItemStatus;
+  summary: string;
+  details?: string[];
+  suggestion?: string;
+}
+
+export interface WordRepetition {
+  word: string;
+  count: number;
+}
+
+export interface SentenceStarterRepetition {
+  starter: string;
+  count: number;
+  sampleSentences: string[];
+}
+
 export interface AntiAiAuditResult {
   passed: boolean;
   clicheCount: number;
@@ -21,6 +45,16 @@ export interface AntiAiAuditResult {
   scientificTermsFound: string[];
   hasMethodology: boolean;
   hasMassBalancePerspective: boolean;
+  // Auditoría avanzada & checklist
+  mechanicalRepetitions: WordRepetition[];
+  sentenceStarterRepetitions: SentenceStarterRepetition[];
+  bureaucraticFillers: string[];
+  hasWeakOpener: boolean;
+  hasForwardLookingPitch: boolean;
+  hasAvailabilityMention: boolean;
+  hasFeeMention: boolean;
+  overallScore: number;
+  checklist: CoverLetterChecklistItem[];
 }
 
 export interface BuiltCoverLetter {
@@ -64,34 +98,78 @@ export interface SavedCoverLetterVersion {
 // ----------------------------------------------------------------------------
 
 export const FORBIDDEN_AI_CLICHES = [
+  // English
   'thrilled to',
   'excited to apply',
   'delve into',
+  'delve',
   'testament to',
   'beacon of',
+  'beacon',
   'aligns seamlessly',
   'seamlessly align',
+  'seamlessly',
   'in conclusion',
   'passionate about',
   'foster',
+  'fostering',
   'deep dive',
   'dynamic environment',
   'pleased to submit',
+  'tapestry of',
+  'tapestry',
+  'furthermore',
+  'moreover',
+  'pivotal role',
+  'vital role',
+  'spearhead',
+  'spearheaded',
+  'spearheading',
+  'unwavering',
+  'plethora',
+  'harnessing',
+  'game changer',
+  'realm of',
+  'ever-evolving',
+  'embark on',
+  'resonate deeply',
+  'holistic approach',
+  'rich tapestry',
+  // Spanish
   'testimonio de',
   'faro de',
   'se alinea a la perfección',
   'se alinea perfectamente',
   'en conclusión',
   'apasionado por',
+  'apasionada por',
   'fomentar',
   'estoy emocionado',
   'estoy entusiasmado',
   'me complace postular',
+  'desentrañar',
+  'crucial',
+  'un antes y un después',
+  'sinérgico',
+  'sinérgica',
+  'en un mundo cada vez más',
+  'tapiz de',
+  'tapiz',
+  'marcar la diferencia',
+  'sumergirse en',
+  'amplia gama de',
+  'jugar un papel fundamental',
+  'papel crucial',
+  // German
   'ich freue mich sehr',
   'leidenschaftlich',
   'nahtlos',
   'zusammenfassend',
-  'zeugnis für'
+  'zeugnis für',
+  'leuchtturm',
+  'tief eintauchen',
+  'entscheidende rolle',
+  'herzblut'
 ];
 
 export const REQUIRED_SCIENTIFIC_MARKERS = [
@@ -120,21 +198,275 @@ export const REQUIRED_SCIENTIFIC_MARKERS = [
   'biomasa'
 ];
 
+const STOP_WORDS = new Set([
+  // EN
+  'the', 'and', 'for', 'that', 'this', 'with', 'from', 'have', 'had', 'has', 'was', 'were', 'are', 'been',
+  'will', 'would', 'could', 'should', 'into', 'about', 'also', 'their', 'they', 'them', 'what', 'when',
+  'where', 'which', 'who', 'your', 'our', 'its', 'not', 'can', 'than', 'more', 'other', 'some', 'such',
+  'only', 'over', 'these', 'those', 'after', 'before', 'between', 'through', 'under', 'while',
+  'both', 'each', 'most', 'well', 'much', 'very', 'even', 'first', 'here', 'there',
+  // ES
+  'que', 'del', 'los', 'las', 'por', 'para', 'con', 'una', 'uno', 'unas', 'unos', 'como', 'este', 'esta',
+  'estos', 'estas', 'sobre', 'entre', 'desde', 'hasta', 'pero', 'más', 'son', 'fue', 'era', 'han', 'sido',
+  'sus', 'mis', 'nos', 'nuestro', 'nuestra', 'nuestros', 'nuestras', 'todo', 'toda', 'todos', 'todas',
+  'otro', 'otra', 'otros', 'otras', 'donde', 'cuando', 'quien', 'quienes', 'cual', 'cuales', 'bien',
+  'tambien', 'también', 'solo', 'sólo', 'cada', 'mismo', 'misma', 'mismos', 'mismas', 'hace', 'hacia',
+  // DE
+  'der', 'die', 'das', 'und', 'für', 'mit', 'den', 'dem', 'des', 'auf', 'aus', 'von', 'bei', 'als',
+  'nach', 'wie', 'wird', 'werden', 'sind', 'war', 'waren', 'auch', 'eine', 'einer', 'einem', 'einen',
+  'eines', 'sich', 'nicht', 'oder', 'aber', 'über', 'unter', 'durch', 'kann', 'können', 'ihre', 'ihren',
+  'ihrem', 'ihres', 'diese', 'dieser', 'diesem', 'diesen', 'dieses'
+]);
+
+export const detectMechanicalRepetitions = (text: string): WordRepetition[] => {
+  const words = text
+    .toLowerCase()
+    .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w.length >= 4 && !STOP_WORDS.has(w));
+
+  const freq: Record<string, number> = {};
+  for (const w of words) {
+    freq[w] = (freq[w] || 0) + 1;
+  }
+
+  return Object.entries(freq)
+    .filter(([, count]) => count >= 4)
+    .sort((a, b) => b[1] - a[1])
+    .map(([word, count]) => ({ word, count }));
+};
+
+export const detectSentenceStarterRepetitions = (text: string): SentenceStarterRepetition[] => {
+  const rawSentences = text
+    .split(/(?<=[.?!])\s+/g)
+    .map((s) => s.trim().replace(/^[-*•\d.)\s]+/, ''))
+    .filter((s) => s.length > 10);
+
+  const groups: Record<string, string[]> = {};
+
+  for (const s of rawSentences) {
+    const words = s.split(/\s+/);
+    if (words.length === 0) continue;
+    const firstWord = words[0].toLowerCase().replace(/[^a-záéíóúüñ]/gi, '');
+    const firstTwo = words.slice(0, 2).join(' ').toLowerCase().replace(/[^a-záéíóúüñ ]/gi, '');
+
+    // Agrupar iniciadores típicos monotemáticos
+    let key = '';
+    if (firstWord === 'i' || firstTwo === 'i am' || firstTwo === 'i have' || firstTwo === 'i was') {
+      key = 'I / I have / I am';
+    } else if (firstWord === 'yo' || firstWord === 'mi' || firstWord === 'mis') {
+      key = 'Yo / Mi / Mis';
+    } else if (firstWord === 'en' || firstTwo === 'en este' || firstTwo === 'en mi') {
+      key = 'En / En este';
+    } else if (firstWord === 'además' || firstWord === 'asimismo') {
+      key = 'Además / Asimismo';
+    } else if (firstWord === 'ich' || firstWord === 'mein' || firstWord === 'meine') {
+      key = 'Ich / Mein';
+    }
+
+    if (key) {
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(s);
+    }
+  }
+
+  return Object.entries(groups)
+    .filter(([, list]) => list.length >= 3)
+    .map(([starter, list]) => ({
+      starter,
+      count: list.length,
+      sampleSentences: list.slice(0, 3)
+    }));
+};
+
+export const detectBureaucraticFillers = (text: string): string[] => {
+  const fillers = [
+    // ES
+    'cabe destacar que',
+    'es menester',
+    'vale la pena mencionar',
+    'como se mencionó anteriormente',
+    'por medio de la presente',
+    'a través de la presente',
+    'huelga decir',
+    // EN
+    'it is worth mentioning',
+    'it should be noted',
+    'as previously mentioned',
+    'as stated above',
+    'needless to say',
+    'due to the fact that',
+    'in order to',
+    // DE
+    'es ist erwähnenswert',
+    'wie bereits erwähnt',
+    'hiermit bewerbe ich mich'
+  ];
+
+  const lower = text.toLowerCase();
+  return fillers.filter((f) => lower.includes(f));
+};
+
 export const auditTextForAiCliches = (text: string): AntiAiAuditResult => {
   const lower = text.toLowerCase();
   const detectedCliches = FORBIDDEN_AI_CLICHES.filter((c) => lower.includes(c));
   const scientificTermsFound = REQUIRED_SCIENTIFIC_MARKERS.filter((m) => lower.includes(m));
 
-  const hasMethodology = ['sev', 'ves', 'eddy covariance', 'resistiv', 'r', 'cámaras', 'chambers', 'hauben', 'three.js', 'gis'].some((t) => lower.includes(t));
-  const hasMassBalancePerspective = ['balance', 'bilanz', 'flujo', 'flux', 'flüsse', 'subsuperficial', 'subsurface', 'tensión', 'spannung', 'stress', 'carbon', 'kohlenstoff', 'carbono'].some((t) => lower.includes(t));
+  const hasMethodology = ['sev', 'ves', 'eddy covariance', 'resistiv', 'r', 'cámaras', 'chambers', 'hauben', 'three.js', 'gis', 'fpic', 'clpi', 'qgis', 'python'].some((t) => lower.includes(t));
+  const hasMassBalancePerspective = ['balance', 'bilanz', 'flujo', 'flux', 'flüsse', 'subsuperficial', 'subsurface', 'tensión', 'spannung', 'stress', 'carbon', 'kohlenstoff', 'carbono', 'watershed', 'cuenca'].some((t) => lower.includes(t));
+
+  const mechanicalRepetitions = detectMechanicalRepetitions(text);
+  const sentenceStarterRepetitions = detectSentenceStarterRepetitions(text);
+  const bureaucraticFillers = detectBureaucraticFillers(text);
+
+  // Apertura débil
+  const firstSentence = text.trim().split(/(?<=[.?!])\s+/)[0]?.toLowerCase() || '';
+  const hasWeakOpener = [
+    'i am writing to apply',
+    'i would like to apply',
+    'por medio de la presente',
+    'me dirijo a usted para postular',
+    'hiermit bewerbe ich mich auf'
+  ].some((o) => firstSentence.includes(o));
+
+  // Forward looking pitch
+  const hasForwardLookingPitch = [
+    'priority', 'priorities', 'envision', 'first 90 days', 'first months',
+    'stepping into', 'immediate focus', 'plan of action', 'prioridad',
+    'propuesta', 'primeros meses', 'aportar', 'plan de trabajo', 'visión',
+    'schwerpunkt', 'meine ersten'
+  ].some((w) => lower.includes(w));
+
+  // ToR Requirements
+  const hasAvailabilityMention = [
+    'availability', 'available', '40 hours', '40h', 'immediate', 'full-time',
+    'disponibilidad', '40 horas', 'inmediata', 'jornada completa', 'dedicación',
+    'verfügbarkeit', 'vollzeit'
+  ].some((w) => lower.includes(w));
+
+  const hasFeeMention = [
+    'fee', 'fees', 'salary', 'remuneration', 'rate', 'honorarios', 'salario',
+    'remuneración', 'tarifa', 'gehalt', 'vergütung', 'usd', 'eur', '€', '$'
+  ].some((w) => lower.includes(w));
+
+  // Ensamblar Checklist estructurado
+  const checklist: CoverLetterChecklistItem[] = [
+    {
+      id: 'chk-anti-ai',
+      category: 'anti_ai',
+      categoryLabel: 'Filtro Anti-IA y Clichés',
+      label: 'Ausencia de clichés de IA detectables',
+      status: detectedCliches.length === 0 ? 'pass' : 'fail',
+      summary: detectedCliches.length === 0 ? '0 fórmulas de IA detectadas.' : `${detectedCliches.length} cliché(s) de IA detectado(s).`,
+      details: detectedCliches,
+      suggestion: detectedCliches.length > 0 ? `Reemplaza clichés como "${detectedCliches.join('", "')}" por afirmaciones empíricas directas.` : undefined
+    },
+    {
+      id: 'chk-fillers',
+      category: 'anti_ai',
+      categoryLabel: 'Filtro Anti-IA y Clichés',
+      label: 'Economía verbal sin rellenos burocráticos',
+      status: bureaucraticFillers.length === 0 ? 'pass' : 'warning',
+      summary: bureaucraticFillers.length === 0 ? 'Texto libre de muletillas de relleno.' : `${bureaucraticFillers.length} muletilla(s) burocrática(s) detectada(s).`,
+      details: bureaucraticFillers,
+      suggestion: bureaucraticFillers.length > 0 ? `Elimina frases como "${bureaucraticFillers.join('", "')}" para dar dinamismo a la carta.` : undefined
+    },
+    {
+      id: 'chk-word-rep',
+      category: 'style_repetition',
+      categoryLabel: 'Reiteraciones Mecánicas',
+      label: 'Densidad léxica y alternancia de sinónimos',
+      status: mechanicalRepetitions.length === 0 ? 'pass' : mechanicalRepetitions.length <= 2 ? 'warning' : 'fail',
+      summary: mechanicalRepetitions.length === 0 ? 'Vocabulario balanceado sin palabras sobreutilizadas.' : `${mechanicalRepetitions.length} palabra(s) repetida(s) 4+ veces.`,
+      details: mechanicalRepetitions.map((r) => `"${r.word}" (${r.count}×)`),
+      suggestion: mechanicalRepetitions.length > 0 ? 'Introduce sinónimos o reestructura párrafos para aligerar las palabras que más se repiten.' : undefined
+    },
+    {
+      id: 'chk-starters',
+      category: 'style_repetition',
+      categoryLabel: 'Reiteraciones Mecánicas',
+      label: 'Variedad de iniciadores de oración',
+      status: sentenceStarterRepetitions.length === 0 ? 'pass' : 'warning',
+      summary: sentenceStarterRepetitions.length === 0 ? 'Iniciadores variados y dinámicos.' : `${sentenceStarterRepetitions.length} patrón(es) de iniciador monótono.`,
+      details: sentenceStarterRepetitions.map((s) => `${s.starter} (${s.count} oraciones)`),
+      suggestion: sentenceStarterRepetitions.length > 0 ? 'Varía el inicio de oraciones usando participios (ej. "Having coordinated..."), contextos ("At the intersection of...") o contrastes ("Rather than...").' : undefined
+    },
+    {
+      id: 'chk-opener',
+      category: 'golden_thread',
+      categoryLabel: 'Hilo Conductor (Golden Thread)',
+      label: 'Gancho inicial con tesis de postulación',
+      status: !hasWeakOpener ? 'pass' : 'warning',
+      summary: !hasWeakOpener ? 'Apertura con gancho de contenido y visión.' : 'Apertura con fórmula burocrática estándar.',
+      suggestion: hasWeakOpener ? 'Evita empezar con "I am writing to apply...". Abre directamente con tu tesis de alineamiento con la misión.' : undefined
+    },
+    {
+      id: 'chk-pitch',
+      category: 'golden_thread',
+      categoryLabel: 'Hilo Conductor (Golden Thread)',
+      label: 'Propuesta hacia adelante (Forward-Looking Pitch)',
+      status: hasForwardLookingPitch ? 'pass' : 'warning',
+      summary: hasForwardLookingPitch ? 'Incluye visión proactiva para los primeros meses / impacto.' : 'Falta proyectar qué harás en los primeros 90 días o cómo abordarás el rol.',
+      suggestion: !hasForwardLookingPitch ? 'Agrega una oración clara indicando tu prioridad inmediata al asumir el cargo (ej. "Stepping into this role, my immediate priority will be...").' : undefined
+    },
+    {
+      id: 'chk-methodology',
+      category: 'metrics_evidence',
+      categoryLabel: 'Rigor de Evidencia y Métricas',
+      label: 'Respaldo metodológico y territorial concreto',
+      status: hasMethodology ? 'pass' : 'fail',
+      summary: hasMethodology ? 'Cita metodologías, herramientas o marcos reales comprobables.' : 'Faltan referencias a métodos, herramientas o protocolos concretos.',
+      suggestion: !hasMethodology ? 'Menciona herramientas específicas (SEV, Eddy Covariance, R, QGIS, protocolos FPIC/CLPI) para dar peso tangible.' : undefined
+    },
+    {
+      id: 'chk-tor-avail',
+      category: 'tor_compliance',
+      categoryLabel: 'Cumplimiento Mandatorio (ToR)',
+      label: 'Declaración explícita de disponibilidad horaria',
+      status: hasAvailabilityMention ? 'pass' : 'warning',
+      summary: hasAvailabilityMention ? 'Disponibilidad horaria / semanas declarada.' : 'No se detecta mención explícita a disponibilidad horaria (ej. 40h/week).',
+      suggestion: !hasAvailabilityMention ? 'El ToR exige indicar disponibilidad expresa (ej. "Immediate availability for full-time consultancy (40 hours/week)").' : undefined
+    },
+    {
+      id: 'chk-tor-fees',
+      category: 'tor_compliance',
+      categoryLabel: 'Cumplimiento Mandatorio (ToR)',
+      label: 'Expectativas de honorarios / tarifa declaradas',
+      status: hasFeeMention ? 'pass' : 'warning',
+      summary: hasFeeMention ? 'Mención a expectativas de honorarios / salario incluida.' : 'No se detecta indicación de honorarios esperados (fee/salary expectations).',
+      suggestion: !hasFeeMention ? 'Recuerda incluir tu rango de tarifa de consultoría mensual/anual en USD o EUR para cumplir con el ToR.' : undefined
+    }
+  ];
+
+  // Cálculo de score ponderado
+  let score = 100;
+  score -= detectedCliches.length * 15;
+  score -= bureaucraticFillers.length * 6;
+  score -= mechanicalRepetitions.length * 5;
+  score -= sentenceStarterRepetitions.length * 8;
+  if (hasWeakOpener) score -= 8;
+  if (!hasForwardLookingPitch) score -= 10;
+  if (!hasMethodology) score -= 15;
+  if (!hasAvailabilityMention) score -= 8;
+  if (!hasFeeMention) score -= 8;
+  const overallScore = Math.max(10, Math.min(100, score));
 
   return {
-    passed: detectedCliches.length === 0 && scientificTermsFound.length >= 3,
+    passed: detectedCliches.length === 0 && scientificTermsFound.length >= 3 && overallScore >= 70,
     clicheCount: detectedCliches.length,
     detectedCliches,
     scientificTermsFound,
     hasMethodology,
-    hasMassBalancePerspective
+    hasMassBalancePerspective,
+    mechanicalRepetitions,
+    sentenceStarterRepetitions,
+    bureaucraticFillers,
+    hasWeakOpener,
+    hasForwardLookingPitch,
+    hasAvailabilityMention,
+    hasFeeMention,
+    overallScore,
+    checklist
   };
 };
 
@@ -436,37 +768,96 @@ export const renderCoverLetterHtml = (built: BuiltCoverLetter): string => {
 };
 
 // ----------------------------------------------------------------------------
-// Generador del Prompt Editorial Anti-AI para LLMs externos (Claude, ChatGPT, etc.)
+// Generador del Prompt Editorial Anti-AI & Checklist para LLMs externos (Claude, ChatGPT, Gemini)
 // ----------------------------------------------------------------------------
 
-export const generateAntiAiPrompt = (offer?: CoverLetterConfig['offer'], currentDraft?: string): string => {
-  const company = offer?.company || '[ORGANIZACIÓN/UNIVERSIDAD/EMPRESA]';
-  const title = offer?.title || '[PUESTO O PROYECTO]';
-  const desc = offer?.rawDescription || '[PEGA AQUÍ LA DESCRIPCIÓN DE LA VACANTE O LÍNEA DE INVESTIGACIÓN]';
+export const generateAntiAiPrompt = (
+  offer?: CoverLetterConfig['offer'],
+  currentDraft?: string,
+  audit?: AntiAiAuditResult
+): string => {
+  const company = offer?.company || '[ORGANIZACIÓN/INSTITUCIÓN CONVOCANTE]';
+  const title = offer?.title || '[PUESTO O ROL OBJETIVO]';
+  const desc = offer?.rawDescription || '[PEGA AQUÍ LA DESCRIPCIÓN DE LA VACANTE O TÉRMINOS DE REFERENCIA (ToR)]';
+  const draftText = currentDraft || buildDefaultScientificDraft('es', offer).join('\n\n');
+  const activeAudit = audit || auditTextForAiCliches(draftText);
 
-  return `Actúa como un editor científico y redactor de solicitudes académicas de alto nivel.
-Quiero que redactes/traduzcas mi carta de postulación basándote ESTRICTAMENTE en el borrador que te adjunto abajo, respetando mi narrativa y mis argumentos.
+  // Formatear diagnósticos de la auditoría en vivo
+  const clichesFoundText = activeAudit.detectedCliches.length > 0
+    ? `⚠️ Clichés de IA detectados a ELIMINAR:\n${activeAudit.detectedCliches.map((c) => `  - "${c}"`).join('\n')}`
+    : '✓ Sin clichés detectados en el borrador base.';
 
-### Oferta objetivo:
-- Puesto: ${title}
-- Institución: ${company}
-- Requisitos y contexto:
+  const repetitionsText = activeAudit.mechanicalRepetitions.length > 0
+    ? `⚠️ Palabras con reiteración mecánica (frecuencia >= 4) a DIVERSIFICAR con sinónimos:\n${activeAudit.mechanicalRepetitions.map((r) => `  - "${r.word}": repetida ${r.count} veces`).join('\n')}`
+    : '✓ Densidad léxica balanceada sin repeticiones excesivas.';
+
+  const startersText = activeAudit.sentenceStarterRepetitions.length > 0
+    ? `⚠️ Iniciadores de oración monótonos a ROMPER:\n${activeAudit.sentenceStarterRepetitions.map((s) => `  - Iniciador "${s.starter}": repetido en ${s.count} oraciones`).join('\n')}`
+    : '✓ Iniciadores de oración variados.';
+
+  const checklistReport = activeAudit.checklist
+    .map((item) => `[${item.status === 'pass' ? 'PASS' : item.status === 'warning' ? 'WARN' : 'FAIL'}] ${item.categoryLabel} :: ${item.label} -> ${item.summary}${item.suggestion ? ` (Acción sugerida: ${item.suggestion})` : ''}`)
+    .join('\n');
+
+  return `Actúa como un editor senior de candidaturas internacionales y asesor de redacción ejecutiva para organizaciones globales, institutos de investigación y movimientos socioambientales.
+
+Tu misión es REVISAR, AUDITAR y PULIR mi Carta de Postulación (Cover Letter) basándote en mi borrador adjunto, asegurando una voz humana, rigurosa, no corporativa y completamente libre de fórmulas mecánicas de IA.
+
+================================================================================
+1. CONTEXTO DE LA POSTULACIÓN
+================================================================================
+- Puesto objetivo: ${title}
+- Organización convocante: ${company}
+- Contexto de la convocatoria / ToR:
 ${desc}
 
-### Reglas críticas de redacción (Anti-AI Clichés):
-1. PROHIBIDO usar fórmulas genéricas de IA como: "I am thrilled/excited to apply", "delve into", "testament to", "foster", "beacon of", "aligns seamlessly", "in conclusion", "passionate about".
-2. Mantén la primera persona y mi perspectiva crítica frente al "carbon farming" especulativo y la degradación del suelo, pero traduce las quejas o sentimientos a HIPÓTESIS CIENTÍFICAS y BALANCES DE MASA (por ejemplo: en vez de "el modelo forestal es destructivo", usa "la alteración de la resistividad eléctrica y el agotamiento del agua subsuperficial bajo monocultivos frente a sequía").
-3. No borres mis vivencias territoriales ni mis artículos de prensa; encuádralos como capacidad de transferencia de conocimiento, análisis de riesgo biofísico y trabajo empírico de campo.
-4. Tono: Riguroso, directo, analítico, seguro y formal. Cada afirmación debe estar respaldada por un dato, una metodología (SEV, R, Eddy Covariance) o un proyecto concreto.
+================================================================================
+2. DIAGNÓSTICO EN VIVO DE MI BORRADOR ACTUAL (SCORE: ${activeAudit.overallScore}/100)
+================================================================================
+${clichesFoundText}
 
-### Estructura obligatoria:
-- Encabezado formal DIN / Institucional con destinatario exacto.
-- Párrafo 1: Identificación precisa del puesto (ID) + declaración de enfoque compartido sobre la integridad del carbono y el rechazo a narrativas superficiales.
-- Párrafos centrales: Mi trayectoria contada en orden: Geofísica/SEV en Chile -> Artículos de prensa e incidencia pública -> Doble Máster en Alemania/Polonia (Eddy Covariance y gemelo digital en R) -> Encaje metodológico directo con el proyecto.
-- Cierre: Resiliencia de campo, idiomas y disponibilidad inmediata.
+${repetitionsText}
 
-### Mi borrador base:
-${currentDraft || buildDefaultScientificDraft('es', offer).join('\n\n')}
+${startersText}
+
+Checklist de Verificación Actual:
+${checklistReport}
+
+================================================================================
+3. Reglas críticas de redacción (Anti-AI Clichés) & Rúbrica Editorial
+================================================================================
+A. ELIMINACIÓN TOTAL DE CLICHÉS DE IA Y FRASES DE RELLENO:
+   - PROHIBIDO usar fórmulas genéricas de IA como: "thrilled to", "delve into", "testament to", "beacon of", "foster", "seamlessly align", "tapestry", "furthermore", "spearhead", "unwavering", "passionate about", "in conclusion", "cabe destacar que", "es menester", "jugar un papel crucial".
+   - Sustituye cualquier abstracción por balances de masa, evidencia biofísica y metodologías empíricas verificadas (SEV, Eddy Covariance, R, QGIS, protocolos FPIC/CLPI, articulación territorial).
+
+B. RUPTURA DE REITERACIONES MECÁNICAS Y MONOTONÍA SINTÁCTICA:
+   - Rompe la sobreutilización de palabras repetidas mediante sinónimos precisos y reestructuración de oraciones.
+   - Rompe el patrón repetitivo de oraciones que empiezan con "I", "I am", "I have" o "En este rol".
+   - Emplea un catálogo de iniciadores de oración de alto impacto:
+     * De alineamiento de fondo: "Having engaged closely with...", "At the intersection of...", "The urgent mandate to... demands..."
+     * De metodología y aprendizaje: "Rather than imposing top-down agendas...", "In coordinating editorial cohorts across...", "My experience bridging... demonstrated that..."
+     * De propuesta hacia adelante: "Stepping into this role, my immediate priority would be to...", "To bridge regional realities with...", "What I offer [Org] is..."
+
+C. EL HILO CONDUCTOR ("THE GOLDEN THREAD") Y ARQUITECTURA NARRATIVA:
+   - Párrafo 1 (Gancho y Tesis): No abras con la típica fórmula burocrática ("I am writing to apply..."). Abre directamente con tu tesis de alineamiento con la misión y desafío de la organización.
+   - Párrafos 2 y 3 (Evidencia de Facilitación y Rigor): Articula tu trayectoria en torno a cómo resuelves problemas (gestión de asincronía, consensos multiactor, rigor biofísico, prevención de burnout), no como un currículum andante.
+   - Párrafo 4 (Forward-Looking Pitch): Plantea qué harás en los primeros 90 días o cómo abordarás las prioridades operativas de la red.
+   - Cierre formal (ToR Compliance): Declara explícitamente disponibilidad horaria (ej. dedicación completa 40h/semana, flexibilidad de husos horarios) y rango de expectativas de honorarios (fees/salary).
+
+D. IDENTIDAD Y TONO:
+   - Mantén la primera persona y la autenticidad humana: compromiso con la justicia socioambiental, rigor científico empírico y respeto irrestricto a los saberes comunitarios e indígenas.
+
+================================================================================
+4. MI BORRADOR BASE ACTUAL (A REVISAR O PULIR)
+================================================================================
+${draftText}
+
+================================================================================
+5. RESPUESTA ESPERADA
+================================================================================
+Entrega:
+1. Una breve devolución crítica de 3 viñetas destacando qué se mejoró respecto al diagnóstico de partida.
+2. La versión final pulida y lista para enviar (en el idioma del borrador: ${draftText.includes('ich bewerbe') ? 'Alemán' : draftText.includes('I am submitting') || draftText.includes('Having engaged') ? 'Inglés' : 'Español'}), respetando el formato de 4-5 párrafos fluidos y el estándar formal.
 `;
 };
 
