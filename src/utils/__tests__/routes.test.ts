@@ -46,9 +46,15 @@ describe('routes · slugs de navegación', () => {
     expect(parseSlugToState('/perfil/academy')).toEqual({ station: 'academy' });
     expect(parseSlugToState('/perfil/cv-studio')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cv' });
     expect(parseSlugToState('/perfil/cover-letter')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' });
+    expect(parseSlugToState('/perfil/cartas')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' });
+    expect(parseSlugToState('/perfil/carta')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' });
+    expect(parseSlugToState('/perfil/arbol')).toEqual({ station: 'agent_dossier', subTab: 'showcase' });
     expect(parseSlugToState('/candidaturas/inteligencia')).toEqual({ station: 'mission_control', subTab: 'intelligence' });
+    expect(parseSlugToState('/candidaturas/lote')).toEqual({ station: 'mission_control', subTab: 'batch' });
     expect(parseSlugToState('/convocatorias')).toEqual({ station: 'funding' });
     expect(parseSlugToState('/ajustes')).toEqual({ station: 'settings' });
+    expect(parseSlugToState('/protocolo')).toEqual({ station: 'protocol' });
+    expect(parseSlugToState('/consola')).toEqual({ station: 'dashboard' });
     expect(parseSlugToState('/')).toEqual({ station: 'dashboard' });
   });
 });
