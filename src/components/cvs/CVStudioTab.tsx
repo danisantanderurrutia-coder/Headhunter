@@ -503,17 +503,16 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
         <div className="absolute -top-16 -left-16 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Nano Banana Panoramic Illustration */}
-        <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/10] max-h-72 overflow-hidden border-b border-[var(--panel-border)] bg-slate-950">
+        {/* Nano Banana Panoramic Illustration (Ample vertical space, 16:9 native aspect ratio) */}
+        <div className="relative w-full aspect-[16/9] max-h-[580px] sm:max-h-[620px] overflow-hidden border-b border-[var(--panel-border)] bg-[#1a2330] flex items-center justify-center">
           <img 
-            src={craftingHeroImg} 
+            src={craftingHeroImg || '/crafting_nanobanana_hero.jpg'} 
             alt="Wingman & Headhunter Crafting Review Architecture" 
-            className="w-full h-full object-cover object-center select-none"
+            className="w-full h-full object-contain sm:object-cover object-center select-none"
             loading="eager"
           />
-          {/* Subtle gradient overlay to merge gently into the content panel */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--panel-bg)] via-transparent to-black/20 pointer-events-none" />
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-2">
+          {/* Subtle top ambient badge */}
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-2 pointer-events-none">
             <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-900/85 text-purple-300 border border-purple-500/30 backdrop-blur-md flex items-center gap-1.5 shadow-md">
               <Sparkles className="h-3 w-3 text-purple-400" />
               CRAFTING // DUAL-LENS
