@@ -233,7 +233,7 @@ export function App() {
         saveStoredApplications([newApp, ...currentApps]);
       }
     }
-    handleNavigate('mission_control', 'applications');
+    handleNavigate('agent_dossier', 'studio', undefined, offerId, 'cover_letter');
   };
 
   const handleStartPipelineFromCompany = (companyId: string) => {
@@ -283,7 +283,7 @@ export function App() {
         saveStoredApplications([newApp, ...currentApps]);
       }
     }
-    handleNavigate('mission_control', 'applications');
+    handleNavigate('agent_dossier', 'studio', undefined, undefined, 'cover_letter');
   };
 
   const handleStartApplicationFromFunding = (fundingTitle: string, org: string) => {
@@ -315,7 +315,7 @@ export function App() {
       };
       saveStoredApplications([newApp, ...currentApps]);
     }
-    handleNavigate('mission_control', 'applications');
+    handleNavigate('agent_dossier', 'studio', undefined, undefined, 'cover_letter');
   };
 
   return (

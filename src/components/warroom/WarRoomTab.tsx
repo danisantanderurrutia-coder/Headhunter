@@ -1,17 +1,16 @@
 import React from 'react';
 import { 
   Sparkles, 
-  ShieldCheck, 
   Award, 
-  Briefcase, 
   Target, 
   ArrowRight,
   Compass,
   Building2,
   Globe2,
-  GraduationCap
+  GraduationCap,
+  FileText
 } from 'lucide-react';
-import { getStoredProfile, getStoredApplications, getStoredCompanies } from '../../services/db';
+import { getStoredProfile, getStoredCompanies } from '../../services/db';
 import { FUNDING_CATALOG } from '../../data/fundingCatalog';
 import { DAILY_PORTALS } from '../../data/dailyPortalsCatalog';
 import { inferCompanyQuadrants } from '../../utils/quadrants';
@@ -25,7 +24,6 @@ interface WarRoomTabProps {
 
 export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunchRadar }) => {
   const profile = getStoredProfile();
-  const applications = getStoredApplications();
   const companies = getStoredCompanies();
 
   // Compute live data metrics for organizations
@@ -38,9 +36,6 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
   const germanyFunding = FUNDING_CATALOG.filter(f => f.region === 'germany').length;
   const europeFunding = FUNDING_CATALOG.filter(f => f.region === 'europe').length;
   const euskadiFunding = FUNDING_CATALOG.filter(f => f.region === 'euskadi').length;
-
-  // Pipeline stages
-  const colSent = applications.filter(a => a.currentStage >= 6 || a.status === 'Enviada' || a.status === 'En Seguimiento');
 
   // High-fidelity photographic assets
   const backgroundWall = 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1920&q=80';
@@ -150,21 +145,21 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
           </div>
         </div>
 
-        {/* Card 4: Pipeline Definitivo */}
+        {/* Card 4: CV Studio & Cartas */}
         <div 
-          onClick={() => onSelectStation('mission_control', 'applications')}
+          onClick={() => onSelectStation('agent_dossier', 'studio')}
           className="p-4 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-slate-800 shadow-xs hover:border-purple-500 transition cursor-pointer group"
-          title="Gestionar candidaturas en el Pipeline Definitivo"
+          title="Abrir Taller de CV y Cartas de Presentación (ES • EN • DE)"
         >
           <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider font-bold">Pipeline Activo</span>
-            <Briefcase className="h-4 w-4 text-purple-500" />
+            <span className="text-[10px] font-mono uppercase tracking-wider font-bold">Taller CV & Cartas</span>
+            <FileText className="h-4 w-4 text-purple-500" />
           </div>
           <div className="text-2xl font-black text-slate-900 dark:text-white font-sans tracking-tight">
-            {applications.length} Procesos
+            CV Studio
           </div>
           <div className="text-[11px] font-mono text-purple-600 dark:text-purple-400 font-bold mt-1 flex items-center gap-1">
-            <span>{colSent.length} en contacto / seguimiento</span>
+            <span>ES • EN • DE (Auditoría Anti-IA)</span>
           </div>
         </div>
       </div>
@@ -311,44 +306,44 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
               </div>
             </div>
 
-            {/* Tile 2.2: TRACK RECORD & PIPELINE */}
+            {/* Tile 2.2: TALLER CV & CARTAS */}
             <div 
-              onClick={() => onSelectStation('mission_control', 'applications')}
-              className="rounded-2xl p-5 border border-slate-700 shadow-xl min-h-[195px] flex flex-col justify-between relative overflow-hidden group cursor-pointer hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition"
+              onClick={() => onSelectStation('agent_dossier', 'studio')}
+              className="rounded-2xl p-5 border border-slate-700 shadow-xl min-h-[195px] flex flex-col justify-between relative overflow-hidden group cursor-pointer hover:border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition"
               style={{
-                backgroundImage: `linear-gradient(to top, rgba(8, 20, 16, 0.95), rgba(8, 20, 16, 0.65)), url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80')`,
+                backgroundImage: `linear-gradient(to top, rgba(15, 12, 28, 0.95), rgba(15, 12, 28, 0.65)), url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
               }}
-              title="Click para ver el Pipeline Definitivo"
+              title="Click para abrir CV Studio y Cartas de Presentación"
             >
               <div className="flex items-center justify-between z-10">
                 <div className="flex items-center space-x-1.5">
                   <span className="text-xs font-mono font-black uppercase tracking-wider text-white drop-shadow">
-                    PIPELINE DEFINITIVO
+                    CV STUDIO & CARTAS
                   </span>
-                  <span className="text-[9px] font-mono font-black px-1.5 py-0.5 rounded bg-emerald-600 text-white shadow">
-                    8 ETAPAS
+                  <span className="text-[9px] font-mono font-black px-1.5 py-0.5 rounded bg-purple-600 text-white shadow">
+                    ES • EN • DE
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-500/40">
-                  ACTIVO
+                <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded bg-purple-950/80 text-purple-300 border border-purple-500/40">
+                  ANTI-IA
                 </span>
               </div>
 
               <div className="flex flex-col items-center justify-center my-2 z-10 text-center">
-                <ShieldCheck className="h-9 w-9 text-emerald-400 group-hover:scale-110 transition mb-1 drop-shadow" />
+                <FileText className="h-9 w-9 text-purple-400 group-hover:scale-110 transition mb-1 drop-shadow" />
                 <span className="text-sm font-mono font-black text-white uppercase tracking-wider drop-shadow">
-                  {applications.length} PROCESOS EN GESTIÓN
+                  TALLER DE REDACCIÓN TÁCTICA
                 </span>
                 <span className="text-[11px] text-slate-200 font-mono font-medium drop-shadow mt-0.5">
-                  {colSent.length > 0 ? `${colSent.length} En Contacto Directo` : 'Mapeo de Decisores y Cartas Formales'}
+                  Hechos Verificados • Auditoría de Tono • Exportación PDF
                 </span>
               </div>
 
-              <div className="text-[11px] font-mono font-bold text-emerald-400 flex items-center justify-between z-10 border-t border-slate-700/80 pt-2">
-                <span>GESTIÓN DE CANDIDATURAS</span>
-                <span>DESPACHO »</span>
+              <div className="text-[11px] font-mono font-bold text-purple-400 flex items-center justify-between z-10 border-t border-slate-700/80 pt-2">
+                <span>ESTUDIO DE CANDIDATURAS</span>
+                <span>REDACTAR »</span>
               </div>
             </div>
           </div>
@@ -565,10 +560,11 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
           </button>
 
           <button
-            onClick={() => onSelectStation('mission_control', 'applications')}
+            onClick={() => onSelectStation('agent_dossier', 'studio')}
             className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-mono font-black transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
           >
-            <span>[5] Pipeline Definitivo</span>
+            <FileText className="h-3.5 w-3.5" />
+            <span>[5] Taller CV & Cartas</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>

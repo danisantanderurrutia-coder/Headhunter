@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -14,22 +14,79 @@ import {
   FileCheck
 } from 'lucide-react';
 import type { DualLensAuditReport } from '../../services/dualAuditEngine';
+import { getSelectableCriteriaFromReport, generateGeminiReviewPrompt } from '../../services/dualAuditEngine';
+import type { JobOffer } from '../../types/offers';
 
 interface DualLensAuditHubProps {
   report: DualLensAuditReport;
+  offer?: Partial<JobOffer> | null;
+  documentText?: string;
   onInjectSnippet?: (snippet: string) => void;
   className?: string;
 }
 
 export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
   report,
+  offer,
+  documentText = '',
   onInjectSnippet,
   className = ''
 }) => {
   const [activeLens, setActiveLens] = useState<'both' | 'headhunter' | 'wingman'>('both');
   const [copiedSnippetId, setCopiedSnippetId] = useState<string | null>(null);
+  const [copiedGeminiPrompt, setCopiedGeminiPrompt] = useState(false);
+  const [showPromptPreview, setShowPromptPreview] = useState(false);
   const [isComplianceExpanded, setIsComplianceExpanded] = useState(true);
   const [isWeaponsExpanded, setIsWeaponsExpanded] = useState(true);
+
+  // Criterios seleccionables para Gemini
+  const allCriteria = useMemo(() => getSelectableCriteriaFromReport(report), [report]);
+
+  const [selectedCriteriaIds, setSelectedCriteriaIds] = useState<Set<string>>(() => {
+    const alerts = allCriteria.filter((c) => c.status !== 'pass');
+    const initial = alerts.length > 0 ? alerts : allCriteria;
+    return new Set(initial.map((c) => c.id));
+  });
+
+  const toggleCriterion = (id: string) => {
+    setSelectedCriteriaIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const handleSelectAll = () => {
+    setSelectedCriteriaIds(new Set(allCriteria.map((c) => c.id)));
+  };
+
+  const handleSelectAlertsOnly = () => {
+    setSelectedCriteriaIds(new Set(allCriteria.filter((c) => c.status !== 'pass').map((c) => c.id)));
+  };
+
+  const handleDeselectAll = () => {
+    setSelectedCriteriaIds(new Set());
+  };
+
+  const previewPrompt = useMemo(() => {
+    return generateGeminiReviewPrompt({
+      documentType: report.documentType,
+      documentText: documentText || (report.documentType === 'cv' ? 'Curriculum Vitae de Daniel Santander' : 'Carta de Motivación de Daniel Santander'),
+      offer,
+      report,
+      selectedCriteriaIds: Array.from(selectedCriteriaIds)
+    });
+  }, [report, documentText, offer, selectedCriteriaIds]);
+
+  const handleCopyGeminiPrompt = () => {
+    navigator.clipboard.writeText(previewPrompt);
+    setCopiedGeminiPrompt(true);
+    setTimeout(() => setCopiedGeminiPrompt(false), 2200);
+  };
 
   const handleCopySnippet = (id: string, snippet: string) => {
     navigator.clipboard.writeText(snippet);
@@ -196,6 +253,90 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         </div>
       </div>
 
+      {/* Exportador de Auditoría para Gemini API con Criterios Marcados */}
+      <div className="p-3.5 rounded-xl border border-purple-500/30 bg-purple-500/5 space-y-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div className="flex items-center space-x-2">
+            <div className="p-1.5 rounded-lg bg-purple-500/15 text-purple-400">
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-mono font-black uppercase text-[var(--text-primary)]">
+                  Auditoría con Gemini API
+                </span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                  {selectedCriteriaIds.size} de {allCriteria.length} criterios marcados
+                </span>
+              </div>
+              <p className="text-[11px] text-[var(--text-secondary)] font-sans">
+                Marca abajo los criterios que deseas fiscalizar y copia el prompt optimizado para que Gemini dictamine y redacte mejoras concretas.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-1.5 shrink-0 flex-wrap">
+            <button
+              type="button"
+              onClick={handleSelectAll}
+              className="px-2 py-1 rounded text-[10px] font-mono border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+              title="Marcar todos los criterios para Gemini"
+            >
+              Todos
+            </button>
+            <button
+              type="button"
+              onClick={handleSelectAlertsOnly}
+              className="px-2 py-1 rounded text-[10px] font-mono border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+              title="Marcar solo las alertas y pendientes"
+            >
+              Solo alertas
+            </button>
+            <button
+              type="button"
+              onClick={handleDeselectAll}
+              className="px-2 py-1 rounded text-[10px] font-mono border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+              title="Desmarcar todos"
+            >
+              Limpiar
+            </button>
+            <button
+              type="button"
+              onClick={handleCopyGeminiPrompt}
+              disabled={selectedCriteriaIds.size === 0}
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-sky-600 hover:from-purple-500 hover:to-sky-500 text-white font-mono text-xs font-bold flex items-center space-x-1.5 shadow-md cursor-pointer transition disabled:opacity-50"
+              title="Copiar prompt para Gemini con los criterios marcados"
+            >
+              {copiedGeminiPrompt ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+              <span>{copiedGeminiPrompt ? '¡Prompt para Gemini Copiado!' : 'Copiar Prompt para Gemini'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowPromptPreview((prev) => !prev)}
+              className="px-2 py-1.5 rounded-xl border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[10px] font-mono text-[var(--text-secondary)] cursor-pointer"
+              title="Previsualizar el prompt que recibirá Gemini"
+            >
+              {showPromptPreview ? 'Ocultar' : 'Previsualizar'}
+            </button>
+          </div>
+        </div>
+
+        {showPromptPreview && (
+          <div className="space-y-1.5 pt-2 border-t border-[var(--panel-border)]">
+            <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]">
+              <span>Vista previa del prompt generado para Gemini API:</span>
+              <span>{previewPrompt.length} caracteres</span>
+            </div>
+            <textarea
+              readOnly
+              rows={7}
+              value={previewPrompt}
+              className="w-full p-2.5 rounded-lg text-[10.5px] font-mono bg-black/20 border border-[var(--panel-border)] text-[var(--text-primary)] focus:outline-none"
+            />
+          </div>
+        )}
+      </div>
+
       {/* Mode Selector Tabs */}
       <div className="flex items-center space-x-1 border-b border-[var(--panel-border)] pb-2 text-xs font-mono overflow-x-auto">
         <button
@@ -275,6 +416,25 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                   </span>
                 ))}
               </div>
+
+              {headhunter.missingRequiredKeywords.length > 0 && (
+                <div className="pt-2 border-t border-[var(--panel-border)] flex items-center justify-between">
+                  <label className="flex items-center gap-2 cursor-pointer text-[10.5px] font-mono text-amber-600 dark:text-amber-300">
+                    <input
+                      type="checkbox"
+                      checked={selectedCriteriaIds.has('hh-missing-keywords')}
+                      onChange={() => toggleCriterion('hh-missing-keywords')}
+                      className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    />
+                    <span>Marcar palabras clave ausentes ({headhunter.missingRequiredKeywords.length}) para que Gemini las integre</span>
+                  </label>
+                  {selectedCriteriaIds.has('hh-missing-keywords') && (
+                    <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                      ✓ Marcado para Gemini
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Compliance Checks List */}
@@ -292,21 +452,37 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold flex items-center gap-1.5 font-sans text-[var(--text-primary)]">
-                        {check.status === 'pass' && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />}
-                        {check.status === 'warning' && <AlertTriangle className="h-3.5 w-3.5 text-amber-500 shrink-0" />}
-                        {check.status === 'fail' && <XCircle className="h-3.5 w-3.5 text-rose-500 shrink-0" />}
-                        <span>{check.label}</span>
-                      </span>
-                      <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
-                        check.status === 'pass'
-                          ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
-                          : check.status === 'warning'
-                          ? 'bg-amber-500/10 text-amber-500 border-amber-500/30'
-                          : 'bg-rose-500/10 text-rose-500 border-rose-500/30'
-                      }`}>
-                        {check.status === 'pass' ? 'Cumplido' : check.status === 'warning' ? 'Revisar' : 'Fallo'}
-                      </span>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <input
+                          type="checkbox"
+                          checked={selectedCriteriaIds.has(check.id)}
+                          onChange={() => toggleCriterion(check.id)}
+                          className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer shrink-0"
+                          title="Marcar este criterio para fiscalizar con Gemini"
+                        />
+                        <span className="font-bold flex items-center gap-1.5 font-sans text-[var(--text-primary)] truncate">
+                          {check.status === 'pass' && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />}
+                          {check.status === 'warning' && <AlertTriangle className="h-3.5 w-3.5 text-amber-500 shrink-0" />}
+                          {check.status === 'fail' && <XCircle className="h-3.5 w-3.5 text-rose-500 shrink-0" />}
+                          <span className="truncate">{check.label}</span>
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {selectedCriteriaIds.has(check.id) && (
+                          <span className="text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30 hidden sm:inline">
+                            Gemini
+                          </span>
+                        )}
+                        <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
+                          check.status === 'pass'
+                            ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                            : check.status === 'warning'
+                            ? 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                            : 'bg-rose-500/10 text-rose-500 border-rose-500/30'
+                        }`}>
+                          {check.status === 'pass' ? 'Cumplido' : check.status === 'warning' ? 'Revisar' : 'Fallo'}
+                        </span>
+                      </div>
                     </div>
 
                     <p className="text-[11px] text-[var(--text-secondary)] pl-5 font-sans leading-relaxed">
@@ -344,19 +520,37 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             </div>
 
             {/* Asymmetry Box */}
-            <div className="p-3.5 rounded-xl border space-y-2 text-xs" style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
+            <div className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
+              selectedCriteriaIds.has('wm-asymmetry') ? 'ring-1 ring-purple-500/50' : ''
+            }`} style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-1.5 font-bold font-mono text-purple-600 dark:text-purple-300">
-                  <Zap className="h-3.5 w-3.5" />
-                  <span>ASIMETRÍA COMPETITIVA (GEOFÍSICO VS. AGRÓNOMO GENÉRICO)</span>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedCriteriaIds.has('wm-asymmetry')}
+                    onChange={() => toggleCriterion('wm-asymmetry')}
+                    className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    title="Marcar asimetría física para evaluar con Gemini"
+                  />
+                  <div className="flex items-center space-x-1.5 font-bold font-mono text-purple-600 dark:text-purple-300">
+                    <Zap className="h-3.5 w-3.5" />
+                    <span>ASIMETRÍA COMPETITIVA (GEOFÍSICO VS. AGRÓNOMO GENÉRICO)</span>
+                  </div>
                 </div>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
-                  wingman.competitiveAsymmetry.asymmetryRating === 'dominant'
-                    ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
-                    : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
-                }`}>
-                  {wingman.competitiveAsymmetry.asymmetryRating}
-                </span>
+                <div className="flex items-center space-x-1.5">
+                  {selectedCriteriaIds.has('wm-asymmetry') && (
+                    <span className="text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                      Gemini
+                    </span>
+                  )}
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
+                    wingman.competitiveAsymmetry.asymmetryRating === 'dominant'
+                      ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                      : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                  }`}>
+                    {wingman.competitiveAsymmetry.asymmetryRating}
+                  </span>
+                </div>
               </div>
               <p className="text-[11.5px] text-[var(--text-secondary)] font-sans leading-relaxed">
                 {wingman.competitiveAsymmetry.advice}
@@ -374,12 +568,30 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             </div>
 
             {/* Zero-Servility Box */}
-            <div className="p-3 rounded-xl border text-xs space-y-1.5" style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
+            <div className={`p-3 rounded-xl border text-xs space-y-1.5 transition ${
+              selectedCriteriaIds.has('wm-zero-servility') ? 'ring-1 ring-purple-500/50' : ''
+            }`} style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
               <div className="flex items-center justify-between text-[11px] font-mono">
-                <span className="font-bold text-[var(--text-primary)]">ESTÁNDAR CERO-SERVILISMO (PEER-LEVEL TONE)</span>
-                <span className={`font-bold ${wingman.zeroServilityAudit.servilityScore === 100 ? 'text-emerald-500' : 'text-amber-500'}`}>
-                  {wingman.zeroServilityAudit.servilityScore}/100
-                </span>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedCriteriaIds.has('wm-zero-servility')}
+                    onChange={() => toggleCriterion('wm-zero-servility')}
+                    className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    title="Marcar tono paritario y cero clichés para auditar con Gemini"
+                  />
+                  <span className="font-bold text-[var(--text-primary)]">ESTÁNDAR CERO-SERVILISMO (PEER-LEVEL TONE)</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  {selectedCriteriaIds.has('wm-zero-servility') && (
+                    <span className="text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                      Gemini
+                    </span>
+                  )}
+                  <span className={`font-bold ${wingman.zeroServilityAudit.servilityScore === 100 ? 'text-emerald-500' : 'text-amber-500'}`}>
+                    {wingman.zeroServilityAudit.servilityScore}/100
+                  </span>
+                </div>
               </div>
               <p className="text-[11px] text-[var(--text-secondary)] font-sans">
                 {wingman.zeroServilityAudit.critique}
@@ -422,19 +634,39 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       {wingman.portfolioWeaponActivation.omittedWeapons.map((w) => (
                         <div
                           key={w.id}
-                          className="p-3 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-2 text-xs"
+                          className={`p-3 rounded-xl border transition space-y-2 text-xs ${
+                            selectedCriteriaIds.has(`wm-omitted-${w.id}`)
+                              ? 'border-purple-500/50 bg-purple-500/5 ring-1 ring-purple-500/30'
+                              : 'border-amber-500/30 bg-amber-500/5'
+                          }`}
                         >
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-                            <span className="font-bold text-amber-600 dark:text-amber-300 font-sans text-xs">
-                              {w.name}
-                            </span>
-                            <button
-                              onClick={() => handleCopySnippet(w.id, w.suggestedInjection)}
-                              className="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shrink-0 self-start sm:self-center shadow-sm"
-                            >
-                              {copiedSnippetId === w.id ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                              <span>{copiedSnippetId === w.id ? '¡Fragmento Copiado!' : 'Copiar Fragmento'}</span>
-                            </button>
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                checked={selectedCriteriaIds.has(`wm-omitted-${w.id}`)}
+                                onChange={() => toggleCriterion(`wm-omitted-${w.id}`)}
+                                className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                                title="Marcar esta arma para que Gemini la integre en la redacción"
+                              />
+                              <span className="font-bold text-amber-600 dark:text-amber-300 font-sans text-xs">
+                                {w.name}
+                              </span>
+                            </div>
+                            <div className="flex items-center space-x-1.5">
+                              {selectedCriteriaIds.has(`wm-omitted-${w.id}`) && (
+                                <span className="text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                                  Gemini
+                                </span>
+                              )}
+                              <button
+                                onClick={() => handleCopySnippet(w.id, w.suggestedInjection)}
+                                className="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shrink-0 self-start sm:self-center shadow-sm"
+                              >
+                                {copiedSnippetId === w.id ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                                <span>{copiedSnippetId === w.id ? '¡Fragmento Copiado!' : 'Copiar Fragmento'}</span>
+                              </button>
+                            </div>
                           </div>
 
                           <p className="text-[11px] text-[var(--text-secondary)] font-sans">

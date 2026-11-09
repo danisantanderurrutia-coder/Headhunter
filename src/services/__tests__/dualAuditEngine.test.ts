@@ -3,6 +3,8 @@ import {
   auditDocumentDualLens, 
   auditHeadhunterLens, 
   auditWingmanLens,
+  getSelectableCriteriaFromReport,
+  generateGeminiReviewPrompt,
   CANONICAL_PORTFOLIO_WEAPONS 
 } from '../dualAuditEngine';
 import { THUENEN_TECHWORMS_DOSSIER } from '../jobWingmanService';
@@ -132,5 +134,38 @@ Daniel Santander Urrutia
     expect(report.headhunter.score).toBeGreaterThan(70);
     expect(report.wingman.score).toBeGreaterThan(70);
     expect(report.executiveVerdict).toContain('SOBERANO & COMPETITIVO');
+  });
+
+  it('extracts selectable criteria and formats a rigorous prompt for Gemini API', () => {
+    const report = auditDocumentDualLens({
+      documentType: 'cover_letter',
+      text: highQualityLetterText,
+      offer: mockOffer as JobOffer,
+      dossier: THUENEN_TECHWORMS_DOSSIER
+    });
+
+    const criteria = getSelectableCriteriaFromReport(report);
+    expect(criteria.length).toBeGreaterThan(5);
+    expect(criteria.some((c) => c.id === 'hh-degree')).toBe(true);
+    expect(criteria.some((c) => c.id === 'wm-asymmetry')).toBe(true);
+    expect(criteria.some((c) => c.id === 'wm-zero-servility')).toBe(true);
+
+    const prompt = generateGeminiReviewPrompt({
+      documentType: 'cover_letter',
+      documentText: highQualityLetterText,
+      offer: mockOffer as JobOffer,
+      report,
+      selectedCriteriaIds: ['hh-degree', 'wm-asymmetry']
+    });
+
+    expect(prompt).toContain('Actúa como un Revisor de Selección Senior y Auditor Científico de Alto Nivel');
+    expect(prompt).toContain('Wissenschaftliche*r Mitarbeiter*in / Doktorand*in TechWorms');
+    expect(prompt).toContain('Johann Heinrich von Thünen-Institut');
+    expect(prompt).toContain('CRITERIOS ESPECÍFICOS MARCADOS PARA EVALUAR');
+    expect(prompt).toContain('Titulación Oficial y Equivalencia Académica');
+    expect(prompt).toContain('Asimetría Competitiva');
+    expect(prompt).toContain('PROPUESTAS DE MEJORA Y REDACCIÓN CONCRETA (ANTES vs. DESPUÉS)');
+    expect(prompt).toContain('Daniel Santander: Geofísico de la Universidad de Chile');
+    expect(prompt).toContain('PROHIBIDO usar fórmulas clichés de IA');
   });
 });

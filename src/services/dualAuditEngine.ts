@@ -604,6 +604,10 @@ export const auditWingmanLens = (
 // FUNCIÓN PRINCIPAL: DUAL-LENS AUDITOR
 // ----------------------------------------------------------------------------
 
+// ----------------------------------------------------------------------------
+// FUNCIÓN PRINCIPAL: DUAL-LENS AUDITOR
+// ----------------------------------------------------------------------------
+
 export const auditDocumentDualLens = (input: DualAuditInput): DualLensAuditReport => {
   const { documentType, text, offer, dossier } = input;
 
@@ -629,4 +633,161 @@ export const auditDocumentDualLens = (input: DualAuditInput): DualLensAuditRepor
     wingman,
     executiveVerdict
   };
+};
+
+// ----------------------------------------------------------------------------
+// CRITERIOS SELECCIONABLES Y GENERADOR DE PROMPT PARA GEMINI API
+// ----------------------------------------------------------------------------
+
+export interface SelectableAuditCriterion {
+  id: string;
+  lens: 'headhunter' | 'wingman';
+  categoryLabel: string;
+  label: string;
+  status: 'pass' | 'warning' | 'fail' | 'info';
+  detail: string;
+  fixRecommendation?: string;
+}
+
+export const getSelectableCriteriaFromReport = (report: DualLensAuditReport): SelectableAuditCriterion[] => {
+  const items: SelectableAuditCriterion[] = [];
+
+  // 1. Checks de Cumplimiento Headhunter / ATS
+  for (const c of report.headhunter.complianceChecks) {
+    items.push({
+      id: c.id,
+      lens: 'headhunter',
+      categoryLabel: 'Lente Headhunter / ATS',
+      label: c.label,
+      status: c.status,
+      detail: c.detail,
+      fixRecommendation: c.fixRecommendation
+    });
+  }
+
+  // 2. Palabras Clave ATS Faltantes
+  if (report.headhunter.missingRequiredKeywords.length > 0) {
+    items.push({
+      id: 'hh-missing-keywords',
+      lens: 'headhunter',
+      categoryLabel: 'Lente Headhunter / ATS',
+      label: `Palabras clave requeridas ausentes (${report.headhunter.missingRequiredKeywords.length})`,
+      status: 'warning',
+      detail: `Faltan las siguientes palabras clave requeridas por la vacante: ${report.headhunter.missingRequiredKeywords.join(', ')}`,
+      fixRecommendation: 'Incorporar orgánicamente estas palabras clave en el contexto metodológico o de responsabilidades.'
+    });
+  }
+
+  // 3. Asimetría Competitiva Wingman (Rigor Físico vs Agrónomo Genérico)
+  items.push({
+    id: 'wm-asymmetry',
+    lens: 'wingman',
+    categoryLabel: 'Lente Wingman / PI',
+    label: 'Asimetría Competitiva (Física Cuantitativa vs. Agronomía Descriptiva)',
+    status: report.wingman.competitiveAsymmetry.asymmetryRating === 'dominant' ? 'pass' : 'warning',
+    detail: report.wingman.competitiveAsymmetry.advice,
+    fixRecommendation: 'Enmarcar la investigación con medios porosos, transporte continuo y balances de masa en lugar de descripciones descriptivas.'
+  });
+
+  // 4. Estándar Cero-Servilismo Wingman
+  items.push({
+    id: 'wm-zero-servility',
+    lens: 'wingman',
+    categoryLabel: 'Lente Wingman / PI',
+    label: 'Tono Científico Paritario y Cero Clichés de IA',
+    status: report.wingman.zeroServilityAudit.servilityScore === 100 ? 'pass' : 'warning',
+    detail: report.wingman.zeroServilityAudit.critique,
+    fixRecommendation: report.wingman.zeroServilityAudit.detectedCliches.length > 0
+      ? `Eliminar clichés detectados: "${report.wingman.zeroServilityAudit.detectedCliches.join('", "')}" y reemplazarlos por declaraciones analíticas directas.`
+      : undefined
+  });
+
+  // 5. Armas Omitidas del Portafolio
+  for (const w of report.wingman.portfolioWeaponActivation.omittedWeapons) {
+    items.push({
+      id: `wm-omitted-${w.id}`,
+      lens: 'wingman',
+      categoryLabel: 'Lente Wingman / Portafolio',
+      label: `Activar arma omitida: ${w.name}`,
+      status: 'warning',
+      detail: w.reasonToInclude,
+      fixRecommendation: `Snippet sugerido: "${w.suggestedInjection}"`
+    });
+  }
+
+  return items;
+};
+
+export interface GenerateGeminiReviewPromptParams {
+  documentType: 'cv' | 'cover_letter';
+  documentText: string;
+  offer?: Partial<JobOffer> | null;
+  report: DualLensAuditReport;
+  selectedCriteriaIds: string[];
+}
+
+export const generateGeminiReviewPrompt = (params: GenerateGeminiReviewPromptParams): string => {
+  const { documentType, documentText, offer, report, selectedCriteriaIds } = params;
+  const allCriteria = getSelectableCriteriaFromReport(report);
+  const selectedCriteria = allCriteria.filter((c) => selectedCriteriaIds.includes(c.id));
+  const criteriaToInclude = selectedCriteria.length > 0 ? selectedCriteria : allCriteria;
+
+  const docTypeName = documentType === 'cv' ? 'Curriculum Vitae (CV)' : 'Carta de Motivación (Cover Letter)';
+  const offerTitle = offer?.title || 'Posición / Puesto de Investigación';
+  const company = offer?.company || 'Institución / Organización Convocante';
+  const location = offer?.location ? ` (${offer.location})` : '';
+  const offerReqs = offer?.requirements;
+  const requirements = offerReqs && offerReqs.length > 0
+    ? offerReqs.map((r) => `  - ${r}`).join('\n')
+    : '  - Conforme a la convocatoria oficial.';
+
+  const formattedCriteria = criteriaToInclude.map((c, i) => {
+    return `[Criterio ${i + 1}] ${c.categoryLabel} :: ${c.label}
+• Estado actual en la auditoría: ${c.status.toUpperCase()}
+• Diagnóstico: ${c.detail}
+${c.fixRecommendation ? `• Acción esperada / recomendación: ${c.fixRecommendation}\n` : ''}`;
+  }).join('\n');
+
+  return `Actúa como un Revisor de Selección Senior y Auditor Científico de Alto Nivel.
+He integrado los criterios de evaluación de mi plataforma de empleo (Headhunter & Job Wingman). Quiero que audites exhaustivamente mi postulación basándote ESTRICTAMENTE en los criterios que he marcado a continuación.
+
+================================================================================
+1. CONTEXTO DE LA CONVOCATORIA
+================================================================================
+• Puesto objetivo: ${offerTitle}
+• Organización / Empresa: ${company}${location}
+• Requisitos clave de la vacante:
+${requirements}
+
+================================================================================
+2. CRITERIOS ESPECÍFICOS MARCADOS PARA EVALUAR (${criteriaToInclude.length} Criterios)
+================================================================================
+Evalúa mi postulación con máxima rigurosidad frente a estos puntos específicos:
+
+${formattedCriteria}
+
+================================================================================
+3. DOCUMENTO DE POSTULACIÓN A AUDITAR (${docTypeName.toUpperCase()})
+================================================================================
+"""
+${documentText.trim()}
+"""
+
+================================================================================
+4. TUS ENTREGABLES OBLIGATORIOS (ESTRUCTURA DE RESPUESTA)
+================================================================================
+Por favor, responde de manera directa, rigurosa y analítica estructurada en:
+
+1. EVALUACIÓN Y DICTAMEN POR CRITERIO:
+   Analiza uno a uno los criterios marcados arriba. Indica sin rodeos si mi borrador cumple cabalmente, si queda débil o si carece de evidencia suficiente frente a lo que un comité de selección espera.
+
+2. OPINIÓN CRÍTICA & DIAGNÓSTICO ESTRATÉGICO:
+   - ¿Qué tan convincente resulta este documento para el tomador de decisiones?
+   - ¿Se percibe la voz de un par científico riguroso con solidez cuantitativa (física de medios porosos, balances de masa, instrumentación de campo) o se detectan rasgos de agronomo genérico o servilismo?
+
+3. PROPUESTAS DE MEJORA Y REDACCIÓN CONCRETA (ANTES vs. DESPUÉS):
+   - Proporciona redacciones concretas y fragmentos pulidos listos para copiar y pegar que resuelvan las falencias de los criterios evaluados.
+   - REGLA CRÍTICA: Basa tus mejoras ESTRICTAMENTE en los datos reales del candidato (Daniel Santander: Geofísico de la Universidad de Chile con distinción, CAU Kiel / AMU Poznań, balances de masa, SEV Schlumberger, Eddy Covariance en Wallener Au, σp = 62,4 kPa, aplicaciones AgriTwin, Wetland Monitor, Rewilding Field Suite). No inventes títulos, empresas ni tecnologías inexistentes.
+   - PROHIBIDO usar fórmulas clichés de IA ("thrilled to apply", "beacon of", "delve into", "testament to", "foster", "in conclusion", "passionate about").
+`;
 };

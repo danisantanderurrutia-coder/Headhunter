@@ -1090,6 +1090,8 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
               {/* Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica) para CV */}
               <DualLensAuditHub
                 report={dualReport}
+                offer={offer}
+                documentText={renderCvMarkdown(built)}
                 onInjectSnippet={handleInjectWeapon}
               />
             </>
@@ -1141,6 +1143,8 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
               {/* Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica) para Carta */}
               <DualLensAuditHub
                 report={dualReport}
+                offer={offer}
+                documentText={builtLetter.fullMarkdown}
                 onInjectSnippet={handleInjectWeapon}
               />
 
