@@ -134,9 +134,14 @@ export const getStoredProfile = (): MasterProfile => {
 
     const finalCourses = cleanedCourses.length >= 8 ? cleanedCourses : (initialProfile.otherCourses || []);
 
+    const cleanedSummary = (parsed.summary || initialProfile.summary)
+      .replace(/candidato a doble m[aá]ster/gi, 'doble Máster')
+      .replace(/candidato a m[aá]ster/gi, 'Máster');
+
     const consolidated: MasterProfile = {
       ...initialProfile,
       ...parsed,
+      summary: cleanedSummary,
       education: validEducation.length >= 3 ? validEducation : initialProfile.education,
       experiences: (parsed.experiences && parsed.experiences.length >= 6) ? parsed.experiences : initialProfile.experiences,
       keyProjects: validKeyProjects.length >= 4 ? validKeyProjects : initialProfile.keyProjects,

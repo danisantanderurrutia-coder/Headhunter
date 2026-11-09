@@ -70,13 +70,13 @@ mit großem Interesse verfolge ich Ihre Arbeiten zur Kohlenstoffdynamik in Unter
 Vor Einreichung meiner vollständigen Unterlagen über das Thünen-Portal erlaube ich mir eine kurze methodische Frage:
 Liegt der Schwerpunkt der experimentellen Auswertung mit der RootBox primär auf der bildanalytischen Wurzelquantifizierung (RLD/Fluoreszenz) und deren Skalierung im R-Umfeld, oder ist im Rahmen der Isotopenanalytik (13C/15N) auch eine gekoppelte hydro-physikalische Modellierung des präferentiellen Flusses in der künstlichen Drilosphäre vorgesehen?
 
-Als Umweltgeophysiker (Universidad de Chile, Abschluss mit Auszeichnung; derzeit M.Sc. Umweltmanagement an der CAU Kiel) bringe ich einen stark quantitativen Hintergrund in der Physik poröser Medien, R-Programmierung und instrumenteller Feldarbeit mit.
+Als Umweltgeophysiker (Universidad de Chile, Abschluss mit Auszeichnung; Doppel-M.Sc. in Umweltmanagement an der CAU Kiel und Umweltschutz an der AMU Poznań) bringe ich einen stark quantitativen Hintergrund in der Physik poröser Medien, R-Programmierung und instrumenteller Feldarbeit mit.
 
 Über einen kurzen fachlichen Impuls würde ich mich sehr freuen; meine formalen Bewerbungsunterlagen bereite ich parallel für das Portal vor.
 
 Mit besten Grüßen aus Kiel,
 Daniel Santander Urrutia
-M.Sc. Candidate | Environmental Geophysicist
+Dual M.Sc. | Environmental Geophysicist
 danisantander.urrutia@gmail.com | +49 152 23026367`,
     subjectEn: 'Technical inquiry regarding the TechWorms PhD position (Ref. 369)',
     bodyEn: `Dear Prof. Dr. Don,
@@ -86,13 +86,13 @@ I have been following your research on subsoil carbon turnover and stabilization
 Prior to submitting my formal application via the Thünen portal, I would like to ask a brief methodological question:
 Is the analytical focus with the RootBox centered strictly on computer vision root quantification (RLD/UV fluorescence) and statistical scaling in R, or is there an intention to couple the 13C/15N isotopic tracing with hydro-physical modeling of preferential flow along the artificial drilosphere?
 
-As an Environmental Geophysicist (Universidad de Chile, with distinction; currently completing an M.Sc. in Environmental Management at CAU Kiel), I combine training in porous media physics and data processing in R with robust all-weather field experience.
+As an Environmental Geophysicist (Universidad de Chile, with distinction; dual M.Sc. in Environmental Management at CAU Kiel and Environmental Protection at AMU Poznań), I combine training in porous media physics and data processing in R with robust all-weather field experience.
 
 Thank you very much for your time and guidance. I look forward to submitting my formal documents shortly.
 
 Sincerely, from Kiel,
 Daniel Santander Urrutia
-M.Sc. Candidate | Environmental Geophysicist
+Dual M.Sc. | Environmental Geophysicist
 danisantander.urrutia@gmail.com | +49 152 23026367`
   }
 };
@@ -155,9 +155,9 @@ export const UBA_KILAB_DOSSIER: JobDossier = {
   ],
   coldApproachEmail: {
     subjectDe: 'Fachliche Bewerbungsfrage: Spezialist*in KI-Projektmanagement & Product Owner (Kennziffer 8/LB/26, Interamt 1499096)',
-    bodyDe: `Sehr geehrte Damen und Herren der Auswahlkommission,\n\nmit großem Interesse bereite ich meine Bewerbung für die Position als Spezialist*in im Bereich KI-Projektmanagement und KI Product Owner im KI-Lab des Umweltbundesamtes (Kennziffer 8/LB/26) vor.\n\nAls Umweltgeophysiker (Universidad de Chile, mit Auszeichnung) und M.Sc.-Kandidat für Umweltmanagement (CAU Kiel) verfolge ich die Umweltpolitische Digitalagenda des UBA mit hoher Aufmerksamkeit. In meiner bisherigen Arbeit habe ich mit dem Wetland Monitor (3D-Moor-Zwilling für Treibhausgasflüsse), AgriTwin (IoT-Bodenfeuchte gekoppelt mit Sentinel-2) und der Rewilding Field Suite (Offline-First PWA für Restaurierungsprotokolle) bereits eigenständig drei funktionierende Softwarelösungen an der Schnittstelle von Umweltdaten und agiler Produktentwicklung konzipiert und umgesetzt.\n\nVor Einreichung meiner vollständigen Unterlagen im Interamt-Portal erlaube ich mir eine kurze methodische Frage: Liegt der primäre Schwerpunkt des KI-Labs in der anstehenden Projektphase auf der Konzeption von Datenföderations- und MLOps-Architekturen für den behördlichen Verwaltungsvollzug oder auf der agilen Nutzerzentrierung (User Research / UX) für behördenübergreifende Analysewerkzeuge?\n\nÜber eine kurze Orientierung würde ich mich freuen; meine formalen Unterlagen übermittle ich fristgerecht über Interamt.\n\nMit freundlichen Grüßen,\nDaniel Santander Urrutia\nM.Sc. Candidate | Environmental Geophysicist\ndanisantander.urrutia@gmail.com | +49 176 76497440`,
+    bodyDe: `Sehr geehrte Damen und Herren der Auswahlkommission,\n\nmit großem Interesse bereite ich meine Bewerbung für die Position als Spezialist*in im Bereich KI-Projektmanagement und KI Product Owner im KI-Lab des Umweltbundesamtes (Kennziffer 8/LB/26) vor.\n\nAls Umweltgeophysiker (Universidad de Chile, mit Auszeichnung) und Doppel-M.Sc. in Umweltmanagement (CAU Kiel) und Umweltschutz (AMU Poznań) verfolge ich die Umweltpolitische Digitalagenda des UBA mit hoher Aufmerksamkeit. In meiner bisherigen Arbeit habe ich mit dem Wetland Monitor (3D-Moor-Zwilling für Treibhausgasflüsse), AgriTwin (IoT-Bodenfeuchte gekoppelt mit Sentinel-2) und der Rewilding Field Suite (Offline-First PWA für Restaurierungsprotokolle) bereits eigenständig drei funktionierende Softwarelösungen an der Schnittstelle von Umweltdaten und agiler Produktentwicklung konzipiert und umgesetzt.\n\nVor Einreichung meiner vollständigen Unterlagen im Interamt-Portal erlaube ich mir eine kurze methodische Frage: Liegt der primäre Schwerpunkt des KI-Labs in der anstehenden Projektphase auf der Konzeption von Datenföderations- und MLOps-Architekturen für den behördlichen Verwaltungsvollzug oder auf der agilen Nutzerzentrierung (User Research / UX) für behördenübergreifende Analysewerkzeuge?\n\nÜber eine kurze Orientierung würde ich mich freuen; meine formalen Unterlagen übermittle ich fristgerecht über Interamt.\n\nMit freundlichen Grüßen,\nDaniel Santander Urrutia\nDual M.Sc. | Environmental Geophysicist\ndanisantander.urrutia@gmail.com | +49 176 76497440`,
     subjectEn: 'Technical inquiry: AI Project Management & Product Owner (Ref. 8/LB/26, Interamt 1499096)',
-    bodyEn: `Dear Selection Committee,\n\nI am currently preparing my application for the AI Project Management and AI Product Owner position within the UBA KI-Lab (Reference 8/LB/26, Interamt ID 1499096).\n\nAs an Environmental Geophysicist (Universidad de Chile, with distinction) and M.Sc. candidate in Environmental Management (CAU Kiel), I have independently architected and shipped three working environmental software applications: Wetland Monitor (a 3D peatland twin for GHG fluxes and Eddy Covariance data), AgriTwin (IoT soil-moisture telemetry coupled with Sentinel-2 NDVI/NDRE), and the Rewilding Field Suite (an offline-first PWA for field restoration protocols).\n\nPrior to final submission via the Interamt portal, I would like to inquire whether the immediate priority for the KI-Lab portfolio centers on MLOps and federated data pipelines for administrative enforcement, or on user research and agile backlog definition for inter-agency environmental analytics.\n\nThank you for your guidance. I look forward to submitting my formal application.\n\nSincerely,\nDaniel Santander Urrutia\ndanisantander.urrutia@gmail.com | +49 176 76497440`
+    bodyEn: `Dear Selection Committee,\n\nI am currently preparing my application for the AI Project Management and AI Product Owner position within the UBA KI-Lab (Reference 8/LB/26, Interamt ID 1499096).\n\nAs an Environmental Geophysicist (Universidad de Chile, with distinction) and dual M.Sc. in Environmental Management (CAU Kiel) and Environmental Protection (AMU Poznań), I have independently architected and shipped three working environmental software applications: Wetland Monitor (a 3D peatland twin for GHG fluxes and Eddy Covariance data), AgriTwin (IoT soil-moisture telemetry coupled with Sentinel-2 NDVI/NDRE), and the Rewilding Field Suite (an offline-first PWA for field restoration protocols).\n\nPrior to final submission via the Interamt portal, I would like to inquire whether the immediate priority for the KI-Lab portfolio centers on MLOps and federated data pipelines for administrative enforcement, or on user research and agile backlog definition for inter-agency environmental analytics.\n\nThank you for your guidance. I look forward to submitting my formal application.\n\nSincerely,\nDaniel Santander Urrutia\ndanisantander.urrutia@gmail.com | +49 176 76497440`
   }
 };
 
@@ -313,7 +313,7 @@ export const saveDossierFromForm = (offer: JobOffer, form: WingmanFormInput): Jo
   const honorific = form.honorific?.trim();
   const qDe = form.questionDe?.trim();
   const qEn = form.questionEn?.trim();
-  const sig = 'Daniel Santander Urrutia\nM.Sc. Candidate | Environmental Geophysicist\ndanisantander.urrutia@gmail.com';
+  const sig = 'Daniel Santander Urrutia\nDual M.Sc. | Environmental Geophysicist\ndanisantander.urrutia@gmail.com';
 
   const email = { ...base.coldApproachEmail };
   if (qDe) {

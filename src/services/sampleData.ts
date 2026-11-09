@@ -96,7 +96,7 @@ export const initialProfile: MasterProfile = {
   ],
   minSalary: 40000,
   desiredSalary: 52000,
-  summary: 'Geofísico (Universidad de Chile, Licenciatura aprobada Con Distinción) y candidato a doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Integra investigación cuantitativa y mediciones de terreno en hidrogeofísica y flujos de gases de efecto invernadero (Eddy Covariance y cámaras cerradas en turberas templadas de Wallener Au) con modelación computacional, desarrollo de gemelos digitales (Wetland Monitor, AgriTwin, Rewilding Field Suite), testimonio pericial ante la Cámara de Diputadas y Diputados de Chile en prevención de megaincendios y ordenamiento de cuencas, y dirección de campañas de comunicación masiva y periodismo de investigación (+700k audiencia).',
+  summary: 'Geofísico (Universidad de Chile, Licenciatura aprobada Con Distinción) y doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Integra investigación cuantitativa y mediciones de terreno en hidrogeofísica y flujos de gases de efecto invernadero (Eddy Covariance y cámaras cerradas en turberas templadas de Wallener Au) con modelación computacional, desarrollo de gemelos digitales (Wetland Monitor, AgriTwin, Rewilding Field Suite), testimonio pericial ante la Cámara de Diputadas y Diputados de Chile en prevención de megaincendios y ordenamiento de cuencas, y dirección de campañas de comunicación masiva y periodismo de investigación (+700k audiencia).',
   experiences: [
     {
       id: 'exp-cau-kiel',
@@ -1708,7 +1708,7 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Exige un historial científico sólido con publicaciones y clara vocación de permanencia en Euskadi'],
     interviewArguments: [
-      'Candidato a doble máster europeo con experiencia internacional demostrada en Alemania, Polonia y Chile.',
+      'Doble máster europeo con experiencia internacional demostrada en Alemania, Polonia y Chile.',
       'Perfil de alto valor estratégico para la transición ecológica y la resiliencia territorial de Euskadi.',
       'Voluntad explícita de arraigo e investigación aplicada a largo plazo en Bizkaia/Euskadi.'
     ],
