@@ -47,10 +47,10 @@ export const cvTemplatesList: CVTemplateInfo[] = [
   {
     id: 'europass',
     name: 'Europass Oficial UE (2-3 pág.)',
-    language: 'es',
+    language: 'en',
     pages: '2-3 pág.',
-    description: 'Formato europeo estándar para convocatorias públicas e I+D.',
-    targetAudience: 'Convocatorias públicas UE y proyectos europeos',
+    description: 'European standard format for public calls, EU institutions and R&D.',
+    targetAudience: 'EU public calls, European institutions & Horizon projects',
     accentColor: '#06b6d4'
   },
   {

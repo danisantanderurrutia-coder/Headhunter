@@ -13,6 +13,7 @@ import {
   Layers,
   Lightbulb,
   ListChecks,
+  Loader2,
   Mail,
   Plus,
   PlusCircle,
@@ -58,6 +59,7 @@ import {
   type SavedCoverLetterVersion
 } from '../../services/coverLetterStudio';
 import { auditDocumentDualLens } from '../../services/dualAuditEngine';
+import { generateCoverLetterWithGemini, evaluateOfferWithGemini, type GeminiEvaluationResult } from '../../services/geminiService';
 import { DualLensAuditHub } from './DualLensAuditHub';
 import { CANONICAL_CONTACT, type CvSection } from '../../data/verifiedCvFacts';
 
@@ -246,7 +248,6 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const [copiedAudit, setCopiedAudit] = useState(false);
   const [copiedMarkdown, setCopiedMarkdown] = useState(false);
   const [checklistFilter, setChecklistFilter] = useState<'all' | 'anti_ai' | 'style_repetition' | 'golden_thread' | 'metrics_evidence' | 'tor_compliance'>('all');
-  const [isChecklistExpanded, setIsChecklistExpanded] = useState(true);
 
   useEffect(() => {
     if (initialOfferId) {
@@ -1685,252 +1686,8 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 </div>
               </AccordionCard>
 
-              {/* 4. Auditoría Dual-Lens & Gemini API */}
-              <AccordionCard
-                id="audit"
-                isOpen={!!openLetterSections.audit}
-                onToggle={toggleLetterSection}
-                title="Auditoría Dual-Lens & Gemini API"
-                icon={<Sparkles className="h-4 w-4 text-purple-400" />}
-                summary={`Score: ATS ${dualReport.headhunter.score}% · Wingman ${dualReport.wingman.score}%`}
-              >
-                <DualLensAuditHub
-                  report={dualReport}
-                  offer={offer}
-                  documentText={builtLetter.fullMarkdown}
-                  onInjectSnippet={handleInjectWeapon}
-                />
-              </AccordionCard>
 
-              {/* 5. Linter Anti-IA & Checklist Editorial */}
-              <AccordionCard
-                id="antiai"
-                isOpen={!!openLetterSections.antiai}
-                onToggle={toggleLetterSection}
-                title="Linter Anti-IA & Checklist Editorial"
-                icon={<ShieldCheck className="h-4 w-4 text-emerald-500" />}
-                summary={`${builtLetter.audit.overallScore}/100 · ${builtLetter.audit.clicheCount} clichés · ${builtLetter.audit.mechanicalRepetitions.length} reiteraciones`}
-              >
-                <div
-                  className={`p-3.5 rounded-2xl border text-xs space-y-3 transition-colors ${
-                    builtLetter.audit.overallScore >= 80
-                      ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
-                      : builtLetter.audit.overallScore >= 60
-                      ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-950 dark:text-amber-200'
-                      : 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-500/40 text-rose-950 dark:text-rose-200'
-                  }`}
-                >
-                  <div className="flex items-center justify-between font-mono font-bold">
-                    <span className="flex items-center gap-1.5 text-xs uppercase">
-                      {builtLetter.audit.overallScore >= 80 ? (
-                        <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                      ) : builtLetter.audit.overallScore >= 60 ? (
-                        <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                      ) : (
-                        <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
-                      )}
-                      <span>
-                        {builtLetter.audit.overallScore >= 80
-                          ? 'Auditoría Editorial: Voz Humana Acreditada'
-                          : builtLetter.audit.overallScore >= 60
-                          ? 'Auditoría Editorial: Alertas y Mejoras Sugeridas'
-                          : 'Auditoría Editorial: Nivel Crítico de Fórmulas IA'}
-                      </span>
-                    </span>
-                    <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
-                      builtLetter.audit.overallScore >= 80
-                        ? 'bg-emerald-600 text-white border-emerald-500'
-                        : builtLetter.audit.overallScore >= 60
-                        ? 'bg-amber-500 text-slate-950 border-amber-400'
-                        : 'bg-rose-600 text-white border-rose-500'
-                    }`}>
-                      {builtLetter.audit.overallScore}/100
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 font-mono text-[10px]">
-                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                      <span className="text-[var(--text-muted)] uppercase text-[9px]">Clichés IA</span>
-                      <span className={`font-bold text-xs ${builtLetter.audit.clicheCount === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
-                        {builtLetter.audit.clicheCount} detectados
-                      </span>
-                    </div>
-                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                      <span className="text-[var(--text-muted)] uppercase text-[9px]">Muletillas</span>
-                      <span className={`font-bold text-xs ${builtLetter.audit.bureaucraticFillers.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                        {builtLetter.audit.bureaucraticFillers.length} rellenos
-                      </span>
-                    </div>
-                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                      <span className="text-[var(--text-muted)] uppercase text-[9px]">Palabras 4+</span>
-                      <span className={`font-bold text-xs ${builtLetter.audit.mechanicalRepetitions.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                        {builtLetter.audit.mechanicalRepetitions.length} repetidas
-                      </span>
-                    </div>
-                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                      <span className="text-[var(--text-muted)] uppercase text-[9px]">ToR Mandatorios</span>
-                      <span className={`font-bold text-xs ${builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                        {builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'Completos' : 'Pendientes'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Caja de Alerta de Reiteraciones Mecánicas */}
-                  {(builtLetter.audit.mechanicalRepetitions.length > 0 || builtLetter.audit.sentenceStarterRepetitions.length > 0) && (
-                    <div className="p-3 rounded-xl bg-black/5 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-2 text-[11px]">
-                      <div className="font-mono font-bold flex items-center gap-1.5 text-purple-600 dark:text-purple-300 uppercase text-[10px]">
-                        <Repeat className="h-3.5 w-3.5" />
-                        <span>Reiteraciones Mecánicas Detectadas en el Texto</span>
-                      </div>
-
-                      {builtLetter.audit.mechanicalRepetitions.length > 0 && (
-                        <div className="space-y-1">
-                          <span className="text-[10px] text-[var(--text-muted)] block">Palabras con alta frecuencia:</span>
-                          <div className="flex flex-wrap gap-1">
-                            {builtLetter.audit.mechanicalRepetitions.map((r, i) => (
-                              <span key={i} className="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-mono text-[10px] border border-amber-300 dark:border-amber-500/30">
-                                «{r.word}» ({r.count}×)
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {builtLetter.audit.sentenceStarterRepetitions.length > 0 && (
-                        <div className="space-y-1 pt-1 border-t border-black/10 dark:border-white/10">
-                          <span className="text-[10px] text-[var(--text-muted)] block">Iniciadores monótonos recurrentes:</span>
-                          <div className="flex flex-wrap gap-1">
-                            {builtLetter.audit.sentenceStarterRepetitions.map((s, i) => (
-                              <span key={i} className="px-2 py-0.5 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-900 dark:text-rose-300 font-mono text-[10px] border border-rose-300 dark:border-rose-500/30">
-                                Iniciador {s.starter} ({s.count} oraciones)
-                              </span>
-                            ))}
-                          </div>
-                          <p className="text-[10px] text-[var(--text-secondary)] italic">
-                            💡 Sugerencia: Varía usando participios (ej. «Having coordinated...»), marcos de contexto («At the intersection of...») o contrastes de enfoque («Rather than...»).
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Menú de Checklist Interactivo y Desplegable */}
-                  <div className="pt-1 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <button
-                        type="button"
-                        onClick={() => setIsChecklistExpanded((prev) => !prev)}
-                        className="font-mono text-xs font-bold flex items-center gap-1.5 text-[var(--text-primary)] hover:text-sky-500 transition cursor-pointer"
-                      >
-                        <ListChecks className="h-4 w-4 text-sky-500" />
-                        <span>Checklist de Verificación ({builtLetter.audit.checklist.length} Criterios)</span>
-                        {isChecklistExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={copyAuditSummary}
-                        className="text-[10px] font-mono text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1 cursor-pointer"
-                        title="Copiar el diagnóstico y los 9 criterios al portapapeles"
-                      >
-                        <Copy className="h-3 w-3" />
-                        <span>{copiedAudit ? '¡Copiado!' : 'Copiar Diagnóstico'}</span>
-                      </button>
-                    </div>
-
-                    {isChecklistExpanded && (
-                      <div className="space-y-2">
-                        {/* Filtro de Categorías */}
-                        <div className="flex flex-wrap gap-1">
-                          {[
-                            { id: 'all', label: 'Todos' },
-                            { id: 'anti_ai', label: 'Anti-IA' },
-                            { id: 'style_repetition', label: 'Reiteraciones' },
-                            { id: 'golden_thread', label: 'Hilo Conductor' },
-                            { id: 'metrics_evidence', label: 'Rigor' },
-                            { id: 'tor_compliance', label: 'ToR Mandatorio' }
-                          ].map((cat) => (
-                            <button
-                              key={cat.id}
-                              type="button"
-                              onClick={() => setChecklistFilter(cat.id as any)}
-                              className={`px-2 py-0.5 rounded text-[10px] font-mono transition cursor-pointer ${
-                                checklistFilter === cat.id
-                                  ? 'bg-purple-600 text-white font-bold'
-                                  : 'bg-black/5 dark:bg-black/20 text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-                              }`}
-                            >
-                              {cat.label}
-                            </button>
-                          ))}
-                        </div>
-
-                        {/* Lista de Criterios */}
-                        <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
-                          {builtLetter.audit.checklist
-                            .filter((c) => checklistFilter === 'all' || c.category === checklistFilter)
-                            .map((item) => (
-                              <div
-                                key={item.id}
-                                className={`p-2.5 rounded-xl border text-[11px] space-y-1 transition ${
-                                  item.status === 'pass'
-                                    ? 'bg-emerald-100/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
-                                    : item.status === 'warning'
-                                    ? 'bg-amber-100/50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-500/30'
-                                    : 'bg-rose-100/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-500/30'
-                                }`}
-                              >
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-1.5 font-bold">
-                                    {item.status === 'pass' ? (
-                                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                                    ) : item.status === 'warning' ? (
-                                      <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
-                                    ) : (
-                                      <ShieldAlert className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
-                                    )}
-                                    <span className="text-[var(--text-primary)]">{item.label}</span>
-                                  </div>
-                                  <span className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded font-bold ${
-                                    item.status === 'pass'
-                                      ? 'bg-emerald-600 text-white'
-                                      : item.status === 'warning'
-                                      ? 'bg-amber-500 text-slate-950'
-                                      : 'bg-rose-600 text-white'
-                                  }`}>
-                                    {item.status}
-                                  </span>
-                                </div>
-
-                                <p className="text-[10.5px] text-[var(--text-secondary)] leading-relaxed">
-                                  {item.summary}
-                                </p>
-
-                                {item.details && item.details.length > 0 && (
-                                  <div className="flex flex-wrap gap-1 pt-0.5">
-                                    {item.details.map((d, di) => (
-                                      <span key={di} className="px-1.5 py-0.2 rounded bg-black/10 dark:bg-white/10 text-[9.5px] font-mono">
-                                        {d}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {item.suggestion && (
-                                  <div className="p-1.5 rounded-lg bg-black/5 dark:bg-black/30 text-[10px] text-sky-700 dark:text-sky-300 flex items-start gap-1">
-                                    <Lightbulb className="h-3 w-3 shrink-0 mt-0.5" />
-                                    <span>{item.suggestion}</span>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </AccordionCard>
-
-              {/* 6. Versiones Guardadas de Carta */}
+              {/* 4. Versiones Guardadas de Carta */}
               <AccordionCard
                 id="saved"
                 isOpen={!!openLetterSections.saved}
@@ -2042,6 +1799,258 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
           </div>
         </div>
       </div>
+
+      {/* ======================================================== SECCIÓN HORIZONTAL INFERIOR (COVER LETTER): AUDITORÍA DUAL-LENS & LINTER ANTI-IA */}
+      {docMode === 'cover_letter' && (
+        <div className="space-y-6 pt-4 border-t border-[var(--panel-border)]">
+          {/* Bloque 1: Auditoría Dual-Lens & Gemini API (Horizontal, sin colapsar) */}
+          <div className="space-y-2">
+            <DualLensAuditHub
+              report={dualReport}
+              offer={offer}
+              documentText={builtLetter.fullMarkdown}
+              onInjectSnippet={handleInjectWeapon}
+            />
+          </div>
+
+          {/* Bloque 2: Linter Anti-IA & Checklist Editorial (Horizontal, sin colapsar) */}
+          <div className={panel} style={panelStyle}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--panel-border)]">
+              <div className="flex items-center gap-2.5">
+                <div className="p-1.5 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <ShieldCheck className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-mono font-black text-sm uppercase text-[var(--text-primary)]">
+                    Linter Anti-IA & Rigor Editorial DIN 5008
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] font-sans">
+                    Fiscalización continua de clichés de modelos de lenguaje, muletillas burocráticas y reiteraciones léxicas
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className={`text-xs font-mono px-3 py-1 rounded-full font-black border ${
+                  builtLetter.audit.overallScore >= 80
+                    ? 'bg-emerald-600 text-white border-emerald-500'
+                    : builtLetter.audit.overallScore >= 60
+                    ? 'bg-amber-500 text-slate-950 border-amber-400'
+                    : 'bg-rose-600 text-white border-rose-500'
+                }`}>
+                  Scorecard: {builtLetter.audit.overallScore}/100
+                </span>
+                <button
+                  type="button"
+                  onClick={copyAuditSummary}
+                  className="px-2.5 py-1 rounded-lg border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-xs font-mono text-sky-600 dark:text-sky-400 flex items-center gap-1.5 cursor-pointer transition"
+                  title="Copiar el diagnóstico y los 9 criterios al portapapeles"
+                >
+                  <Copy className="h-3.5 w-3.5" />
+                  <span>{copiedAudit ? '¡Copiado!' : 'Copiar Diagnóstico'}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-3 text-xs">
+              {/* Alerta de Veredicto Editorial */}
+              <div
+                className={`p-3.5 rounded-2xl border text-xs space-y-1 transition-colors ${
+                  builtLetter.audit.overallScore >= 80
+                    ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
+                    : builtLetter.audit.overallScore >= 60
+                    ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-950 dark:text-amber-200'
+                    : 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-500/40 text-rose-950 dark:text-rose-200'
+                }`}
+              >
+                <div className="flex items-center gap-1.5 font-bold uppercase font-mono">
+                  {builtLetter.audit.overallScore >= 80 ? (
+                    <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  ) : builtLetter.audit.overallScore >= 60 ? (
+                    <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                  ) : (
+                    <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                  )}
+                  <span>
+                    {builtLetter.audit.overallScore >= 80
+                      ? 'Auditoría Editorial: Voz Humana y Rigor Acreditados'
+                      : builtLetter.audit.overallScore >= 60
+                      ? 'Auditoría Editorial: Alertas y Mejoras Sugeridas'
+                      : 'Auditoría Editorial: Nivel Crítico de Fórmulas IA'}
+                  </span>
+                </div>
+                <p className="text-[11.5px] font-sans leading-relaxed">
+                  {builtLetter.audit.overallScore >= 80
+                    ? 'La carta presenta estructura soberana libre de fórmulas manidas de IA, con lenguaje científico técnico y evidencia empírica directa.'
+                    : 'Se detectaron expresiones genéricas o reiteraciones que debilitan la asimetría competitiva. Revisa los puntos señalados abajo.'}
+                </p>
+              </div>
+
+              {/* Grid 4 Métricas Clave */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-mono text-[11px]">
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                  <span className="text-[var(--text-muted)] uppercase text-[10px]">Clichés IA</span>
+                  <span className={`font-bold text-sm mt-1 ${builtLetter.audit.clicheCount === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                    {builtLetter.audit.clicheCount} detectados
+                  </span>
+                </div>
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                  <span className="text-[var(--text-muted)] uppercase text-[10px]">Muletillas Burocráticas</span>
+                  <span className={`font-bold text-sm mt-1 ${builtLetter.audit.bureaucraticFillers.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                    {builtLetter.audit.bureaucraticFillers.length} rellenos
+                  </span>
+                </div>
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                  <span className="text-[var(--text-muted)] uppercase text-[10px]">Palabras Repetidas 4+</span>
+                  <span className={`font-bold text-sm mt-1 ${builtLetter.audit.mechanicalRepetitions.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                    {builtLetter.audit.mechanicalRepetitions.length} palabras
+                  </span>
+                </div>
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                  <span className="text-[var(--text-muted)] uppercase text-[10px]">ToR Mandatorios</span>
+                  <span className={`font-bold text-sm mt-1 ${builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                    {builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? '✓ Completos' : '⚠️ Pendientes'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Caja de Alerta de Reiteraciones Mecánicas si existen */}
+              {(builtLetter.audit.mechanicalRepetitions.length > 0 || builtLetter.audit.sentenceStarterRepetitions.length > 0) && (
+                <div className="p-3.5 rounded-xl bg-black/5 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-2 text-xs">
+                  <div className="font-mono font-bold flex items-center gap-1.5 text-purple-600 dark:text-purple-300 uppercase text-[11px]">
+                    <Repeat className="h-4 w-4" />
+                    <span>Reiteraciones Mecánicas Detectadas en el Texto</span>
+                  </div>
+
+                  {builtLetter.audit.mechanicalRepetitions.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[10.5px] text-[var(--text-muted)] block font-mono">Palabras con alta frecuencia no intencional:</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {builtLetter.audit.mechanicalRepetitions.map((r, i) => (
+                          <span key={i} className="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-mono text-[10.5px] border border-amber-300 dark:border-amber-500/30">
+                            «{r.word}» ({r.count}×)
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {builtLetter.audit.sentenceStarterRepetitions.length > 0 && (
+                    <div className="space-y-1 pt-1.5 border-t border-black/10 dark:border-white/10">
+                      <span className="text-[10.5px] text-[var(--text-muted)] block font-mono">Iniciadores monótonos recurrentes:</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {builtLetter.audit.sentenceStarterRepetitions.map((s, i) => (
+                          <span key={i} className="px-2 py-0.5 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-900 dark:text-rose-300 font-mono text-[10.5px] border border-rose-300 dark:border-rose-500/30">
+                            Iniciador {s.starter} ({s.count} oraciones)
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-[10.5px] text-[var(--text-secondary)] italic">
+                        💡 Sugerencia: Varía usando participios (ej. «Having coordinated...»), marcos de contexto («At the intersection of...») o contrastes de enfoque («Rather than...»).
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Checklist Completo de 9 Criterios (Horizontal, Sin Colapsar) */}
+              <div className="space-y-3 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--panel-border)] pb-2">
+                  <span className="font-mono text-xs font-bold flex items-center gap-1.5 text-[var(--text-primary)] uppercase">
+                    <ListChecks className="h-4 w-4 text-sky-500" />
+                    <span>Checklist de Verificación ({builtLetter.audit.checklist.length} Criterios Editoriales)</span>
+                  </span>
+
+                  {/* Filtros de Categoría */}
+                  <div className="flex flex-wrap gap-1">
+                    {[
+                      { id: 'all', label: 'Todos' },
+                      { id: 'anti_ai', label: 'Anti-IA' },
+                      { id: 'style_repetition', label: 'Reiteraciones' },
+                      { id: 'golden_thread', label: 'Hilo Conductor' },
+                      { id: 'metrics_evidence', label: 'Rigor' },
+                      { id: 'tor_compliance', label: 'ToR Mandatorio' }
+                    ].map((cat) => (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => setChecklistFilter(cat.id as any)}
+                        className={`px-2 py-0.5 rounded text-[10.5px] font-mono transition cursor-pointer ${
+                          checklistFilter === cat.id
+                            ? 'bg-purple-600 text-white font-bold'
+                            : 'bg-black/5 dark:bg-black/20 text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                        }`}
+                      >
+                        {cat.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Grid de 2 columnas en pantallas medianas/grandes para los criterios */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                  {builtLetter.audit.checklist
+                    .filter((c) => checklistFilter === 'all' || c.category === checklistFilter)
+                    .map((item) => (
+                      <div
+                        key={item.id}
+                        className={`p-3 rounded-xl border text-[11px] space-y-1.5 transition ${
+                          item.status === 'pass'
+                            ? 'bg-emerald-100/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
+                            : item.status === 'warning'
+                            ? 'bg-amber-100/50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-500/30'
+                            : 'bg-rose-100/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-500/30'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 font-bold">
+                            {item.status === 'pass' ? (
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                            ) : item.status === 'warning' ? (
+                              <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                            ) : (
+                              <ShieldAlert className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
+                            )}
+                            <span className="text-[var(--text-primary)]">{item.label}</span>
+                          </div>
+                          <span className={`text-[9.5px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+                            item.status === 'pass'
+                              ? 'bg-emerald-600 text-white'
+                              : item.status === 'warning'
+                              ? 'bg-amber-500 text-slate-950'
+                              : 'bg-rose-600 text-white'
+                          }`}>
+                            {item.status}
+                          </span>
+                        </div>
+
+                        <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed font-sans">
+                          {item.summary}
+                        </p>
+
+                        {item.details && item.details.length > 0 && (
+                          <div className="flex flex-wrap gap-1 pt-0.5">
+                            {item.details.map((d, di) => (
+                              <span key={di} className="px-2 py-0.5 rounded bg-black/10 dark:bg-white/10 text-[10px] font-mono">
+                                {d}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {item.suggestion && (
+                          <div className="p-2 rounded-lg bg-black/5 dark:bg-black/30 text-[10.5px] text-sky-700 dark:text-sky-300 flex items-start gap-1.5">
+                            <Lightbulb className="h-3.5 w-3.5 shrink-0 mt-0.5 text-amber-500" />
+                            <span>{item.suggestion}</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de Previsualización para CVs del Expediente */}
       <CVPreviewModal
