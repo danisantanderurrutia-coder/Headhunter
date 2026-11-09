@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   X,
   Search,
@@ -15,13 +15,18 @@ import {
   AlertCircle,
   UserCheck,
   FolderCheck,
-  FileCheck
+  FileCheck,
+  Bot,
+  Sparkles,
+  Loader2
 } from 'lucide-react';
 import type { JobOffer } from '../../types/offers';
 import { generateTailoredCoverLetter, generateApplicationQA } from '../../services/coverLetterCopilot';
 import { getDossierForOffer } from '../../services/jobWingmanService';
 import { WingmanEditor } from './WingmanEditor';
 import { buildCv, renderCvMarkdown } from '../../services/cvStudio';
+import { auditDocumentDualLens } from '../../services/dualAuditEngine';
+import { generateCoverLetterWithGemini } from '../../services/geminiService';
 
 interface FiveStepPipelineModalProps {
   offer: JobOffer | null;
@@ -189,6 +194,9 @@ export const FiveStepPipelineModal: React.FC<FiveStepPipelineModalProps> = ({
   const [editingLead, setEditingLead] = useState(false);
   const [, setDossierVersion] = useState(0);
   const [docItems, setDocItems] = useState<RequiredDocItem[]>(INITIAL_REQUIRED_DOCS);
+  const [customGeminiLetter, setCustomGeminiLetter] = useState<string | null>(null);
+  const [isGeneratingGemini, setIsGeneratingGemini] = useState(false);
+  const [geminiError, setGeminiError] = useState<string | null>(null);
 
   if (!isOpen || !offer) return null;
 
@@ -196,12 +204,45 @@ export const FiveStepPipelineModal: React.FC<FiveStepPipelineModalProps> = ({
   const lead = dossier.leadProfile;
   const leadFull = `${lead.titleHonorific ? lead.titleHonorific + ' ' : ''}${lead.name}`;
   const coverLetter = generateTailoredCoverLetter(offer, letterLang, lead, dossier);
+  const activeCoverLetterMarkdown = customGeminiLetter || coverLetter.fullMarkdown;
   const qaPairs = generateApplicationQA(offer);
   const builtCv = buildCv({ lang: cvLang, length: '1p', offer });
   const cvText = renderCvMarkdown(builtCv);
   const emailSubject = emailLang === 'de' ? dossier.coldApproachEmail.subjectDe : dossier.coldApproachEmail.subjectEn;
   const emailBody = emailLang === 'de' ? dossier.coldApproachEmail.bodyDe : dossier.coldApproachEmail.bodyEn;
   const match = offer.matchScore;
+
+  // Auditoría Dual-Lens en vivo para CV y Carta
+  const cvDualReport = useMemo(() => {
+    return auditDocumentDualLens({
+      documentType: 'cv',
+      text: cvText,
+      offer,
+      dossier
+    });
+  }, [cvText, offer, dossier]);
+
+  const letterDualReport = useMemo(() => {
+    return auditDocumentDualLens({
+      documentType: 'cover_letter',
+      text: activeCoverLetterMarkdown,
+      offer,
+      dossier
+    });
+  }, [activeCoverLetterMarkdown, offer, dossier]);
+
+  const handleGenerateGeminiLetter = async () => {
+    setGeminiError(null);
+    setIsGeneratingGemini(true);
+    try {
+      const res = await generateCoverLetterWithGemini(offer, letterLang);
+      setCustomGeminiLetter(res.fullMarkdown);
+    } catch (err: any) {
+      setGeminiError(err.message || 'Error al conectar con la API de Gemini');
+    } finally {
+      setIsGeneratingGemini(false);
+    }
+  };
 
   const toggleDocStatus = (id: string) => {
     setDocItems(prev => prev.map(item => {
@@ -512,6 +553,38 @@ export const FiveStepPipelineModal: React.FC<FiveStepPipelineModalProps> = ({
                   )}
                   <CopyBtn k="cv" text={cvText} label="Copiar CV" copiedKey={copied} onCopy={copy} />
                 </div>
+
+                {/* Dual-Lens Scorecard Indicator para CV */}
+                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 font-mono text-xs">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center space-x-1.5 text-sky-400">
+                      <FileCheck className="h-4 w-4" />
+                      <span>Filtro Headhunter: <strong className="text-white">{cvDualReport.headhunter.score}%</strong></span>
+                    </div>
+                    <span className="text-slate-600 hidden sm:inline">|</span>
+                    <div className="flex items-center space-x-1.5 text-purple-400">
+                      <Bot className="h-4 w-4" />
+                      <span>Wingman PI: <strong className="text-white">{cvDualReport.wingman.score}%</strong></span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-slate-400">
+                      {cvDualReport.wingman.competitiveAsymmetry.asymmetryRating === 'dominant' 
+                        ? '⚡ Asimetría Cuantitativa Dominante' 
+                        : '⚖️ Perfil Equilibrado'}
+                    </span>
+                    {onOpenStudio && (
+                      <button
+                        onClick={() => { onOpenStudio(offer.id, 'cv'); onClose(); }}
+                        className="text-[10px] text-sky-400 hover:underline flex items-center gap-0.5 cursor-pointer"
+                      >
+                        <span>Auditoría Completa</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
                 <textarea value={cvText} readOnly rows={10} className={textareaCls} />
               </div>
               <Nav prev={3} next={5} nextLabel="Paso 5: Carta" onStep={setActiveStep} />
@@ -542,10 +615,88 @@ export const FiveStepPipelineModal: React.FC<FiveStepPipelineModalProps> = ({
                         <ExternalLink className="h-3.5 w-3.5" /><span>Afinar en Carta Studio</span>
                       </button>
                     )}
-                    <CopyBtn k="letter" text={coverLetter.fullMarkdown} label="Copiar carta" copiedKey={copied} onCopy={copy} />
+                    <CopyBtn k="letter" text={activeCoverLetterMarkdown} label="Copiar carta" copiedKey={copied} onCopy={copy} />
                   </div>
                 </div>
-                <textarea value={coverLetter.fullMarkdown} readOnly rows={15} className={textareaCls} />
+
+                {/* Barra de Generación con Gemini */}
+                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center space-x-2">
+                    <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                    <div>
+                      <span className="text-xs font-semibold text-white">Redactor IA Táctico (Google Gemini)</span>
+                      <p className="text-[10px] text-slate-400">
+                        Genera una versión final libre de clichés, anclada 100% en tus hechos de CAU Kiel y FCFM.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    {customGeminiLetter && (
+                      <button
+                        onClick={() => setCustomGeminiLetter(null)}
+                        className="text-[10px] text-slate-400 hover:text-slate-200 underline cursor-pointer"
+                      >
+                        Restablecer borrador base
+                      </button>
+                    )}
+                    <button
+                      onClick={handleGenerateGeminiLetter}
+                      disabled={isGeneratingGemini}
+                      className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs rounded-lg flex items-center space-x-1.5 transition cursor-pointer disabled:opacity-50"
+                    >
+                      {isGeneratingGemini ? (
+                        <>
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          <span>Consultando Gemini...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="h-3.5 w-3.5" />
+                          <span>{customGeminiLetter ? 'Regenerar con Gemini' : 'Redactar con Gemini'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {geminiError && (
+                  <div className="p-2.5 rounded-lg bg-rose-950/40 border border-rose-800 text-rose-300 text-xs flex items-center justify-between">
+                    <span>⚠️ {geminiError}</span>
+                  </div>
+                )}
+
+                {/* Dual-Lens Scorecard Indicator para Carta */}
+                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 font-mono text-xs">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center space-x-1.5 text-sky-400">
+                      <FileCheck className="h-4 w-4" />
+                      <span>Filtro Headhunter: <strong className="text-white">{letterDualReport.headhunter.score}%</strong></span>
+                    </div>
+                    <span className="text-slate-600 hidden sm:inline">|</span>
+                    <div className="flex items-center space-x-1.5 text-purple-400">
+                      <Bot className="h-4 w-4" />
+                      <span>Wingman PI: <strong className="text-white">{letterDualReport.wingman.score}%</strong></span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-slate-400">
+                      {letterDualReport.wingman.portfolioWeaponActivation.omittedWeapons.length === 0
+                        ? '✓ Armas Portafolio 100% Activas'
+                        : `⚠️ ${letterDualReport.wingman.portfolioWeaponActivation.omittedWeapons.length} Armas Omitidas`}
+                    </span>
+                    {onOpenStudio && (
+                      <button
+                        onClick={() => { onOpenStudio(offer.id, 'cover_letter'); onClose(); }}
+                        className="text-[10px] text-purple-400 hover:underline flex items-center gap-0.5 cursor-pointer"
+                      >
+                        <span>Auditoría Completa</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <textarea value={activeCoverLetterMarkdown} readOnly rows={15} className={textareaCls} />
               </div>
               <Nav prev={4} next={6} nextLabel="Paso 6: Contacto & Formularios" onStep={setActiveStep} />
             </div>

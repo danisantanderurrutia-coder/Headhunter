@@ -882,6 +882,20 @@ export const initialSources: JobSource[] = [
     region: 'Europa / Global',
     notes: 'Laboratorio de investigación conjunto entre TU Delft (Dept. of Geoscience and Remote Sensing) y la Universidad de Ciencias Aplicadas de Berna (BFH), liderado por la Prof. Dr. Angela Meyer. Especializado en IA informada por la física (PINNs), aprendizaje automático para dinámicas climáticas y meteorología extrema, teledetección (Earth Observation) e integración de energías renovables (solar y eólica).',
     countryFocus: 'Países Bajos & Suiza (TU Delft / BFH) / Híbrido'
+  },
+  {
+    id: 'src-supercritical',
+    name: 'Supercritical (Durable Carbon Removal Marketplace)',
+    type: 'company_portal',
+    url: 'https://gosupercritical.com/jobs',
+    priority: 'Alta',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    notes: 'Plataforma y mercado de referencia de créditos de eliminación permanente de carbono (durable CDR: biochar, intemperización de rocas, DAC). Protocolo de vetting científico en 118 puntos de control y vacantes remotas en ciencia climática y asesoría.',
+    countryFocus: 'Reino Unido / Remoto Europa (GMT±3)'
   }
 ];
 
@@ -1797,6 +1811,60 @@ export const initialCompanies: CompanyDossier[] = [
     lastResearched: '2026-10-28',
     quadrants: ['UK_NL', 'GLOBAL'],
     sectorCluster: 'CARBON_TECH_MRV'
+  },
+  {
+    id: 'comp-supercritical',
+    name: 'Supercritical',
+    website: 'https://gosupercritical.com/',
+    sector: 'Mercado de Eliminación Permanente de Carbono (CDR) & Infraestructura de Integridad Científica',
+    size: '40-70 especialistas en ciencia climática, software y asesoría corporativa',
+    headquarters: 'Londres (Reino Unido) / Remoto Europa (GMT±3)',
+    description: 'Plataforma líder y mercado de infraestructura para la adquisición corporativa de eliminación permanente y duradera de carbono (durable CDR: biochar, intemperización mejorada de rocas, captura directa de aire - DAC, biomasa leñosa profunda). Su equipo científico independiente evalúa exhaustivamente cada proyecto bajo 118 puntos de control científico con una tasa de rechazo del 88% para erradicar riesgos de no permanencia y greenwashing.',
+    keyProjects: [
+      'Infraestructura de mercado para adquisición corporativa plurianual de créditos duraderos (>100 a 1000 años de permanencia)',
+      'Proyecto "Liferaft": Mayor acuerdo de compra de biochar de la historia de EE. UU. (1 millón de toneladas) co-diseñado para Microsoft',
+      'Protocolo de vetting científico en 118 puntos de datos y participación en el grupo de expertos de SBTi para estándares Net Zero v2',
+      'Servicios de asesoría estratégica y diseño de carteras CDR a medida para juntas directivas y auditorías de sostenibilidad'
+    ],
+    recentNews: [
+      {
+        title: 'Cierre del mayor acuerdo de compra de biochar en la historia de EE.UU. (1 millón de toneladas)',
+        date: '2026-08-15',
+        snippet: 'Supercritical co-diseñó la iniciativa Liferaft para abastecer la demanda de eliminación permanente de carbono de Microsoft.',
+        url: 'https://gosupercritical.com/jobs'
+      },
+      {
+        title: 'Convocatoria abierta para Lead Climate Scientist (Sales and Advisory)',
+        date: '2026-08-26',
+        snippet: 'Posición remota en Europa (£70k-£80k) para liderar el asesoramiento científico y la estructuración de carteras CDR ante directores de sostenibilidad.',
+        url: 'https://apply.workable.com/supercritical/j/7CE0D0B88F'
+      }
+    ],
+    workCulture: [
+      'Filosofía "14,000x mindset": ambición climática a escala de gigatoneladas con velocidad de ejecución y autonomía',
+      'Cultura remote-first con flexibilidad horaria total en zonas horarias europeas (GMT±3) y co-working en Old Street (Londres)',
+      'Día libre mensual para toda la empresa (primer viernes de cada mes) y vacaciones ilimitadas',
+      'Remuneración muy competitiva (£70.000–£80.000) más asignaciones de bienestar (£1.000/año) y setup de oficina en casa'
+    ],
+    redFlags: ['Entorno comercial de alto ritmo donde se exige traducir ciencia biofísica rigurosa a lenguaje corporativo y decisiones de compra'],
+    interviewArguments: [
+      'Formación rigurosa en Geofísica y ciencias ambientales con comprensión directa de ciclos biofísicos de carbono, suelos y permanencia edáfica.',
+      'Experiencia demostrada en auditoría de integridad científica de biomasa y proyectos de carbono con redes internacionales (EPN).',
+      'Habilidad excepcional de comunicación científica y redacción ejecutiva para interactuar con compradores corporativos exigentes y reguladores.'
+    ],
+    techStack: ['Carbon Accounting', 'SBTi Net Zero v2', 'Biochar MRV', 'Enhanced Weathering', 'GIS / Remote Sensing', 'Excel / Python'],
+    lastResearched: '2026-11-09',
+    quadrants: ['UK_NL', 'GLOBAL', 'REMOTE'],
+    sectorCluster: 'CARBON_TECH_MRV',
+    contacts: [
+      {
+        id: 'cnt-supercritical-careers',
+        name: 'Supercritical Talent & Science Team',
+        role: 'Director of Climate Science and Policy / Talent Acquisition',
+        email: 'careers@gosupercritical.com',
+        linkedinUrl: 'https://www.linkedin.com/company/gosupercritical/'
+      }
+    ]
   },
   {
     id: 'comp-agreena',

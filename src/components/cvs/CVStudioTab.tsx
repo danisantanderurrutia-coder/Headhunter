@@ -8,10 +8,13 @@ import {
   ChevronUp,
   Copy,
   FileDown,
+  Languages,
   Layers,
   Lightbulb,
   ListChecks,
   Mail,
+  Plus,
+  PlusCircle,
   Printer,
   RefreshCw,
   Repeat,
@@ -21,9 +24,12 @@ import {
   Sparkles,
   Target,
   Trash2,
-  Wrench
+  Wrench,
+  X
 } from 'lucide-react';
-import { getStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs } from '../../services/db';
+import { getStoredOffers, saveStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs } from '../../services/db';
+import { calculateMatchScore } from '../../services/matchEngine';
+import type { JobOffer } from '../../types/offers';
 import { cvTemplatesList } from '../../services/sampleData';
 import type { CVVersion } from '../../types/cv';
 import { CVPreviewModal } from './CVPreviewModal';
@@ -33,6 +39,7 @@ import {
   buildCv,
   getSavedVersions,
   renderCvHtml,
+  renderCvMarkdown,
   saveVersions,
   type CvLang,
   type CvLength,
@@ -49,6 +56,8 @@ import {
   type CoverLetterLang,
   type SavedCoverLetterVersion
 } from '../../services/coverLetterStudio';
+import { auditDocumentDualLens } from '../../services/dualAuditEngine';
+import { DualLensAuditHub } from './DualLensAuditHub';
 import { CANONICAL_CONTACT, type CvSection } from '../../data/verifiedCvFacts';
 
 const A4_W = 794; // px a 96 dpi
@@ -84,10 +93,21 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   onDocTypeChange
 }) => {
   const [profile, setProfile] = useState(getStoredProfile());
-  const offers = useMemo(() => getStoredOffers(), []);
+  const [offers, setOffers] = useState<JobOffer[]>(() => getStoredOffers());
 
   const [docMode, setDocMode] = useState<'cv' | 'cover_letter'>(initialDocType);
   const [offerId, setOfferId] = useState<string>(initialOfferId);
+
+  // Modal / Formulario para añadir nueva oferta laboral manual
+  const [isAddingOffer, setIsAddingOffer] = useState(false);
+  const [newOfferTitle, setNewOfferTitle] = useState('');
+  const [newOfferCompany, setNewOfferCompany] = useState('');
+  const [newOfferLocation, setNewOfferLocation] = useState('Alemania / Remoto');
+  const [newOfferRequirements, setNewOfferRequirements] = useState('');
+  const [newOfferDesc, setNewOfferDesc] = useState('');
+  const [newOfferRecipientName, setNewOfferRecipientName] = useState('');
+  const [newOfferRecipientRole, setNewOfferRecipientRole] = useState('');
+  const [newOfferRecipientAddress, setNewOfferRecipientAddress] = useState('');
 
   // ------------------------------------------------------------- Estado CV
   const [lang, setLang] = useState<CvLang>('es');
@@ -110,7 +130,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const [recipientRole, setRecipientRole] = useState('');
   const [recipientOrg, setRecipientOrg] = useState('');
   const [recipientAddress, setRecipientAddress] = useState('');
-  const [letterBodyText, setLetterBodyText] = useState('');
+  const [letterDrafts, setLetterDrafts] = useState<Record<CoverLetterLang, string>>({
+    es: '',
+    en: '',
+    de: ''
+  });
   const [letterVersions, setLetterVersions] = useState<SavedCoverLetterVersion[]>(getSavedLetterVersions());
   const [letterVersionName, setLetterVersionName] = useState('');
   const [copiedPrompt, setCopiedPrompt] = useState(false);
@@ -147,9 +171,35 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const fixable = audit.filter((a) => a.fix);
 
   // Ensamble de Carta
-  const effectiveLetterBody = letterBodyText.trim()
-    ? letterBodyText
+  const effectiveLetterBody = (letterDrafts[letterLang] && letterDrafts[letterLang].trim())
+    ? letterDrafts[letterLang]
     : buildDefaultScientificDraft(letterLang, offer).join('\n\n');
+
+  const setLetterBodyText = (text: string) => {
+    setLetterDrafts((prev) => ({
+      ...prev,
+      [letterLang]: text
+    }));
+  };
+
+  const handleSelectLetterLang = (newLang: CoverLetterLang) => {
+    setLetterLang(newLang);
+  };
+
+  const loadPresetTemplate = (targetLang: CoverLetterLang) => {
+    setLetterLang(targetLang);
+    setLetterDrafts((prev) => ({
+      ...prev,
+      [targetLang]: buildDefaultScientificDraft(targetLang, offer).join('\n\n')
+    }));
+  };
+
+  const resetLetterDraft = () => {
+    setLetterDrafts((prev) => ({
+      ...prev,
+      [letterLang]: buildDefaultScientificDraft(letterLang, offer).join('\n\n')
+    }));
+  };
 
   const builtLetter = useMemo(
     () =>
@@ -165,6 +215,32 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     [letterLang, offer, recipientName, recipientRole, recipientOrg, recipientAddress, effectiveLetterBody]
   );
   const letterHtml = useMemo(() => renderCoverLetterHtml(builtLetter), [builtLetter]);
+
+  // Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica)
+  const dualReport = useMemo(() => {
+    const textToAudit = docMode === 'cv' 
+      ? renderCvMarkdown(built) 
+      : builtLetter.fullMarkdown;
+
+    return auditDocumentDualLens({
+      documentType: docMode,
+      text: textToAudit,
+      offer,
+      builtCv: docMode === 'cv' ? built : null
+    });
+  }, [docMode, built, builtLetter.fullMarkdown, offer]);
+
+  const handleInjectWeapon = (snippet: string) => {
+    if (docMode === 'cover_letter') {
+      setLetterDrafts((prev) => {
+        const current = (prev[letterLang] && prev[letterLang].trim()) || effectiveLetterBody;
+        return {
+          ...prev,
+          [letterLang]: `${current}\n\n${snippet}`
+        };
+      });
+    }
+  };
 
   const pages = docMode === 'cv' ? (length === '1p' ? 1 : 2) : 1;
   const activeHtml = docMode === 'cv' ? html : letterHtml;
@@ -215,7 +291,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   };
 
   const copyAntiAiPrompt = () => {
-    const prompt = generateAntiAiPrompt(offer, effectiveLetterBody, builtLetter.audit);
+    const prompt = generateAntiAiPrompt(offer, effectiveLetterBody, builtLetter.audit, letterLang);
     navigator.clipboard.writeText(prompt);
     setCopiedPrompt(true);
     setTimeout(() => setCopiedPrompt(false), 2200);
@@ -243,10 +319,6 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     setTimeout(() => setCopiedAudit(false), 2200);
   };
 
-  const resetLetterDraft = () => {
-    setLetterBodyText(buildDefaultScientificDraft(letterLang, offer).join('\n\n'));
-  };
-
   // Versiones CV
   const toggleFact = (id: string, currentlyIncluded: boolean) => {
     if (currentlyIncluded) {
@@ -261,6 +333,79 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const resetSelection = () => {
     setForceInclude([]);
     setExclude([]);
+  };
+
+  const handleCreateOffer = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newOfferTitle.trim() || !newOfferCompany.trim()) return;
+
+    const id = `offer-manual-${Date.now()}`;
+    const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 16);
+    const reqs = newOfferRequirements
+      .split(/[,;\n]/)
+      .map((r) => r.trim())
+      .filter(Boolean);
+
+    const partialOffer: Partial<JobOffer> = {
+      id,
+      title: newOfferTitle.trim(),
+      company: newOfferCompany.trim(),
+      location: newOfferLocation.trim() || 'Alemania / Remoto',
+      isBilbaoLocation: newOfferLocation.toLowerCase().includes('bilbao') || newOfferLocation.toLowerCase().includes('bizkaia'),
+      isRemote: newOfferLocation.toLowerCase().includes('remot'),
+      url: '',
+      sourceId: 'src-manual-studio',
+      sourceName: 'Añadida manualmente en Studio',
+      publishedDate: timestamp.split(' ')[0],
+      rawDescription: newOfferDesc.trim() || `${newOfferTitle.trim()} en ${newOfferCompany.trim()}`,
+      requirements: reqs.length > 0 ? reqs : ['Ciencias Ambientales / Geofísica', 'Análisis de Datos', 'Modelación'],
+      responsibilities: [],
+      status: 'Nueva',
+      extractedAt: timestamp,
+      isVerified: true,
+      verificationStatus: 'Vigente y Verificada'
+    };
+
+    const matchScore = calculateMatchScore(partialOffer, profile);
+    const newOffer: JobOffer = {
+      ...partialOffer,
+      matchScore
+    } as JobOffer;
+
+    const updatedOffers = [newOffer, ...offers];
+    setOffers(updatedOffers);
+    saveStoredOffers(updatedOffers);
+
+    // Si se especificaron datos del destinatario para la carta, precargarlos
+    if (newOfferCompany.trim()) setRecipientOrg(newOfferCompany.trim());
+    if (newOfferRecipientName.trim()) setRecipientName(newOfferRecipientName.trim());
+    if (newOfferRecipientRole.trim()) setRecipientRole(newOfferRecipientRole.trim());
+    if (newOfferRecipientAddress.trim()) setRecipientAddress(newOfferRecipientAddress.trim());
+
+    // Seleccionar automáticamente la nueva oferta
+    setOfferId(id);
+    resetSelection();
+
+    // Limpiar formulario y cerrar
+    setNewOfferTitle('');
+    setNewOfferCompany('');
+    setNewOfferLocation('Alemania / Remoto');
+    setNewOfferRequirements('');
+    setNewOfferDesc('');
+    setNewOfferRecipientName('');
+    setNewOfferRecipientRole('');
+    setNewOfferRecipientAddress('');
+    setIsAddingOffer(false);
+  };
+
+  const handleDeleteOffer = (targetId: string) => {
+    const updated = offers.filter((o) => o.id !== targetId);
+    setOffers(updated);
+    saveStoredOffers(updated);
+    if (offerId === targetId) {
+      setOfferId('');
+      resetSelection();
+    }
   };
 
   const saveCvVersion = () => {
@@ -321,7 +466,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const loadLetterVer = (v: SavedCoverLetterVersion) => {
     setLetterLang(v.lang);
     if (v.offerId) setOfferId(v.offerId);
-    setLetterBodyText(v.customBodyText);
+    setLetterDrafts((prev) => ({
+      ...prev,
+      [v.lang]: v.customBodyText
+    }));
   };
 
   const removeLetterVer = (id: string) => {
@@ -391,10 +539,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
               </>
             ) : (
               <>
-                <div className="flex p-1 rounded-xl border gap-1" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
-                  <button className={segBtn(letterLang === 'es')} onClick={() => setLetterLang('es')}>ES</button>
-                  <button className={segBtn(letterLang === 'en')} onClick={() => setLetterLang('en')}>EN</button>
-                  <button className={segBtn(letterLang === 'de')} onClick={() => setLetterLang('de')}>DE</button>
+                <div className="flex p-1 rounded-xl border gap-1 items-center" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
+                  <span className="text-[10px] font-mono font-bold px-1.5 text-[var(--text-muted)] uppercase hidden sm:inline">Idioma:</span>
+                  <button className={segBtn(letterLang === 'es')} onClick={() => handleSelectLetterLang('es')} title="Borrador en Español">🇪🇸 ES</button>
+                  <button className={segBtn(letterLang === 'en')} onClick={() => handleSelectLetterLang('en')} title="Borrador en Inglés">🇬🇧 EN</button>
+                  <button className={segBtn(letterLang === 'de')} onClick={() => handleSelectLetterLang('de')} title="Borrador en Alemán">🇩🇪 DE</button>
                 </div>
                 <button
                   onClick={copyLetterMarkdown}
@@ -562,30 +711,187 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
           {/* Selector de Oferta (Común a CV y Carta) */}
           <div className={panel} style={panelStyle}>
-            <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-              <Target className="h-4 w-4 text-sky-500" /> Vincular a Oferta Laboral / Convocatoria
-            </h3>
-            <select
-              value={offerId}
-              onChange={(e) => {
-                setOfferId(e.target.value);
-                resetSelection();
-              }}
-              className="w-full px-3 py-2 rounded-xl text-xs border bg-transparent font-medium"
-              style={{ borderColor: 'var(--panel-border)' }}
-            >
-              <option value="">General (sin oferta específica)</option>
-              {offers.map((o) => (
-                <option key={o.id} value={o.id}>
-                  {o.title} — {o.company}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
+                <Target className="h-4 w-4 text-sky-500" /> Vincular a Oferta Laboral / Convocatoria
+              </h3>
+              <button
+                type="button"
+                onClick={() => setIsAddingOffer((v) => !v)}
+                className="px-2 py-1 rounded-lg bg-sky-600/15 hover:bg-sky-600/25 text-sky-600 dark:text-sky-300 border border-sky-500/30 text-[10px] font-mono font-bold flex items-center gap-1 cursor-pointer transition"
+                title="Añadir una oferta real específica con su título e información relevante"
+              >
+                {isAddingOffer ? (
+                  <>
+                    <X className="h-3 w-3" /> Cancelar
+                  </>
+                ) : (
+                  <>
+                    <Plus className="h-3 w-3" /> + Añadir Oferta
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Formulario desplegable para agregar oferta real paso a paso */}
+            {isAddingOffer && (
+              <form onSubmit={handleCreateOffer} className="p-3 rounded-xl border border-sky-500/30 bg-[var(--panel-bg)] space-y-2.5 text-xs">
+                <div className="flex items-center justify-between pb-1 border-b border-[var(--panel-border)]">
+                  <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1">
+                    <PlusCircle className="h-3.5 w-3.5" /> Registrar Oferta Verificada
+                  </span>
+                  <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
+                    <input
+                      type="text"
+                      required
+                      value={newOfferTitle}
+                      onChange={(e) => setNewOfferTitle(e.target.value)}
+                      placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
+                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
+                    <input
+                      type="text"
+                      required
+                      value={newOfferCompany}
+                      onChange={(e) => setNewOfferCompany(e.target.value)}
+                      placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
+                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
+                    <input
+                      type="text"
+                      value={newOfferLocation}
+                      onChange={(e) => setNewOfferLocation(e.target.value)}
+                      placeholder="Ej: Braunschweig / Kiel / Remoto"
+                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
+                    <input
+                      type="text"
+                      value={newOfferRequirements}
+                      onChange={(e) => setNewOfferRequirements(e.target.value)}
+                      placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
+                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
+                  <textarea
+                    rows={2}
+                    value={newOfferDesc}
+                    onChange={(e) => setNewOfferDesc(e.target.value)}
+                    placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
+                    className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                    style={{ borderColor: 'var(--panel-border)' }}
+                  />
+                </div>
+
+                <div className="pt-1 border-t border-[var(--panel-border)] space-y-1.5">
+                  <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
+                    Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <input
+                      type="text"
+                      value={newOfferRecipientName}
+                      onChange={(e) => setNewOfferRecipientName(e.target.value)}
+                      placeholder="Contacto: Prof. Dr. X"
+                      className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                    <input
+                      type="text"
+                      value={newOfferRecipientRole}
+                      onChange={(e) => setNewOfferRecipientRole(e.target.value)}
+                      placeholder="Cargo: Selección / AG"
+                      className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                    <input
+                      type="text"
+                      value={newOfferRecipientAddress}
+                      onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
+                      placeholder="Dirección postal / Ciudad"
+                      className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-1 flex items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsAddingOffer(false)}
+                    className="px-3 py-1 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
+                  >
+                    Guardar y Vincular
+                  </button>
+                </div>
+              </form>
+            )}
+
+            <div className="flex items-center gap-1.5">
+              <select
+                value={offerId}
+                onChange={(e) => {
+                  setOfferId(e.target.value);
+                  resetSelection();
+                }}
+                className="flex-1 px-3 py-2 rounded-xl text-xs border bg-transparent font-medium"
+                style={{ borderColor: 'var(--panel-border)' }}
+              >
+                <option value="">General (sin oferta específica)</option>
+                {offers.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.title} — {o.company}
+                  </option>
+                ))}
+              </select>
+
+              {offer && (
+                <button
+                  type="button"
+                  onClick={() => handleDeleteOffer(offer.id)}
+                  className="p-2 rounded-xl border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 cursor-pointer transition shrink-0"
+                  title="Eliminar esta oferta de la lista"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              )}
+            </div>
 
             {offer ? (
               <div className="text-[11px] space-y-1 pt-1 border-t border-[var(--panel-border)]">
-                <div className="text-[var(--text-secondary)] font-medium">
-                  Coincidencias técnicas con la trayectoria verificada:
+                <div className="flex items-center justify-between text-[var(--text-secondary)] font-medium">
+                  <span>Coincidencias técnicas con la trayectoria verificada:</span>
+                  {offer.location && <span className="text-[10px] font-mono text-[var(--text-muted)]">{offer.location}</span>}
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {built.matchedTags.length ? (
@@ -780,12 +1086,64 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                   </>
                 )}
               </div>
+
+              {/* Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica) para CV */}
+              <DualLensAuditHub
+                report={dualReport}
+                onInjectSnippet={handleInjectWeapon}
+              />
             </>
           )}
 
           {/* CONTROLES ESPECÍFICOS: COVER LETTER STUDIO */}
           {docMode === 'cover_letter' && (
             <>
+              {/* Selector Destacado de Idioma de la Carta */}
+              <div className={panel} style={panelStyle}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
+                      <Languages className="h-4 w-4 text-purple-400" /> Idioma de la Carta de Motivación
+                    </h3>
+                    <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+                      Cambia libremente entre Español, Inglés y Alemán. Cada idioma mantiene su propio borrador editable.
+                    </p>
+                  </div>
+                  <div className="flex p-1 rounded-xl border gap-1 bg-[var(--card-bg)] border-[var(--panel-border)] shrink-0">
+                    <button
+                      type="button"
+                      className={segBtn(letterLang === 'es')}
+                      onClick={() => handleSelectLetterLang('es')}
+                      title="Activar redacción en Español"
+                    >
+                      🇪🇸 Español (ES)
+                    </button>
+                    <button
+                      type="button"
+                      className={segBtn(letterLang === 'en')}
+                      onClick={() => handleSelectLetterLang('en')}
+                      title="Activar redacción en Inglés"
+                    >
+                      🇬🇧 English (EN)
+                    </button>
+                    <button
+                      type="button"
+                      className={segBtn(letterLang === 'de')}
+                      onClick={() => handleSelectLetterLang('de')}
+                      title="Activar redacción en Alemán"
+                    >
+                      🇩🇪 Deutsch (DE)
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica) para Carta */}
+              <DualLensAuditHub
+                report={dualReport}
+                onInjectSnippet={handleInjectWeapon}
+              />
+
               {/* Linter Anti-AI & Scorecard Integral */}
               <div
                 className={`p-4 rounded-2xl border text-xs space-y-3 transition-colors ${
@@ -1004,17 +1362,62 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
               {/* Editor del Borrador Base */}
               <div className={panel} style={panelStyle}>
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                    <Sparkles className="h-4 w-4 text-purple-400" /> Mi Borrador Base (Editable)
-                  </h3>
-                  <button
-                    onClick={resetLetterDraft}
-                    className="text-[11px] text-sky-500 hover:underline flex items-center gap-1 cursor-pointer"
-                    title="Restablecer el borrador a la plantilla científica de alta fidelidad"
-                  >
-                    <RefreshCw className="h-3 w-3" /> Restablecer
-                  </button>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-[var(--panel-border)]">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
+                      <Sparkles className="h-4 w-4 text-purple-400" /> Mi Borrador Base (Editable)
+                    </h3>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                      {letterLang === 'es' ? '🇪🇸 Español' : letterLang === 'en' ? '🇬🇧 English' : '🇩🇪 Deutsch'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[10px] text-[var(--text-muted)] font-mono">Plantilla:</span>
+                    <button
+                      type="button"
+                      onClick={() => loadPresetTemplate('es')}
+                      className={`px-2 py-0.5 rounded text-[10px] font-mono border transition cursor-pointer ${
+                        letterLang === 'es'
+                          ? 'bg-purple-600 text-white border-purple-500 font-bold'
+                          : 'border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[var(--text-secondary)]'
+                      }`}
+                      title="Cargar plantilla científica en Español"
+                    >
+                      🇪🇸 ES
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => loadPresetTemplate('en')}
+                      className={`px-2 py-0.5 rounded text-[10px] font-mono border transition cursor-pointer ${
+                        letterLang === 'en'
+                          ? 'bg-purple-600 text-white border-purple-500 font-bold'
+                          : 'border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[var(--text-secondary)]'
+                      }`}
+                      title="Cargar plantilla científica en Inglés"
+                    >
+                      🇬🇧 EN
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => loadPresetTemplate('de')}
+                      className={`px-2 py-0.5 rounded text-[10px] font-mono border transition cursor-pointer ${
+                        letterLang === 'de'
+                          ? 'bg-purple-600 text-white border-purple-500 font-bold'
+                          : 'border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[var(--text-secondary)]'
+                      }`}
+                      title="Cargar plantilla científica en Alemán"
+                    >
+                      🇩🇪 DE
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => resetLetterDraft()}
+                      className="ml-1 text-[11px] text-sky-500 hover:underline flex items-center gap-1 cursor-pointer"
+                      title="Restablecer el borrador actual a la plantilla científica oficial"
+                    >
+                      <RefreshCw className="h-3 w-3" /> Restablecer
+                    </button>
+                  </div>
                 </div>
 
                 <textarea
@@ -1023,7 +1426,13 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                   rows={13}
                   className="w-full p-3 rounded-xl text-xs font-sans leading-relaxed border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition shadow-inner"
                   style={{ borderColor: 'var(--panel-border)' }}
-                  placeholder="Escribe o pega aquí el cuerpo de tu carta..."
+                  placeholder={
+                    letterLang === 'es'
+                      ? 'Escribe o edita aquí el cuerpo de tu carta en español...'
+                      : letterLang === 'en'
+                      ? 'Write or edit your cover letter body here in English...'
+                      : 'Schreiben oder bearbeiten Sie hier Ihr Anschreiben auf Deutsch...'
+                  }
                 />
 
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-2">
@@ -1033,7 +1442,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     title="Copia el prompt editorial completo con el diagnóstico en vivo y los 9 criterios del checklist para usar en Claude, ChatGPT o Gemini"
                   >
                     <Copy className="h-3.5 w-3.5 text-purple-400" />
-                    <span>{copiedPrompt ? '¡Prompt Editorial Copiado!' : 'Exportar Checklist a Prompt para LLM'}</span>
+                    <span>
+                      {copiedPrompt
+                        ? '¡Prompt Editorial Copiado!'
+                        : `Exportar Prompt Anti-IA (${letterLang.toUpperCase()}) para LLM`}
+                    </span>
                   </button>
                 </div>
               </div>
@@ -1045,47 +1458,55 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 </h3>
                 <div className="space-y-2 text-xs">
                   <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa Destinataria:</label>
+                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">
+                      {letterLang === 'en' ? 'Recipient Organisation / Company:' : letterLang === 'de' ? 'Empfangende Institution / Unternehmen:' : 'Institución / Empresa Destinataria:'}
+                    </label>
                     <input
                       type="text"
                       value={recipientOrg}
                       onChange={(e) => setRecipientOrg(e.target.value)}
-                      placeholder={offer?.company || 'Ej: Thünen-Institut für Agrarklimaschutz'}
+                      placeholder={offer?.company || (letterLang === 'en' ? 'e.g. German Environment Agency (UBA)' : letterLang === 'de' ? 'z.B. Umweltbundesamt (UBA)' : 'Ej: Thünen-Institut für Agrarklimaschutz')}
                       className="w-full px-3 py-1.5 rounded-xl border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500 transition"
                       style={{ borderColor: 'var(--panel-border)' }}
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Contacto / Persona (Opcional):</label>
+                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">
+                        {letterLang === 'en' ? 'Contact Person (Optional):' : letterLang === 'de' ? 'Ansprechperson (Optional):' : 'Contacto / Persona (Opcional):'}
+                      </label>
                       <input
                         type="text"
                         value={recipientName}
                         onChange={(e) => setRecipientName(e.target.value)}
-                        placeholder="Ej: Prof. Dr. Axel Don"
+                        placeholder={letterLang === 'en' ? 'e.g. Dr. Axel Don' : letterLang === 'de' ? 'z.B. Prof. Dr. Axel Don' : 'Ej: Prof. Dr. Axel Don'}
                         className="w-full px-3 py-1.5 rounded-xl border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500 transition"
                         style={{ borderColor: 'var(--panel-border)' }}
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Cargo / Departamento:</label>
+                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">
+                        {letterLang === 'en' ? 'Role / Department:' : letterLang === 'de' ? 'Rolle / Abteilung:' : 'Cargo / Departamento:'}
+                      </label>
                       <input
                         type="text"
                         value={recipientRole}
                         onChange={(e) => setRecipientRole(e.target.value)}
-                        placeholder="Ej: Leitung der Arbeitsgruppe"
+                        placeholder={letterLang === 'en' ? 'e.g. Head of Search Committee' : letterLang === 'de' ? 'z.B. Leitung der Arbeitsgruppe' : 'Ej: Leitung der Arbeitsgruppe'}
                         className="w-full px-3 py-1.5 rounded-xl border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500 transition"
                         style={{ borderColor: 'var(--panel-border)' }}
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Dirección Física / Postal:</label>
+                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">
+                      {letterLang === 'en' ? 'Postal Address:' : letterLang === 'de' ? 'Postanschrift:' : 'Dirección Física / Postal:'}
+                    </label>
                     <input
                       type="text"
                       value={recipientAddress}
                       onChange={(e) => setRecipientAddress(e.target.value)}
-                      placeholder="Ej: Bundesallee 50, 38116 Braunschweig, Deutschland"
+                      placeholder={letterLang === 'en' ? 'e.g. Bundesallee 50, 38116 Braunschweig, Germany' : 'Ej: Bundesallee 50, 38116 Braunschweig, Deutschland'}
                       className="w-full px-3 py-1.5 rounded-xl border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500 transition"
                       style={{ borderColor: 'var(--panel-border)' }}
                     />

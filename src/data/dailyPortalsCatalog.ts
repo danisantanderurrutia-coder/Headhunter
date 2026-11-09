@@ -253,5 +253,17 @@ export const DAILY_PORTALS: DailyPortal[] = [
     suggestedKeywords: ['Physics-informed AI', 'Weather Forecasting', 'Remote Sensing', 'Earth Observation', 'Machine Learning', 'Energy Systems'],
     description: 'Vacantes predoctorales (PhD) y postdoctorales en el grupo de la Prof. Dr. Angela Meyer (TU Delft / Bern UAS). Fusión de IA y física atmosférica para dinámicas climáticas y energía renovable.',
     iconName: 'GraduationCap'
+  },
+  {
+    id: 'portal-supercritical',
+    name: 'Supercritical Careers (Durable CDR Marketplace)',
+    quadrant: 'GLOBAL_REMOTE',
+    quadrantLabel: 'Reino Unido & Remoto Europa',
+    category: 'Ambiental / Clima',
+    directUrl: 'https://gosupercritical.com/jobs',
+    recommendedFrequency: 'Semanal',
+    suggestedKeywords: ['Carbon Removal', 'CDR', 'Climate Scientist', 'Biochar', 'Enhanced Weathering', 'SBTi', 'Advisory', 'Permanence'],
+    description: 'Bolsa de empleo del marketplace líder en CDR duradero. Puestos remotos en asesoría y ciencia climática, modelado de carteras net-zero y validación de proveedores.',
+    iconName: 'Leaf'
   }
 ];

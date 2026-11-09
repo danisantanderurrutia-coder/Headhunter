@@ -5,7 +5,7 @@ import type { ApplicationItem } from '../types/applications';
 import type { JobSource } from '../types/sources';
 import type { CVVersion } from '../types/cv';
 import type { UserCourseProgress, CourseStatus } from '../types/academy';
-import { initialProfile, initialOffers, initialCompanies, initialApplications, initialSources, initialCVs } from './sampleData';
+import { initialProfile, initialCompanies, initialApplications, initialSources, initialCVs } from './sampleData';
 import { INITIAL_COURSE_PROGRESS } from '../data/academyCourses';
 
 export interface AppSettings {
@@ -40,7 +40,7 @@ const defaultSettings: AppSettings = {
 
 const KEYS = {
   PROFILE: 'job_search_os_profile_v20',
-  OFFERS: 'job_search_os_offers_v19',
+  OFFERS: 'job_search_os_offers_v21',
   COMPANIES: 'job_search_os_companies_v19',
   APPLICATIONS: 'job_search_os_applications_v19',
   SOURCES: 'job_search_os_sources_v19',
@@ -168,55 +168,13 @@ export const saveStoredProfile = (profile: MasterProfile): void => {
 export const getStoredOffers = (): JobOffer[] => {
   const data = localStorage.getItem(KEYS.OFFERS);
   if (!data) {
-    saveStoredOffers(initialOffers);
-    return initialOffers;
+    return [];
   }
   try {
     const list: JobOffer[] = JSON.parse(data);
-    const seen = new Set<string>();
-    let modified = false;
-
-    const deduplicated = list.filter(off => {
-      // Purge stale remnant URLs or expired deadline calls
-      if (off.url.includes('172409851294') || off.url.includes('172409851295') || off.url.includes('172409851296') || off.url.includes('fihac-14') || off.verificationStatus === 'Expirada' || off.title.includes('Associate Expert')) {
-        modified = true;
-        return false;
-      }
-      const key = `${(off.title || '').trim().toLowerCase()}||${(off.company || '').trim().toLowerCase()}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).map(off => {
-      if (off.url === 'https://unjobs.org/vacancies/1786913775321' || off.title.includes('Programme Officer')) {
-        modified = true;
-        return {
-          ...off,
-          title: 'IMEO Methane Alert and Response System’s Implementation Coordinator',
-          company: 'United Nations Environment Programme (UNEP)',
-          location: 'París, Francia / Remoto Europa',
-          url: 'https://unjobs.org/vacancies/1786913775321',
-          rawDescription: 'UNEP IMEO (International Methane Emissions Observatory) busca Coordinador de Implementación del Sistema MARS (Methane Alert and Response System) para monitoreo satelital de emisiones, mitigación climática y gobernanza ambiental.',
-          requirements: ['Monitoreo Satelital & Emisiones', 'Gobernanza Climática', 'Inglés C2 / Francés / Español', 'Ciencias Ambientales / Geofísica']
-        };
-      }
-      return off;
-    });
-
-    // Ensure curated government offers from initialOffers exist
-    initialOffers.forEach(initOff => {
-      const exists = deduplicated.some(d => d.id === initOff.id || d.url === initOff.url);
-      if (!exists) {
-        deduplicated.unshift(initOff);
-        modified = true;
-      }
-    });
-
-    if (deduplicated.length !== list.length || modified) {
-      saveStoredOffers(deduplicated);
-    }
-    return deduplicated;
+    return Array.isArray(list) ? list : [];
   } catch {
-    return initialOffers;
+    return [];
   }
 };
 
@@ -609,7 +567,7 @@ export const importFullBackup = restoreCompleteUserDataBackup;
 export const resetDatabase = (): void => {
   localStorage.clear();
   saveStoredProfile(initialProfile);
-  saveStoredOffers(initialOffers);
+  saveStoredOffers([]);
   saveStoredCompanies(initialCompanies);
   saveStoredApplications(initialApplications);
   saveStoredSources(initialSources);

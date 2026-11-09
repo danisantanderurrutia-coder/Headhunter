@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Send, Compass, User, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Send, Compass, User, ShieldCheck, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
 import type { StrategyChatMessage } from '../../types/intelligence';
+import { getStoredSettings } from '../../services/db';
+import { askStrategyAdvisorGemini } from '../../services/geminiService';
 
 interface TacticalDirective {
   id: string;
@@ -97,6 +99,9 @@ const nextChatId = (prefix: string) => `${prefix}-${++chatCounter}`;
 export const StrategyAdvisorChat: React.FC = () => {
   const [messages, setMessages] = useState<StrategyChatMessage[]>(initialChatMessages);
   const [inputQuery, setInputQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const settings = getStoredSettings();
+  const hasGemini = Boolean((settings.apiKey || '').trim());
 
   const findTacticalResponse = (query: string): TacticalDirective => {
     const qLower = query.toLowerCase();
@@ -119,9 +124,9 @@ export const StrategyAdvisorChat: React.FC = () => {
     };
   };
 
-  const handleSendMessage = (textToSend?: string) => {
+  const handleSendMessage = async (textToSend?: string) => {
     const query = textToSend || inputQuery;
-    if (!query.trim()) return;
+    if (!query.trim() || isLoading) return;
 
     const userMsg: StrategyChatMessage = {
       id: nextChatId('msg-u'),
@@ -130,6 +135,48 @@ export const StrategyAdvisorChat: React.FC = () => {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
+    setMessages(prev => [...prev, userMsg]);
+    if (!textToSend) setInputQuery('');
+
+    // Si tiene configurada la API Key de Gemini, consultamos directamente el modelo inteligente
+    if (hasGemini) {
+      setIsLoading(true);
+      try {
+        const historyForGemini = messages.map(m => ({
+          role: m.sender === 'user' ? ('user' as const) : ('assistant' as const),
+          text: m.text
+        }));
+
+        const answer = await askStrategyAdvisorGemini(historyForGemini, query);
+
+        const aiMsg: StrategyChatMessage = {
+          id: nextChatId('msg-gemini'),
+          sender: 'ai',
+          text: answer,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          suggestedActions: [
+            '¿Cómo redactar el correo inicial al PI con estos puntos?',
+            '¿Qué preguntas técnicas me pueden hacer en la entrevista?',
+            '¿Cómo estructurar mi experiencia en R y física de suelos?'
+          ]
+        };
+
+        setMessages(prev => [...prev, aiMsg]);
+      } catch (err: any) {
+        const errorMsg: StrategyChatMessage = {
+          id: nextChatId('msg-err'),
+          sender: 'ai',
+          text: `⚠️ Error al consultar Gemini API: ${err.message || 'Error de red'}. Se activó la directiva local de respaldo:\n\n${findTacticalResponse(query).response}`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setMessages(prev => [...prev, errorMsg]);
+      } finally {
+        setIsLoading(false);
+      }
+      return;
+    }
+
+    // Modo local / determinista sin API Key
     const directive = findTacticalResponse(query);
     const aiMsg: StrategyChatMessage = {
       id: nextChatId('msg-tactical'),
@@ -139,8 +186,7 @@ export const StrategyAdvisorChat: React.FC = () => {
       suggestedActions: directive.suggestedFollowUps
     };
 
-    setMessages(prev => [...prev, userMsg, aiMsg]);
-    if (!textToSend) setInputQuery('');
+    setMessages(prev => [...prev, aiMsg]);
   };
 
   return (
@@ -156,12 +202,17 @@ export const StrategyAdvisorChat: React.FC = () => {
               Guía Táctica de Conversión // Outbound Advisor
             </h3>
             <p className="text-[11px] text-slate-400">
-              Protocolos de abordaje, estándares de CV y retribución en DACH y Euskadi (100% Determinista).
+              Protocolos de abordaje, estándares de CV y retribución en DACH y Euskadi {hasGemini ? '(Motor Gemini IA Activo)' : '(100% Determinista)'}.
             </p>
           </div>
         </div>
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">
-          ✓ Modo Activo
+        <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold border flex items-center gap-1 ${
+          hasGemini
+            ? 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+            : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+        }`}>
+          {hasGemini ? <Sparkles className="h-3 w-3" /> : null}
+          {hasGemini ? 'Gemini IA' : '✓ Modo Local'}
         </span>
       </div>
 
@@ -227,6 +278,12 @@ export const StrategyAdvisorChat: React.FC = () => {
             </div>
           </div>
         ))}
+        {isLoading && (
+          <div className="flex items-center space-x-2 text-slate-400 text-xs italic font-mono pl-10">
+            <Loader2 className="h-4 w-4 animate-spin text-amber-400" />
+            <span>Consultando a Gemini con contexto de tu perfil...</span>
+          </div>
+        )}
       </div>
 
       {/* Input query form */}
@@ -241,16 +298,16 @@ export const StrategyAdvisorChat: React.FC = () => {
           type="text"
           value={inputQuery}
           onChange={e => setInputQuery(e.target.value)}
-          placeholder="Escribe una pregunta sobre abordaje, CV, carta o salarios..."
+          placeholder={hasGemini ? "Pregunta a Gemini sobre la oferta, abordaje, TVöD o entrevista..." : "Escribe una pregunta sobre abordaje, CV, carta o salarios..."}
           className="flex-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono"
         />
         <button
           type="submit"
-          disabled={!inputQuery.trim()}
+          disabled={!inputQuery.trim() || isLoading}
           className="px-4 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-white font-semibold text-xs rounded-xl shadow transition cursor-pointer flex items-center space-x-1"
         >
-          <Send className="h-3.5 w-3.5" />
-          <span>Consultar</span>
+          {isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
+          <span>{isLoading ? 'Pensando...' : 'Consultar'}</span>
         </button>
       </form>
     </div>

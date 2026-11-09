@@ -774,12 +774,13 @@ export const renderCoverLetterHtml = (built: BuiltCoverLetter): string => {
 export const generateAntiAiPrompt = (
   offer?: CoverLetterConfig['offer'],
   currentDraft?: string,
-  audit?: AntiAiAuditResult
+  audit?: AntiAiAuditResult,
+  targetLang: CoverLetterLang = 'es'
 ): string => {
   const company = offer?.company || '[ORGANIZACIÓN/INSTITUCIÓN CONVOCANTE]';
   const title = offer?.title || '[PUESTO O ROL OBJETIVO]';
   const desc = offer?.rawDescription || '[PEGA AQUÍ LA DESCRIPCIÓN DE LA VACANTE O TÉRMINOS DE REFERENCIA (ToR)]';
-  const draftText = currentDraft || buildDefaultScientificDraft('es', offer).join('\n\n');
+  const draftText = currentDraft || buildDefaultScientificDraft(targetLang, offer).join('\n\n');
   const activeAudit = audit || auditTextForAiCliches(draftText);
 
   // Formatear diagnósticos de la auditoría en vivo
@@ -857,7 +858,7 @@ ${draftText}
 ================================================================================
 Entrega:
 1. Una breve devolución crítica de 3 viñetas destacando qué se mejoró respecto al diagnóstico de partida.
-2. La versión final pulida y lista para enviar (en el idioma del borrador: ${draftText.includes('ich bewerbe') ? 'Alemán' : draftText.includes('I am submitting') || draftText.includes('Having engaged') ? 'Inglés' : 'Español'}), respetando el formato de 4-5 párrafos fluidos y el estándar formal.
+2. La versión final pulida y lista para enviar en ${targetLang === 'de' || draftText.includes('ich bewerbe') ? 'Alemán' : targetLang === 'en' || draftText.includes('I am submitting') || draftText.includes('Having engaged') ? 'Inglés' : 'Español'} (mantener rigurosamente este idioma objetivo), respetando el formato de 4-5 párrafos fluidos y el estándar formal.
 `;
 };
 
