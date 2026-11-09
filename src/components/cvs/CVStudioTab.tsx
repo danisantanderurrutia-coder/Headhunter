@@ -10,7 +10,6 @@ import {
   ChevronUp,
   Copy,
   FileDown,
-  Languages,
   Layers,
   Lightbulb,
   ListChecks,
@@ -27,7 +26,6 @@ import {
   Sparkles,
   Target,
   Trash2,
-  Wrench,
   X
 } from 'lucide-react';
 import { getStoredOffers, saveStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs } from '../../services/db';
@@ -84,6 +82,83 @@ const segBtn = (active: boolean) =>
     active ? 'bg-sky-600 text-white shadow' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
   }`;
 
+interface AccordionCardProps {
+  id: string;
+  isOpen: boolean;
+  onToggle: (id: string) => void;
+  title: string;
+  icon?: React.ReactNode;
+  summary?: string;
+  badge?: React.ReactNode;
+  headerAction?: React.ReactNode;
+  children: React.ReactNode;
+}
+
+const AccordionCard: React.FC<AccordionCardProps> = ({
+  id,
+  isOpen,
+  onToggle,
+  title,
+  icon,
+  summary,
+  badge,
+  headerAction,
+  children
+}) => {
+  return (
+    <div
+      className="rounded-2xl border transition-all"
+      style={{
+        backgroundColor: 'var(--panel-bg)',
+        borderColor: 'var(--panel-border)'
+      }}
+    >
+      <div
+        onClick={() => onToggle(id)}
+        className="flex items-center justify-between p-3.5 sm:p-4 cursor-pointer select-none hover:bg-black/5 dark:hover:bg-white/5 transition-colors rounded-2xl"
+      >
+        <div className="flex items-center gap-2.5 min-w-0 pr-2">
+          {icon && <span className="shrink-0">{icon}</span>}
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h3 className="text-xs font-black font-mono uppercase tracking-tight text-[var(--text-primary)] truncate">
+                {title}
+              </h3>
+              {badge}
+            </div>
+            {!isOpen && summary && (
+              <p className="text-[11px] text-[var(--text-muted)] truncate mt-0.5 font-sans">
+                {summary}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {headerAction && (
+            <div onClick={(e) => e.stopPropagation()}>
+              {headerAction}
+            </div>
+          )}
+          <button
+            type="button"
+            className="p-1 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/5 transition cursor-pointer"
+            aria-label={isOpen ? 'Colapsar sección' : 'Expandir sección'}
+          >
+            {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 pt-1 border-t border-[var(--panel-border)] space-y-3">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
+
 interface CVStudioTabProps {
   initialOfferId?: string;
   initialDocType?: 'cv' | 'cover_letter';
@@ -100,6 +175,33 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
   const [docMode, setDocMode] = useState<'cv' | 'cover_letter'>(initialDocType);
   const [offerId, setOfferId] = useState<string>(initialOfferId);
+
+  // Estados de acordeón para menú izquierdo ordenado y banner colapsable
+  const [showHeroGuide, setShowHeroGuide] = useState(false);
+  const [openCvSections, setOpenCvSections] = useState<Record<string, boolean>>({
+    format: true,
+    offer: true,
+    facts: false,
+    audit: false,
+    saved: false
+  });
+
+  const [openLetterSections, setOpenLetterSections] = useState<Record<string, boolean>>({
+    draft: true,
+    offer: true,
+    header: false,
+    audit: false,
+    antiai: false,
+    saved: false
+  });
+
+  const toggleCvSection = (key: string) => {
+    setOpenCvSections((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const toggleLetterSection = (key: string) => {
+    setOpenLetterSections((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   // Modal / Formulario para añadir nueva oferta laboral manual
   const [isAddingOffer, setIsAddingOffer] = useState(false);
@@ -490,95 +592,73 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   return (
     <div className="space-y-5 text-[var(--text-primary)]">
       {/* ==============================================================
-       * CRAFTING HUB HERO BANNER (NANOBANANA ILLUSTRATION: WINGMAN + HEADHUNTER)
+       * CRAFTING HUB HERO BANNER (COMPACTABLE / ACCORDION)
        * ============================================================== */}
       <div 
-        className="rounded-3xl border shadow-2xl relative overflow-hidden backdrop-blur-md transition-colors"
+        className="rounded-2xl border relative overflow-hidden transition-all shadow-sm"
         style={{
           backgroundColor: 'var(--panel-bg)',
           borderColor: 'var(--panel-border)'
         }}
       >
-        {/* Glow ambient effects */}
-        <div className="absolute -top-16 -left-16 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        {/* Nano Banana Panoramic Illustration (Extended vertical presence: 15% taller with optical focus at 12% from top) */}
-        <div className="relative w-full aspect-[16/9] max-h-[680px] sm:max-h-[720px] overflow-hidden border-b border-[var(--panel-border)] bg-[#1a2330] flex items-center justify-center">
-          <img 
-            src={craftingHeroImg || '/crafting_nanobanana_hero.jpg'} 
-            alt="Wingman & Headhunter Crafting Review Architecture" 
-            className="w-full h-full object-contain sm:object-cover object-[center_12%] select-none"
-            loading="eager"
-          />
-          {/* Subtle top ambient badge */}
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-2 pointer-events-none">
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-900/85 text-purple-300 border border-purple-500/30 backdrop-blur-md flex items-center gap-1.5 shadow-md">
-              <Sparkles className="h-3 w-3 text-purple-400" />
-              CRAFTING // DUAL-LENS
-            </span>
-          </div>
-        </div>
-
-        {/* Conceptual Narrative: Wingman + Headhunter & Review Framework (Simple, no numbers) */}
-        <div className="p-4 sm:p-5 md:p-6 space-y-4 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {/* Wingman Concept */}
-            <div className="p-3.5 rounded-2xl border bg-[var(--card-bg)] border-purple-500/25 space-y-1.5 shadow-xs transition hover:border-purple-500/40">
-              <div className="flex items-center space-x-2 text-purple-500 dark:text-purple-300 font-bold font-mono text-xs">
-                <Bot className="h-4 w-4" />
-                <span>WINGMAN — Empatía & Match Técnico</span>
-              </div>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-                Comprende las expectativas y el lenguaje del líder del equipo o PI. Asegura que el formato y la cadencia de la carta o CV resuelvan sus puntos de dolor con tono soberano <em>Zero-Servility</em>.
-              </p>
+        <div className="flex items-center justify-between p-3 sm:px-4">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="p-1.5 rounded-lg bg-purple-500/15 text-purple-400 shrink-0">
+              <Sparkles className="h-4 w-4" />
             </div>
-
-            {/* Headhunter Concept */}
-            <div className="p-3.5 rounded-2xl border bg-[var(--card-bg)] border-sky-500/25 space-y-1.5 shadow-xs transition hover:border-sky-500/40">
-              <div className="flex items-center space-x-2 text-sky-500 dark:text-sky-300 font-bold font-mono text-xs">
-                <Scale className="h-4 w-4" />
-                <span>HEADHUNTER — Asimetría & Filtro de Élite</span>
-              </div>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-                Destaca por encima de la media con evidencia asimétrica incontrastable. Neutraliza filtros de selección inicial y blinda cada término legal y credencial académica.
+            <div className="min-w-0">
+              <h2 className="text-xs font-mono font-black uppercase text-[var(--text-primary)] truncate">
+                Crafting Studio · Wingman & Headhunter
+              </h2>
+              <p className="text-[11px] text-[var(--text-muted)] truncate hidden sm:block">
+                Compilador y auditoría simultánea para CVs de alto impacto y Cartas DIN 5008
               </p>
             </div>
           </div>
+          <button
+            type="button"
+            onClick={() => setShowHeroGuide((prev) => !prev)}
+            className="px-2.5 py-1 rounded-lg border border-[var(--panel-border)] bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5 text-[11px] font-mono font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center gap-1.5 cursor-pointer shrink-0 transition"
+          >
+            <span>{showHeroGuide ? 'Ocultar Guía' : 'Ver Guía Visual'}</span>
+            {showHeroGuide ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+          </button>
+        </div>
 
-          {/* Bosquejo Conceptual de Revisión (Flujo horizontal sin números) */}
-          <div className="pt-1 border-t border-[var(--panel-border)] flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
-            <span className="text-[10.5px] font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center gap-1.5">
-              <Target className="h-3.5 w-3.5 text-amber-500" />
-              Estructura de Auditoría:
-            </span>
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-[var(--card-bg)] border border-[var(--panel-border)] text-sky-400">
-                Arquetipos de Postulación
-              </span>
-              <span className="text-[var(--text-muted)] text-[10px]">→</span>
-              <span className="px-2 py-0.5 rounded-md bg-[var(--card-bg)] border border-[var(--panel-border)] text-purple-400">
-                Psicología del Lector
-              </span>
-              <span className="text-[var(--text-muted)] text-[10px]">→</span>
-              <span className="px-2 py-0.5 rounded-md bg-[var(--card-bg)] border border-[var(--panel-border)] text-amber-400">
-                Desarme de Objeciones
-              </span>
-              <span className="text-[var(--text-muted)] text-[10px]">→</span>
-              <span className="px-2 py-0.5 rounded-md bg-[var(--card-bg)] border border-[var(--panel-border)] text-emerald-400">
-                Asimetría Técnica
-              </span>
-              <span className="text-[var(--text-muted)] text-[10px]">→</span>
-              <span className="px-2 py-0.5 rounded-md bg-[var(--card-bg)] border border-[var(--panel-border)] text-indigo-400">
-                Cierre Táctico
-              </span>
-              <span className="text-[var(--text-muted)] text-[10px]">→</span>
-              <span className="px-2 py-0.5 rounded-md bg-[var(--card-bg)] border border-[var(--panel-border)] text-rose-400">
-                Blindaje Factual
-              </span>
+        {showHeroGuide && (
+          <div className="border-t border-[var(--panel-border)]">
+            <div className="relative w-full aspect-[16/9] max-h-[460px] overflow-hidden bg-[#1a2330] flex items-center justify-center">
+              <img 
+                src={craftingHeroImg || '/crafting_nanobanana_hero.jpg'} 
+                alt="Wingman & Headhunter Crafting Review Architecture" 
+                className="w-full h-full object-contain sm:object-cover object-[center_12%] select-none"
+                loading="eager"
+              />
+            </div>
+            <div className="p-4 sm:p-5 space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="p-3 rounded-xl border bg-[var(--card-bg)] border-purple-500/25 space-y-1">
+                  <div className="flex items-center space-x-2 text-purple-500 dark:text-purple-300 font-bold font-mono text-xs">
+                    <Bot className="h-4 w-4" />
+                    <span>WINGMAN — Empatía & Match Técnico</span>
+                  </div>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    Comprende las expectativas y el lenguaje del líder del equipo o PI. Asegura que el formato y la cadencia de la carta o CV resuelvan sus puntos de dolor con tono soberano Zero-Servility.
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl border bg-[var(--card-bg)] border-sky-500/25 space-y-1">
+                  <div className="flex items-center space-x-2 text-sky-500 dark:text-sky-300 font-bold font-mono text-xs">
+                    <Scale className="h-4 w-4" />
+                    <span>HEADHUNTER — Asimetría & Filtro de Élite</span>
+                  </div>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    Destaca por encima de la media con evidencia asimétrica incontrastable. Neutraliza filtros de selección inicial y blinda cada término legal y credencial académica.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ------------------------------------------------ Barra Superior Studio */}
@@ -671,359 +751,400 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[minmax(340px,460px)_1fr] gap-4 items-start">
-        {/* ======================================================== CONTROLES IZQUIERDA */}
-        <div className="space-y-4">
-          {/* Selector de Plantillas y Formatos Oficiales (Unificación con Gestor de Plantillas) */}
-          {docMode === 'cv' && (
-            <div className={panel} style={panelStyle}>
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Layers className="h-4 w-4 text-sky-500" /> Plantilla Base del CV
-                </h3>
-                <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                  {cvTemplatesList.length} Formatos
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 pt-1">
-                {cvTemplatesList.map((tpl) => {
-                  const isSelected = selectedTemplateId === tpl.id;
-                  return (
-                    <button
-                      key={tpl.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedTemplateId(tpl.id);
-                        if (tpl.language === 'en') setLang('en');
-                        else if (tpl.language === 'es') setLang('es');
-                        if (tpl.pages === '1 pág.') setLength('1p');
-                        else if (tpl.pages === '2 pág.' || tpl.pages === '2-3 pág.') setLength('2p');
-                      }}
-                      className={`p-2 rounded-xl text-left border transition text-xs cursor-pointer ${
-                        isSelected
-                          ? 'border-sky-500 bg-sky-500/10 shadow-xs ring-1 ring-sky-500/30'
-                          : 'border-[var(--card-border)] bg-[var(--panel-bg)] hover:border-sky-500/40'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-[11px] truncate text-[var(--text-primary)]">
-                          {tpl.name.split(' ')[0]} {tpl.name.split(' ')[1] || ''}
-                        </span>
-                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-black/10 dark:bg-white/10 uppercase font-bold text-[var(--text-muted)]">
-                          {tpl.language.toUpperCase()}
-                        </span>
-                      </div>
-                      <div className="text-[10px] text-[var(--text-muted)] truncate mt-0.5">
-                        {tpl.pages} • {tpl.targetAudience}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+        {/* ======================================================== CONTROLES IZQUIERDA (5 COLUMNAS) */}
+        <div className="xl:col-span-5 2xl:col-span-5 space-y-3.5 min-w-0">
 
-          {/* Selector de Ángulo Táctico de Posicionamiento */}
-          {docMode === 'cv' && (
-            <div className={panel} style={panelStyle}>
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Sparkles className="h-4 w-4 text-emerald-400" /> Ángulo Táctico de Posicionamiento
-                </h3>
-                <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                  5 Enfoques
-                </span>
-              </div>
-              <p className="text-[11px] text-[var(--text-secondary)]">
-                Adapta automáticamente el titular, síntesis ejecutiva y priorización de evidencia técnica según la vertical de la organización.
-              </p>
-              <div className="space-y-1.5 pt-1">
-                {[
-                  {
-                    id: 'general' as TacticalAngle,
-                    name: 'Generalista Dual',
-                    desc: 'Geofísica ambiental + Doble M.Sc. europeo (Kiel / Poznań).',
-                    badge: 'Referencia'
-                  },
-                  {
-                    id: 'biofisica' as TacticalAngle,
-                    name: 'Biofísica & Eddy Covariance',
-                    desc: 'Flujos GEI (CO₂, CH₄), turberas, cámaras cerradas y σp edáfico.',
-                    badge: 'I+D & Suelos'
-                  },
-                  {
-                    id: 'mrv_carbon' as TacticalAngle,
-                    name: 'Carbon-Tech & Calificación MRV',
-                    desc: 'Teledetección (GEE/Sentinel), rating de créditos y contabilidad.',
-                    badge: 'Climate-Tech'
-                  },
-                  {
-                    id: 'cat_risk' as TacticalAngle,
-                    name: 'Cat Risk & Modelación Física',
-                    desc: 'Incendios forestales, balance hídrico y riesgo físico paramétrico.',
-                    badge: 'Seguros / Clima'
-                  },
-                  {
-                    id: 'politicas' as TacticalAngle,
-                    name: 'Políticas & Interfaz Científica',
-                    desc: 'Testimonio en Congreso Nacional, salvaguardias y cuencas.',
-                    badge: 'Multilateral'
-                  }
-                ].map((angle) => {
-                  const isSelected = tacticalAngle === angle.id;
-                  return (
-                    <button
-                      key={angle.id}
-                      type="button"
-                      onClick={() => setTacticalAngle(angle.id)}
-                      className={`w-full p-2 rounded-xl text-left border transition text-xs cursor-pointer flex items-start justify-between gap-2 ${
-                        isSelected
-                          ? 'border-emerald-500 bg-emerald-500/10 shadow-xs ring-1 ring-emerald-500/30'
-                          : 'border-[var(--card-border)] bg-[var(--panel-bg)] hover:border-emerald-500/40'
-                      }`}
-                    >
-                      <div className="space-y-0.5">
-                        <div className="font-bold text-[11px] text-[var(--text-primary)] flex items-center gap-1.5">
-                          <span>{angle.name}</span>
-                        </div>
-                        <div className="text-[10px] text-[var(--text-muted)] line-clamp-1">
-                          {angle.desc}
-                        </div>
-                      </div>
-                      <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold uppercase shrink-0 ${
-                        isSelected
-                          ? 'bg-emerald-500 text-white'
-                          : 'bg-black/10 dark:bg-white/10 text-[var(--text-muted)]'
-                      }`}>
-                        {angle.badge}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Selector de Oferta (Común a CV y Carta) */}
-          <div className={panel} style={panelStyle}>
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                <Target className="h-4 w-4 text-sky-500" /> Vincular a Oferta Laboral / Convocatoria
-              </h3>
-              <button
-                type="button"
-                onClick={() => setIsAddingOffer((v) => !v)}
-                className="px-2 py-1 rounded-lg bg-sky-600/15 hover:bg-sky-600/25 text-sky-600 dark:text-sky-300 border border-sky-500/30 text-[10px] font-mono font-bold flex items-center gap-1 cursor-pointer transition"
-                title="Añadir una oferta real específica con su título e información relevante"
-              >
-                {isAddingOffer ? (
-                  <>
-                    <X className="h-3 w-3" /> Cancelar
-                  </>
-                ) : (
-                  <>
-                    <Plus className="h-3 w-3" /> + Añadir Oferta
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Formulario desplegable para agregar oferta real paso a paso */}
-            {isAddingOffer && (
-              <form onSubmit={handleCreateOffer} className="p-3 rounded-xl border border-sky-500/30 bg-[var(--panel-bg)] space-y-2.5 text-xs">
-                <div className="flex items-center justify-between pb-1 border-b border-[var(--panel-border)]">
-                  <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1">
-                    <PlusCircle className="h-3.5 w-3.5" /> Registrar Oferta Verificada
-                  </span>
-                  <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
-                    <input
-                      type="text"
-                      required
-                      value={newOfferTitle}
-                      onChange={(e) => setNewOfferTitle(e.target.value)}
-                      placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
-                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
-                    <input
-                      type="text"
-                      required
-                      value={newOfferCompany}
-                      onChange={(e) => setNewOfferCompany(e.target.value)}
-                      placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
-                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
-                    <input
-                      type="text"
-                      value={newOfferLocation}
-                      onChange={(e) => setNewOfferLocation(e.target.value)}
-                      placeholder="Ej: Braunschweig / Kiel / Remoto"
-                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
-                    <input
-                      type="text"
-                      value={newOfferRequirements}
-                      onChange={(e) => setNewOfferRequirements(e.target.value)}
-                      placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
-                      className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
-                  <textarea
-                    rows={2}
-                    value={newOfferDesc}
-                    onChange={(e) => setNewOfferDesc(e.target.value)}
-                    placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
-                    className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                    style={{ borderColor: 'var(--panel-border)' }}
-                  />
-                </div>
-
-                <div className="pt-1 border-t border-[var(--panel-border)] space-y-1.5">
-                  <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
-                    Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <input
-                      type="text"
-                      value={newOfferRecipientName}
-                      onChange={(e) => setNewOfferRecipientName(e.target.value)}
-                      placeholder="Contacto: Prof. Dr. X"
-                      className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                    <input
-                      type="text"
-                      value={newOfferRecipientRole}
-                      onChange={(e) => setNewOfferRecipientRole(e.target.value)}
-                      placeholder="Cargo: Selección / AG"
-                      className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                    <input
-                      type="text"
-                      value={newOfferRecipientAddress}
-                      onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
-                      placeholder="Dirección postal / Ciudad"
-                      className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-1 flex items-center justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsAddingOffer(false)}
-                    className="px-3 py-1 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
-                  >
-                    Guardar y Vincular
-                  </button>
-                </div>
-              </form>
-            )}
-
-            <div className="flex items-center gap-1.5">
-              <select
-                value={offerId}
-                onChange={(e) => {
-                  setOfferId(e.target.value);
-                  resetSelection();
-                }}
-                className="flex-1 px-3 py-2 rounded-xl text-xs border bg-transparent font-medium"
-                style={{ borderColor: 'var(--panel-border)' }}
-              >
-                <option value="">General (sin oferta específica)</option>
-                {offers.map((o) => (
-                  <option key={o.id} value={o.id}>
-                    {o.title} — {o.company}
-                  </option>
-                ))}
-              </select>
-
-              {offer && (
-                <button
-                  type="button"
-                  onClick={() => handleDeleteOffer(offer.id)}
-                  className="p-2 rounded-xl border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 cursor-pointer transition shrink-0"
-                  title="Eliminar esta oferta de la lista"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-
-            {offer ? (
-              <div className="text-[11px] space-y-1 pt-1 border-t border-[var(--panel-border)]">
-                <div className="flex items-center justify-between text-[var(--text-secondary)] font-medium">
-                  <span>Coincidencias técnicas con la trayectoria verificada:</span>
-                  {offer.location && <span className="text-[10px] font-mono text-[var(--text-muted)]">{offer.location}</span>}
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {built.matchedTags.length ? (
-                    built.matchedTags.slice(0, 16).map((t) => (
-                      <span key={t} className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 font-mono text-[10px]">
-                        {t}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <p className="text-[11px] text-[var(--text-secondary)]">
-                {docMode === 'cv'
-                  ? 'Sin oferta: orden por prioridad general y pie de referencia general.'
-                  : 'Sin oferta: encabezado formal genérico y estructura base institucional.'}
-              </p>
-            )}
-          </div>
-
-          {/* CONTROLES ESPECÍFICOS: CV STUDIO */}
+          {/* ============================================ CV MODE ACCORDIONS ============================================ */}
           {docMode === 'cv' && (
             <>
-              <div className={panel} style={panelStyle}>
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                    <Briefcase className="h-4 w-4 text-sky-500" /> Contenido incluido
-                  </h3>
-                  {(forceInclude.length > 0 || exclude.length > 0) && (
-                    <button onClick={resetSelection} className="text-[11px] text-sky-500 hover:underline cursor-pointer">
-                      Restablecer selección
+              {/* 1. Plantilla Base & Posicionamiento */}
+              <AccordionCard
+                id="format"
+                isOpen={!!openCvSections.format}
+                onToggle={toggleCvSection}
+                title="Plantilla Base & Posicionamiento"
+                icon={<Layers className="h-4 w-4 text-sky-500" />}
+                summary={`${cvTemplatesList.find(t => t.id === selectedTemplateId)?.name || 'Académico'} · ${tacticalAngle}`}
+              >
+                {/* Formatos de Plantilla */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-[var(--text-muted)] uppercase">
+                      Formato Oficial
+                    </span>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                      {cvTemplatesList.length} opciones
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {cvTemplatesList.map((tpl) => {
+                      const isSelected = selectedTemplateId === tpl.id;
+                      return (
+                        <button
+                          key={tpl.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedTemplateId(tpl.id);
+                            if (tpl.language === 'en') setLang('en');
+                            else if (tpl.language === 'es') setLang('es');
+                            if (tpl.pages === '1 pág.') setLength('1p');
+                            else if (tpl.pages === '2 pág.' || tpl.pages === '2-3 pág.') setLength('2p');
+                          }}
+                          className={`p-2 rounded-xl text-left border transition text-xs cursor-pointer ${
+                            isSelected
+                              ? 'border-sky-500 bg-sky-500/10 shadow-xs ring-1 ring-sky-500/30'
+                              : 'border-[var(--card-border)] bg-[var(--card-bg)] hover:border-sky-500/40'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-[11px] truncate text-[var(--text-primary)]">
+                              {tpl.name.split(' ')[0]} {tpl.name.split(' ')[1] || ''}
+                            </span>
+                            <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-black/10 dark:bg-white/10 uppercase font-bold text-[var(--text-muted)]">
+                              {tpl.language.toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="text-[10px] text-[var(--text-muted)] truncate mt-0.5">
+                            {tpl.pages} • {tpl.targetAudience}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Ángulo Táctico */}
+                <div className="space-y-1.5 pt-2 border-t border-[var(--panel-border)]">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-[var(--text-muted)] uppercase">
+                      Ángulo Táctico de Posicionamiento
+                    </span>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                      5 enfoques
+                    </span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {[
+                      {
+                        id: 'general' as TacticalAngle,
+                        name: 'Generalista Dual',
+                        desc: 'Geofísica ambiental + Doble M.Sc. europeo (Kiel / Poznań).',
+                        badge: 'Referencia'
+                      },
+                      {
+                        id: 'biofisica' as TacticalAngle,
+                        name: 'Biofísica & Eddy Covariance',
+                        desc: 'Flujos GEI (CO₂, CH₄), turberas, cámaras cerradas y σp edáfico.',
+                        badge: 'I+D & Suelos'
+                      },
+                      {
+                        id: 'mrv_carbon' as TacticalAngle,
+                        name: 'Carbon-Tech & Calificación MRV',
+                        desc: 'Teledetección (GEE/Sentinel), rating de créditos y contabilidad.',
+                        badge: 'Climate-Tech'
+                      },
+                      {
+                        id: 'cat_risk' as TacticalAngle,
+                        name: 'Cat Risk & Modelación Física',
+                        desc: 'Incendios forestales, balance hídrico y riesgo físico paramétrico.',
+                        badge: 'Seguros / Clima'
+                      },
+                      {
+                        id: 'politicas' as TacticalAngle,
+                        name: 'Políticas & Interfaz Científica',
+                        desc: 'Testimonio en Congreso Nacional, salvaguardias y cuencas.',
+                        badge: 'Multilateral'
+                      }
+                    ].map((angle) => {
+                      const isSelected = tacticalAngle === angle.id;
+                      return (
+                        <button
+                          key={angle.id}
+                          type="button"
+                          onClick={() => setTacticalAngle(angle.id)}
+                          className={`w-full p-2 rounded-xl text-left border transition text-xs cursor-pointer flex items-start justify-between gap-2 ${
+                            isSelected
+                              ? 'border-emerald-500 bg-emerald-500/10 shadow-xs ring-1 ring-emerald-500/30'
+                              : 'border-[var(--card-border)] bg-[var(--card-bg)] hover:border-emerald-500/40'
+                          }`}
+                        >
+                          <div className="space-y-0.5">
+                            <div className="font-bold text-[11px] text-[var(--text-primary)]">
+                              {angle.name}
+                            </div>
+                            <div className="text-[10px] text-[var(--text-muted)] line-clamp-1">
+                              {angle.desc}
+                            </div>
+                          </div>
+                          <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold uppercase shrink-0 ${
+                            isSelected
+                              ? 'bg-emerald-500 text-white'
+                              : 'bg-black/10 dark:bg-white/10 text-[var(--text-muted)]'
+                          }`}>
+                            {angle.badge}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Contacto en Cabecera */}
+                <div className="space-y-2 pt-2 border-t border-[var(--panel-border)] text-xs">
+                  <span className="text-[11px] font-mono font-bold text-[var(--text-muted)] uppercase block">
+                    Contacto en Cabecera
+                  </span>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación en el CV:</label>
+                      <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className="w-full px-3 py-1.5 rounded-xl border bg-[var(--card-bg)] font-medium text-xs focus:outline-none focus:border-sky-500"
+                        style={{ borderColor: 'var(--panel-border)' }}
+                      />
+                    </div>
+                    <label className="flex items-center gap-2 cursor-pointer pt-0.5">
+                      <input
+                        type="checkbox"
+                        checked={includePhone}
+                        onChange={(e) => setIncludePhone(e.target.checked)}
+                      />
+                      <span className="text-[11px]">Incluir teléfono ({profile.phone || 'No registrado'})</span>
+                    </label>
+                  </div>
+                </div>
+              </AccordionCard>
+
+              {/* 2. Vincular a Oferta Laboral */}
+              <AccordionCard
+                id="offer"
+                isOpen={!!openCvSections.offer}
+                onToggle={toggleCvSection}
+                title="Vincular a Oferta Laboral"
+                icon={<Target className="h-4 w-4 text-sky-500" />}
+                summary={offer ? `${offer.title} (${offer.company})` : 'General (sin oferta vinculada)'}
+                headerAction={
+                  <button
+                    type="button"
+                    onClick={() => setIsAddingOffer((v) => !v)}
+                    className="px-2 py-1 rounded-lg bg-sky-600/15 hover:bg-sky-600/25 text-sky-600 dark:text-sky-300 border border-sky-500/30 text-[10px] font-mono font-bold flex items-center gap-1 cursor-pointer transition"
+                    title="Añadir una oferta real específica con su título e información relevante"
+                  >
+                    {isAddingOffer ? (
+                      <>
+                        <X className="h-3 w-3" /> Cancelar
+                      </>
+                    ) : (
+                      <>
+                        <Plus className="h-3 w-3" /> + Añadir Oferta
+                      </>
+                    )}
+                  </button>
+                }
+              >
+                {/* Formulario desplegable para agregar oferta real paso a paso */}
+                {isAddingOffer && (
+                  <form onSubmit={handleCreateOffer} className="p-3 rounded-xl border border-sky-500/30 bg-[var(--panel-bg)] space-y-2.5 text-xs">
+                    <div className="flex items-center justify-between pb-1 border-b border-[var(--panel-border)]">
+                      <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1">
+                        <PlusCircle className="h-3.5 w-3.5" /> Registrar Oferta Verificada
+                      </span>
+                      <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
+                        <input
+                          type="text"
+                          required
+                          value={newOfferTitle}
+                          onChange={(e) => setNewOfferTitle(e.target.value)}
+                          placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
+                        <input
+                          type="text"
+                          required
+                          value={newOfferCompany}
+                          onChange={(e) => setNewOfferCompany(e.target.value)}
+                          placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
+                        <input
+                          type="text"
+                          value={newOfferLocation}
+                          onChange={(e) => setNewOfferLocation(e.target.value)}
+                          placeholder="Ej: Braunschweig / Kiel / Remoto"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
+                        <input
+                          type="text"
+                          value={newOfferRequirements}
+                          onChange={(e) => setNewOfferRequirements(e.target.value)}
+                          placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
+                      <textarea
+                        rows={2}
+                        value={newOfferDesc}
+                        onChange={(e) => setNewOfferDesc(e.target.value)}
+                        placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
+                        className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                        style={{ borderColor: 'var(--panel-border)' }}
+                      />
+                    </div>
+
+                    <div className="pt-1 border-t border-[var(--panel-border)] space-y-1.5">
+                      <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
+                        Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <input
+                          type="text"
+                          value={newOfferRecipientName}
+                          onChange={(e) => setNewOfferRecipientName(e.target.value)}
+                          placeholder="Contacto: Prof. Dr. X"
+                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                        <input
+                          type="text"
+                          value={newOfferRecipientRole}
+                          onChange={(e) => setNewOfferRecipientRole(e.target.value)}
+                          placeholder="Cargo: Selección / AG"
+                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                        <input
+                          type="text"
+                          value={newOfferRecipientAddress}
+                          onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
+                          placeholder="Dirección postal / Ciudad"
+                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-1 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsAddingOffer(false)}
+                        className="px-3 py-1 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
+                      >
+                        Guardar y Vincular
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                <div className="flex items-center gap-1.5">
+                  <select
+                    value={offerId}
+                    onChange={(e) => {
+                      setOfferId(e.target.value);
+                      resetSelection();
+                    }}
+                    className="flex-1 px-3 py-2 rounded-xl text-xs border bg-transparent font-medium"
+                    style={{ borderColor: 'var(--panel-border)' }}
+                  >
+                    <option value="">General (sin oferta específica)</option>
+                    {offers.map((o) => (
+                      <option key={o.id} value={o.id}>
+                        {o.title} — {o.company}
+                      </option>
+                    ))}
+                  </select>
+
+                  {offer && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteOffer(offer.id)}
+                      className="p-2 rounded-xl border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 cursor-pointer transition shrink-0"
+                      title="Eliminar esta oferta de la lista"
+                    >
+                      <Trash2 className="h-4 w-4" />
                     </button>
                   )}
                 </div>
-                <div className="max-h-[340px] overflow-y-auto pr-1 space-y-3">
+
+                {offer ? (
+                  <div className="text-[11px] space-y-1 pt-1 border-t border-[var(--panel-border)]">
+                    <div className="flex items-center justify-between text-[var(--text-secondary)] font-medium">
+                      <span>Coincidencias técnicas con la trayectoria verificada:</span>
+                      {offer.location && <span className="text-[10px] font-mono text-[var(--text-muted)]">{offer.location}</span>}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {built.matchedTags.length ? (
+                        built.matchedTags.slice(0, 16).map((t) => (
+                          <span key={t} className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 font-mono text-[10px]">
+                            {t}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-[var(--text-secondary)]">
+                    Sin oferta: orden por prioridad general y pie de referencia general.
+                  </p>
+                )}
+              </AccordionCard>
+
+              {/* 3. Contenido del CV (Antecedentes) */}
+              <AccordionCard
+                id="facts"
+                isOpen={!!openCvSections.facts}
+                onToggle={toggleCvSection}
+                title="Contenido del CV"
+                icon={<Briefcase className="h-4 w-4 text-sky-500" />}
+                summary={`${built.allFacts.filter((f) => f.included).length} de ${built.allFacts.length} antecedentes incluidos`}
+                headerAction={
+                  (forceInclude.length > 0 || exclude.length > 0) ? (
+                    <button
+                      type="button"
+                      onClick={resetSelection}
+                      className="text-[10px] font-mono text-sky-500 hover:underline cursor-pointer"
+                    >
+                      Restablecer
+                    </button>
+                  ) : undefined
+                }
+              >
+                <div className="max-h-[360px] overflow-y-auto pr-1 space-y-3">
                   {(['education', 'experience', 'publications', 'courses', 'skills', 'languages'] as CvSection[]).map((sec) => {
                     const items = built.allFacts.filter((f) => f.fact.section === sec);
                     return (
@@ -1060,418 +1181,158 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     );
                   })}
                 </div>
-              </div>
+              </AccordionCard>
 
-              {/* Contacto & Ubicación CV */}
-              <div className={panel} style={panelStyle}>
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Target className="h-4 w-4 text-sky-500" /> Contacto en Cabecera
-                </h3>
-                <div className="space-y-2 text-xs">
-                  <div>
-                    <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación en el CV:</label>
-                    <input
-                      type="text"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      className="w-full px-3 py-1.5 rounded-xl border bg-transparent font-medium"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                  </div>
-                  <label className="flex items-center gap-2 cursor-pointer pt-1">
-                    <input
-                      type="checkbox"
-                      checked={includePhone}
-                      onChange={(e) => setIncludePhone(e.target.checked)}
-                    />
-                    <span className="text-[11px]">Incluir teléfono ({profile.phone || 'No registrado'})</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Versiones de CV */}
-              <div className={panel} style={panelStyle}>
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Save className="h-4 w-4 text-sky-500" /> Guardar configuración de CV
-                </h3>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={versionName}
-                    onChange={(e) => setVersionName(e.target.value)}
-                    placeholder={offer ? `${offer.title} (${offer.company})` : 'Nombre de versión'}
-                    className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-transparent"
-                    style={{ borderColor: 'var(--panel-border)' }}
-                  />
-                  <button onClick={saveCvVersion} className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold cursor-pointer">
-                    Guardar
-                  </button>
-                </div>
-                {versions.length > 0 && (
-                  <ul className="space-y-1 pt-2 border-t border-[var(--panel-border)] max-h-40 overflow-y-auto">
-                    {versions.map((v) => (
-                      <li key={v.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)' }}>
-                        <button onClick={() => loadCvVersion(v)} className="text-left min-w-0 flex-1 cursor-pointer hover:text-sky-500">
-                          <div className="font-bold truncate">{v.name}</div>
-                          <div className="text-[var(--text-muted)] font-mono">{v.createdAt} · {v.lang.toUpperCase()} · {v.length}</div>
-                        </button>
-                        <button onClick={() => removeCvVersion(v.id)} className="text-[var(--text-muted)] hover:text-red-500 cursor-pointer" title="Eliminar">
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {/* Versiones pre-compiladas del Expediente */}
-                {storedCompiledCVs.length > 0 && (
-                  <div className="pt-2 border-t border-[var(--panel-border)] space-y-1">
-                    <div className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase">
-                      Compilaciones Rápidas ({storedCompiledCVs.length})
+              {/* 4. Auditoría Dual-Lens & Gemini API */}
+              <AccordionCard
+                id="audit"
+                isOpen={!!openCvSections.audit}
+                onToggle={toggleCvSection}
+                title="Auditoría Dual-Lens & Gemini API"
+                icon={<Sparkles className="h-4 w-4 text-purple-400" />}
+                summary={`ATS ${dualReport.headhunter.score}% · Wingman ${dualReport.wingman.score}%`}
+              >
+                {/* Alerta de Auditoría Perfil Maestro si existen fallos */}
+                {audit.length > 0 && (
+                  <div className="p-3 rounded-xl border border-amber-500/30 bg-amber-500/10 space-y-2">
+                    <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-amber-600 dark:text-amber-400">
+                      <AlertTriangle className="h-4 w-4" />
+                      <span>Auditoría del Perfil Maestro ({audit.length} alertas)</span>
                     </div>
-                    <ul className="space-y-1 max-h-36 overflow-y-auto">
-                      {storedCompiledCVs.map((cv) => (
-                        <li key={cv.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
-                          <div className="min-w-0 flex-1">
-                            <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
-                            <div className="text-[9px] text-[var(--text-muted)] font-mono">{cv.updatedAt} · {cv.templateId}</div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => setSelectedCvForModal(cv)}
-                            className="px-2 py-1 rounded-md bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
-                          >
-                            Ver / Imprimir
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              {/* Auditoría Perfil Maestro */}
-              <div className={panel} style={panelStyle}>
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Wrench className="h-4 w-4 text-sky-500" /> Auditoría del Perfil Maestro
-                </h3>
-                {audit.length === 0 ? (
-                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
-                    <CheckCircle2 className="h-4 w-4" /> El Perfil Maestro coincide con los datos verificados.
-                  </p>
-                ) : (
-                  <>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5 text-[11px]">
                       {audit.map((a) => (
-                        <li key={a.id} className="text-[11px] flex gap-2">
+                        <li key={a.id} className="flex gap-2">
                           <AlertTriangle className={`h-3.5 w-3.5 mt-0.5 shrink-0 ${a.severity === 'error' ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400'}`} />
                           <div>
                             <div>{a.message}</div>
-                            {a.current && <div className="text-[var(--text-muted)] font-mono break-all">Actual: {a.current}</div>}
-                            {a.expected && <div className="text-emerald-700 dark:text-emerald-400 font-mono break-all">Esperado: {a.expected}</div>}
+                            {a.current && <div className="text-[var(--text-muted)] font-mono break-all text-[10px]">Actual: {a.current}</div>}
+                            {a.expected && <div className="text-emerald-700 dark:text-emerald-400 font-mono break-all text-[10px]">Esperado: {a.expected}</div>}
                           </div>
                         </li>
                       ))}
                     </ul>
                     {fixable.length > 0 && (
-                      <button onClick={applyFixes} className="w-full px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold cursor-pointer">
+                      <button
+                        type="button"
+                        onClick={applyFixes}
+                        className="w-full px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold cursor-pointer"
+                      >
                         Corregir {fixable.length} enlace(s) en el Perfil Maestro
                       </button>
                     )}
-                  </>
+                  </div>
                 )}
-              </div>
 
-              {/* Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica) para CV */}
-              <DualLensAuditHub
-                report={dualReport}
-                offer={offer}
-                documentText={renderCvMarkdown(built)}
-                onInjectSnippet={handleInjectWeapon}
-              />
-            </>
-          )}
+                <DualLensAuditHub
+                  report={dualReport}
+                  offer={offer}
+                  documentText={renderCvMarkdown(built)}
+                  onInjectSnippet={handleInjectWeapon}
+                />
+              </AccordionCard>
 
-          {/* CONTROLES ESPECÍFICOS: COVER LETTER STUDIO */}
-          {docMode === 'cover_letter' && (
-            <>
-              {/* Selector Destacado de Idioma de la Carta */}
-              <div className={panel} style={panelStyle}>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div>
-                    <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
-                      <Languages className="h-4 w-4 text-purple-400" /> Idioma de la Carta de Motivación
-                    </h3>
-                    <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
-                      Cambia libremente entre Español, Inglés y Alemán. Cada idioma mantiene su propio borrador editable.
-                    </p>
-                  </div>
-                  <div className="flex p-1 rounded-xl border gap-1 bg-[var(--card-bg)] border-[var(--panel-border)] shrink-0">
-                    <button
-                      type="button"
-                      className={segBtn(letterLang === 'es')}
-                      onClick={() => handleSelectLetterLang('es')}
-                      title="Activar redacción en Español"
-                    >
-                      🇪🇸 Español (ES)
-                    </button>
-                    <button
-                      type="button"
-                      className={segBtn(letterLang === 'en')}
-                      onClick={() => handleSelectLetterLang('en')}
-                      title="Activar redacción en Inglés"
-                    >
-                      🇬🇧 English (EN)
-                    </button>
-                    <button
-                      type="button"
-                      className={segBtn(letterLang === 'de')}
-                      onClick={() => handleSelectLetterLang('de')}
-                      title="Activar redacción en Alemán"
-                    >
-                      🇩🇪 Deutsch (DE)
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Auditoría Dual-Lens: Criterios Headhunter (ATS) vs Wingman (PI & Técnica) para Carta */}
-              <DualLensAuditHub
-                report={dualReport}
-                offer={offer}
-                documentText={builtLetter.fullMarkdown}
-                onInjectSnippet={handleInjectWeapon}
-              />
-
-              {/* Linter Anti-AI & Scorecard Integral */}
-              <div
-                className={`p-4 rounded-2xl border text-xs space-y-3 transition-colors ${
-                  builtLetter.audit.overallScore >= 80
-                    ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
-                    : builtLetter.audit.overallScore >= 60
-                    ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-950 dark:text-amber-200'
-                    : 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-500/40 text-rose-950 dark:text-rose-200'
-                }`}
+              {/* 5. Versiones y Compilaciones Guardadas */}
+              <AccordionCard
+                id="saved"
+                isOpen={!!openCvSections.saved}
+                onToggle={toggleCvSection}
+                title="Versiones y Compilaciones"
+                icon={<Save className="h-4 w-4 text-sky-500" />}
+                summary={`${versions.length} versiones · ${storedCompiledCVs.length} compilaciones`}
               >
-                <div className="flex items-center justify-between font-mono font-bold">
-                  <span className="flex items-center gap-1.5 text-xs uppercase">
-                    {builtLetter.audit.overallScore >= 80 ? (
-                      <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    ) : builtLetter.audit.overallScore >= 60 ? (
-                      <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                    ) : (
-                      <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
-                    )}
-                    <span>
-                      {builtLetter.audit.overallScore >= 80
-                        ? 'Auditoría Editorial: Rigor y Voz Humana Acreditados'
-                        : builtLetter.audit.overallScore >= 60
-                        ? 'Auditoría Editorial: Alertas y Mejoras Sugeridas'
-                        : 'Auditoría Editorial: Nivel Crítico de Fórmulas IA'}
-                    </span>
-                  </span>
-                  <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
-                    builtLetter.audit.overallScore >= 80
-                      ? 'bg-emerald-600 text-white border-emerald-500'
-                      : builtLetter.audit.overallScore >= 60
-                      ? 'bg-amber-500 text-slate-950 border-amber-400'
-                      : 'bg-rose-600 text-white border-rose-500'
-                  }`}>
-                    {builtLetter.audit.overallScore}/100
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 font-mono text-[10px]">
-                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                    <span className="text-[var(--text-muted)] uppercase text-[9px]">Clichés IA</span>
-                    <span className={`font-bold text-xs ${builtLetter.audit.clicheCount === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
-                      {builtLetter.audit.clicheCount} detectados
-                    </span>
-                  </div>
-                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                    <span className="text-[var(--text-muted)] uppercase text-[9px]">Muletillas</span>
-                    <span className={`font-bold text-xs ${builtLetter.audit.bureaucraticFillers.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                      {builtLetter.audit.bureaucraticFillers.length} rellenos
-                    </span>
-                  </div>
-                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                    <span className="text-[var(--text-muted)] uppercase text-[9px]">Palabras 4+</span>
-                    <span className={`font-bold text-xs ${builtLetter.audit.mechanicalRepetitions.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                      {builtLetter.audit.mechanicalRepetitions.length} repetidas
-                    </span>
-                  </div>
-                  <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
-                    <span className="text-[var(--text-muted)] uppercase text-[9px]">ToR Mandatorios</span>
-                    <span className={`font-bold text-xs ${builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                      {builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'Completos' : 'Pendientes'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Caja de Alerta de Reiteraciones Mecánicas */}
-                {(builtLetter.audit.mechanicalRepetitions.length > 0 || builtLetter.audit.sentenceStarterRepetitions.length > 0) && (
-                  <div className="p-3 rounded-xl bg-black/5 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-2 text-[11px]">
-                    <div className="font-mono font-bold flex items-center gap-1.5 text-purple-600 dark:text-purple-300 uppercase text-[10px]">
-                      <Repeat className="h-3.5 w-3.5" />
-                      <span>Reiteraciones Mecánicas Detectadas en el Texto</span>
-                    </div>
-
-                    {builtLetter.audit.mechanicalRepetitions.length > 0 && (
-                      <div className="space-y-1">
-                        <span className="text-[10px] text-[var(--text-muted)] block">Palabras con alta frecuencia:</span>
-                        <div className="flex flex-wrap gap-1">
-                          {builtLetter.audit.mechanicalRepetitions.map((r, i) => (
-                            <span key={i} className="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-mono text-[10px] border border-amber-300 dark:border-amber-500/30">
-                              «{r.word}» ({r.count}×)
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {builtLetter.audit.sentenceStarterRepetitions.length > 0 && (
-                      <div className="space-y-1 pt-1 border-t border-black/10 dark:border-white/10">
-                        <span className="text-[10px] text-[var(--text-muted)] block">Iniciadores monótonos recurrentes:</span>
-                        <div className="flex flex-wrap gap-1">
-                          {builtLetter.audit.sentenceStarterRepetitions.map((s, i) => (
-                            <span key={i} className="px-2 py-0.5 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-900 dark:text-rose-300 font-mono text-[10px] border border-rose-300 dark:border-rose-500/30">
-                              Iniciador {s.starter} ({s.count} oraciones)
-                            </span>
-                          ))}
-                        </div>
-                        <p className="text-[10px] text-[var(--text-secondary)] italic">
-                          💡 Sugerencia: Varía usando participios (ej. «Having coordinated...»), marcos de contexto («At the intersection of...») o contrastes de enfoque («Rather than...»).
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Menú de Checklist Interactivo y Desplegable */}
-                <div className="pt-1 space-y-2">
-                  <div className="flex items-center justify-between">
+                <div className="space-y-2 text-xs">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={versionName}
+                      onChange={(e) => setVersionName(e.target.value)}
+                      placeholder={offer ? `${offer.title} (${offer.company})` : 'Nombre de versión'}
+                      className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-transparent"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
                     <button
-                      onClick={() => setIsChecklistExpanded((prev) => !prev)}
-                      className="font-mono text-xs font-bold flex items-center gap-1.5 text-[var(--text-primary)] hover:text-sky-500 transition cursor-pointer"
+                      type="button"
+                      onClick={saveCvVersion}
+                      className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold cursor-pointer"
                     >
-                      <ListChecks className="h-4 w-4 text-sky-500" />
-                      <span>Checklist de Verificación ({builtLetter.audit.checklist.length} Criterios)</span>
-                      {isChecklistExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-                    </button>
-                    <button
-                      onClick={copyAuditSummary}
-                      className="text-[10px] font-mono text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1 cursor-pointer"
-                      title="Copiar el diagnóstico y los 9 criterios al portapapeles"
-                    >
-                      <Copy className="h-3 w-3" />
-                      <span>{copiedAudit ? '¡Copiado!' : 'Copiar Diagnóstico'}</span>
+                      Guardar
                     </button>
                   </div>
 
-                  {isChecklistExpanded && (
-                    <div className="space-y-2">
-                      {/* Filtro de Categorías */}
-                      <div className="flex flex-wrap gap-1">
-                        {[
-                          { id: 'all', label: 'Todos' },
-                          { id: 'anti_ai', label: 'Anti-IA' },
-                          { id: 'style_repetition', label: 'Reiteraciones' },
-                          { id: 'golden_thread', label: 'Hilo Conductor' },
-                          { id: 'metrics_evidence', label: 'Rigor' },
-                          { id: 'tor_compliance', label: 'ToR Mandatorio' }
-                        ].map((cat) => (
+                  {versions.length > 0 && (
+                    <ul className="space-y-1 pt-2 border-t border-[var(--panel-border)] max-h-40 overflow-y-auto">
+                      {versions.map((v) => (
+                        <li key={v.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)' }}>
                           <button
-                            key={cat.id}
-                            onClick={() => setChecklistFilter(cat.id as any)}
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono transition cursor-pointer ${
-                              checklistFilter === cat.id
-                                ? 'bg-purple-600 text-white font-bold'
-                                : 'bg-black/5 dark:bg-black/20 text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-                            }`}
+                            type="button"
+                            onClick={() => loadCvVersion(v)}
+                            className="text-left min-w-0 flex-1 cursor-pointer hover:text-sky-500"
                           >
-                            {cat.label}
+                            <div className="font-bold truncate">{v.name}</div>
+                            <div className="text-[var(--text-muted)] font-mono">{v.createdAt} · {v.lang.toUpperCase()} · {v.length}</div>
                           </button>
-                        ))}
+                          <button
+                            type="button"
+                            onClick={() => removeCvVersion(v.id)}
+                            className="text-[var(--text-muted)] hover:text-red-500 cursor-pointer"
+                            title="Eliminar"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Versiones pre-compiladas del Expediente */}
+                  {storedCompiledCVs.length > 0 && (
+                    <div className="pt-2 border-t border-[var(--panel-border)] space-y-1">
+                      <div className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase">
+                        Compilaciones Rápidas ({storedCompiledCVs.length})
                       </div>
-
-                      {/* Lista de Criterios */}
-                      <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
-                        {builtLetter.audit.checklist
-                          .filter((c) => checklistFilter === 'all' || c.category === checklistFilter)
-                          .map((item) => (
-                            <div
-                              key={item.id}
-                              className={`p-2.5 rounded-xl border text-[11px] space-y-1 transition ${
-                                item.status === 'pass'
-                                  ? 'bg-emerald-100/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
-                                  : item.status === 'warning'
-                                  ? 'bg-amber-100/50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-500/30'
-                                  : 'bg-rose-100/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-500/30'
-                              }`}
-                            >
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-1.5 font-bold">
-                                  {item.status === 'pass' ? (
-                                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                                  ) : item.status === 'warning' ? (
-                                    <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
-                                  ) : (
-                                    <ShieldAlert className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
-                                  )}
-                                  <span className="text-[var(--text-primary)]">{item.label}</span>
-                                </div>
-                                <span className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded font-bold ${
-                                  item.status === 'pass'
-                                    ? 'bg-emerald-600 text-white'
-                                    : item.status === 'warning'
-                                    ? 'bg-amber-500 text-slate-950'
-                                    : 'bg-rose-600 text-white'
-                                }`}>
-                                  {item.status}
-                                </span>
-                              </div>
-
-                              <p className="text-[10.5px] text-[var(--text-secondary)] leading-relaxed">
-                                {item.summary}
-                              </p>
-
-                              {item.details && item.details.length > 0 && (
-                                <div className="flex flex-wrap gap-1 pt-0.5">
-                                  {item.details.map((d, di) => (
-                                    <span key={di} className="px-1.5 py-0.2 rounded bg-black/10 dark:bg-white/10 text-[9.5px] font-mono">
-                                      {d}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-
-                              {item.suggestion && (
-                                <div className="p-1.5 rounded-lg bg-black/5 dark:bg-black/30 text-[10px] text-sky-700 dark:text-sky-300 flex items-start gap-1">
-                                  <Lightbulb className="h-3 w-3 shrink-0 mt-0.5" />
-                                  <span>{item.suggestion}</span>
-                                </div>
-                              )}
+                      <ul className="space-y-1 max-h-36 overflow-y-auto">
+                        {storedCompiledCVs.map((cv) => (
+                          <li key={cv.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
+                            <div className="min-w-0 flex-1">
+                              <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
+                              <div className="text-[9px] text-[var(--text-muted)] font-mono">{cv.updatedAt} · {cv.templateId}</div>
                             </div>
-                          ))}
-                      </div>
+                            <button
+                              type="button"
+                              onClick={() => setSelectedCvForModal(cv)}
+                              className="px-2 py-1 rounded-md bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
+                            >
+                              Ver / Imprimir
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
                 </div>
-              </div>
+              </AccordionCard>
+            </>
+          )}
 
-              {/* Editor del Borrador Base */}
-              <div className={panel} style={panelStyle}>
+          {/* ============================================ COVER LETTER MODE ACCORDIONS ============================================ */}
+          {docMode === 'cover_letter' && (
+            <>
+              {/* 1. Borrador y Redacción Base */}
+              <AccordionCard
+                id="draft"
+                isOpen={!!openLetterSections.draft}
+                onToggle={toggleLetterSection}
+                title="Borrador y Redacción"
+                icon={<Sparkles className="h-4 w-4 text-purple-400" />}
+                badge={
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30 uppercase">
+                    {letterLang === 'es' ? '🇪🇸 Español' : letterLang === 'en' ? '🇬🇧 English' : '🇩🇪 Deutsch'}
+                  </span>
+                }
+              >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-[var(--panel-border)]">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                      <Sparkles className="h-4 w-4 text-purple-400" /> Mi Borrador Base (Editable)
-                    </h3>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
-                      {letterLang === 'es' ? '🇪🇸 Español' : letterLang === 'en' ? '🇬🇧 English' : '🇩🇪 Deutsch'}
-                    </span>
-                  </div>
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[10px] text-[var(--text-muted)] font-mono">Plantilla:</span>
+                    <span className="text-[10px] text-[var(--text-muted)] font-mono uppercase font-bold">Plantilla:</span>
                     <button
                       type="button"
                       onClick={() => loadPresetTemplate('es')}
@@ -1522,7 +1383,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 <textarea
                   value={effectiveLetterBody}
                   onChange={(e) => setLetterBodyText(e.target.value)}
-                  rows={13}
+                  rows={12}
                   className="w-full p-3 rounded-xl text-xs font-sans leading-relaxed border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition shadow-inner"
                   style={{ borderColor: 'var(--panel-border)' }}
                   placeholder={
@@ -1534,10 +1395,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                   }
                 />
 
-                <div className="pt-2 flex flex-col sm:flex-row items-center gap-2">
+                <div className="pt-1 flex flex-col sm:flex-row items-center gap-2">
                   <button
+                    type="button"
                     onClick={copyAntiAiPrompt}
-                    className="w-full sm:w-auto flex-1 px-3 py-2.5 rounded-xl bg-purple-600/15 hover:bg-purple-600/25 text-purple-600 dark:text-purple-300 border border-purple-500/40 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                    className="w-full sm:w-auto flex-1 px-3 py-2 rounded-xl bg-purple-600/15 hover:bg-purple-600/25 text-purple-600 dark:text-purple-300 border border-purple-500/40 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     title="Copia el prompt editorial completo con el diagnóstico en vivo y los 9 criterios del checklist para usar en Claude, ChatGPT o Gemini"
                   >
                     <Copy className="h-3.5 w-3.5 text-purple-400" />
@@ -1548,13 +1410,223 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     </span>
                   </button>
                 </div>
-              </div>
+              </AccordionCard>
 
-              {/* Metadatos DIN 5008 del Destinatario */}
-              <div className={panel} style={panelStyle}>
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Mail className="h-4 w-4 text-sky-500" /> Encabezado Institucional (DIN 5008)
-                </h3>
+              {/* 2. Vincular a Oferta Laboral */}
+              <AccordionCard
+                id="offer"
+                isOpen={!!openLetterSections.offer}
+                onToggle={toggleLetterSection}
+                title="Vincular a Oferta Laboral"
+                icon={<Target className="h-4 w-4 text-sky-500" />}
+                summary={offer ? `${offer.title} (${offer.company})` : 'General (sin oferta vinculada)'}
+                headerAction={
+                  <button
+                    type="button"
+                    onClick={() => setIsAddingOffer((v) => !v)}
+                    className="px-2 py-1 rounded-lg bg-sky-600/15 hover:bg-sky-600/25 text-sky-600 dark:text-sky-300 border border-sky-500/30 text-[10px] font-mono font-bold flex items-center gap-1 cursor-pointer transition"
+                    title="Añadir una oferta real específica con su título e información relevante"
+                  >
+                    {isAddingOffer ? (
+                      <>
+                        <X className="h-3 w-3" /> Cancelar
+                      </>
+                    ) : (
+                      <>
+                        <Plus className="h-3 w-3" /> + Añadir Oferta
+                      </>
+                    )}
+                  </button>
+                }
+              >
+                {/* Formulario desplegable para agregar oferta real paso a paso */}
+                {isAddingOffer && (
+                  <form onSubmit={handleCreateOffer} className="p-3 rounded-xl border border-sky-500/30 bg-[var(--panel-bg)] space-y-2.5 text-xs">
+                    <div className="flex items-center justify-between pb-1 border-b border-[var(--panel-border)]">
+                      <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1">
+                        <PlusCircle className="h-3.5 w-3.5" /> Registrar Oferta Verificada
+                      </span>
+                      <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
+                        <input
+                          type="text"
+                          required
+                          value={newOfferTitle}
+                          onChange={(e) => setNewOfferTitle(e.target.value)}
+                          placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
+                        <input
+                          type="text"
+                          required
+                          value={newOfferCompany}
+                          onChange={(e) => setNewOfferCompany(e.target.value)}
+                          placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
+                        <input
+                          type="text"
+                          value={newOfferLocation}
+                          onChange={(e) => setNewOfferLocation(e.target.value)}
+                          placeholder="Ej: Braunschweig / Kiel / Remoto"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
+                        <input
+                          type="text"
+                          value={newOfferRequirements}
+                          onChange={(e) => setNewOfferRequirements(e.target.value)}
+                          placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
+                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
+                      <textarea
+                        rows={2}
+                        value={newOfferDesc}
+                        onChange={(e) => setNewOfferDesc(e.target.value)}
+                        placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
+                        className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+                        style={{ borderColor: 'var(--panel-border)' }}
+                      />
+                    </div>
+
+                    <div className="pt-1 border-t border-[var(--panel-border)] space-y-1.5">
+                      <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
+                        Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <input
+                          type="text"
+                          value={newOfferRecipientName}
+                          onChange={(e) => setNewOfferRecipientName(e.target.value)}
+                          placeholder="Contacto: Prof. Dr. X"
+                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                        <input
+                          type="text"
+                          value={newOfferRecipientRole}
+                          onChange={(e) => setNewOfferRecipientRole(e.target.value)}
+                          placeholder="Cargo: Selección / AG"
+                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                        <input
+                          type="text"
+                          value={newOfferRecipientAddress}
+                          onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
+                          placeholder="Dirección postal / Ciudad"
+                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+                          style={{ borderColor: 'var(--panel-border)' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-1 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsAddingOffer(false)}
+                        className="px-3 py-1 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
+                      >
+                        Guardar y Vincular
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                <div className="flex items-center gap-1.5">
+                  <select
+                    value={offerId}
+                    onChange={(e) => {
+                      setOfferId(e.target.value);
+                      resetSelection();
+                    }}
+                    className="flex-1 px-3 py-2 rounded-xl text-xs border bg-transparent font-medium"
+                    style={{ borderColor: 'var(--panel-border)' }}
+                  >
+                    <option value="">General (sin oferta específica)</option>
+                    {offers.map((o) => (
+                      <option key={o.id} value={o.id}>
+                        {o.title} — {o.company}
+                      </option>
+                    ))}
+                  </select>
+
+                  {offer && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteOffer(offer.id)}
+                      className="p-2 rounded-xl border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 cursor-pointer transition shrink-0"
+                      title="Eliminar esta oferta de la lista"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+
+                {offer ? (
+                  <div className="text-[11px] space-y-1 pt-1 border-t border-[var(--panel-border)]">
+                    <div className="flex items-center justify-between text-[var(--text-secondary)] font-medium">
+                      <span>Coincidencias técnicas con la trayectoria verificada:</span>
+                      {offer.location && <span className="text-[10px] font-mono text-[var(--text-muted)]">{offer.location}</span>}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {built.matchedTags.length ? (
+                        built.matchedTags.slice(0, 16).map((t) => (
+                          <span key={t} className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 font-mono text-[10px]">
+                            {t}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-[var(--text-secondary)]">
+                    Sin oferta: encabezado formal genérico y estructura base institucional.
+                  </p>
+                )}
+              </AccordionCard>
+
+              {/* 3. Encabezado Institucional (DIN 5008) */}
+              <AccordionCard
+                id="header"
+                isOpen={!!openLetterSections.header}
+                onToggle={toggleLetterSection}
+                title="Encabezado Institucional (DIN 5008)"
+                icon={<Mail className="h-4 w-4 text-sky-500" />}
+                summary={recipientOrg || offer?.company || 'Sin institución definida'}
+              >
                 <div className="space-y-2 text-xs">
                   <div>
                     <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">
@@ -1611,99 +1683,362 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     />
                   </div>
                 </div>
-              </div>
+              </AccordionCard>
 
-              {/* Versiones de Cartas */}
-              <div className={panel} style={panelStyle}>
-                <h3 className="text-xs font-black font-mono uppercase flex items-center gap-1.5">
-                  <Save className="h-4 w-4 text-purple-400" /> Guardar Versión de Carta
-                </h3>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={letterVersionName}
-                    onChange={(e) => setLetterVersionName(e.target.value)}
-                    placeholder={offer ? `${offer.title} (${letterLang.toUpperCase()})` : 'Nombre de versión'}
-                    className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition"
-                    style={{ borderColor: 'var(--panel-border)' }}
-                  />
-                  <button onClick={saveLetterVer} className="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold cursor-pointer">
-                    Guardar
-                  </button>
+              {/* 4. Auditoría Dual-Lens & Gemini API */}
+              <AccordionCard
+                id="audit"
+                isOpen={!!openLetterSections.audit}
+                onToggle={toggleLetterSection}
+                title="Auditoría Dual-Lens & Gemini API"
+                icon={<Sparkles className="h-4 w-4 text-purple-400" />}
+                summary={`Score: ATS ${dualReport.headhunter.score}% · Wingman ${dualReport.wingman.score}%`}
+              >
+                <DualLensAuditHub
+                  report={dualReport}
+                  offer={offer}
+                  documentText={builtLetter.fullMarkdown}
+                  onInjectSnippet={handleInjectWeapon}
+                />
+              </AccordionCard>
+
+              {/* 5. Linter Anti-IA & Checklist Editorial */}
+              <AccordionCard
+                id="antiai"
+                isOpen={!!openLetterSections.antiai}
+                onToggle={toggleLetterSection}
+                title="Linter Anti-IA & Checklist Editorial"
+                icon={<ShieldCheck className="h-4 w-4 text-emerald-500" />}
+                summary={`${builtLetter.audit.overallScore}/100 · ${builtLetter.audit.clicheCount} clichés · ${builtLetter.audit.mechanicalRepetitions.length} reiteraciones`}
+              >
+                <div
+                  className={`p-3.5 rounded-2xl border text-xs space-y-3 transition-colors ${
+                    builtLetter.audit.overallScore >= 80
+                      ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
+                      : builtLetter.audit.overallScore >= 60
+                      ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-950 dark:text-amber-200'
+                      : 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-500/40 text-rose-950 dark:text-rose-200'
+                  }`}
+                >
+                  <div className="flex items-center justify-between font-mono font-bold">
+                    <span className="flex items-center gap-1.5 text-xs uppercase">
+                      {builtLetter.audit.overallScore >= 80 ? (
+                        <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                      ) : builtLetter.audit.overallScore >= 60 ? (
+                        <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                      ) : (
+                        <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                      )}
+                      <span>
+                        {builtLetter.audit.overallScore >= 80
+                          ? 'Auditoría Editorial: Voz Humana Acreditada'
+                          : builtLetter.audit.overallScore >= 60
+                          ? 'Auditoría Editorial: Alertas y Mejoras Sugeridas'
+                          : 'Auditoría Editorial: Nivel Crítico de Fórmulas IA'}
+                      </span>
+                    </span>
+                    <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
+                      builtLetter.audit.overallScore >= 80
+                        ? 'bg-emerald-600 text-white border-emerald-500'
+                        : builtLetter.audit.overallScore >= 60
+                        ? 'bg-amber-500 text-slate-950 border-amber-400'
+                        : 'bg-rose-600 text-white border-rose-500'
+                    }`}>
+                      {builtLetter.audit.overallScore}/100
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 font-mono text-[10px]">
+                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                      <span className="text-[var(--text-muted)] uppercase text-[9px]">Clichés IA</span>
+                      <span className={`font-bold text-xs ${builtLetter.audit.clicheCount === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                        {builtLetter.audit.clicheCount} detectados
+                      </span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                      <span className="text-[var(--text-muted)] uppercase text-[9px]">Muletillas</span>
+                      <span className={`font-bold text-xs ${builtLetter.audit.bureaucraticFillers.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                        {builtLetter.audit.bureaucraticFillers.length} rellenos
+                      </span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                      <span className="text-[var(--text-muted)] uppercase text-[9px]">Palabras 4+</span>
+                      <span className={`font-bold text-xs ${builtLetter.audit.mechanicalRepetitions.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                        {builtLetter.audit.mechanicalRepetitions.length} repetidas
+                      </span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                      <span className="text-[var(--text-muted)] uppercase text-[9px]">ToR Mandatorios</span>
+                      <span className={`font-bold text-xs ${builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
+                        {builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'Completos' : 'Pendientes'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Caja de Alerta de Reiteraciones Mecánicas */}
+                  {(builtLetter.audit.mechanicalRepetitions.length > 0 || builtLetter.audit.sentenceStarterRepetitions.length > 0) && (
+                    <div className="p-3 rounded-xl bg-black/5 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-2 text-[11px]">
+                      <div className="font-mono font-bold flex items-center gap-1.5 text-purple-600 dark:text-purple-300 uppercase text-[10px]">
+                        <Repeat className="h-3.5 w-3.5" />
+                        <span>Reiteraciones Mecánicas Detectadas en el Texto</span>
+                      </div>
+
+                      {builtLetter.audit.mechanicalRepetitions.length > 0 && (
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-[var(--text-muted)] block">Palabras con alta frecuencia:</span>
+                          <div className="flex flex-wrap gap-1">
+                            {builtLetter.audit.mechanicalRepetitions.map((r, i) => (
+                              <span key={i} className="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-mono text-[10px] border border-amber-300 dark:border-amber-500/30">
+                                «{r.word}» ({r.count}×)
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {builtLetter.audit.sentenceStarterRepetitions.length > 0 && (
+                        <div className="space-y-1 pt-1 border-t border-black/10 dark:border-white/10">
+                          <span className="text-[10px] text-[var(--text-muted)] block">Iniciadores monótonos recurrentes:</span>
+                          <div className="flex flex-wrap gap-1">
+                            {builtLetter.audit.sentenceStarterRepetitions.map((s, i) => (
+                              <span key={i} className="px-2 py-0.5 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-900 dark:text-rose-300 font-mono text-[10px] border border-rose-300 dark:border-rose-500/30">
+                                Iniciador {s.starter} ({s.count} oraciones)
+                              </span>
+                            ))}
+                          </div>
+                          <p className="text-[10px] text-[var(--text-secondary)] italic">
+                            💡 Sugerencia: Varía usando participios (ej. «Having coordinated...»), marcos de contexto («At the intersection of...») o contrastes de enfoque («Rather than...»).
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Menú de Checklist Interactivo y Desplegable */}
+                  <div className="pt-1 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setIsChecklistExpanded((prev) => !prev)}
+                        className="font-mono text-xs font-bold flex items-center gap-1.5 text-[var(--text-primary)] hover:text-sky-500 transition cursor-pointer"
+                      >
+                        <ListChecks className="h-4 w-4 text-sky-500" />
+                        <span>Checklist de Verificación ({builtLetter.audit.checklist.length} Criterios)</span>
+                        {isChecklistExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={copyAuditSummary}
+                        className="text-[10px] font-mono text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1 cursor-pointer"
+                        title="Copiar el diagnóstico y los 9 criterios al portapapeles"
+                      >
+                        <Copy className="h-3 w-3" />
+                        <span>{copiedAudit ? '¡Copiado!' : 'Copiar Diagnóstico'}</span>
+                      </button>
+                    </div>
+
+                    {isChecklistExpanded && (
+                      <div className="space-y-2">
+                        {/* Filtro de Categorías */}
+                        <div className="flex flex-wrap gap-1">
+                          {[
+                            { id: 'all', label: 'Todos' },
+                            { id: 'anti_ai', label: 'Anti-IA' },
+                            { id: 'style_repetition', label: 'Reiteraciones' },
+                            { id: 'golden_thread', label: 'Hilo Conductor' },
+                            { id: 'metrics_evidence', label: 'Rigor' },
+                            { id: 'tor_compliance', label: 'ToR Mandatorio' }
+                          ].map((cat) => (
+                            <button
+                              key={cat.id}
+                              type="button"
+                              onClick={() => setChecklistFilter(cat.id as any)}
+                              className={`px-2 py-0.5 rounded text-[10px] font-mono transition cursor-pointer ${
+                                checklistFilter === cat.id
+                                  ? 'bg-purple-600 text-white font-bold'
+                                  : 'bg-black/5 dark:bg-black/20 text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                              }`}
+                            >
+                              {cat.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Lista de Criterios */}
+                        <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
+                          {builtLetter.audit.checklist
+                            .filter((c) => checklistFilter === 'all' || c.category === checklistFilter)
+                            .map((item) => (
+                              <div
+                                key={item.id}
+                                className={`p-2.5 rounded-xl border text-[11px] space-y-1 transition ${
+                                  item.status === 'pass'
+                                    ? 'bg-emerald-100/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
+                                    : item.status === 'warning'
+                                    ? 'bg-amber-100/50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-500/30'
+                                    : 'bg-rose-100/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-500/30'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-1.5 font-bold">
+                                    {item.status === 'pass' ? (
+                                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                                    ) : item.status === 'warning' ? (
+                                      <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                                    ) : (
+                                      <ShieldAlert className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
+                                    )}
+                                    <span className="text-[var(--text-primary)]">{item.label}</span>
+                                  </div>
+                                  <span className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded font-bold ${
+                                    item.status === 'pass'
+                                      ? 'bg-emerald-600 text-white'
+                                      : item.status === 'warning'
+                                      ? 'bg-amber-500 text-slate-950'
+                                      : 'bg-rose-600 text-white'
+                                  }`}>
+                                    {item.status}
+                                  </span>
+                                </div>
+
+                                <p className="text-[10.5px] text-[var(--text-secondary)] leading-relaxed">
+                                  {item.summary}
+                                </p>
+
+                                {item.details && item.details.length > 0 && (
+                                  <div className="flex flex-wrap gap-1 pt-0.5">
+                                    {item.details.map((d, di) => (
+                                      <span key={di} className="px-1.5 py-0.2 rounded bg-black/10 dark:bg-white/10 text-[9.5px] font-mono">
+                                        {d}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {item.suggestion && (
+                                  <div className="p-1.5 rounded-lg bg-black/5 dark:bg-black/30 text-[10px] text-sky-700 dark:text-sky-300 flex items-start gap-1">
+                                    <Lightbulb className="h-3 w-3 shrink-0 mt-0.5" />
+                                    <span>{item.suggestion}</span>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                {letterVersions.length > 0 && (
-                  <ul className="space-y-1 pt-2 border-t border-[var(--panel-border)] max-h-40 overflow-y-auto">
-                    {letterVersions.map((v) => (
-                      <li key={v.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)' }}>
-                        <button onClick={() => loadLetterVer(v)} className="text-left min-w-0 flex-1 cursor-pointer hover:text-purple-400">
-                          <div className="font-bold truncate">{v.name}</div>
-                          <div className="text-[var(--text-muted)] font-mono">{v.createdAt} · {v.lang.toUpperCase()}</div>
-                        </button>
-                        <button onClick={() => removeLetterVer(v.id)} className="text-[var(--text-muted)] hover:text-red-500 cursor-pointer" title="Eliminar">
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              </AccordionCard>
+
+              {/* 6. Versiones Guardadas de Carta */}
+              <AccordionCard
+                id="saved"
+                isOpen={!!openLetterSections.saved}
+                onToggle={toggleLetterSection}
+                title="Versiones Guardadas"
+                icon={<Save className="h-4 w-4 text-purple-400" />}
+                summary={`${letterVersions.length} versiones`}
+              >
+                <div className="space-y-2 text-xs">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={letterVersionName}
+                      onChange={(e) => setLetterVersionName(e.target.value)}
+                      placeholder={offer ? `${offer.title} (${letterLang.toUpperCase()})` : 'Nombre de versión'}
+                      className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-[var(--card-bg)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-purple-500 transition"
+                      style={{ borderColor: 'var(--panel-border)' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={saveLetterVer}
+                      className="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold cursor-pointer"
+                    >
+                      Guardar
+                    </button>
+                  </div>
+
+                  {letterVersions.length > 0 && (
+                    <ul className="space-y-1 pt-2 border-t border-[var(--panel-border)] max-h-40 overflow-y-auto">
+                      {letterVersions.map((v) => (
+                        <li key={v.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)' }}>
+                          <button
+                            type="button"
+                            onClick={() => loadLetterVer(v)}
+                            className="text-left min-w-0 flex-1 cursor-pointer hover:text-purple-400"
+                          >
+                            <div className="font-bold truncate">{v.name}</div>
+                            <div className="text-[var(--text-muted)] font-mono">{v.createdAt} · {v.lang.toUpperCase()}</div>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeLetterVer(v.id)}
+                            className="text-[var(--text-muted)] hover:text-red-500 cursor-pointer"
+                            title="Eliminar"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </AccordionCard>
             </>
           )}
+
         </div>
 
-        {/* ======================================================== VISTA PREVIA A4 DERECHA */}
-        <div className={panel} style={panelStyle}>
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="font-mono font-black uppercase flex items-center gap-1.5">
-              <FileDown className="h-4 w-4 text-sky-500" />
-              <span>
-                {docMode === 'cv'
-                  ? `Vista previa A4 · ${pages} ${pages === 1 ? 'página' : 'páginas'}`
-                  : `Vista previa Carta A4 (DIN 5008) · 1 página`}
-              </span>
-            </span>
-            {docMode === 'cv' && (
-              fitInfo.overflow ? (
-                <span className="text-red-500 flex items-center gap-1">
-                  <AlertTriangle className="h-3.5 w-3.5" /> No cabe: quita contenido
+        {/* ======================================================== VISTA PREVIA A4 DERECHA (7 COLUMNAS) */}
+        <div className="xl:col-span-7 2xl:col-span-7 space-y-2 sticky top-4">
+          <div className={panel} style={panelStyle}>
+            <div className="flex items-center justify-between text-[11px] pb-2 border-b border-[var(--panel-border)]">
+              <span className="font-mono font-black uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
+                <FileDown className="h-4 w-4 text-sky-500" />
+                <span>
+                  {docMode === 'cv'
+                    ? `Vista previa A4 · ${pages} ${pages === 1 ? 'página' : 'páginas'}`
+                    : `Vista previa Carta A4 (DIN 5008)`}
                 </span>
-              ) : (
-                <span className="text-emerald-700 dark:text-emerald-400 font-mono font-medium">Ajuste tipográfico ×{fitInfo.zoom || '1.00'}</span>
-              )
-            )}
-            {docMode === 'cover_letter' && (
-              <span className="text-purple-400 font-mono text-[10px] font-bold">
-                FORMATO ACADÉMICO DIN
               </span>
-            )}
-          </div>
-
-          <div ref={wrapRef} className="w-full overflow-hidden rounded-xl" style={{ backgroundColor: '#cbd5e1' }}>
-            <div style={{ width: A4_W * scale, height: (A4_H * pages + GAP * pages) * scale }}>
-              <iframe
-                ref={iframeRef}
-                title={docMode === 'cv' ? 'Vista previa del CV' : 'Vista previa de la Carta'}
-                srcDoc={activeHtml}
-                onLoad={onFrameLoad}
-                style={{
-                  width: A4_W,
-                  height: A4_H * pages + GAP * pages,
-                  border: 0,
-                  transform: `scale(${scale})`,
-                  transformOrigin: 'top left',
-                  background: '#cbd5e1'
-                }}
-              />
+              {docMode === 'cv' && (
+                fitInfo.overflow ? (
+                  <span className="text-red-500 flex items-center gap-1">
+                    <AlertTriangle className="h-3.5 w-3.5" /> No cabe: quita contenido
+                  </span>
+                ) : (
+                  <span className="text-emerald-700 dark:text-emerald-400 font-mono font-medium">Ajuste tipográfico ×{fitInfo.zoom || '1.00'}</span>
+                )
+              )}
             </div>
-          </div>
 
-          <div className="flex items-center justify-between text-[10px] text-[var(--text-muted)] pt-1">
-            <span>
-              En el diálogo de impresión: elige “Guardar como PDF”, tamaño A4, márgenes “Ninguno”.
-            </span>
-            <span className="font-mono font-semibold">
-              Archivo: {fileBase}.pdf
-            </span>
+            <div ref={wrapRef} className="w-full overflow-hidden rounded-xl mt-2" style={{ backgroundColor: '#cbd5e1' }}>
+              <div style={{ width: A4_W * scale, height: (A4_H * pages + GAP * pages) * scale }}>
+                <iframe
+                  ref={iframeRef}
+                  title={docMode === 'cv' ? 'Vista previa del CV' : 'Vista previa de la Carta'}
+                  srcDoc={activeHtml}
+                  onLoad={onFrameLoad}
+                  style={{
+                    width: A4_W,
+                    height: A4_H * pages + GAP * pages,
+                    border: 0,
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                    background: '#cbd5e1'
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-[10px] text-[var(--text-muted)] pt-2 border-t border-[var(--panel-border)]">
+              <span>
+                Imprimir → “Guardar como PDF”, tamaño A4, márgenes “Ninguno”.
+              </span>
+              <span className="font-mono font-semibold">
+                {fileBase}.pdf
+              </span>
+            </div>
           </div>
         </div>
       </div>
