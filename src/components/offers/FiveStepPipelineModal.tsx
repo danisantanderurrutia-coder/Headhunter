@@ -620,9 +620,18 @@ export const FiveStepPipelineModal: React.FC<FiveStepPipelineModalProps> = ({
                   <div className="flex items-center space-x-2">
                     <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
                     <div>
-                      <span className="text-xs font-semibold text-white">Redactor IA Táctico (Google Gemini)</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-semibold text-white">Redactor IA Táctico (Google Gemini)</span>
+                        {letterDualReport.archetype && (
+                          <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold border ${letterDualReport.archetype.badgeClass}`}>
+                            {letterDualReport.archetype.icon} {letterDualReport.archetype.shortLabel}
+                          </span>
+                        )}
+                      </div>
                       <p className="text-[10px] text-slate-400">
-                        Genera una versión final libre de clichés, anclada 100% en tus hechos de CAU Kiel y FCFM.
+                        {letterDualReport.archetype
+                          ? `Calibrado para ${letterDualReport.archetype.targetReader.roleTitle} (${letterDualReport.archetype.wingmanGuidance.targetWordCount.min}-${letterDualReport.archetype.wingmanGuidance.targetWordCount.max} palabras, formato ${letterDualReport.archetype.wingmanGuidance.formatStyle.split('(')[0].trim()}).`
+                          : 'Genera una versión final libre de clichés, anclada 100% en tus hechos de CAU Kiel y FCFM.'}
                       </p>
                     </div>
                   </div>

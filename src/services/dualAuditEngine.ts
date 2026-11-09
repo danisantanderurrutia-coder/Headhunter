@@ -3,6 +3,12 @@ import type { JobDossier } from '../types/intelligence';
 import type { BuiltCv } from './cvStudio';
 import { FORBIDDEN_AI_CLICHES } from './coverLetterStudio';
 import { getDossierForOffer } from './jobWingmanService';
+import {
+  classifyOfferArchetype,
+  ARCHETYPE_PROFILES,
+  type ApplicationArchetype,
+  type ArchetypeProfile
+} from './archetypeClassifier';
 
 // ----------------------------------------------------------------------------
 // INTERFACES & TIPOS: DUAL-LENS AUDIT SYSTEM
@@ -66,10 +72,17 @@ export interface WingmanAuditResult {
     activeWeapons: { id: string; name: string; impact: string }[];
     omittedWeapons: { id: string; name: string; reasonToInclude: string; suggestedInjection: string }[];
   };
+  archetypeAdherence: {
+    archetypeId: ApplicationArchetype;
+    targetRoleTitle: string;
+    formatAdvice: string;
+    outlierLever: string;
+  };
 }
 
 export interface DualLensAuditReport {
   documentType: 'cv' | 'cover_letter';
+  archetype: ArchetypeProfile;
   overallScore: number; // Promedio ponderado (Headhunter 45% + Wingman 55%)
   headhunter: HeadhunterAuditResult;
   wingman: WingmanAuditResult;
@@ -82,6 +95,7 @@ export interface DualAuditInput {
   offer?: JobOffer | Pick<JobOffer, 'id' | 'title' | 'company' | 'rawDescription' | 'requirements' | 'responsibilities' | 'location'> | null;
   dossier?: JobDossier | null;
   builtCv?: BuiltCv | null;
+  archetypeOverride?: ApplicationArchetype;
 }
 
 // ----------------------------------------------------------------------------
@@ -230,7 +244,8 @@ const GENERIC_AGRONOMY_KEYWORDS = [
 export const auditHeadhunterLens = (
   text: string,
   offer?: DualAuditInput['offer'],
-  documentType: 'cv' | 'cover_letter' = 'cover_letter'
+  documentType: 'cv' | 'cover_letter' = 'cover_letter',
+  archetypeProfile?: ArchetypeProfile
 ): HeadhunterAuditResult => {
   const lower = text.toLowerCase();
   const words = text.trim().split(/\s+/).filter(Boolean);
@@ -365,17 +380,19 @@ export const auditHeadhunterLens = (
   let formatDetail = '';
   let formatFix: string | undefined;
 
+  const targetWords = archetypeProfile?.wingmanGuidance.targetWordCount || { min: 230, ideal: 450, max: 600 };
+
   if (documentType === 'cover_letter') {
-    if (wordCount >= 230 && wordCount <= 600) {
-      formatDetail = `Extensión idónea para 1 página A4 (${wordCount} palabras).`;
-    } else if (wordCount < 230) {
+    if (wordCount >= targetWords.min && wordCount <= targetWords.max) {
+      formatDetail = `Extensión calibrada para ${archetypeProfile ? archetypeProfile.shortLabel : 'A4 estándar'} (${wordCount} palabras; objetivo: ${targetWords.min}-${targetWords.max}).`;
+    } else if (wordCount < targetWords.min) {
       formatStatus = 'warning';
-      formatDetail = `Carta algo breve (${wordCount} palabras). Podría carecer de profundidad para convocatorias académicas.`;
-      formatFix = 'Expande la carta con balances de masa y descripción del proyecto para alcanzar al menos 300-450 palabras.';
+      formatDetail = `Carta breve (${wordCount} palabras). Para ${archetypeProfile ? archetypeProfile.shortLabel : 'esta convocatoria'} se espera un desarrollo más sólido.`;
+      formatFix = `Amplía el contenido técnico para situarte en el rango óptimo de ${targetWords.min}-${targetWords.max} palabras (ideal ~${targetWords.ideal}).`;
     } else {
       formatStatus = 'warning';
-      formatDetail = `Carta extensa (${wordCount} palabras). Riesgo de desbordar la página A4 estándar.`;
-      formatFix = 'Condensa párrafos para no superar las 550 palabras y garantizar una sola página.';
+      formatDetail = `Carta extensa (${wordCount} palabras). Podría fatigar a ${archetypeProfile?.targetReader.roleTitle || 'el evaluador'}.`;
+      formatFix = `Condensa párrafos para no superar las ${targetWords.max} palabras (rango idóneo: ${targetWords.min}-${targetWords.max}).`;
     }
   } else {
     // CV
@@ -450,12 +467,14 @@ export const auditHeadhunterLens = (
 export const auditWingmanLens = (
   text: string,
   offer?: DualAuditInput['offer'],
-  dossier?: DualAuditInput['dossier']
+  dossier?: DualAuditInput['dossier'],
+  archetypeProfile?: ArchetypeProfile
 ): WingmanAuditResult => {
   const lower = text.toLowerCase();
 
   // Si no se pasó dossier explícito, resolver por oferta
   const activeDossier = dossier || (offer ? getDossierForOffer(offer as JobOffer) : null);
+  const activeArchetype = archetypeProfile || (offer ? classifyOfferArchetype(offer as JobOffer) : ARCHETYPE_PROFILES.DACH_RESEARCH);
 
   // 1. Detección de Clichés de IA y Servilismo
   const detectedCliches = FORBIDDEN_AI_CLICHES.filter((c) => lower.includes(c));
@@ -596,6 +615,12 @@ export const auditWingmanLens = (
     portfolioWeaponActivation: {
       activeWeapons,
       omittedWeapons
+    },
+    archetypeAdherence: {
+      archetypeId: activeArchetype.id,
+      targetRoleTitle: activeArchetype.targetReader.roleTitle,
+      formatAdvice: activeArchetype.wingmanGuidance.formatStyle,
+      outlierLever: activeArchetype.headhunterGuidance.outlierLever
     }
   };
 };
@@ -604,30 +629,31 @@ export const auditWingmanLens = (
 // FUNCIÓN PRINCIPAL: DUAL-LENS AUDITOR
 // ----------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------
-// FUNCIÓN PRINCIPAL: DUAL-LENS AUDITOR
-// ----------------------------------------------------------------------------
-
 export const auditDocumentDualLens = (input: DualAuditInput): DualLensAuditReport => {
-  const { documentType, text, offer, dossier } = input;
+  const { documentType, text, offer, dossier, archetypeOverride } = input;
 
-  const headhunter = auditHeadhunterLens(text, offer, documentType);
-  const wingman = auditWingmanLens(text, offer, dossier);
+  const archetype = archetypeOverride
+    ? ARCHETYPE_PROFILES[archetypeOverride]
+    : classifyOfferArchetype((offer as JobOffer) || null);
+
+  const headhunter = auditHeadhunterLens(text, offer, documentType, archetype);
+  const wingman = auditWingmanLens(text, offer, dossier, archetype);
 
   // Promedio ponderado: 45% Headhunter (Compliance/ATS) + 55% Wingman (Técnica & PI Match)
   const overallScore = Math.round(headhunter.score * 0.45 + wingman.score * 0.55);
 
   let executiveVerdict = '';
   if (overallScore >= 85 && headhunter.passed && wingman.passed) {
-    executiveVerdict = 'SOBERANO & COMPETITIVO: Tu expediente supera con holgura el filtro ATS/RRHH y se posiciona como par científico indispensable ante el líder técnico.';
+    executiveVerdict = `SOBERANO & CALIBRADO [${archetype.shortLabel}]: Supera con holgura los filtros ATS y se posiciona como par técnico indispensable ante ${archetype.targetReader.roleTitle}.`;
   } else if (overallScore >= 70) {
-    executiveVerdict = 'COMPETITIVO CON AJUSTES: Supera los mínimos de evaluación, pero activar las armas omitidas elevará significativamente la tasa de conversión a entrevista.';
+    executiveVerdict = `COMPETITIVO CON AJUSTES [${archetype.shortLabel}]: Encaja con el estándar de ${archetype.shortLabel}, pero activar las armas sugeridas maximizará la conversión con ${archetype.targetReader.roleTitle}.`;
   } else {
-    executiveVerdict = 'RIESGO DE DESCARTE: Corrige los incumplimientos burocráticos y elimina clichés para asegurar el pase de primera ronda.';
+    executiveVerdict = `RIESGO DE DESCARTE [${archetype.shortLabel}]: Corrige el formato y las brechas de cumplimiento para no quedar fuera de la criba de ${archetype.targetReader.roleTitle}.`;
   }
 
   return {
     documentType,
+    archetype,
     overallScore,
     headhunter,
     wingman,

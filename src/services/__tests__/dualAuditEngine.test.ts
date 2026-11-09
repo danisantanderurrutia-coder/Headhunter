@@ -133,7 +133,9 @@ Daniel Santander Urrutia
     expect(report.overallScore).toBeGreaterThanOrEqual(80);
     expect(report.headhunter.score).toBeGreaterThan(70);
     expect(report.wingman.score).toBeGreaterThan(70);
-    expect(report.executiveVerdict).toContain('SOBERANO & COMPETITIVO');
+    expect(report.executiveVerdict).toContain('SOBERANO');
+    expect(report.archetype).toBeDefined();
+    expect(report.archetype.id).toBe('DACH_RESEARCH');
   });
 
   it('extracts selectable criteria and formats a rigorous prompt for Gemini API', () => {

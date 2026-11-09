@@ -1,5 +1,7 @@
 import { getStoredSettings, getStoredProfile } from './db';
 import { VERIFIED_FACTS, CANONICAL_CONTACT } from '../data/verifiedCvFacts';
+import { CANONICAL_PORTFOLIO_WEAPONS } from './dualAuditEngine';
+import { classifyOfferArchetype, type ApplicationArchetype } from './archetypeClassifier';
 import type { JobOffer } from '../types/offers';
 
 export interface GeminiEvaluationResult {
@@ -16,6 +18,7 @@ export interface GeminiLetterResult {
   fullMarkdown: string;
   language: 'es' | 'en' | 'de';
   strategicNotes: string;
+  archetypeId: ApplicationArchetype;
 }
 
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -157,34 +160,50 @@ ${VERIFIED_FACTS.map((f) => `* [${f.id}] ${f.es.title} (${f.es.org || ''}): ${f.
 }
 
 /**
- * Redacta una carta de presentación táctica (Anschreiben / Cover Letter) lista para enviar
+ * Redacta una carta de presentación táctica (Anschreiben / Cover Letter) calibrada según el Arquetipo de la Convocatoria
  */
 export async function generateCoverLetterWithGemini(
   offer: JobOffer,
-  language: 'es' | 'en' | 'de' = 'de'
+  language: 'es' | 'en' | 'de' = 'de',
+  archetypeOverride?: ApplicationArchetype
 ): Promise<GeminiLetterResult> {
   const profile = getStoredProfile();
+  const archetype = archetypeOverride ? (await import('./archetypeClassifier')).ARCHETYPE_PROFILES[archetypeOverride] : classifyOfferArchetype(offer);
 
   const langInstructions = {
-    de: 'en ALEMÁN formal (Anschreiben DIN 5008, tono académico riguroso para institutos alemanes como Thünen, Fraunhofer, Helmholtz o universidades)',
-    en: 'en INGLÉS formal (Academic/Industry Cover Letter, conciso y de alto impacto)',
-    es: 'en ESPAÑOL formal (con tono profesional, técnico y seguro)'
+    de: 'en ALEMÁN formal (Anschreiben DIN 5008 con vocabulario técnico preciso para el ecosistema DACH)',
+    en: 'en INGLÉS formal y directo (High-impact executive / academic cover letter)',
+    es: 'en ESPAÑOL formal (riguroso, claro y con autoridad técnica)'
   }[language];
 
   const systemInstruction = `
 Eres el Redactor Táctico Senior para las cartas de postulación de Daniel Sebastián Santander Urrutia.
-Tu misión es redactar una carta de presentación de 4-5 párrafos ${langInstructions}.
+Tu misión es redactar una carta de presentación calibrada para el ARQUETIPO: "${archetype.label}" (${langInstructions}).
+
+PERFIL DEL INTERLOCUTOR A CONVENCER (WINGMAN LENS):
+- Rol del lector: ${archetype.targetReader.roleTitle}
+- Psicología y expectativas: ${archetype.targetReader.psychology}
+- Líneas rojas / Red flags que debes evitar a toda costa: ${archetype.targetReader.redFlags.join(' | ')}
+- Formato esperado: ${archetype.wingmanGuidance.formatStyle}
+- Longitud objetivo: Entre ${archetype.wingmanGuidance.targetWordCount.min} y ${archetype.wingmanGuidance.targetWordCount.max} palabras (ideal: ~${archetype.wingmanGuidance.targetWordCount.ideal} palabras).
+- Apertura: ${archetype.wingmanGuidance.openingStrategy}
+- Cierre: ${archetype.wingmanGuidance.closingStrategy}
+
+PALANCAS PARA DESTACAR SOBRE LA MEDIA (HEADHUNTER LENS):
+- Asimetría competitiva principal: ${archetype.headhunterGuidance.outlierLever}
+- Armas prioritarias a activar si guardan relación: ${archetype.headhunterGuidance.priorityWeapons.join(', ')}
+- Cumplimiento clave a declarar: ${archetype.headhunterGuidance.keyComplianceChecks.join(' | ')}
 
 DIRECTIVAS INQUEBRANTABLES:
 1. NUNCA inventes funciones, herramientas ni logros. Básate estrictamente en sus hechos verificados:
-   - CAU Kiel: Suelos, tensión de preconsolidación (62.4 kPa), Eddy Covariance, flujos de CO2 y CH4, R.
-   - U. de Chile: Geofísica, resistividad de suelos, física matemática.
-   - EPN / Global Forest Coalition: Biomasa, contabilidad de carbono.
-   - Congreso Nacional: Testimonio técnico pericial sobre hidrología y desastres.
-   - Residencia Alemania: § 20 AufenthG (permiso de trabajo como investigador calificado inmediato).
-2. Tono "Zero-Servility": De colega científico a colega científico. Sin adulación vacía ni clichés genéricos.
-3. Conexión explícita con los retos del proyecto de la oferta.
-4. Devuelve el texto listo para imprimir o enviar.
+   - Titulación: Geofísico de la Universidad de Chile (con distinción) + Doble M.Sc. en CAU Kiel y AMU Poznań.
+   - CAU Kiel: Física de suelos, tensión de preconsolidación (σp = 62.4 kPa), Eddy Covariance, flujos de CO2 y CH4, R.
+   - U. de Chile: Geofísica de campo, sondajes eléctricos verticales (VES Maule), física matemática y modelado continuo.
+   - EPN / Global Forest Coalition: Biomasa, auditoría de contabilidad de carbono.
+   - Congreso Nacional: Testimonio técnico pericial formal ante la Comisión de Medio Ambiente.
+   - Estatus legal: Residencia en Alemania bajo § 20 AufenthG (habilitación inmediata para contratación en investigación) y régimen español Ley 14/2013.
+2. Tono "Zero-Servility": Trato horizontal de colega científico o par técnico de alto nivel. Cero sumisión ni adulación vacía.
+3. Devuelve únicamente el texto markdown listo para imprimir o enviar, sin preámbulos ni comentarios meta.
 `.trim();
 
   const userPrompt = `
@@ -192,15 +211,18 @@ VACANTE OBJETIVO:
 - Puesto: ${offer.title}
 - Institución: ${offer.company}
 - Ubicación: ${offer.location}
-- Descripción:
+- Arquetipo Detectado: ${archetype.label} (${archetype.targetReader.roleTitle})
+- Descripción de la vacante:
 ${offer.rawDescription}
 
 DATOS DEL CANDIDATO:
 - Nombre: ${profile.fullName || 'Daniel Sebastián Santander Urrutia'}
 - Contacto: ${profile.email || CANONICAL_CONTACT.email} | ${profile.phone || '+49...'} | Kiel, Alemania
 - Portafolio: ${CANONICAL_CONTACT.portfolio}
+- Armas de Evidencia disponibles:
+${CANONICAL_PORTFOLIO_WEAPONS.map((w) => `* [${w.id}] ${w.name}: ${w.whyInclude}`).join('\n')}
 
-Genera la carta en ${language.toUpperCase()}.
+Genera la carta en ${language.toUpperCase()} adaptada al formato de ${archetype.shortLabel}.
 `.trim();
 
   const fullMarkdown = await callGeminiRest(systemInstruction, userPrompt);
@@ -208,7 +230,8 @@ Genera la carta en ${language.toUpperCase()}.
   return {
     fullMarkdown,
     language,
-    strategicNotes: `Generada con Gemini conectando los hechos del Portafolio con ${offer.company}`
+    strategicNotes: `Generada con Gemini calibrada para el arquetipo "${archetype.label}" (${archetype.wingmanGuidance.formatStyle})`,
+    archetypeId: archetype.id
   };
 }
 

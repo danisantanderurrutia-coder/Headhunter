@@ -139,6 +139,47 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         </div>
       </div>
 
+      {/* Archetype Context Banner (Wingman Reader Psychology & Headhunter Lever) */}
+      {report.archetype && (
+        <div
+          className="p-3.5 rounded-xl border flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
+          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+        >
+          <div className="flex items-start sm:items-center space-x-3">
+            <span className="text-xl shrink-0 p-1.5 rounded-lg bg-[var(--card-bg)] border border-[var(--panel-border)]">
+              {report.archetype.icon}
+            </span>
+            <div className="space-y-0.5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono font-bold text-[var(--text-primary)]">{report.archetype.label}</span>
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-bold ${report.archetype.badgeClass}`}>
+                  {report.archetype.shortLabel}
+                </span>
+                <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                  Lector: <strong className="text-[var(--text-primary)]">{report.archetype.targetReader.roleTitle}</strong>
+                </span>
+              </div>
+              <p className="text-[11px] text-[var(--text-secondary)]">
+                🧠 <strong>Wingman:</strong> {report.archetype.targetReader.psychology}
+              </p>
+              <p className="text-[11px] text-[var(--text-secondary)]">
+                👔 <strong>Headhunter:</strong> {report.archetype.headhunterGuidance.outlierLever}
+              </p>
+            </div>
+          </div>
+
+          <div className="md:text-right shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[var(--panel-border)] font-mono">
+            <span className="text-[10px] text-[var(--text-muted)] block uppercase">Formato Recomendado:</span>
+            <span className="text-xs font-bold text-purple-400">
+              {report.archetype.wingmanGuidance.targetWordCount.min} - {report.archetype.wingmanGuidance.targetWordCount.max} palabras
+            </span>
+            <span className="text-[10px] text-[var(--text-muted)] block">
+              (Ideal: ~{report.archetype.wingmanGuidance.targetWordCount.ideal})
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Dual Scorecards: Side-by-Side Comparison */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
         
