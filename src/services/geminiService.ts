@@ -37,14 +37,16 @@ async function callGeminiRest(
     );
   }
 
-  // Model fallback / normalización
-  let model = modelNameOverride || settings.modelName || 'gemini-1.5-flash';
-  if (model.includes('gemini-1.5-pro') || model.toLowerCase().includes('pro')) {
-    model = 'gemini-1.5-pro';
-  } else if (model.includes('2.0')) {
-    model = 'gemini-2.0-flash';
+  // Model normalisation: Gemini 3.8 Flash y 3.5 Flash Lite son los modelos nativos activos
+  let model = modelNameOverride || settings.modelName || 'gemini-3.8-flash';
+  if (model.includes('3.8') || model.includes('flash')) {
+    model = 'gemini-3.8-flash';
+  } else if (model.includes('lite')) {
+    model = 'gemini-3.5-flash-lite';
+  } else if (model.includes('pro')) {
+    model = 'gemini-3.1-pro-preview';
   } else {
-    model = 'gemini-1.5-flash';
+    model = 'gemini-3.8-flash';
   }
 
   const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
@@ -149,7 +151,7 @@ ${VERIFIED_FACTS.map((f) => `* [${f.id}] ${f.es.title} (${f.es.org || ''}): ${f.
 
   try {
     return JSON.parse(cleanJson) as GeminiEvaluationResult;
-  } catch (err) {
+  } catch {
     throw new Error(`Gemini respondió pero el JSON no fue válido. Respuesta recibida:\n${rawJsonText}`);
   }
 }

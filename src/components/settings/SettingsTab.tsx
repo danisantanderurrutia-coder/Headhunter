@@ -190,13 +190,13 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="text-slate-400 block mb-1 font-mono">Proveedor LLM (Opcional)</label>
+                  <label className="text-slate-400 block mb-1 font-mono">Proveedor LLM</label>
                   <select
                     value={settings.llmProvider}
                     onChange={(e) => setSettings({ ...settings, llmProvider: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
                   >
-                    <option value="Google Gemini Pro">Google Gemini Pro (Recomendado)</option>
+                    <option value="Google Gemini">Google Gemini (Recomendado)</option>
                     <option value="OpenAI GPT-4o">OpenAI GPT-4o</option>
                     <option value="Anthropic Claude 3.5">Anthropic Claude 3.5 Sonnet</option>
                     <option value="Local / Ollama">Ollama Local (Offline / Privado)</option>
@@ -205,13 +205,15 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
 
                 <div>
                   <label className="text-slate-400 block mb-1 font-mono">Modelo Específico</label>
-                  <input
-                    type="text"
+                  <select
                     value={settings.modelName}
                     onChange={(e) => setSettings({ ...settings, modelName: e.target.value })}
-                    placeholder="gemini-1.5-pro / gpt-4o"
                     className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
-                  />
+                  >
+                    <option value="gemini-3.8-flash">Gemini 3.8 Flash (Recomendado - Razonamiento Rápido & Thinking)</option>
+                    <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite (Ultra Rápido)</option>
+                    <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview (Análisis Profundo)</option>
+                  </select>
                 </div>
 
                 <div>

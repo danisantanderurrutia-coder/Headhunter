@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
   X,
   Search,
@@ -213,23 +213,19 @@ export const FiveStepPipelineModal: React.FC<FiveStepPipelineModalProps> = ({
   const match = offer.matchScore;
 
   // Auditoría Dual-Lens en vivo para CV y Carta
-  const cvDualReport = useMemo(() => {
-    return auditDocumentDualLens({
-      documentType: 'cv',
-      text: cvText,
-      offer,
-      dossier
-    });
-  }, [cvText, offer, dossier]);
+  const cvDualReport = auditDocumentDualLens({
+    documentType: 'cv',
+    text: cvText,
+    offer,
+    dossier
+  });
 
-  const letterDualReport = useMemo(() => {
-    return auditDocumentDualLens({
-      documentType: 'cover_letter',
-      text: activeCoverLetterMarkdown,
-      offer,
-      dossier
-    });
-  }, [activeCoverLetterMarkdown, offer, dossier]);
+  const letterDualReport = auditDocumentDualLens({
+    documentType: 'cover_letter',
+    text: activeCoverLetterMarkdown,
+    offer,
+    dossier
+  });
 
   const handleGenerateGeminiLetter = async () => {
     setGeminiError(null);

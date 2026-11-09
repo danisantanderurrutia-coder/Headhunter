@@ -51,6 +51,11 @@ describe('geminiService', () => {
   });
 
   it('lanza un error explícito si no hay apiKey configurada', async () => {
+    localStorage.setItem(
+      'job_search_os_settings_v19',
+      JSON.stringify({ apiKey: '', modelName: 'gemini-3.8-flash' })
+    );
+
     await expect(evaluateOfferWithGemini(mockOffer)).rejects.toThrow(
       'No se ha configurado ninguna clave API de Gemini'
     );

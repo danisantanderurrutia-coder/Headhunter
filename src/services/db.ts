@@ -24,9 +24,9 @@ export interface AppSettings {
 }
 
 const defaultSettings: AppSettings = {
-  llmProvider: 'Google Gemini Pro',
+  llmProvider: 'Google Gemini',
   apiKey: '',
-  modelName: 'gemini-1.5-pro',
+  modelName: 'gemini-3.8-flash',
   enableBrowserAgent: true,
   enableAntigravityApply: true,
   autoScoutInterval: '24h',
