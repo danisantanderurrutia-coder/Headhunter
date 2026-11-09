@@ -103,7 +103,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
 
   return (
     <div 
-      className={`rounded-2xl border p-4 sm:p-5 space-y-4 shadow-xl backdrop-blur-md transition-colors ${className}`}
+      className={`rounded-2xl border p-4 sm:p-5 space-y-4 shadow-sm backdrop-blur-md transition-colors ${className}`}
       style={{
         backgroundColor: 'var(--card-bg)',
         borderColor: 'var(--card-border)'
@@ -113,20 +113,20 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[var(--panel-border)] pb-3">
         <div className="space-y-0.5">
           <div className="flex items-center space-x-2 text-xs font-mono font-bold text-[var(--text-primary)]">
-            <Sparkles className="h-4 w-4 text-purple-400" />
-            <span className="uppercase">Auditoría Dual-Lens: {docTitle}</span>
+            <Sparkles className="h-4 w-4 text-sky-500" />
+            <span className="uppercase">Auditoría Dual-Lens · {docTitle}</span>
           </div>
-          <p className="text-[11px] text-[var(--text-muted)]">
-            Evaluación simultánea: Filtro ATS/Headhunter + Empatía técnica Wingman (PI)
+          <p className="text-[11px] text-[var(--text-muted)] font-sans">
+            Filtro ATS/Headhunter + Empatía técnica Wingman (PI)
           </p>
         </div>
 
-        {/* Global Verdict Badge */}
+        {/* Global Verdict Score */}
         <div className="flex items-center space-x-2 self-start sm:self-center">
-          <div className="text-right">
-            <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase block">Score Global:</span>
+          <div className="text-right flex items-center gap-2">
+            <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase">Score Global:</span>
             <span className={`text-base font-mono font-black ${
-              overallScore >= 80 ? 'text-emerald-500' : overallScore >= 65 ? 'text-amber-500' : 'text-rose-500'
+              overallScore >= 80 ? 'text-emerald-600 dark:text-emerald-400' : overallScore >= 65 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'
             }`}>
               {overallScore}/100
             </span>
@@ -141,35 +141,32 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
           style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
         >
           <div className="flex items-start sm:items-center space-x-3">
-            <span className="text-xl shrink-0 p-1.5 rounded-lg bg-[var(--card-bg)] border border-[var(--panel-border)]">
+            <span className="text-lg shrink-0 p-1.5 rounded-lg bg-[var(--card-bg)] border border-[var(--panel-border)]">
               {report.archetype.icon}
             </span>
             <div className="space-y-0.5">
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 text-[11px]">
                 <span className="font-mono font-bold text-[var(--text-primary)]">{report.archetype.label}</span>
-                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-bold ${report.archetype.badgeClass}`}>
-                  {report.archetype.shortLabel}
-                </span>
                 <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                  Lector: <strong className="text-[var(--text-primary)]">{report.archetype.targetReader.roleTitle}</strong>
+                  · Lector objetivo: <strong className="text-[var(--text-primary)]">{report.archetype.targetReader.roleTitle}</strong>
                 </span>
               </div>
-              <p className="text-[11px] text-[var(--text-secondary)]">
-                🧠 <strong>Wingman:</strong> {report.archetype.targetReader.psychology}
+              <p className="text-[11px] text-[var(--text-secondary)] font-sans">
+                <strong>Wingman:</strong> {report.archetype.targetReader.psychology}
               </p>
-              <p className="text-[11px] text-[var(--text-secondary)]">
-                👔 <strong>Headhunter:</strong> {report.archetype.headhunterGuidance.outlierLever}
+              <p className="text-[11px] text-[var(--text-secondary)] font-sans">
+                <strong>Headhunter:</strong> {report.archetype.headhunterGuidance.outlierLever}
               </p>
             </div>
           </div>
 
-          <div className="md:text-right shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[var(--panel-border)] font-mono">
-            <span className="text-[10px] text-[var(--text-muted)] block uppercase">Formato Recomendado:</span>
-            <span className="text-xs font-bold text-purple-400">
+          <div className="md:text-right shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[var(--panel-border)] font-mono text-[11px]">
+            <span className="text-[10px] text-[var(--text-muted)] block uppercase">Extensión recomendada:</span>
+            <span className="font-bold text-[var(--text-primary)]">
               {report.archetype.wingmanGuidance.targetWordCount.min} - {report.archetype.wingmanGuidance.targetWordCount.max} palabras
             </span>
             <span className="text-[10px] text-[var(--text-muted)] block">
-              (Ideal: ~{report.archetype.wingmanGuidance.targetWordCount.ideal})
+              (~{report.archetype.wingmanGuidance.targetWordCount.ideal} ideal)
             </span>
           </div>
         </div>
@@ -180,18 +177,16 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         
         {/* Card 1: Headhunter Lens */}
         <div 
-          className="p-3.5 rounded-xl border relative overflow-hidden"
-          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
+          className="p-3.5 rounded-xl border relative"
+          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
         >
           <div className="flex items-center justify-between pb-2 border-b border-[var(--panel-border)]">
-            <div className="flex items-center space-x-2 font-bold text-sky-600 dark:text-sky-300">
-              <FileCheck className="h-4 w-4" />
+            <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
+              <FileCheck className="h-4 w-4 text-sky-500" />
               <span>LENTE HEADHUNTER</span>
             </div>
-            <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
-              headhunter.score >= 80 
-                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border-emerald-500/30' 
-                : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border-amber-500/30'
+            <span className={`text-[11px] font-mono font-bold ${
+              headhunter.score >= 80 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'
             }`}>
               {headhunter.score}/100
             </span>
@@ -200,13 +195,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
           <div className="pt-2 space-y-1.5 text-[11px] font-sans">
             <div className="flex justify-between items-center text-[10px] font-mono text-[var(--text-muted)]">
               <span>Filtro ATS & Burocracia:</span>
-              <strong className={headhunter.passed ? 'text-emerald-500' : 'text-amber-500'}>
+              <span className={headhunter.passed ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-amber-600 dark:text-amber-400 font-bold'}>
                 {headhunter.passed ? '✓ Cumplido' : '⚠️ Ajustes Requeridos'}
-              </strong>
+              </span>
             </div>
             <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
               <span>Keywords ATS:</span>
-              <span>{headhunter.atsKeywordsFound.length} encontradas / {headhunter.missingRequiredKeywords.length} faltantes</span>
+              <span>{headhunter.atsKeywordsFound.length} cubiertas / {headhunter.missingRequiredKeywords.length} faltantes</span>
             </div>
             <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
               <span>Métricas con impacto:</span>
@@ -217,18 +212,16 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
 
         {/* Card 2: Wingman Lens */}
         <div 
-          className="p-3.5 rounded-xl border relative overflow-hidden"
-          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
+          className="p-3.5 rounded-xl border relative"
+          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
         >
           <div className="flex items-center justify-between pb-2 border-b border-[var(--panel-border)]">
-            <div className="flex items-center space-x-2 font-bold text-purple-600 dark:text-purple-300">
-              <Bot className="h-4 w-4" />
+            <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
+              <Bot className="h-4 w-4 text-sky-500" />
               <span>LENTE WINGMAN (PI)</span>
             </div>
-            <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
-              wingman.score >= 80 
-                ? 'bg-purple-500/10 text-purple-600 dark:text-purple-300 border-purple-500/30' 
-                : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border-amber-500/30'
+            <span className={`text-[11px] font-mono font-bold ${
+              wingman.score >= 80 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'
             }`}>
               {wingman.score}/100
             </span>
@@ -237,19 +230,19 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
           <div className="pt-2 space-y-1.5 text-[11px] font-sans">
             <div className="flex justify-between items-center text-[10px] font-mono text-[var(--text-muted)]">
               <span>Asimetría Competitiva:</span>
-              <strong className={
+              <span className={
                 wingman.competitiveAsymmetry.asymmetryRating === 'dominant' 
-                  ? 'text-emerald-500' 
+                  ? 'text-emerald-600 dark:text-emerald-400 font-bold' 
                   : wingman.competitiveAsymmetry.asymmetryRating === 'balanced' 
-                  ? 'text-sky-400' 
-                  : 'text-amber-500'
+                  ? 'text-[var(--text-primary)] font-bold' 
+                  : 'text-amber-600 dark:text-amber-400 font-bold'
               }>
                 {wingman.competitiveAsymmetry.asymmetryRating === 'dominant' 
-                  ? '⚡ Dominante (Físico Cuantitativo)' 
+                  ? '⚡ Dominante' 
                   : wingman.competitiveAsymmetry.asymmetryRating === 'balanced' 
                   ? '⚖️ Equilibrado' 
-                  : '⚠️ Riesgo Agrónomo Genérico'}
-              </strong>
+                  : '⚠️ Riesgo Genérico'}
+              </span>
             </div>
             <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
               <span>Cero-Servilismo:</span>
@@ -265,38 +258,38 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
       </div>
 
       {/* Executive Verdict Box */}
-      <div className={`p-3 rounded-xl border text-xs font-mono leading-relaxed flex items-start gap-2.5 ${
-        overallScore >= 80 
-          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300' 
-          : overallScore >= 65 
-          ? 'bg-sky-500/10 border-sky-500/30 text-sky-700 dark:text-sky-300' 
-          : 'bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-300'
-      }`}>
+      <div 
+        className="p-3 rounded-xl border text-xs font-mono leading-relaxed flex items-start gap-2.5"
+        style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+      >
         <Scale className="h-4 w-4 shrink-0 mt-0.5 text-sky-500" />
         <div>
-          <strong className="block uppercase text-[10px] tracking-wider mb-0.5">Veredicto Estratégico Ejecutivo:</strong>
-          <span className="font-sans text-[11.5px] leading-snug">{executiveVerdict}</span>
+          <strong className="block uppercase text-[10px] tracking-wider mb-0.5 text-[var(--text-muted)]">Veredicto Estratégico Ejecutivo:</strong>
+          <span className="font-sans text-[11.5px] leading-snug text-[var(--text-primary)]">{executiveVerdict}</span>
         </div>
       </div>
 
       {/* Exportador de Auditoría para Gemini API con Criterios Marcados */}
-      <div className="p-3.5 rounded-xl border border-purple-500/30 bg-purple-500/5 space-y-2.5">
+      <div 
+        className="p-3.5 rounded-xl border space-y-2.5"
+        style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="flex items-center space-x-2">
-            <div className="p-1.5 rounded-lg bg-purple-500/15 text-purple-400">
-              <Sparkles className="h-4 w-4" />
+            <div className="p-1.5 rounded-lg bg-black/5 dark:bg-white/10 text-[var(--text-secondary)]">
+              <Sparkles className="h-4 w-4 text-sky-500" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-mono font-black uppercase text-[var(--text-primary)]">
+                <span className="text-xs font-mono font-bold uppercase text-[var(--text-primary)]">
                   Auditoría con Gemini API
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
-                  {selectedCriteriaIds.size} de {allCriteria.length} criterios marcados
+                <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                  ({selectedCriteriaIds.size} de {allCriteria.length} marcados)
                 </span>
               </div>
               <p className="text-[11px] text-[var(--text-secondary)] font-sans">
-                Marca abajo los criterios que deseas fiscalizar y copia el prompt optimizado para que Gemini dictamine y redacte mejoras concretas.
+                Marca abajo los criterios que deseas fiscalizar y genera el prompt optimizado para que Gemini dictamine mejoras.
               </p>
             </div>
           </div>
@@ -330,16 +323,16 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
               type="button"
               onClick={handleCopyGeminiPrompt}
               disabled={selectedCriteriaIds.size === 0}
-              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-sky-600 hover:from-purple-500 hover:to-sky-500 text-white font-mono text-xs font-bold flex items-center space-x-1.5 shadow-md cursor-pointer transition disabled:opacity-50"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 font-mono text-xs font-bold flex items-center space-x-1.5 shadow-xs cursor-pointer transition disabled:opacity-50"
               title="Copiar prompt para Gemini con los criterios marcados"
             >
               {copiedGeminiPrompt ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-              <span>{copiedGeminiPrompt ? '¡Prompt para Gemini Copiado!' : 'Copiar Prompt para Gemini'}</span>
+              <span>{copiedGeminiPrompt ? '¡Prompt Copiado!' : 'Copiar Prompt para Gemini'}</span>
             </button>
             <button
               type="button"
               onClick={() => setShowPromptPreview((prev) => !prev)}
-              className="px-2 py-1.5 rounded-xl border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[10px] font-mono text-[var(--text-secondary)] cursor-pointer"
+              className="px-2 py-1.5 rounded-lg border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-[10px] font-mono text-[var(--text-secondary)] cursor-pointer"
               title="Previsualizar el prompt que recibirá Gemini"
             >
               {showPromptPreview ? 'Ocultar' : 'Previsualizar'}
@@ -367,19 +360,19 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
       <div className="flex items-center space-x-1 border-b border-[var(--panel-border)] pb-2 text-xs font-mono overflow-x-auto">
         <button
           onClick={() => setActiveLens('both')}
-          className={`px-3 py-1 rounded-lg font-bold transition cursor-pointer shrink-0 ${
+          className={`px-3 py-1 rounded-lg font-medium transition cursor-pointer shrink-0 ${
             activeLens === 'both'
-              ? 'bg-slate-700 text-white font-black'
+              ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs'
               : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
-          ⚡ Visión Dual Completa
+          Visión Dual
         </button>
         <button
           onClick={() => setActiveLens('headhunter')}
-          className={`px-3 py-1 rounded-lg font-bold transition cursor-pointer shrink-0 flex items-center space-x-1 ${
+          className={`px-3 py-1 rounded-lg font-medium transition cursor-pointer shrink-0 flex items-center space-x-1 ${
             activeLens === 'headhunter'
-              ? 'bg-sky-600 text-white font-black'
+              ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs'
               : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
@@ -388,9 +381,9 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         </button>
         <button
           onClick={() => setActiveLens('wingman')}
-          className={`px-3 py-1 rounded-lg font-bold transition cursor-pointer shrink-0 flex items-center space-x-1 ${
+          className={`px-3 py-1 rounded-lg font-medium transition cursor-pointer shrink-0 flex items-center space-x-1 ${
             activeLens === 'wingman'
-              ? 'bg-purple-600 text-white font-black'
+              ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs'
               : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
@@ -406,8 +399,8 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         {(activeLens === 'both' || activeLens === 'headhunter') && (
           <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-1.5">
-              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-sky-600 dark:text-sky-300">
-                <FileCheck className="h-4 w-4" />
+              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
+                <FileCheck className="h-4 w-4 text-sky-500" />
                 <span>Auditoría de Headhunter / ATS & Requisitos Mandatorios</span>
               </span>
               <button
@@ -431,14 +424,14 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
 
               <div className="flex flex-wrap gap-1.5">
                 {headhunter.atsKeywordsFound.map((kw, i) => (
-                  <span key={i} className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 font-mono text-[10px] border border-emerald-500/30 flex items-center gap-1">
-                    <CheckCircle2 className="h-2.5 w-2.5" />
+                  <span key={i} className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] font-mono text-[10px] border border-[var(--panel-border)] flex items-center gap-1">
+                    <CheckCircle2 className="h-2.5 w-2.5 text-emerald-500" />
                     <span>{kw}</span>
                   </span>
                 ))}
                 {headhunter.missingRequiredKeywords.map((kw, i) => (
                   <span key={i} className="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-300 font-mono text-[10px] border border-amber-500/30 flex items-center gap-1">
-                    <AlertTriangle className="h-2.5 w-2.5" />
+                    <AlertTriangle className="h-2.5 w-2.5 text-amber-500" />
                     <span>Falta: {kw}</span>
                   </span>
                 ))}
@@ -451,7 +444,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       type="checkbox"
                       checked={selectedCriteriaIds.has('hh-missing-keywords')}
                       onChange={() => toggleCriterion('hh-missing-keywords')}
-                      className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
                     />
                     <span>Marcar palabras clave ausentes ({headhunter.missingRequiredKeywords.length}) para que Gemini las integre</span>
                   </label>
@@ -465,13 +458,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                 {headhunter.complianceChecks.map((check) => (
                   <div
                     key={check.id}
-                    className={`p-3 rounded-xl border text-xs space-y-1 transition ${
-                      check.status === 'pass'
-                        ? 'bg-emerald-500/5 border-emerald-500/20'
-                        : check.status === 'warning'
-                        ? 'bg-amber-500/5 border-amber-500/20'
-                        : 'bg-rose-500/5 border-rose-500/20'
-                    }`}
+                    className="p-3 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] text-xs space-y-1.5 transition hover:border-[var(--card-border)]"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 min-w-0">
@@ -479,7 +466,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                           type="checkbox"
                           checked={selectedCriteriaIds.has(check.id)}
                           onChange={() => toggleCriterion(check.id)}
-                          className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer shrink-0"
+                          className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer shrink-0"
                           title="Marcar este criterio para fiscalizar con Gemini"
                         />
                         <span className="font-bold flex items-center gap-1.5 font-sans text-[var(--text-primary)] truncate">
@@ -490,14 +477,14 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
-                        <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
+                        <span className={`text-[10px] font-mono font-bold uppercase ${
                           check.status === 'pass'
-                            ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                            ? 'text-emerald-600 dark:text-emerald-400'
                             : check.status === 'warning'
-                            ? 'bg-amber-500/10 text-amber-500 border-amber-500/30'
-                            : 'bg-rose-500/10 text-rose-500 border-rose-500/30'
+                            ? 'text-amber-600 dark:text-amber-400'
+                            : 'text-rose-600 dark:text-rose-400'
                         }`}>
-                          {check.status === 'pass' ? 'Cumplido' : check.status === 'warning' ? 'Revisar' : 'Fallo'}
+                          {check.status === 'pass' ? '✓ Cumplido' : check.status === 'warning' ? 'Revisar' : 'Fallo'}
                         </span>
                       </div>
                     </div>
@@ -507,8 +494,8 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                     </p>
 
                     {check.fixRecommendation && (
-                      <div className="ml-5 mt-1.5 p-2 rounded-lg bg-black/10 dark:bg-black/30 border border-black/10 dark:border-white/10 text-[10.5px] font-mono text-[var(--text-muted)] space-y-0.5">
-                        <strong className="text-amber-500 block">💡 Sugerencia de corrección:</strong>
+                      <div className="ml-5 mt-1 p-2 rounded-lg bg-black/5 dark:bg-black/20 border border-[var(--panel-border)] text-[10.5px] font-mono text-[var(--text-muted)] space-y-0.5">
+                        <strong className="text-amber-600 dark:text-amber-400 block">💡 Sugerencia de corrección:</strong>
                         <span>{check.fixRecommendation}</span>
                       </div>
                     )}
@@ -523,8 +510,8 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         {(activeLens === 'both' || activeLens === 'wingman') && (
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-1.5">
-              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-purple-600 dark:text-purple-300">
-                <Bot className="h-4 w-4" />
+              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
+                <Bot className="h-4 w-4 text-sky-500" />
                 <span>Auditoría de Wingman: PI Match, Asimetría & Armas Omitidas</span>
               </span>
               <button
@@ -539,7 +526,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
 
             {/* Asymmetry Box */}
             <div className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
-              selectedCriteriaIds.has('wm-asymmetry') ? 'ring-1 ring-purple-500/50' : ''
+              selectedCriteriaIds.has('wm-asymmetry') ? 'ring-1 ring-sky-500/30' : ''
             }`} style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
@@ -547,19 +534,19 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                     type="checkbox"
                     checked={selectedCriteriaIds.has('wm-asymmetry')}
                     onChange={() => toggleCriterion('wm-asymmetry')}
-                    className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
                     title="Marcar asimetría física para evaluar con Gemini"
                   />
-                  <div className="flex items-center space-x-1.5 font-bold font-mono text-purple-600 dark:text-purple-300">
-                    <Zap className="h-3.5 w-3.5" />
+                  <div className="flex items-center space-x-1.5 font-bold font-mono text-[var(--text-primary)]">
+                    <Zap className="h-3.5 w-3.5 text-sky-500" />
                     <span>ASIMETRÍA COMPETITIVA (GEOFÍSICO VS. AGRÓNOMO GENÉRICO)</span>
                   </div>
                 </div>
                 <div className="flex items-center space-x-1.5">
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
+                  <span className={`text-[10px] font-mono font-bold uppercase ${
                     wingman.competitiveAsymmetry.asymmetryRating === 'dominant'
-                      ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
-                      : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : 'text-amber-600 dark:text-amber-400'
                   }`}>
                     {wingman.competitiveAsymmetry.asymmetryRating}
                   </span>
@@ -572,7 +559,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                 <div className="flex flex-wrap gap-1 pt-1">
                   <span className="text-[10px] font-mono text-[var(--text-muted)] mr-1">Términos de rigor físico detectados:</span>
                   {wingman.competitiveAsymmetry.detectedEdgeKeywords.map((kw, i) => (
-                    <span key={i} className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-600 dark:text-purple-300 font-mono text-[9.5px] border border-purple-500/20">
+                    <span key={i} className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] font-mono text-[9.5px] border border-[var(--panel-border)]">
                       {kw}
                     </span>
                   ))}
@@ -582,7 +569,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
 
             {/* Zero-Servility Box */}
             <div className={`p-3 rounded-xl border text-xs space-y-1.5 transition ${
-              selectedCriteriaIds.has('wm-zero-servility') ? 'ring-1 ring-purple-500/50' : ''
+              selectedCriteriaIds.has('wm-zero-servility') ? 'ring-1 ring-sky-500/30' : ''
             }`} style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
               <div className="flex items-center justify-between text-[11px] font-mono">
                 <div className="flex items-center space-x-2">
@@ -590,13 +577,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                     type="checkbox"
                     checked={selectedCriteriaIds.has('wm-zero-servility')}
                     onChange={() => toggleCriterion('wm-zero-servility')}
-                    className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
                     title="Marcar tono paritario y cero clichés para auditar con Gemini"
                   />
                   <span className="font-bold text-[var(--text-primary)]">ESTÁNDAR CERO-SERVILISMO (PEER-LEVEL TONE)</span>
                 </div>
                 <div className="flex items-center space-x-1.5">
-                  <span className={`font-bold ${wingman.zeroServilityAudit.servilityScore === 100 ? 'text-emerald-500' : 'text-amber-500'}`}>
+                  <span className={`font-bold ${wingman.zeroServilityAudit.servilityScore === 100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
                     {wingman.zeroServilityAudit.servilityScore}/100
                   </span>
                 </div>
@@ -610,7 +597,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             {wingman.stressTest && (
               <div 
                 className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
-                  selectedCriteriaIds.has('wm-stress-test') ? 'ring-1 ring-purple-500/50' : ''
+                  selectedCriteriaIds.has('wm-stress-test') ? 'ring-1 ring-sky-500/30' : ''
                 }`}
                 style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
               >
@@ -620,27 +607,27 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       type="checkbox"
                       checked={selectedCriteriaIds.has('wm-stress-test')}
                       onChange={() => toggleCriterion('wm-stress-test')}
-                      className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
                       title="Fiscalizar desarme de objeción con Gemini"
                     />
                     <span className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
-                      <span>🛡️ STRESS-TEST: OBJECIÓN OCULTA DEL EVALUADOR</span>
+                      <span>STRESS-TEST: OBJECIÓN OCULTA DEL EVALUADOR</span>
                     </span>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
+                    <span className={`text-[10px] font-mono font-bold uppercase ${
                       wingman.stressTest.isDisarmedInText
-                        ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
-                        : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-amber-600 dark:text-amber-400'
                     }`}>
-                      {wingman.stressTest.isDisarmedInText ? '✓ Neutralizada' : '⚠️ Pendiente de Neutralizar'}
+                      {wingman.stressTest.isDisarmedInText ? '✓ Neutralizada' : '⚠️ Pendiente'}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-black/10 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-1">
-                  <span className="text-[10px] font-mono font-bold text-amber-500 uppercase block">
-                    Duda escéptica no dicha de {report.archetype?.targetReader.roleTitle || 'el evaluador'}:
+                <div className="p-2.5 rounded-lg bg-black/5 dark:bg-black/20 border border-[var(--panel-border)] space-y-1">
+                  <span className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase block">
+                    Duda escéptica de {report.archetype?.targetReader.roleTitle || 'el evaluador'}:
                   </span>
                   <p className="text-[11px] text-[var(--text-secondary)] font-sans italic">
                     «{wingman.stressTest.hiddenObjection}»
@@ -658,13 +645,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                         handleCopySnippet('stress-disarm', wingman.stressTest.suggestedDisarm);
                         onInjectSnippet?.(wingman.stressTest.suggestedDisarm);
                       }}
-                      className="px-2 py-0.5 bg-purple-600 hover:bg-purple-500 text-white rounded text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shadow-xs"
+                      className="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 rounded text-[10px] font-mono font-medium flex items-center space-x-1 cursor-pointer transition shadow-xs"
                     >
                       {copiedSnippetId === 'stress-disarm' ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                      <span>{copiedSnippetId === 'stress-disarm' ? '¡Copiado/Inyectado!' : 'Inyectar Frase'}</span>
+                      <span>{copiedSnippetId === 'stress-disarm' ? '¡Inyectado!' : 'Inyectar Frase'}</span>
                     </button>
                   </div>
-                  <p className="text-[11px] text-[var(--text-primary)] font-mono bg-purple-500/5 p-2 rounded-lg border border-purple-500/20 leading-relaxed">
+                  <p className="text-[11px] text-[var(--text-primary)] font-mono bg-black/5 dark:bg-white/5 p-2 rounded-lg border border-[var(--panel-border)] leading-relaxed">
                     «{wingman.stressTest.suggestedDisarm}»
                   </p>
                 </div>
@@ -675,7 +662,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             {wingman.tacticalClosing && (
               <div 
                 className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
-                  selectedCriteriaIds.has('wm-tactical-closing') ? 'ring-1 ring-purple-500/50' : ''
+                  selectedCriteriaIds.has('wm-tactical-closing') ? 'ring-1 ring-sky-500/30' : ''
                 }`}
                 style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
               >
@@ -685,33 +672,33 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       type="checkbox"
                       checked={selectedCriteriaIds.has('wm-tactical-closing')}
                       onChange={() => toggleCriterion('wm-tactical-closing')}
-                      className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
                       title="Fiscalizar cierre táctico con Gemini"
                     />
                     <span className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
-                      <Zap className="h-3.5 w-3.5 text-amber-400" />
+                      <Zap className="h-3.5 w-3.5 text-sky-500" />
                       <span>GANCHO DE CONVERSIÓN: CIERRE TÁCTICO A ENTREVISTA</span>
                     </span>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
+                    <span className={`text-[10px] font-mono font-bold uppercase ${
                       wingman.tacticalClosing.hasTacticalClosing
-                        ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
-                        : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-amber-600 dark:text-amber-400'
                     }`}>
-                      {wingman.tacticalClosing.hasTacticalClosing ? '✓ Cierre con Gancho Activo' : '⚠️ Cierre Pasivo / Estándar'}
+                      {wingman.tacticalClosing.hasTacticalClosing ? '✓ Activo' : '⚠️ Pendiente'}
                     </span>
                   </div>
                 </div>
 
                 <p className="text-[11px] text-[var(--text-secondary)] font-sans">
-                  Sustituye despedidas pasivas ("quedo a su disposición") por una propuesta técnica concreta para despertar la curiosidad del evaluador:
+                  Sustituye despedidas pasivas ("quedo a su disposición") por una propuesta técnica concreta para abrir diálogo:
                 </p>
 
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-[var(--text-muted)] font-bold">
-                      🎯 Tema de discusión propuesto: {wingman.tacticalClosing.proposedDiscussion}
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] font-medium">
+                      Tema propuesto: {wingman.tacticalClosing.proposedDiscussion}
                     </span>
                     <button
                       type="button"
@@ -719,13 +706,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                         handleCopySnippet('tactical-closing', wingman.tacticalClosing.snippetTemplate);
                         onInjectSnippet?.(wingman.tacticalClosing.snippetTemplate);
                       }}
-                      className="px-2 py-0.5 bg-amber-600 hover:bg-amber-500 text-white rounded text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shadow-xs"
+                      className="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 rounded text-[10px] font-mono font-medium flex items-center space-x-1 cursor-pointer transition shadow-xs"
                     >
                       {copiedSnippetId === 'tactical-closing' ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                      <span>{copiedSnippetId === 'tactical-closing' ? '¡Copiado/Inyectado!' : 'Inyectar Cierre'}</span>
+                      <span>{copiedSnippetId === 'tactical-closing' ? '¡Inyectado!' : 'Inyectar Cierre'}</span>
                     </button>
                   </div>
-                  <p className="text-[11px] text-[var(--text-primary)] font-mono bg-amber-500/5 p-2 rounded-lg border border-amber-500/20 leading-relaxed italic">
+                  <p className="text-[11px] text-[var(--text-primary)] font-mono bg-black/5 dark:bg-white/5 p-2 rounded-lg border border-[var(--panel-border)] leading-relaxed italic">
                     «{wingman.tacticalClosing.snippetTemplate}»
                   </p>
                 </div>
@@ -742,13 +729,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                 {/* Active Weapons */}
                 {wingman.portfolioWeaponActivation.activeWeapons.length > 0 && (
                   <div className="space-y-1">
-                    <span className="text-[10px] font-mono text-emerald-500 font-bold block">
-                      ✓ Armas activadas en tu documento ({wingman.portfolioWeaponActivation.activeWeapons.length}):
+                    <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold block">
+                      ✓ Armas activadas ({wingman.portfolioWeaponActivation.activeWeapons.length}):
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {wingman.portfolioWeaponActivation.activeWeapons.map((w) => (
-                        <span key={w.id} className="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 text-[10.5px] font-mono flex items-center gap-1">
-                          <Check className="h-3 w-3" />
+                        <span key={w.id} className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] border border-[var(--panel-border)] text-[10px] font-mono flex items-center gap-1">
+                          <Check className="h-3 w-3 text-emerald-500" />
                           <span>{w.name}</span>
                         </span>
                       ))}
@@ -759,19 +746,19 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                 {/* Omitted Weapons Alert */}
                 {wingman.portfolioWeaponActivation.omittedWeapons.length > 0 ? (
                   <div className="space-y-2 pt-1">
-                    <span className="text-[10.5px] font-mono text-amber-500 font-bold flex items-center gap-1">
+                    <span className="text-[10.5px] font-mono text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1">
                       <AlertTriangle className="h-3.5 w-3.5" />
-                      <span>Armas de alto impacto omitidas ({wingman.portfolioWeaponActivation.omittedWeapons.length}):</span>
+                      <span>Armas recomendadas omitidas ({wingman.portfolioWeaponActivation.omittedWeapons.length}):</span>
                     </span>
 
                     <div className="space-y-2">
                       {wingman.portfolioWeaponActivation.omittedWeapons.map((w) => (
                         <div
                           key={w.id}
-                          className={`p-3 rounded-xl border transition space-y-2 text-xs ${
+                          className={`p-3 rounded-xl border transition space-y-2 text-xs border-[var(--panel-border)] bg-[var(--panel-bg)] ${
                             selectedCriteriaIds.has(`wm-omitted-${w.id}`)
-                              ? 'border-purple-500/50 bg-purple-500/5 ring-1 ring-purple-500/30'
-                              : 'border-amber-500/30 bg-amber-500/5'
+                              ? 'ring-1 ring-sky-500/30'
+                              : ''
                           }`}
                         >
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
@@ -780,10 +767,10 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                                 type="checkbox"
                                 checked={selectedCriteriaIds.has(`wm-omitted-${w.id}`)}
                                 onChange={() => toggleCriterion(`wm-omitted-${w.id}`)}
-                                className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                                className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
                                 title="Marcar esta arma para que Gemini la integre en la redacción"
                               />
-                              <span className="font-bold text-amber-600 dark:text-amber-300 font-sans text-xs">
+                              <span className="font-bold text-[var(--text-primary)] font-sans text-xs">
                                 {w.name}
                               </span>
                             </div>
@@ -791,10 +778,10 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                               <button
                                 type="button"
                                 onClick={() => handleCopySnippet(w.id, w.suggestedInjection)}
-                                className="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shrink-0 self-start sm:self-center shadow-sm"
+                                className="px-2 py-1 bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 rounded-lg text-[10px] font-mono font-medium flex items-center space-x-1 cursor-pointer transition shrink-0 self-start sm:self-center shadow-xs"
                               >
                                 {copiedSnippetId === w.id ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                                <span>{copiedSnippetId === w.id ? '¡Fragmento Copiado!' : 'Copiar Fragmento'}</span>
+                                <span>{copiedSnippetId === w.id ? '¡Copiado!' : 'Copiar'}</span>
                               </button>
                             </div>
                           </div>
@@ -804,7 +791,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                             {w.reasonToInclude}
                           </p>
 
-                          <div className="p-2 rounded-lg bg-black/10 dark:bg-black/30 border border-black/10 dark:border-white/10 font-mono text-[10.5px] text-[var(--text-muted)] italic">
+                          <div className="p-2 rounded-lg bg-black/5 dark:bg-black/20 border border-[var(--panel-border)] font-mono text-[10.5px] text-[var(--text-muted)] italic">
                             «{w.suggestedInjection}»
                           </div>
                         </div>
@@ -812,9 +799,9 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-600 dark:text-emerald-300 font-mono flex items-center gap-1.5">
+                  <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] text-xs text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1.5">
                     <CheckCircle2 className="h-4 w-4" />
-                    <span>Todas las armas relevantes del portafolio están activadas para esta vacante.</span>
+                    <span>Todas las armas relevantes del portafolio están activadas.</span>
                   </div>
                 )}
               </div>

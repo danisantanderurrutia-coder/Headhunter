@@ -80,8 +80,8 @@ const panel = 'rounded-2xl border p-4 space-y-3';
 const panelStyle: React.CSSProperties = { backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' };
 
 const segBtn = (active: boolean) =>
-  `px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-    active ? 'bg-sky-600 text-white shadow' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+  `px-2.5 py-1 rounded-lg text-xs font-mono font-medium transition cursor-pointer ${
+    active ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
   }`;
 
 interface AccordionCardProps {
@@ -638,7 +638,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
        * CRAFTING HUB HERO BANNER (COMPACTABLE / ACCORDION)
        * ============================================================== */}
       <div 
-        className="rounded-2xl border relative overflow-hidden transition-all shadow-sm"
+        className="rounded-2xl border relative overflow-hidden transition-all shadow-xs"
         style={{
           backgroundColor: 'var(--panel-bg)',
           borderColor: 'var(--panel-border)'
@@ -646,11 +646,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
       >
         <div className="flex items-center justify-between p-3 sm:px-4">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="p-1.5 rounded-lg bg-purple-500/15 text-purple-400 shrink-0">
+            <div className="p-1.5 rounded-lg bg-black/5 dark:bg-white/10 text-sky-500 shrink-0">
               <Sparkles className="h-4 w-4" />
             </div>
             <div className="min-w-0">
-              <h2 className="text-xs font-mono font-black uppercase text-[var(--text-primary)] truncate">
+              <h2 className="text-xs font-mono font-bold uppercase text-[var(--text-primary)] truncate">
                 Crafting Studio · Wingman & Headhunter
               </h2>
               <p className="text-[11px] text-[var(--text-muted)] truncate hidden sm:block">
@@ -680,21 +680,21 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
             </div>
             <div className="p-4 sm:p-5 space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl border bg-[var(--card-bg)] border-purple-500/25 space-y-1">
-                  <div className="flex items-center space-x-2 text-purple-500 dark:text-purple-300 font-bold font-mono text-xs">
-                    <Bot className="h-4 w-4" />
+                <div className="p-3.5 rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-1">
+                  <div className="flex items-center space-x-2 text-[var(--text-primary)] font-bold font-mono text-xs">
+                    <Bot className="h-4 w-4 text-sky-500" />
                     <span>WINGMAN — Empatía & Match Técnico</span>
                   </div>
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
                     Comprende las expectativas y el lenguaje del líder del equipo o PI. Asegura que el formato y la cadencia de la carta o CV resuelvan sus puntos de dolor con tono soberano Zero-Servility.
                   </p>
                 </div>
-                <div className="p-3 rounded-xl border bg-[var(--card-bg)] border-sky-500/25 space-y-1">
-                  <div className="flex items-center space-x-2 text-sky-500 dark:text-sky-300 font-bold font-mono text-xs">
-                    <Scale className="h-4 w-4" />
+                <div className="p-3.5 rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-1">
+                  <div className="flex items-center space-x-2 text-[var(--text-primary)] font-bold font-mono text-xs">
+                    <Scale className="h-4 w-4 text-sky-500" />
                     <span>HEADHUNTER — Asimetría & Filtro de Élite</span>
                   </div>
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
                     Destaca por encima de la media con evidencia asimétrica incontrastable. Neutraliza filtros de selección inicial y blinda cada término legal y credencial académica.
                   </p>
                 </div>
@@ -711,83 +711,82 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
             <div className="flex items-center gap-3">
               <div className="flex p-1 rounded-xl border gap-1" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
                 <button
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                    docMode === 'cv' ? 'bg-sky-600 text-white shadow font-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition flex items-center gap-1.5 cursor-pointer ${
+                    docMode === 'cv' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                   onClick={() => {
                     setDocMode('cv');
                     onDocTypeChange?.('cv');
                   }}
                 >
-                  <BadgeCheck className="h-4 w-4" />
-                  <span>1. CV Studio (A4)</span>
+                  <BadgeCheck className="h-4 w-4 text-sky-500" />
+                  <span>CV Studio (A4)</span>
                 </button>
                 <button
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                    docMode === 'cover_letter' ? 'bg-purple-600 text-white shadow font-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition flex items-center gap-1.5 cursor-pointer ${
+                    docMode === 'cover_letter' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                   onClick={() => {
                     setDocMode('cover_letter');
                     onDocTypeChange?.('cover_letter');
                   }}
                 >
-                  <Mail className="h-4 w-4" />
-                  <span>2. Cover Letter Studio (DIN/A4)</span>
+                  <Mail className="h-4 w-4 text-sky-500" />
+                  <span>Cover Letter Studio (DIN 5008)</span>
                 </button>
               </div>
             </div>
             <p className="text-[11px] text-[var(--text-secondary)] mt-1.5">
               {docMode === 'cv'
-                ? 'Curriculum Vitae profesional (A4) generado exclusivamente a partir de los datos verificados del Portafolio.'
-                : 'Cartas de postulación institucional DIN 5008 con redacción científica rigurosa y filtro estricto anti-clichés de IA.'}
+                ? 'Curriculum Vitae profesional (A4) · Generado con tus datos verificados'
+                : 'Cartas de postulación institucional DIN 5008 · Redacción científica rigurosa'}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             {docMode === 'cv' ? (
               <>
-                <div className="flex p-1 rounded-xl border gap-1" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
+                <div className="flex p-0.5 rounded-lg border gap-0.5" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
                   <button className={segBtn(lang === 'es')} onClick={() => setLang('es')}>ES</button>
                   <button className={segBtn(lang === 'en')} onClick={() => setLang('en')}>EN</button>
                 </div>
-                <div className="flex p-1 rounded-xl border gap-1" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
+                <div className="flex p-0.5 rounded-lg border gap-0.5" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
                   <button className={segBtn(length === '1p')} onClick={() => setLength('1p')}>1 pág.</button>
                   <button className={segBtn(length === '2p')} onClick={() => setLength('2p')}>2 pág.</button>
                 </div>
               </>
             ) : (
               <>
-                <div className="flex p-1 rounded-xl border gap-1 items-center" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
-                  <span className="text-[10px] font-mono font-bold px-1.5 text-[var(--text-muted)] uppercase hidden sm:inline">Idioma:</span>
-                  <button className={segBtn(letterLang === 'es')} onClick={() => handleSelectLetterLang('es')} title="Borrador en Español">🇪🇸 ES</button>
-                  <button className={segBtn(letterLang === 'en')} onClick={() => handleSelectLetterLang('en')} title="Borrador en Inglés">🇬🇧 EN</button>
-                  <button className={segBtn(letterLang === 'de')} onClick={() => handleSelectLetterLang('de')} title="Borrador en Alemán">🇩🇪 DE</button>
+                <div className="flex p-0.5 rounded-lg border gap-0.5 items-center" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
+                  <button className={segBtn(letterLang === 'es')} onClick={() => handleSelectLetterLang('es')} title="Borrador en Español">ES</button>
+                  <button className={segBtn(letterLang === 'en')} onClick={() => handleSelectLetterLang('en')} title="Borrador en Inglés">EN</button>
+                  <button className={segBtn(letterLang === 'de')} onClick={() => handleSelectLetterLang('de')} title="Borrador en Alemán">DE</button>
                 </div>
                 <button
                   onClick={copyLetterMarkdown}
-                  className="px-3 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-xs font-bold flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] transition"
+                  className="px-2.5 py-1.5 rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-xs font-medium flex items-center gap-1.5 cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition"
                   title="Copiar contenido de la carta en formato Markdown"
                 >
-                  <Copy className="h-4 w-4 text-sky-500" />
-                  <span>{copiedMarkdown ? '¡Copiado!' : 'Copiar MD'}</span>
+                  <Copy className="h-3.5 w-3.5" />
+                  <span>{copiedMarkdown ? 'Copiado' : 'MD'}</span>
                 </button>
               </>
             )}
 
             <button
               onClick={downloadHtml}
-              className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-xs font-bold flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] transition shrink-0"
+              className="px-2.5 py-1.5 rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-xs font-medium flex items-center gap-1.5 cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition shrink-0"
               title={`Descargar archivo HTML autónomo (${fileBase}.html)`}
             >
-              <FileDown className="h-4 w-4 text-emerald-500 shrink-0" />
-              <span><span className="hidden sm:inline">Descargar </span>HTML</span>
+              <FileDown className="h-3.5 w-3.5 shrink-0" />
+              <span>HTML</span>
             </button>
             <button
               onClick={print}
-              className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow shrink-0"
+              className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs shrink-0 transition"
               title={`Imprimir → Guardar como PDF (${fileBase}.pdf)`}
             >
-              <Printer className="h-4 w-4 shrink-0" />
+              <Printer className="h-3.5 w-3.5 shrink-0" />
               <span>Imprimir / PDF</span>
             </button>
           </div>
@@ -834,17 +833,17 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                             if (tpl.pages === '1 pág.') setLength('1p');
                             else if (tpl.pages === '2 pág.' || tpl.pages === '2-3 pág.') setLength('2p');
                           }}
-                          className={`p-2 rounded-xl text-left border transition text-xs cursor-pointer ${
+                          className={`p-2.5 rounded-xl text-left border transition text-xs cursor-pointer ${
                             isSelected
-                              ? 'border-sky-500 bg-sky-500/10 shadow-xs ring-1 ring-sky-500/30'
-                              : 'border-[var(--card-border)] bg-[var(--card-bg)] hover:border-sky-500/40'
+                              ? 'border-sky-500/60 bg-sky-500/5 ring-1 ring-sky-500/20 shadow-xs'
+                              : 'border-[var(--card-border)] bg-[var(--card-bg)] hover:border-[var(--panel-border)]'
                           }`}
                         >
                           <div className="flex items-center justify-between">
                             <span className="font-bold text-[11px] truncate text-[var(--text-primary)]">
                               {tpl.name.split(' ')[0]} {tpl.name.split(' ')[1] || ''}
                             </span>
-                            <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-black/10 dark:bg-white/10 uppercase font-bold text-[var(--text-muted)]">
+                            <span className="text-[10px] font-mono font-medium text-[var(--text-muted)] uppercase">
                               {tpl.language.toUpperCase()}
                             </span>
                           </div>
@@ -906,10 +905,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                           key={angle.id}
                           type="button"
                           onClick={() => setTacticalAngle(angle.id)}
-                          className={`w-full p-2 rounded-xl text-left border transition text-xs cursor-pointer flex items-start justify-between gap-2 ${
+                          className={`w-full p-2.5 rounded-xl text-left border transition text-xs cursor-pointer flex items-start justify-between gap-2 ${
                             isSelected
-                              ? 'border-emerald-500 bg-emerald-500/10 shadow-xs ring-1 ring-emerald-500/30'
-                              : 'border-[var(--card-border)] bg-[var(--card-bg)] hover:border-emerald-500/40'
+                              ? 'border-sky-500/60 bg-sky-500/5 ring-1 ring-sky-500/20 shadow-xs'
+                              : 'border-[var(--card-border)] bg-[var(--card-bg)] hover:border-[var(--panel-border)]'
                           }`}
                         >
                           <div className="space-y-0.5">
@@ -920,11 +919,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                               {angle.desc}
                             </div>
                           </div>
-                          <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold uppercase shrink-0 ${
-                            isSelected
-                              ? 'bg-emerald-500 text-white'
-                              : 'bg-black/10 dark:bg-white/10 text-[var(--text-muted)]'
-                          }`}>
+                          <span className="text-[10px] font-mono text-[var(--text-muted)] shrink-0 font-medium">
                             {angle.badge}
                           </span>
                         </button>
@@ -1151,12 +1146,12 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     <div className="flex flex-wrap gap-1">
                       {built.matchedTags.length ? (
                         built.matchedTags.slice(0, 16).map((t) => (
-                          <span key={t} className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 font-mono text-[10px]">
+                          <span key={t} className="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] border border-[var(--panel-border)] font-mono text-[10px]">
                             {t}
                           </span>
                         ))
                       ) : (
-                        <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
+                        <span className="text-[var(--text-muted)] font-medium">Sin coincidencias textuales directas en tags.</span>
                       )}
                     </div>
 
@@ -1166,24 +1161,24 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         type="button"
                         onClick={handleEvaluateCvWithGemini}
                         disabled={isEvaluatingCvWithGemini}
-                        className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/40 text-amber-700 dark:text-amber-300 font-mono font-bold text-[10.5px] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                        className="px-2.5 py-1.5 rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-[var(--text-primary)] font-mono font-medium text-[10.5px] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                         title="Ejecuta una evaluación semántica profunda con Gemini contrastando la oferta con tus antecedentes verificados"
                       >
                         {isEvaluatingCvWithGemini ? (
                           <>
-                            <Loader2 className="h-3 w-3 animate-spin text-amber-500" />
-                            <span>Auditando con Gemini 3.8 Flash...</span>
+                            <Loader2 className="h-3 w-3 animate-spin text-sky-500" />
+                            <span>Auditando con Gemini...</span>
                           </>
                         ) : (
                           <>
-                            <Sparkles className="h-3 w-3 text-amber-500" />
+                            <Sparkles className="h-3 w-3 text-sky-500" />
                             <span>Calibrar CV con Gemini IA</span>
                           </>
                         )}
                       </button>
 
                       {geminiCvEvaluation && (
-                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30">
+                        <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400">
                           Encaje Gemini: {geminiCvEvaluation.matchScore}%
                         </span>
                       )}
@@ -1196,9 +1191,9 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     )}
 
                     {geminiCvEvaluation && (
-                      <div className="p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-1.5 text-[11px] font-sans">
+                      <div className="p-3 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1.5 text-[11px] font-sans">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px] uppercase">
+                          <span className="font-bold text-[var(--text-primary)] font-mono text-[10px] uppercase">
                             Dictamen Gemini: {geminiCvEvaluation.verdict.replace(/_/g, ' ')}
                           </span>
                         </div>
@@ -1207,7 +1202,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         </p>
                         {geminiCvEvaluation.pros.length > 0 && (
                           <div>
-                            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">Fortalezas Clave:</span>
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">Fortalezas:</span>
                             <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
                               {geminiCvEvaluation.pros.map((p, i) => <li key={i}>{p}</li>)}
                             </ul>
@@ -1215,7 +1210,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         )}
                         {geminiCvEvaluation.gaps.length > 0 && (
                           <div>
-                            <span className="font-bold text-rose-600 dark:text-rose-400 font-mono text-[10px]">Brechas a compensar:</span>
+                            <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px]">Brechas a compensar:</span>
                             <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
                               {geminiCvEvaluation.gaps.map((g, i) => <li key={i}>{g}</li>)}
                             </ul>
@@ -1735,12 +1730,12 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     <div className="flex flex-wrap gap-1">
                       {built.matchedTags.length ? (
                         built.matchedTags.slice(0, 16).map((t) => (
-                          <span key={t} className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 font-mono text-[10px]">
+                          <span key={t} className="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] border border-[var(--panel-border)] font-mono text-[10px]">
                             {t}
                           </span>
                         ))
                       ) : (
-                        <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
+                        <span className="text-[var(--text-muted)] font-medium">Sin coincidencias textuales directas en tags.</span>
                       )}
                     </div>
 
@@ -1750,24 +1745,24 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         type="button"
                         onClick={handleEvaluateCvWithGemini}
                         disabled={isEvaluatingCvWithGemini}
-                        className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/40 text-amber-700 dark:text-amber-300 font-mono font-bold text-[10.5px] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                        className="px-2.5 py-1.5 rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-[var(--text-primary)] font-mono font-medium text-[10.5px] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                         title="Ejecuta una evaluación semántica profunda con Gemini contrastando la oferta con tus antecedentes verificados"
                       >
                         {isEvaluatingCvWithGemini ? (
                           <>
-                            <Loader2 className="h-3 w-3 animate-spin text-amber-500" />
-                            <span>Auditando con Gemini 3.8 Flash...</span>
+                            <Loader2 className="h-3 w-3 animate-spin text-sky-500" />
+                            <span>Auditando con Gemini...</span>
                           </>
                         ) : (
                           <>
-                            <Sparkles className="h-3 w-3 text-amber-500" />
+                            <Sparkles className="h-3 w-3 text-sky-500" />
                             <span>Calibrar CV con Gemini IA</span>
                           </>
                         )}
                       </button>
 
                       {geminiCvEvaluation && (
-                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30">
+                        <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400">
                           Encaje Gemini: {geminiCvEvaluation.matchScore}%
                         </span>
                       )}
@@ -1780,9 +1775,9 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     )}
 
                     {geminiCvEvaluation && (
-                      <div className="p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-1.5 text-[11px] font-sans">
+                      <div className="p-3 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1.5 text-[11px] font-sans">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px] uppercase">
+                          <span className="font-bold text-[var(--text-primary)] font-mono text-[10px] uppercase">
                             Dictamen Gemini: {geminiCvEvaluation.verdict.replace(/_/g, ' ')}
                           </span>
                         </div>
@@ -1791,7 +1786,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         </p>
                         {geminiCvEvaluation.pros.length > 0 && (
                           <div>
-                            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">Fortalezas Clave:</span>
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">Fortalezas:</span>
                             <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
                               {geminiCvEvaluation.pros.map((p, i) => <li key={i}>{p}</li>)}
                             </ul>
@@ -1799,7 +1794,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         )}
                         {geminiCvEvaluation.gaps.length > 0 && (
                           <div>
-                            <span className="font-bold text-rose-600 dark:text-rose-400 font-mono text-[10px]">Brechas a compensar:</span>
+                            <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px]">Brechas a compensar:</span>
                             <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
                               {geminiCvEvaluation.gaps.map((g, i) => <li key={i}>{g}</li>)}
                             </ul>
@@ -2013,11 +2008,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
           <div className={panel} style={panelStyle}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--panel-border)]">
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="p-1.5 rounded-lg bg-black/5 dark:bg-white/10 text-sky-500 shrink-0">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-mono font-black text-sm uppercase text-[var(--text-primary)]">
+                  <h3 className="font-mono font-bold text-sm uppercase text-[var(--text-primary)]">
                     Linter Anti-IA & Rigor Editorial DIN 5008
                   </h3>
                   <p className="text-xs text-[var(--text-secondary)] font-sans">
@@ -2025,20 +2020,20 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className={`text-xs font-mono px-3 py-1 rounded-full font-black border ${
-                  builtLetter.audit.overallScore >= 80
-                    ? 'bg-emerald-600 text-white border-emerald-500'
-                    : builtLetter.audit.overallScore >= 60
-                    ? 'bg-amber-500 text-slate-950 border-amber-400'
-                    : 'bg-rose-600 text-white border-rose-500'
-                }`}>
-                  Scorecard: {builtLetter.audit.overallScore}/100
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-xs font-mono font-bold text-[var(--text-secondary)]">
+                  Score: <span className={
+                    builtLetter.audit.overallScore >= 80
+                      ? 'text-emerald-600 dark:text-emerald-400 font-black'
+                      : builtLetter.audit.overallScore >= 60
+                      ? 'text-amber-600 dark:text-amber-400 font-black'
+                      : 'text-rose-600 dark:text-rose-400 font-black'
+                  }>{builtLetter.audit.overallScore}/100</span>
                 </span>
                 <button
                   type="button"
                   onClick={copyAuditSummary}
-                  className="px-2.5 py-1 rounded-lg border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-xs font-mono text-sky-600 dark:text-sky-400 flex items-center gap-1.5 cursor-pointer transition"
+                  className="px-2.5 py-1.5 rounded-lg border border-[var(--panel-border)] hover:bg-[var(--card-bg)] text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center gap-1.5 cursor-pointer transition"
                   title="Copiar el diagnóstico y los 9 criterios al portapapeles"
                 >
                   <Copy className="h-3.5 w-3.5" />
@@ -2049,22 +2044,16 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
             <div className="space-y-4 pt-3 text-xs">
               {/* Alerta de Veredicto Editorial */}
-              <div
-                className={`p-3.5 rounded-2xl border text-xs space-y-1 transition-colors ${
-                  builtLetter.audit.overallScore >= 80
-                    ? 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
-                    : builtLetter.audit.overallScore >= 60
-                    ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 text-amber-950 dark:text-amber-200'
-                    : 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-500/40 text-rose-950 dark:text-rose-200'
-                }`}
+              <div 
+                className="p-3.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] text-xs space-y-1"
               >
-                <div className="flex items-center gap-1.5 font-bold uppercase font-mono">
+                <div className="flex items-center gap-1.5 font-bold uppercase font-mono text-[var(--text-primary)]">
                   {builtLetter.audit.overallScore >= 80 ? (
-                    <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                   ) : builtLetter.audit.overallScore >= 60 ? (
-                    <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                    <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0" />
                   ) : (
-                    <ShieldAlert className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                    <ShieldAlert className="h-4 w-4 text-rose-500 shrink-0" />
                   )}
                   <span>
                     {builtLetter.audit.overallScore >= 80
@@ -2074,7 +2063,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                       : 'Auditoría Editorial: Nivel Crítico de Fórmulas IA'}
                   </span>
                 </div>
-                <p className="text-[11.5px] font-sans leading-relaxed">
+                <p className="text-[11.5px] font-sans leading-relaxed text-[var(--text-secondary)] pl-5">
                   {builtLetter.audit.overallScore >= 80
                     ? 'La carta presenta estructura soberana libre de fórmulas manidas de IA, con lenguaje científico técnico y evidencia empírica directa.'
                     : 'Se detectaron expresiones genéricas o reiteraciones que debilitan la asimetría competitiva. Revisa los puntos señalados abajo.'}
@@ -2083,25 +2072,25 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
               {/* Grid 4 Métricas Clave */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-mono text-[11px]">
-                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] flex flex-col justify-between">
                   <span className="text-[var(--text-muted)] uppercase text-[10px]">Clichés IA</span>
                   <span className={`font-bold text-sm mt-1 ${builtLetter.audit.clicheCount === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                     {builtLetter.audit.clicheCount} detectados
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] flex flex-col justify-between">
                   <span className="text-[var(--text-muted)] uppercase text-[10px]">Muletillas Burocráticas</span>
                   <span className={`font-bold text-sm mt-1 ${builtLetter.audit.bureaucraticFillers.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
                     {builtLetter.audit.bureaucraticFillers.length} rellenos
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] flex flex-col justify-between">
                   <span className="text-[var(--text-muted)] uppercase text-[10px]">Palabras Repetidas 4+</span>
                   <span className={`font-bold text-sm mt-1 ${builtLetter.audit.mechanicalRepetitions.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
                     {builtLetter.audit.mechanicalRepetitions.length} palabras
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-black/5 dark:bg-black/20 border border-black/10 dark:border-white/10 flex flex-col justify-between">
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] flex flex-col justify-between">
                   <span className="text-[var(--text-muted)] uppercase text-[10px]">ToR Mandatorios</span>
                   <span className={`font-bold text-sm mt-1 ${builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
                     {builtLetter.audit.hasAvailabilityMention && builtLetter.audit.hasFeeMention ? '✓ Completos' : '⚠️ Pendientes'}
@@ -2111,9 +2100,9 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
               {/* Caja de Alerta de Reiteraciones Mecánicas si existen */}
               {(builtLetter.audit.mechanicalRepetitions.length > 0 || builtLetter.audit.sentenceStarterRepetitions.length > 0) && (
-                <div className="p-3.5 rounded-xl bg-black/5 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-2 text-xs">
-                  <div className="font-mono font-bold flex items-center gap-1.5 text-purple-600 dark:text-purple-300 uppercase text-[11px]">
-                    <Repeat className="h-4 w-4" />
+                <div className="p-3.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-2 text-xs">
+                  <div className="font-mono font-bold flex items-center gap-1.5 text-[var(--text-primary)] uppercase text-[11px]">
+                    <Repeat className="h-4 w-4 text-sky-500" />
                     <span>Reiteraciones Mecánicas Detectadas en el Texto</span>
                   </div>
 
@@ -2122,7 +2111,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                       <span className="text-[10.5px] text-[var(--text-muted)] block font-mono">Palabras con alta frecuencia no intencional:</span>
                       <div className="flex flex-wrap gap-1.5">
                         {builtLetter.audit.mechanicalRepetitions.map((r, i) => (
-                          <span key={i} className="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 font-mono text-[10.5px] border border-amber-300 dark:border-amber-500/30">
+                          <span key={i} className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] font-mono text-[10.5px] border border-[var(--panel-border)]">
                             «{r.word}» ({r.count}×)
                           </span>
                         ))}
@@ -2131,11 +2120,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                   )}
 
                   {builtLetter.audit.sentenceStarterRepetitions.length > 0 && (
-                    <div className="space-y-1 pt-1.5 border-t border-black/10 dark:border-white/10">
+                    <div className="space-y-1 pt-1.5 border-t border-[var(--panel-border)]">
                       <span className="text-[10.5px] text-[var(--text-muted)] block font-mono">Iniciadores monótonos recurrentes:</span>
                       <div className="flex flex-wrap gap-1.5">
                         {builtLetter.audit.sentenceStarterRepetitions.map((s, i) => (
-                          <span key={i} className="px-2 py-0.5 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-900 dark:text-rose-300 font-mono text-[10.5px] border border-rose-300 dark:border-rose-500/30">
+                          <span key={i} className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/5 text-rose-600 dark:text-rose-400 font-mono text-[10.5px] border border-[var(--panel-border)]">
                             Iniciador {s.starter} ({s.count} oraciones)
                           </span>
                         ))}
@@ -2170,10 +2159,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         key={cat.id}
                         type="button"
                         onClick={() => setChecklistFilter(cat.id as any)}
-                        className={`px-2 py-0.5 rounded text-[10.5px] font-mono transition cursor-pointer ${
+                        className={`px-2.5 py-1 rounded-lg text-[10.5px] font-mono transition cursor-pointer ${
                           checklistFilter === cat.id
-                            ? 'bg-purple-600 text-white font-bold'
-                            : 'bg-black/5 dark:bg-black/20 text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                            ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs'
+                            : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {cat.label}
@@ -2189,44 +2178,38 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     .map((item) => (
                       <div
                         key={item.id}
-                        className={`p-3 rounded-xl border text-[11px] space-y-1.5 transition ${
-                          item.status === 'pass'
-                            ? 'bg-emerald-100/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30'
-                            : item.status === 'warning'
-                            ? 'bg-amber-100/50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-500/30'
-                            : 'bg-rose-100/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-500/30'
-                        }`}
+                        className="p-3.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:border-[var(--card-border)] text-xs space-y-1.5 transition"
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1.5 font-bold">
                             {item.status === 'pass' ? (
-                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
                             ) : item.status === 'warning' ? (
-                              <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                              <AlertTriangle className="h-3.5 w-3.5 text-amber-500 shrink-0" />
                             ) : (
-                              <ShieldAlert className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
+                              <ShieldAlert className="h-3.5 w-3.5 text-rose-500 shrink-0" />
                             )}
                             <span className="text-[var(--text-primary)]">{item.label}</span>
                           </div>
-                          <span className={`text-[9.5px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+                          <span className={`text-[10px] font-mono uppercase font-bold ${
                             item.status === 'pass'
-                              ? 'bg-emerald-600 text-white'
+                              ? 'text-emerald-600 dark:text-emerald-400'
                               : item.status === 'warning'
-                              ? 'bg-amber-500 text-slate-950'
-                              : 'bg-rose-600 text-white'
+                              ? 'text-amber-600 dark:text-amber-400'
+                              : 'text-rose-600 dark:text-rose-400'
                           }`}>
-                            {item.status}
+                            {item.status === 'pass' ? '✓ Cumplido' : item.status === 'warning' ? 'Revisar' : 'Fallo'}
                           </span>
                         </div>
 
-                        <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed font-sans">
+                        <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed font-sans pl-5">
                           {item.summary}
                         </p>
 
                         {item.details && item.details.length > 0 && (
-                          <div className="flex flex-wrap gap-1 pt-0.5">
+                          <div className="flex flex-wrap gap-1 pl-5 pt-0.5">
                             {item.details.map((d, di) => (
-                              <span key={di} className="px-2 py-0.5 rounded bg-black/10 dark:bg-white/10 text-[10px] font-mono">
+                              <span key={di} className="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] text-[10px] font-mono text-[var(--text-secondary)]">
                                 {d}
                               </span>
                             ))}
@@ -2234,7 +2217,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         )}
 
                         {item.suggestion && (
-                          <div className="p-2 rounded-lg bg-black/5 dark:bg-black/30 text-[10.5px] text-sky-700 dark:text-sky-300 flex items-start gap-1.5">
+                          <div className="ml-5 p-2 rounded-lg bg-black/5 dark:bg-black/20 border border-[var(--panel-border)] text-[10.5px] text-[var(--text-muted)] flex items-start gap-1.5">
                             <Lightbulb className="h-3.5 w-3.5 shrink-0 mt-0.5 text-amber-500" />
                             <span>{item.suggestion}</span>
                           </div>
