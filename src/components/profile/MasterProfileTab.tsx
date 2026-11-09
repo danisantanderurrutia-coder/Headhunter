@@ -39,6 +39,7 @@ import { AddExperienceModal } from './AddExperienceModal';
 import { EditExperienceModal } from './EditExperienceModal';
 import type { ParsedCVResult } from '../../services/cvParser';
 import { generateMasterProfileMarkdown } from '../../utils/masterProfileMarkdown';
+import danielProfileImg from '../../assets/daniel_santander_profile.jpg';
 
 type TacticalFilter = 'all' | 'biofisica' | 'mrv' | 'cat_risk' | 'policy' | 'comms';
 
@@ -552,6 +553,26 @@ export const MasterProfileTab: React.FC = () => {
               <span className="text-[10px] font-mono text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded">
                 Canónico
               </span>
+            </div>
+
+            {/* Fotografía oficial de perfil del operador */}
+            <div className="flex items-center gap-3.5 p-3 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)]">
+              <img 
+                src={danielProfileImg} 
+                alt={profile.fullName} 
+                className="w-16 h-16 rounded-xl object-cover object-top border-2 border-emerald-500/50 shadow-md shrink-0" 
+              />
+              <div className="min-w-0 flex-1">
+                <div className="text-sm font-black text-[var(--text-primary)] truncate">
+                  {profile.fullName}
+                </div>
+                <div className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold truncate">
+                  Doble M.Sc. • Geofísico Ambiental
+                </div>
+                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate font-mono">
+                  CAU Kiel • AMU Poznań • U. de Chile
+                </div>
+              </div>
             </div>
 
             <div className="space-y-3 text-xs">

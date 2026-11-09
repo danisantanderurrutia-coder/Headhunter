@@ -17,6 +17,7 @@ import { CVPreviewModal } from '../cvs/CVPreviewModal';
 import { SkillTreeTab } from './SkillTreeTab';
 import { getStoredProfile, getStoredCVs } from '../../services/db';
 import type { CVVersion } from '../../types/cv';
+import danielProfileImg from '../../assets/daniel_santander_profile.jpg';
 
 interface AgentDossierTabProps {
   initialSubTab?: 'showcase' | 'skills' | 'profile' | 'cvs' | 'studio' | string;
@@ -70,8 +71,8 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
   const cvEn = cvList.find(c => c.language === 'en') || cvList[1] || cvList[0];
   const cvDe = cvList.find(c => c.language === 'de') || cvList[2] || cvList[0];
 
-  // Professional operative and research laboratory images from Unsplash
-  const tacticalOperative = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80';
+  // Official portrait of Daniel Santander Urrutia
+  const tacticalOperative = danielProfileImg;
 
   return (
     <div className="space-y-5 text-[var(--text-primary)] animate-fadeIn">
@@ -315,9 +316,10 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
             <div className="lg:col-span-4 rounded-2xl border-2 border-amber-500/70 shadow-[0_0_35px_rgba(245,158,11,0.25)] relative overflow-hidden flex flex-col justify-between min-h-[460px] group">
               {/* Operative Background Image */}
               <div 
-                className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                className="absolute inset-0 z-0 bg-cover transition-transform duration-700 group-hover:scale-105"
                 style={{
-                  backgroundImage: `linear-gradient(to top, rgba(10, 15, 25, 0.95) 0%, rgba(10, 15, 25, 0.3) 50%, rgba(10, 15, 25, 0.85) 100%), url('${tacticalOperative}')`
+                  backgroundImage: `linear-gradient(to top, rgba(10, 15, 25, 0.95) 0%, rgba(10, 15, 25, 0.25) 50%, rgba(10, 15, 25, 0.75) 100%), url('${tacticalOperative}')`,
+                  backgroundPosition: 'center 20%'
                 }}
               />
 
@@ -343,11 +345,14 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
                   <Award className="h-8 w-8 text-amber-400" />
                 </div>
                 <h3 className="text-xl font-black text-white uppercase tracking-wider font-sans drop-shadow-lg">
-                  ELITE SCIENTIFIC OPERATIVE
+                  {profile.fullName || 'Daniel Santander Urrutia'}
                 </h3>
                 <span className="text-xs font-mono text-amber-300 font-extrabold uppercase tracking-widest drop-shadow bg-black/60 px-3 py-1 rounded mt-1 inline-block">
-                  CAU KIEL • U. DE CHILE
+                  DOBLE M.SC. KIEL • POZNAŃ • U. DE CHILE
                 </span>
+                <div className="text-[10px] font-mono text-amber-400/90 font-bold tracking-widest uppercase mt-1 drop-shadow">
+                  ELITE SCIENTIFIC OPERATIVE • CLEARANCE 50
+                </div>
               </div>
 
               {/* Bottom Hero Control Bar */}

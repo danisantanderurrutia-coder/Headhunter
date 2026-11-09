@@ -16,6 +16,7 @@ import { DAILY_PORTALS } from '../../data/dailyPortalsCatalog';
 import { inferCompanyQuadrants } from '../../utils/quadrants';
 import { TacticalGlobeHUD } from './TacticalGlobeHUD';
 import { resolveAsset } from '../../utils/assets';
+import danielProfileImg from '../../assets/daniel_santander_profile.jpg';
 
 interface WarRoomTabProps {
   onSelectStation: (stationId: string, subTab?: string, filter?: string) => void;
@@ -39,7 +40,7 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
 
   // High-fidelity photographic assets
   const backgroundWall = 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1920&q=80';
-  const professionalResearcher = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80';
+  const professionalResearcher = danielProfileImg;
   const droneScreen = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80';
   const earthObservation = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80';
   const biogeoLab = 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80';
@@ -272,9 +273,9 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
               className="rounded-2xl p-5 border-2 border-red-500 shadow-[0_0_25px_rgba(239,68,68,0.35)] min-h-[195px] flex flex-col justify-between relative overflow-hidden group cursor-pointer hover:border-white hover:scale-[1.01] transition"
               title="Click para ver Atributos y Titulaciones"
               style={{
-                backgroundImage: `linear-gradient(to top, rgba(220, 38, 38, 0.95) 0%, rgba(185, 28, 28, 0.55) 35%, rgba(10, 14, 22, 0.65) 100%), url('${professionalResearcher}')`,
+                backgroundImage: `linear-gradient(to top, rgba(220, 38, 38, 0.95) 0%, rgba(185, 28, 28, 0.45) 40%, rgba(10, 14, 22, 0.7) 100%), url('${professionalResearcher}')`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center'
+                backgroundPosition: 'center 20%'
               }}
             >
               <div className="flex items-center justify-between z-10">
