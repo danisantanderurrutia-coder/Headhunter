@@ -110,20 +110,15 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
       }}
     >
       {/* Top Banner: Dual Lens Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--panel-border)] pb-3.5">
-        <div className="space-y-1">
-          <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30 text-[10px] font-mono font-black uppercase tracking-wider flex items-center gap-1">
-              <Sparkles className="h-3 w-3 text-purple-400" />
-              DUAL-LENS AUDIT ENGINE
-            </span>
-            <span className="text-xs font-mono text-[var(--text-muted)]">
-              Auditoría Simultánea: {docTitle}
-            </span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[var(--panel-border)] pb-3">
+        <div className="space-y-0.5">
+          <div className="flex items-center space-x-2 text-xs font-mono font-bold text-[var(--text-primary)]">
+            <Sparkles className="h-4 w-4 text-purple-400" />
+            <span className="uppercase">Auditoría Dual-Lens: {docTitle}</span>
           </div>
-          <h3 className="font-mono font-black text-xs sm:text-sm uppercase tracking-tight text-[var(--text-primary)]">
-            Criterios Headhunter (ATS) vs. Criterios Wingman (PI & Técnica)
-          </h3>
+          <p className="text-[11px] text-[var(--text-muted)]">
+            Evaluación simultánea: Filtro ATS/Headhunter + Empatía técnica Wingman (PI)
+          </p>
         </div>
 
         {/* Global Verdict Badge */}
@@ -185,18 +180,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         
         {/* Card 1: Headhunter Lens */}
         <div 
-          onClick={() => setActiveLens(activeLens === 'headhunter' ? 'both' : 'headhunter')}
-          className={`p-3.5 rounded-xl border transition-all cursor-pointer relative overflow-hidden group ${
-            activeLens === 'headhunter' 
-              ? 'ring-2 ring-sky-500 shadow-md' 
-              : 'hover:border-sky-500/50'
-          }`}
+          className="p-3.5 rounded-xl border relative overflow-hidden"
           style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
         >
           <div className="flex items-center justify-between pb-2 border-b border-[var(--panel-border)]">
             <div className="flex items-center space-x-2 font-bold text-sky-600 dark:text-sky-300">
               <FileCheck className="h-4 w-4" />
-              <span>📋 LENTE HEADHUNTER</span>
+              <span>LENTE HEADHUNTER</span>
             </div>
             <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
               headhunter.score >= 80 
@@ -211,7 +201,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             <div className="flex justify-between items-center text-[10px] font-mono text-[var(--text-muted)]">
               <span>Filtro ATS & Burocracia:</span>
               <strong className={headhunter.passed ? 'text-emerald-500' : 'text-amber-500'}>
-                {headhunter.passed ? '✓ Compliance Aprobado' : '⚠️ Ajustes Requeridos'}
+                {headhunter.passed ? '✓ Cumplido' : '⚠️ Ajustes Requeridos'}
               </strong>
             </div>
             <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
@@ -227,18 +217,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
 
         {/* Card 2: Wingman Lens */}
         <div 
-          onClick={() => setActiveLens(activeLens === 'wingman' ? 'both' : 'wingman')}
-          className={`p-3.5 rounded-xl border transition-all cursor-pointer relative overflow-hidden group ${
-            activeLens === 'wingman' 
-              ? 'ring-2 ring-purple-500 shadow-md' 
-              : 'hover:border-purple-500/50'
-          }`}
+          className="p-3.5 rounded-xl border relative overflow-hidden"
           style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
         >
           <div className="flex items-center justify-between pb-2 border-b border-[var(--panel-border)]">
             <div className="flex items-center space-x-2 font-bold text-purple-600 dark:text-purple-300">
               <Bot className="h-4 w-4" />
-              <span>🦅 LENTE WINGMAN (PI)</span>
+              <span>LENTE WINGMAN (PI)</span>
             </div>
             <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
               wingman.score >= 80 
