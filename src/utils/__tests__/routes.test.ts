@@ -25,6 +25,8 @@ describe('routes · slugs de navegación', () => {
     expect(getSlugForState('academy')).toBe('/academia');
     expect(getSlugForState('agent_dossier', 'profile')).toBe('/perfil/expediente');
     expect(getSlugForState('agent_dossier', 'expediente')).toBe('/perfil/expediente');
+    expect(getSlugForState('crafting', undefined, 'cv')).toBe('/crafting/cv');
+    expect(getSlugForState('crafting', undefined, 'cover_letter')).toBe('/crafting/carta');
     expect(getSlugForState('agent_dossier', 'studio', 'cv')).toBe('/perfil/cv-studio');
     expect(getSlugForState('agent_dossier', 'studio', 'cover_letter')).toBe('/perfil/cover-letter');
     expect(getSlugForState('mission_control', 'intelligence')).toBe('/candidaturas/inteligencia');
@@ -44,10 +46,12 @@ describe('routes · slugs de navegación', () => {
     expect(parseSlugToState('/academia')).toEqual({ station: 'academy' });
     expect(parseSlugToState('/perfil/academia')).toEqual({ station: 'academy' });
     expect(parseSlugToState('/perfil/academy')).toEqual({ station: 'academy' });
-    expect(parseSlugToState('/perfil/cv-studio')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cv' });
-    expect(parseSlugToState('/perfil/cover-letter')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' });
-    expect(parseSlugToState('/perfil/cartas')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' });
-    expect(parseSlugToState('/perfil/carta')).toEqual({ station: 'agent_dossier', subTab: 'studio', docType: 'cover_letter' });
+    expect(parseSlugToState('/crafting')).toEqual({ station: 'crafting', docType: 'cv' });
+    expect(parseSlugToState('/crafting/carta')).toEqual({ station: 'crafting', docType: 'cover_letter' });
+    expect(parseSlugToState('/perfil/cv-studio')).toEqual({ station: 'crafting', docType: 'cv' });
+    expect(parseSlugToState('/perfil/cover-letter')).toEqual({ station: 'crafting', docType: 'cover_letter' });
+    expect(parseSlugToState('/perfil/cartas')).toEqual({ station: 'crafting', docType: 'cover_letter' });
+    expect(parseSlugToState('/perfil/carta')).toEqual({ station: 'crafting', docType: 'cover_letter' });
     expect(parseSlugToState('/perfil/arbol')).toEqual({ station: 'agent_dossier', subTab: 'showcase' });
     expect(parseSlugToState('/candidaturas/inteligencia')).toEqual({ station: 'mission_control', subTab: 'intelligence' });
     expect(parseSlugToState('/candidaturas/lote')).toEqual({ station: 'mission_control', subTab: 'batch' });

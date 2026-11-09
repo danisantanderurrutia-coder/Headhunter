@@ -78,6 +78,16 @@ export interface WingmanAuditResult {
     formatAdvice: string;
     outlierLever: string;
   };
+  stressTest: {
+    hiddenObjection: string;
+    suggestedDisarm: string;
+    isDisarmedInText: boolean;
+  };
+  tacticalClosing: {
+    proposedDiscussion: string;
+    snippetTemplate: string;
+    hasTacticalClosing: boolean;
+  };
 }
 
 export interface DualLensAuditReport {
@@ -621,6 +631,16 @@ export const auditWingmanLens = (
       targetRoleTitle: activeArchetype.targetReader.roleTitle,
       formatAdvice: activeArchetype.wingmanGuidance.formatStyle,
       outlierLever: activeArchetype.headhunterGuidance.outlierLever
+    },
+    stressTest: {
+      hiddenObjection: activeArchetype.stressTest.hiddenObjection,
+      suggestedDisarm: activeArchetype.stressTest.suggestedDisarm,
+      isDisarmedInText: ['medio poroso', 'porous media', 'anisotrop', 'drilos', 'physikal', 'matemat', 'cuantitativ', 'quantitative', 'software', 'pipeline', 'congreso', 'peritaje', 'schlum', 'ves', 'terreno', 'in-situ', 'empíric'].some(s => lower.includes(s))
+    },
+    tacticalClosing: {
+      proposedDiscussion: activeArchetype.tacticalClosing.proposedDiscussion,
+      snippetTemplate: activeArchetype.tacticalClosing.snippetTemplate,
+      hasTacticalClosing: ['15 min', 'llamada', 'call', 'diálogo', 'gesprä', 'austausch', 'reunión', 'meeting', 'discutir', 'contrastar', 'debate', 'fachlichen austausch', 'intercambio técnico'].some(s => lower.includes(s))
     }
   };
 };
@@ -740,6 +760,32 @@ export const getSelectableCriteriaFromReport = (report: DualLensAuditReport): Se
       fixRecommendation: `Snippet sugerido: "${w.suggestedInjection}"`
     });
   }
+
+  // 6. Stress-Test: Desarme de Objeción Oculta
+  items.push({
+    id: 'wm-stress-test',
+    lens: 'wingman',
+    categoryLabel: 'Lente Wingman / Stress-Test',
+    label: `Desarme de Objeción: ${report.wingman.stressTest.hiddenObjection.slice(0, 45)}...`,
+    status: report.wingman.stressTest.isDisarmedInText ? 'pass' : 'warning',
+    detail: report.wingman.stressTest.hiddenObjection,
+    fixRecommendation: !report.wingman.stressTest.isDisarmedInText
+      ? `Frase de desarme sugerida: "${report.wingman.stressTest.suggestedDisarm}"`
+      : undefined
+  });
+
+  // 7. Cierre Táctico a Entrevista (Hook de 15 min)
+  items.push({
+    id: 'wm-tactical-closing',
+    lens: 'wingman',
+    categoryLabel: 'Lente Wingman / Cierre Táctico',
+    label: 'Cierre con Gancho a Debate Técnico (15 min)',
+    status: report.wingman.tacticalClosing.hasTacticalClosing ? 'pass' : 'warning',
+    detail: `Tema de discusión propuesto: ${report.wingman.tacticalClosing.proposedDiscussion}`,
+    fixRecommendation: !report.wingman.tacticalClosing.hasTacticalClosing
+      ? `Snippet de cierre táctico: "${report.wingman.tacticalClosing.snippetTemplate}"`
+      : undefined
+  });
 
   return items;
 };

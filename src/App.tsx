@@ -5,6 +5,7 @@ import { TacticalHelpAndProtocolModal } from './components/common/TacticalHelpAn
 import { WarRoomTab } from './components/warroom/WarRoomTab';
 import { MarketRadarTab } from './components/radar/MarketRadarTab';
 import { AgentDossierTab } from './components/dossier/AgentDossierTab';
+import { CVStudioTab } from './components/cvs/CVStudioTab';
 import { GapCloserAcademyTab } from './components/academy/GapCloserAcademyTab';
 import { MissionControlTab } from './components/control/MissionControlTab';
 import { FundingTab } from './components/funding/FundingTab';
@@ -61,7 +62,17 @@ export function App() {
     let resolvedStation = stationId;
     let resolvedSubTab = subTab;
 
-    if (stationId === 'market_radar' || ['offers', 'sources', 'companies', 'organizations', 'benchmark', 'portals'].includes(stationId)) {
+    if (
+      stationId === 'crafting' ||
+      ['studio', 'cvs', 'cartas', 'cv-studio', 'carta-studio', 'plantillas'].includes(stationId) ||
+      (stationId === 'agent_dossier' && ['studio', 'cvs', 'cartas', 'plantillas'].includes(subTab || ''))
+    ) {
+      resolvedStation = 'crafting';
+      if (targetDocType) setStudioDocType(targetDocType);
+      if (filterParam && !targetOfferId) setStudioOfferId(filterParam);
+      if (targetOfferId) setStudioOfferId(targetOfferId);
+      setActiveTab('crafting');
+    } else if (stationId === 'market_radar' || ['offers', 'sources', 'companies', 'organizations', 'benchmark', 'portals'].includes(stationId)) {
       resolvedStation = 'market_radar';
       if (subTab === 'benchmark' || stationId === 'benchmark') resolvedSubTab = 'benchmark';
       else if (subTab === 'portals' || stationId === 'portals') resolvedSubTab = 'portals';
@@ -71,21 +82,12 @@ export function App() {
       else resolvedSubTab = 'organizations';
       setRadarSubTab(resolvedSubTab as 'organizations' | 'benchmark' | 'portals');
       setActiveTab('market_radar');
-    } else if (stationId === 'agent_dossier' || ['showcase', 'gunsmith', 'skills', 'profile', 'expediente', 'cvs', 'studio', 'plantillas', 'cartas'].includes(stationId)) {
+    } else if (stationId === 'agent_dossier' || ['showcase', 'gunsmith', 'skills', 'profile', 'expediente'].includes(stationId)) {
       resolvedStation = 'agent_dossier';
-      if (subTab === 'gunsmith' || stationId === 'gunsmith' || subTab === 'cvs' || stationId === 'cvs' || subTab === 'plantillas' || stationId === 'plantillas' || subTab === 'cartas' || stationId === 'cartas') {
-        resolvedSubTab = 'studio';
-        if (filterParam && !targetOfferId) setStudioOfferId(filterParam);
-      }
-      else if (subTab === 'studio' || stationId === 'studio') {
-        resolvedSubTab = 'studio';
-        if (filterParam && !targetOfferId) setStudioOfferId(filterParam);
-      }
-      else if (subTab === 'skills' || stationId === 'skills') resolvedSubTab = 'showcase';
+      if (subTab === 'skills' || stationId === 'skills') resolvedSubTab = 'showcase';
       else if (subTab === 'profile' || subTab === 'expediente' || stationId === 'profile' || stationId === 'expediente') resolvedSubTab = 'profile';
       else resolvedSubTab = 'showcase';
-      setDossierSubTab(resolvedSubTab as 'showcase' | 'skills' | 'profile' | 'cvs' | 'studio');
-      if (targetDocType) setStudioDocType(targetDocType);
+      setDossierSubTab(resolvedSubTab as 'showcase' | 'skills' | 'profile');
       setActiveTab('agent_dossier');
     } else if (stationId === 'academy') {
       resolvedStation = 'academy';
@@ -315,7 +317,7 @@ export function App() {
       };
       saveStoredApplications([newApp, ...currentApps]);
     }
-    handleNavigate('agent_dossier', 'studio', undefined, undefined, 'cover_letter');
+    handleNavigate('crafting', undefined, undefined, undefined, 'cover_letter');
   };
 
   return (
@@ -359,7 +361,15 @@ export function App() {
                 onSubTabChange={(sub) => handleNavigate('market_radar', sub)}
                 onStartApplication={handleStartApplicationFromOffer}
                 onStartPipelineFromCompany={handleStartPipelineFromCompany}
-                onOpenStudio={(offerId, docType) => handleNavigate('agent_dossier', 'studio', undefined, offerId, docType)}
+                onOpenStudio={(offerId, docType) => handleNavigate('crafting', undefined, undefined, offerId, docType)}
+              />
+            )}
+
+            {activeTab === 'crafting' && (
+              <CVStudioTab
+                initialOfferId={studioOfferId}
+                initialDocType={studioDocType}
+                onDocTypeChange={(docType) => handleNavigate('crafting', undefined, undefined, studioOfferId, docType)}
               />
             )}
 
@@ -375,7 +385,8 @@ export function App() {
                 initialStudioOfferId={studioOfferId}
                 initialStudioDocType={studioDocType}
                 onSubTabChange={(sub) => handleNavigate('agent_dossier', sub)}
-                onDocTypeChange={(docType) => handleNavigate('agent_dossier', 'studio', undefined, undefined, docType)}
+                onDocTypeChange={(docType) => handleNavigate('crafting', undefined, undefined, undefined, docType)}
+                onNavigateToCrafting={(docType) => handleNavigate('crafting', undefined, undefined, undefined, docType)}
                 onOpenSettings={() => handleNavigate('settings')}
                 onNavigateToAcademy={(gapId) => handleNavigate('academy', undefined, gapId)}
               />
@@ -392,7 +403,7 @@ export function App() {
               <MissionControlTab
                 initialSubTab={missionSubTab}
                 onSubTabChange={(sub) => handleNavigate('mission_control', sub)}
-                onOpenStudio={(offerId, docType) => handleNavigate('agent_dossier', 'studio', undefined, offerId, docType)}
+                onOpenStudio={(offerId, docType) => handleNavigate('crafting', undefined, undefined, offerId, docType)}
               />
             )}
 

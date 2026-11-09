@@ -7,6 +7,9 @@ export const APP_SLUGS = {
   // 1. Estaciones principales
   DASHBOARD: '/consola',
   MARKET: '/mercado',
+  CRAFTING: '/crafting',
+  CRAFTING_CV: '/crafting/cv',
+  CRAFTING_LETTER: '/crafting/carta',
   DOSSIER: '/perfil',
   ACADEMY: '/academia',
   APPLICATIONS: '/candidaturas',
@@ -81,6 +84,10 @@ export const getSlugForState = (
   subTab?: string,
   docType: 'cv' | 'cover_letter' = 'cv'
 ): string => {
+  if (stationId === 'crafting') {
+    return docType === 'cover_letter' ? APP_SLUGS.CRAFTING_LETTER : APP_SLUGS.CRAFTING_CV;
+  }
+
   if (stationId === 'market_radar') {
     if (subTab === 'benchmark') return APP_SLUGS.MARKET_BENCHMARK;
     if (subTab === 'portals') return APP_SLUGS.MARKET_PORTALS;
@@ -138,7 +145,45 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
     return { station: 'dashboard' };
   }
 
-  // 2. Mercado
+  // 2. Crafting (CV & Cover Letter Studio)
+  if (
+    clean === '/crafting/carta' ||
+    clean === '/crafting/cartas' ||
+    clean === '/crafting/cover-letter' ||
+    clean === '/cover-letter' ||
+    clean === '/cartas' ||
+    clean === '/carta' ||
+    clean === '/carta-studio' ||
+    clean === '/perfil/cover-letter' ||
+    clean === '/perfil/carta' ||
+    clean === '/perfil/cartas' ||
+    clean === '/perfil/cartas-presentacion' ||
+    clean === '/perfil/motivacion' ||
+    clean.startsWith('/crafting/carta') ||
+    clean.startsWith('/cover-letter') ||
+    clean.startsWith('/perfil/cover-letter')
+  ) {
+    return { station: 'crafting', docType: 'cover_letter' };
+  }
+  if (
+    clean === '/crafting' ||
+    clean === '/crafting/cv' ||
+    clean === '/cv-studio' ||
+    clean === '/cv' ||
+    clean === '/curriculum' ||
+    clean === '/perfil/cv-studio' ||
+    clean === '/perfil/cv' ||
+    clean === '/perfil/curriculum' ||
+    clean === '/perfil/plantillas' ||
+    clean === '/perfil/a4' ||
+    clean.startsWith('/crafting') ||
+    clean.startsWith('/cv-studio') ||
+    clean.startsWith('/perfil/cv-studio')
+  ) {
+    return { station: 'crafting', docType: 'cv' };
+  }
+
+  // 3. Mercado
   if (
     clean === '/mercado/benchmark' || 
     clean === '/mercado/matriz' || 

@@ -639,6 +639,142 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
               </p>
             </div>
 
+            {/* STRESS-TEST: DESARME DE OBJECIÓN OCULTA */}
+            {wingman.stressTest && (
+              <div 
+                className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
+                  selectedCriteriaIds.has('wm-stress-test') ? 'ring-1 ring-purple-500/50' : ''
+                }`}
+                style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedCriteriaIds.has('wm-stress-test')}
+                      onChange={() => toggleCriterion('wm-stress-test')}
+                      className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      title="Fiscalizar desarme de objeción con Gemini"
+                    />
+                    <span className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
+                      <span>🛡️ STRESS-TEST: OBJECIÓN OCULTA DEL EVALUADOR</span>
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    {selectedCriteriaIds.has('wm-stress-test') && (
+                      <span className="text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                        Gemini
+                      </span>
+                    )}
+                    <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
+                      wingman.stressTest.isDisarmedInText
+                        ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                        : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                    }`}>
+                      {wingman.stressTest.isDisarmedInText ? '✓ Neutralizada' : '⚠️ Pendiente de Neutralizar'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-2.5 rounded-lg bg-black/10 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-1">
+                  <span className="text-[10px] font-mono font-bold text-amber-500 uppercase block">
+                    Duda escéptica no dicha de {report.archetype?.targetReader.roleTitle || 'el evaluador'}:
+                  </span>
+                  <p className="text-[11px] text-[var(--text-secondary)] font-sans italic">
+                    «{wingman.stressTest.hiddenObjection}»
+                  </p>
+                </div>
+
+                <div className="space-y-1 pt-0.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] font-bold">
+                      💡 Frase de desarme recomendada:
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleCopySnippet('stress-disarm', wingman.stressTest.suggestedDisarm);
+                        onInjectSnippet?.(wingman.stressTest.suggestedDisarm);
+                      }}
+                      className="px-2 py-0.5 bg-purple-600 hover:bg-purple-500 text-white rounded text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shadow-xs"
+                    >
+                      {copiedSnippetId === 'stress-disarm' ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                      <span>{copiedSnippetId === 'stress-disarm' ? '¡Copiado/Inyectado!' : 'Inyectar Frase'}</span>
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-[var(--text-primary)] font-mono bg-purple-500/5 p-2 rounded-lg border border-purple-500/20 leading-relaxed">
+                    «{wingman.stressTest.suggestedDisarm}»
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* HOOK DE CONVERSIÓN: CIERRE TÁCTICO A ENTREVISTA */}
+            {wingman.tacticalClosing && (
+              <div 
+                className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
+                  selectedCriteriaIds.has('wm-tactical-closing') ? 'ring-1 ring-purple-500/50' : ''
+                }`}
+                style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedCriteriaIds.has('wm-tactical-closing')}
+                      onChange={() => toggleCriterion('wm-tactical-closing')}
+                      className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                      title="Fiscalizar cierre táctico con Gemini"
+                    />
+                    <span className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
+                      <Zap className="h-3.5 w-3.5 text-amber-400" />
+                      <span>GANCHO DE CONVERSIÓN: CIERRE TÁCTICO A ENTREVISTA</span>
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    {selectedCriteriaIds.has('wm-tactical-closing') && (
+                      <span className="text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                        Gemini
+                      </span>
+                    )}
+                    <span className={`text-[9.5px] font-mono px-2 py-0.5 rounded font-bold uppercase border ${
+                      wingman.tacticalClosing.hasTacticalClosing
+                        ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                        : 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                    }`}>
+                      {wingman.tacticalClosing.hasTacticalClosing ? '✓ Cierre con Gancho Activo' : '⚠️ Cierre Pasivo / Estándar'}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-[var(--text-secondary)] font-sans">
+                  Sustituye despedidas pasivas ("quedo a su disposición") por una propuesta técnica concreta para despertar la curiosidad del evaluador:
+                </p>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] font-bold">
+                      🎯 Tema de discusión propuesto: {wingman.tacticalClosing.proposedDiscussion}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleCopySnippet('tactical-closing', wingman.tacticalClosing.snippetTemplate);
+                        onInjectSnippet?.(wingman.tacticalClosing.snippetTemplate);
+                      }}
+                      className="px-2 py-0.5 bg-amber-600 hover:bg-amber-500 text-white rounded text-[10px] font-mono font-bold flex items-center space-x-1 cursor-pointer transition shadow-xs"
+                    >
+                      {copiedSnippetId === 'tactical-closing' ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                      <span>{copiedSnippetId === 'tactical-closing' ? '¡Copiado/Inyectado!' : 'Inyectar Cierre'}</span>
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-[var(--text-primary)] font-mono bg-amber-500/5 p-2 rounded-lg border border-amber-500/20 leading-relaxed italic">
+                    «{wingman.tacticalClosing.snippetTemplate}»
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Portfolio Weapons: Active vs. Omitted */}
             {isWeaponsExpanded && (
               <div className="space-y-2.5">

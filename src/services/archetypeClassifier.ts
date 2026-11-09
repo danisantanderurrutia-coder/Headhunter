@@ -18,6 +18,14 @@ export interface ArchetypeProfile {
     psychology: string;
     redFlags: string[];
   };
+  stressTest: {
+    hiddenObjection: string;
+    suggestedDisarm: string;
+  };
+  tacticalClosing: {
+    proposedDiscussion: string;
+    snippetTemplate: string;
+  };
   wingmanGuidance: {
     formatStyle: string;
     targetWordCount: { min: number; ideal: number; max: number };
@@ -50,6 +58,18 @@ export const ARCHETYPE_PROFILES: Record<ApplicationArchetype, ArchetypeProfile> 
         'Formato informal o estilo marketing anglosajón',
         'Omitir la clasificación salarial TVöD o estatus de residencia'
       ]
+    },
+    stressTest: {
+      hiddenObjection:
+        '¿Por qué un geofísico de formación básica querría dedicarse a suelos agrícolas e interacción de raíces en un instituto agronómico?',
+      suggestedDisarm:
+        'Concibo el suelo y la drilósfera como un medio poroso continuo y anisotrópico gobernado por leyes mecánicas e hidráulicas rigurosas, donde la formación geofísica aporta la matemática continua que supera a la agronomía descriptiva.'
+    },
+    tacticalClosing: {
+      proposedDiscussion:
+        'Debatir la discriminación entre flujo por macroporos y difusión matricial en sistemas RootBox bajo fluorescencia UV.',
+      snippetTemplate:
+        'Estaré encantado de contrastar en un diálogo técnico de 15 minutos cómo abordaríamos la discriminación de señales y el filtrado de artefactos en la interfaz suelo-raíz.'
     },
     wingmanGuidance: {
       formatStyle: 'DIN 5008 / Anschreiben Académico formal (4-5 párrafos rigurosos, longitud controlada)',
@@ -95,6 +115,18 @@ export const ARCHETYPE_PROFILES: Record<ApplicationArchetype, ArchetypeProfile> 
         'Lenguaje lento o pasivo'
       ]
     },
+    stressTest: {
+      hiddenObjection:
+        '¿Es este candidato un perfil puramente académico o lento que tendrá dificultades para adaptarse a la velocidad y pragmatismo comercial de una startup venture-backed?',
+      suggestedDisarm:
+        'Combino investigación biofísica de laboratorio con mentalidad de software: construyo pipelines automatizados en R y Python que traducen datos de sensores y satélites en métricas de MRV auditables y escalables sin tiempo muerto.'
+    },
+    tacticalClosing: {
+      proposedDiscussion:
+        'Cómo mitigar el riesgo de no permanencia en biochar e intemperización sin sobrecargar con fricción operativa a los proveedores.',
+      snippetTemplate:
+        'Disponible para una llamada técnica de 15 minutos donde contrastar cómo estructurar pipelines de auditoría para proveedores con datos empíricos de terreno.'
+    },
     wingmanGuidance: {
       formatStyle: 'Executive Impact Pitch / Memo Técnico Ágil (3-4 párrafos densos, viñetas de impacto directo)',
       targetWordCount: { min: 260, ideal: 330, max: 420 },
@@ -139,6 +171,18 @@ export const ARCHETYPE_PROFILES: Record<ApplicationArchetype, ArchetypeProfile> 
         'Omisión de idiomas de trabajo oficiales (Inglés / Español / Francés)'
       ]
     },
+    stressTest: {
+      hiddenObjection:
+        '¿Posee este candidato la madurez diplomática e institucional para interactuar con ministerios, comités multilaterales y delegaciones sin desvíos técnicos?',
+      suggestedDisarm:
+        'Cuento con experiencia de interlocución institucional de primer orden, habiendo testificado formalmente como perito técnico ante el Congreso Nacional de Chile sobre riesgo forestal e hídrico y colaborado con redes globales como EPN.'
+    },
+    tacticalClosing: {
+      proposedDiscussion:
+        'Alineación del protocolo de observatorios satelitales con las directivas de reporte de las NDCs y los Términos de Referencia.',
+      snippetTemplate:
+        'Quedo a su disposición para coordinar una sesión de trabajo donde detallar la articulación de metodologías satelitales con el marco de gobernanza del programa.'
+    },
     wingmanGuidance: {
       formatStyle: 'Competency-Based Cover Letter / Declaración de Motivación Institucional (Estructura STAR/CAR)',
       targetWordCount: { min: 420, ideal: 500, max: 620 },
@@ -181,6 +225,18 @@ export const ARCHETYPE_PROFILES: Record<ApplicationArchetype, ArchetypeProfile> 
         'Falta de disponibilidad para campañas de terreno',
         'No demostrar cercanía o arraigo operativo en la región'
       ]
+    },
+    stressTest: {
+      hiddenObjection:
+        '¿Podrá este perfil asumir campañas intensivas de campo y plazos de entrega de consultoría sin una curva de aprendizaje lenta?',
+      suggestedDisarm:
+        'Mi trayectoria integra campañas de prospección geofísica in-situ (sondajes Schlumberger VES en cuencas complejas) con capacidad inmediata de redacción pericial bajo normativas ambientales aplicables.'
+    },
+    tacticalClosing: {
+      proposedDiscussion:
+        'Revisar la integración de prospección geofísica y modelado hidrológico en las licitaciones y proyectos ambientales que la firma tiene en curso.',
+      snippetTemplate:
+        'Disponible para una reunión presencial en Bilbao o telemática para revisar cómo aportar capacidad técnica directa e inmediata a sus licitaciones actuales.'
     },
     wingmanGuidance: {
       formatStyle: 'Propuesta Técnico-Operativa de Soluciones (enfoque en proyectos reales, terreno y entregables)',

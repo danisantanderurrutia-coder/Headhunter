@@ -8,7 +8,8 @@ import {
   ShieldCheck,
   CheckCircle2,
   FileText,
-  Nut
+  Nut,
+  Sparkles
 } from 'lucide-react';
 import { MasterProfileTab } from '../profile/MasterProfileTab';
 import { CVStudioTab } from '../cvs/CVStudioTab';
@@ -27,6 +28,7 @@ interface AgentDossierTabProps {
   onReturnToHub?: () => void;
   onOpenSettings?: () => void;
   onNavigateToAcademy?: (gapId?: string) => void;
+  onNavigateToCrafting?: (docType?: 'cv' | 'cover_letter') => void;
 }
 
 export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({ 
@@ -37,7 +39,8 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
   onDocTypeChange,
   onReturnToHub: _onReturnToHub,
   onOpenSettings,
-  onNavigateToAcademy
+  onNavigateToAcademy,
+  onNavigateToCrafting
 }) => {
   const normalizedInitial = (
     initialSubTab === 'skills' ? 'showcase' : 
@@ -133,15 +136,12 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
             </button>
 
             <button
-              onClick={() => handleSubTabChange('studio')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
-                activeSubTab === 'studio'
-                  ? 'bg-sky-600 text-white shadow font-black'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-              }`}
+              onClick={() => onNavigateToCrafting ? onNavigateToCrafting() : handleSubTabChange('studio')}
+              className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30 shadow-xs"
+              title="Abrir estación CRAFTING (CV & Cover Letter Studio) en el menú superior"
             >
-              <FileText className="h-3.5 w-3.5" />
-              <span>CV & Cartas Studio</span>
+              <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+              <span>Ir a CRAFTING ↗</span>
             </button>
           </div>
 

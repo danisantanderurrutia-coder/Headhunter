@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   BadgeCheck,
+  Bot,
   Briefcase,
   CheckCircle2,
   ChevronDown,
@@ -19,6 +20,7 @@ import {
   RefreshCw,
   Repeat,
   Save,
+  Scale,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
@@ -485,7 +487,154 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   };
 
   return (
-    <div className="space-y-4 text-[var(--text-primary)]">
+    <div className="space-y-5 text-[var(--text-primary)]">
+      {/* ==============================================================
+       * CRAFTING HUB HERO BANNER (WINGMAN + HEADHUNTER SYSTEM ARCHITECTURE)
+       * ============================================================== */}
+      <div 
+        className="rounded-3xl border p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-md transition-colors"
+        style={{
+          backgroundColor: 'var(--panel-bg)',
+          borderColor: 'var(--panel-border)'
+        }}
+      >
+        {/* Glow ambient effects */}
+        <div className="absolute -top-16 -left-16 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-center relative z-10">
+          
+          {/* LADO IZQUIERDO (Identidad Dual: Wingman + Headhunter) - 5 cols en XL */}
+          <div className="xl:col-span-5 space-y-3.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30 flex items-center gap-1.5">
+                <Sparkles className="h-3 w-3 text-purple-400" />
+                CRAFTING STUDIO // DUAL-LENS COMPILER
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-500/15 text-sky-600 dark:text-sky-300 border border-sky-500/30">
+                v2.4 Ground Truth
+              </span>
+            </div>
+
+            <div className="space-y-1">
+              <h2 className="text-xl sm:text-2xl font-black tracking-tight font-mono text-[var(--text-primary)]">
+                WINGMAN <span className="text-purple-500">&</span> HEADHUNTER
+              </h2>
+              <p className="text-xs sm:text-[12.5px] text-[var(--text-secondary)] leading-relaxed">
+                Curaduría de precisión científica para documentos de postulación. Dos inteligencias complementarias trabajando en paralelo para derribar el filtro algorítmico y conquistar al evaluador técnico.
+              </p>
+            </div>
+
+            {/* Tarjetas Duales: Wingman + Headhunter */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5">
+              {/* Box Wingman */}
+              <div className="p-3 rounded-2xl border bg-[var(--card-bg)] border-purple-500/30 space-y-1 shadow-xs">
+                <div className="flex items-center space-x-2 text-purple-500 dark:text-purple-300 font-bold font-mono text-xs">
+                  <Bot className="h-4 w-4" />
+                  <span>🧠 WINGMAN (PI Match)</span>
+                </div>
+                <p className="text-[11px] text-[var(--text-muted)] leading-snug">
+                  Empatía con el líder técnico, formato del arquetipo, resolución de puntos de dolor y tono soberano <em>Zero-Servility</em>.
+                </p>
+              </div>
+
+              {/* Box Headhunter */}
+              <div className="p-3 rounded-2xl border bg-[var(--card-bg)] border-sky-500/30 space-y-1 shadow-xs">
+                <div className="flex items-center space-x-2 text-sky-500 dark:text-sky-300 font-bold font-mono text-xs">
+                  <Scale className="h-4 w-4" />
+                  <span>👔 HEADHUNTER (ATS)</span>
+                </div>
+                <p className="text-[11px] text-[var(--text-muted)] leading-snug">
+                  Reglas inquebrantables (§20 AufenthG, "con distinción"), palabras clave ATS y asimetría para destacar en el Top 5%.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* LADO DERECHO (Bosquejo de la Estructura de Revisión en 6 Fases) - 7 cols en XL */}
+          <div className="xl:col-span-7 bg-[var(--card-bg)]/80 p-4 sm:p-5 rounded-2xl border border-[var(--panel-border)] space-y-2.5 shadow-inner">
+            <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-2">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center gap-1.5">
+                <Target className="h-3.5 w-3.5 text-amber-500" />
+                Flujo Estructurado de Compilación & Auditoría (6 Fases)
+              </span>
+              <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                Calibración Dual Continua
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-[11px] font-mono">
+              {/* Fase 1 */}
+              <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-sky-400">01. Arquetipo</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">🏛️🚀🌐⚙️</span>
+                </div>
+                <p className="text-[10.5px] text-[var(--text-secondary)] font-sans leading-tight">
+                  Clasificación automática: DACH Academia, Startups CDR, Multilateral o Consultoría.
+                </p>
+              </div>
+
+              {/* Fase 2 */}
+              <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-purple-400">02. Psicología Lector</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">Expectativas</span>
+                </div>
+                <p className="text-[10.5px] text-[var(--text-secondary)] font-sans leading-tight">
+                  Alineación con el rol de quien lee y eliminación de sus líneas rojas (red flags).
+                </p>
+              </div>
+
+              {/* Fase 3 */}
+              <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-amber-400">03. Objeción Oculta</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">Stress-Test</span>
+                </div>
+                <p className="text-[10.5px] text-[var(--text-secondary)] font-sans leading-tight">
+                  Detección y desarme preventivo de dudas sobre transición, idioma o sobrecalificación.
+                </p>
+              </div>
+
+              {/* Fase 4 */}
+              <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-emerald-400">04. Asimetría Física</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">vs. Media</span>
+                </div>
+                <p className="text-[10.5px] text-[var(--text-secondary)] font-sans leading-tight">
+                  Posicionamiento continuo: Geofísica, Richards y mecánica (62.4 kPa) vs. agronomía básica.
+                </p>
+              </div>
+
+              {/* Fase 5 */}
+              <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-indigo-400">05. Cierre Táctico</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">Hook 15 min</span>
+                </div>
+                <p className="text-[10.5px] text-[var(--text-secondary)] font-sans leading-tight">
+                  Reemplazo de despedidas pasivas por un gancho irresistible a debate técnico.
+                </p>
+              </div>
+
+              {/* Fase 6 */}
+              <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-rose-400">06. Ground Truth</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">100% Inmune</span>
+                </div>
+                <p className="text-[10.5px] text-[var(--text-secondary)] font-sans leading-tight">
+                  Blindaje legal: §20 AufenthG, "con distinción", Anabin H+ y métricas verificables.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       {/* ------------------------------------------------ Barra Superior Studio */}
       <div className={panel} style={panelStyle}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
@@ -558,18 +707,18 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
             <button
               onClick={downloadHtml}
-              className="px-3 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-xs font-bold flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] transition"
+              className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-[var(--card-bg)] text-xs font-bold flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] transition shrink-0"
               title={`Descargar archivo HTML autónomo (${fileBase}.html)`}
             >
-              <FileDown className="h-4 w-4 text-emerald-500" />
-              <span>Descargar HTML</span>
+              <FileDown className="h-4 w-4 text-emerald-500 shrink-0" />
+              <span><span className="hidden sm:inline">Descargar </span>HTML</span>
             </button>
             <button
               onClick={print}
-              className="px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow"
+              className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow shrink-0"
               title={`Imprimir → Guardar como PDF (${fileBase}.pdf)`}
             >
-              <Printer className="h-4 w-4" />
+              <Printer className="h-4 w-4 shrink-0" />
               <span>Imprimir / PDF</span>
             </button>
           </div>
