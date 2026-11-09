@@ -3,7 +3,6 @@ import {
   UserCheck, 
   FileCheck2, 
   GraduationCap, 
-  Award,
   Eye,
   Printer,
   ShieldCheck,
@@ -339,11 +338,8 @@ export const AgentDossierTab: React.FC<AgentDossierTabProps> = ({
                 </span>
               </div>
 
-              {/* Center Emblem & Nameplate */}
-              <div className="relative z-20 text-center px-4 my-auto">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-black/70 border-2 border-amber-400 shadow-2xl mb-2">
-                  <Award className="h-8 w-8 text-amber-400" />
-                </div>
+              {/* Center Nameplate */}
+              <div className="relative z-20 text-center px-4 mt-auto mb-2">
                 <h3 className="text-xl font-black text-white uppercase tracking-wider font-sans drop-shadow-lg">
                   {profile.fullName || 'Daniel Santander Urrutia'}
                 </h3>
