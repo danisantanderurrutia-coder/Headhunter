@@ -503,12 +503,12 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
         <div className="absolute -top-16 -left-16 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Nano Banana Panoramic Illustration (15% more compact vertical profile: ~2.1:1 / aspect-[21/10], focused from top) */}
-        <div className="relative w-full aspect-[21/10] max-h-[490px] sm:max-h-[525px] overflow-hidden border-b border-[var(--panel-border)] bg-[#1a2330] flex items-start justify-center">
+        {/* Nano Banana Panoramic Illustration (Extended vertical presence: 15% taller with optical focus at 12% from top) */}
+        <div className="relative w-full aspect-[16/9] max-h-[680px] sm:max-h-[720px] overflow-hidden border-b border-[var(--panel-border)] bg-[#1a2330] flex items-center justify-center">
           <img 
             src={craftingHeroImg || '/crafting_nanobanana_hero.jpg'} 
             alt="Wingman & Headhunter Crafting Review Architecture" 
-            className="w-full h-full object-cover object-top select-none"
+            className="w-full h-full object-contain sm:object-cover object-[center_12%] select-none"
             loading="eager"
           />
           {/* Subtle top ambient badge */}
