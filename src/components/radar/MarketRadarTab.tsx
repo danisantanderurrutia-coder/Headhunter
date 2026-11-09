@@ -82,8 +82,8 @@ export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({
               </span>
             </div>
             <p className="text-xs text-[var(--text-muted)] font-mono">
-              {activeSubTab === 'organizations' && 'Directorio de 63 centros de I+D, institutos públicos e ingenierías (Euskadi • DACH • Europa)'}
-              {activeSubTab === 'portals' && '15 radares oficiales de rastreo matutino directo y sin ofertas fantasma'}
+              {activeSubTab === 'organizations' && `Directorio de ${companies.length} centros de I+D, institutos públicos e ingenierías (Euskadi • DACH • Europa)`}
+              {activeSubTab === 'portals' && `${portalsCount} radares oficiales de rastreo matutino directo y sin ofertas fantasma`}
               {activeSubTab === 'benchmark' && 'Matriz algorítmica de probabilidad y viabilidad regulatoria (3 a 6 meses)'}
             </p>
           </div>

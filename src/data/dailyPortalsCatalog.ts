@@ -241,5 +241,17 @@ export const DAILY_PORTALS: DailyPortal[] = [
     suggestedKeywords: ['Copernicus', 'Sentinel', 'Google Earth Engine', 'SAR', 'Thermal Infrared', 'Cat Modeling'],
     description: 'Portal de empleo técnico en teledetección satelital, Earth Observation (Copernicus/ESA/NASA) y geoinformática.',
     iconName: 'Compass'
+  },
+  {
+    id: 'portal-energyweather-ai',
+    name: 'Energy Weather & AI Lab (TU Delft / BFH)',
+    quadrant: 'EUROPA',
+    quadrantLabel: 'Europa & DACH / TU Delft - BFH',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.energyweather.ai/vacancies',
+    recommendedFrequency: 'Semanal',
+    suggestedKeywords: ['Physics-informed AI', 'Weather Forecasting', 'Remote Sensing', 'Earth Observation', 'Machine Learning', 'Energy Systems'],
+    description: 'Vacantes predoctorales (PhD) y postdoctorales en el grupo de la Prof. Dr. Angela Meyer (TU Delft / Bern UAS). Fusión de IA y física atmosférica para dinámicas climáticas y energía renovable.',
+    iconName: 'GraduationCap'
   }
 ];

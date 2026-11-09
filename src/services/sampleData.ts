@@ -868,6 +868,20 @@ export const initialSources: JobSource[] = [
     region: 'Europa / Global',
     notes: 'Agencia de innovación climática de la Unión Europea (EIT). Vacantes en transformación sistémica, NbS, carbono y políticas climáticas.',
     countryFocus: 'Paneuropeo (Ámsterdam, Berlín, Bruselas, España)'
+  },
+  {
+    id: 'src-energyweather-ai',
+    name: 'Energy Weather & AI Lab (TU Delft / BFH)',
+    type: 'research_center',
+    url: 'https://www.energyweather.ai/vacancies',
+    priority: 'Alta',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    notes: 'Laboratorio de investigación conjunto entre TU Delft (Dept. of Geoscience and Remote Sensing) y la Universidad de Ciencias Aplicadas de Berna (BFH), liderado por la Prof. Dr. Angela Meyer. Especializado en IA informada por la física (PINNs), aprendizaje automático para dinámicas climáticas y meteorología extrema, teledetección (Earth Observation) e integración de energías renovables (solar y eólica).',
+    countryFocus: 'Países Bajos & Suiza (TU Delft / BFH) / Híbrido'
   }
 ];
 
@@ -1997,6 +2011,53 @@ export const initialCompanies: CompanyDossier[] = [
     lastResearched: '2026-10-28',
     quadrants: ['UK_NL', 'GLOBAL'],
     sectorCluster: 'RD_PUBLIC'
+  },
+  {
+    id: 'comp-energyweather-ai',
+    name: 'Energy Weather & AI Lab (TU Delft & BFH)',
+    website: 'https://www.energyweather.ai/',
+    sector: 'I+D en IA Informada por la Física, Clima, Meteorología y Energías Renovables',
+    size: '15-30 investigadores y doctorandos',
+    headquarters: 'Delft (Países Bajos) & Berna (Suiza)',
+    description: 'Grupo de investigación interinstitucional liderado por la Prof. Dr. Angela Meyer, ubicado entre el Departamento de Geociencias y Teledetección (Geoscience and Remote Sensing) de TU Delft y la Universidad de Ciencias Aplicadas de Berna (BFH). Desarrolla modelos de machine learning híbridos y físicos para la interacción entre dinámicas climáticas, eventos meteorológicos extremos y sistemas de energía renovable.',
+    keyProjects: [
+      'Emuladores de Machine Learning e IA generativa / modelos fundacionales para dinámica atmosférica y clima',
+      'Predicción y teledetección (Earth Observation) de eventos meteorológicos extremos y su impacto en infraestructuras energéticas',
+      'Modelado de predicción de generación renovable eólica y solar asistido por física y redes neuronales',
+      'Desarrollo de gemelos digitales para la transición energética y resiliencia de redes eléctricas'
+    ],
+    recentNews: [
+      {
+        title: 'Convocatorias abiertas de doctorado (PhD) y postdoctorado en IA para clima y teledetección',
+        date: '2026-10-25',
+        snippet: 'Proyectos de investigación de 4 años en TU Delft y BFH sobre emuladores climáticos con física informada y visión por computadora aplicada a observación de la Tierra.',
+        url: 'https://www.energyweather.ai/vacancies'
+      }
+    ],
+    workCulture: [
+      'Investigación de frontera en la intersección de física teórica, geociencias e inteligencia artificial',
+      'Ambiente internacional multidisciplinar con modelo de trabajo híbrido (Países Bajos / Suiza)',
+      'Contratos de investigación competitivos bajo convenio CAO-NU (Países Bajos) y sistema suizo BFH'
+    ],
+    redFlags: ['Procesos de selección altamente competitivos con fuerte exigencia en matemáticas aplicadas, Python y física de sistemas'],
+    interviewArguments: [
+      'Licenciatura en Geofísica con sólida base matemática y física de medios continuos y dinámica de fluidos.',
+      'Doble Máster en Ciencias Ambientales con experiencia cuantitativa en modelación, Python, teledetección y R.',
+      'Experiencia directa en desarrollo de gemelos digitales (Wetland Monitor, AgriTwin) y procesamiento de datos biofísicos y micrometeorológicos.'
+    ],
+    techStack: ['Python', 'PyTorch', 'Physics-Informed Neural Networks (PINNs)', 'Remote Sensing', 'Earth Observation', 'Climate Emulators', 'QGIS / GEE'],
+    lastResearched: '2026-11-09',
+    quadrants: ['DACH', 'UK_NL', 'GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'contact-angela-meyer',
+        name: 'Prof. Dr. Angela Meyer',
+        role: 'Investigadora Principal (PI) / Directora del Lab',
+        linkedinUrl: 'https://www.linkedin.com/in/angela-meyer-ai/',
+        notes: 'Catedrática y líder del Energy Weather & AI Lab en TU Delft y BFH.'
+      }
+    ]
   },
   {
     id: 'comp-icos',
