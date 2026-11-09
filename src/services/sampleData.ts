@@ -106,10 +106,10 @@ export const initialProfile: MasterProfile = {
       startDate: '2023',
       endDate: 'Presente',
       isCurrent: true,
-      summary: 'Cuantificación empírica de flujos de gases de efecto invernadero (CO2, CH4) en la turbera templada rehumedecida Wallener Au (Schleswig-Holstein) mediante torres micrometeorológicas de covarianza de torbellinos (Eddy Covariance) y cámaras de flujo cerrado. Caracterización hidrofísica y mecánica de suelos (curvas de retención hídrica y tensión de preconsolidación edáfica σp = 62,4 kPa) bajo legado de drenaje y maquinaria agrícola. Monitoreo limnológico de calidad de agua y bioindicadores en lagos y estanques de Poznań bajo la Directiva Marco del Agua de la UE. Desarrollo del gemelo digital y visor 3D "Wetland Monitor".',
+      summary: 'Cuantificación empírica de flujos de gases de efecto invernadero (CO2, CH4) en la turbera templada rehumedecida Wallener Au (Schleswig-Holstein) mediante torres micrometeorológicas de covarianza de torbellinos (Eddy Covariance) y cámaras de flujo cerrado. Caracterización hidrofísica y de suelos (curvas de retención hídrica, porosidad y dinámica de humedad edáfica) bajo legado de drenaje y manejo agrícola. Monitoreo limnológico de calidad de agua y bioindicadores en lagos y estanques de Poznań bajo la Directiva Marco del Agua de la UE. Desarrollo del gemelo digital y visor 3D "Wetland Monitor".',
       achievements: [
         'Cuantificación continua de balances de carbono y detección de picos de emisión de CH4 en turberas rehumedecidas bajo forzantes micrometeorológicos.',
-        'Determinación de tensión de preconsolidación del suelo (σp = 62,4 kPa) para evaluar el impacto de la maquinaria agrícola sobre la estructura edáfica.',
+        'Caracterización de curvas de retención hídrica y estructura edáfica para evaluar la dinámica hidrológica del suelo bajo rehumedecimiento.',
         'Desarrollo y publicación del gemelo digital 3D "Wetland Monitor" con simulador diurno/estacional de balances de carbono.',
         'Evaluación limnológica y de bioindicadores in situ y en laboratorio en lagos y estanques de Polonia (AMU Poznań) según la Directiva Marco del Agua.'
       ],
@@ -244,7 +244,7 @@ export const initialProfile: MasterProfile = {
     { id: 'sk-5', name: 'Delft3D / Modelación Hidrodinámica 2D Costera', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
     { id: 'sk-6', name: 'Torres Eddy Covariance & Flujos GEI (LI-COR)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
     { id: 'sk-7', name: 'Tomografía Eléctrica ERT & Sondeos SEV (Syscal Pro)', category: 'Domain', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-8', name: 'Física y Mecánica de Suelos (σp = 62.4 kPa)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-8', name: 'Física y Mecánica de Suelos (Curvas de Retención & Hidrofísica)', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
     { id: 'sk-9', name: 'Limnología, Bioindicadores & Directiva Marco del Agua', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
     { id: 'sk-10', name: 'TypeScript, React & Gemelos Digitales 3D', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
     { id: 'sk-11', name: 'FastAPI, Docker & PostgreSQL / PostGIS', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
@@ -297,10 +297,10 @@ export const initialProfile: MasterProfile = {
     },
     {
       id: 'ach-5',
-      title: 'Determinación Experimental de Tensión de Preconsolidación Edáfica (σp = 62,4 kPa)',
-      description: 'Medición cuantitativa pionera de la pérdida de volumen de poros y capacidad portante en turberas templadas de Wallener Au bajo maquinaria agrícola pesada en laboratorio de CAU Kiel.',
-      metrics: 'σp = 62.4 kPa (Límite Mecánico)',
-      tags: ['Física de Suelos', 'Turberas', 'Wallener Au', 'CAU Kiel'],
+      title: 'Caracterización Hidrofísica y Dinámica de Poros en Turberas Templadas',
+      description: 'Análisis cuantitativo de curvas de retención hídrica, volumen de poros y dinámica de humedad edáfica en turberas templadas de Wallener Au en laboratorio de la CAU Kiel.',
+      metrics: 'Curvas de retención & balance hídrico',
+      tags: ['Física de Suelos', 'Turberas', 'Wallener Au', 'CAU Kiel', 'Hidrología'],
       date: '2024-05-01',
       isVerified: true
     },
@@ -499,7 +499,7 @@ export const initialProfile: MasterProfile = {
       role: 'Full-Stack Developer & Modeler',
       period: '2023 – 2026',
       category: 'Gemelo Digital & Software Científico',
-      description: 'Aplicación web interactiva que simula la transición entre sumidero y fuente de carbono en turberas templadas rehumedecidas con forzantes micrometeorológicos (Eddy Covariance) y compactación edáfica (σp = 62,4 kPa).',
+      description: 'Aplicación web interactiva que simula la transición entre sumidero y fuente de carbono en turberas templadas rehumedecidas con forzantes micrometeorológicos (Eddy Covariance) y dinámica hidrofísica edáfica.',
       deliverables: [
         'Simulador diurno y estacional de emisiones de CO2 y picos de CH4',
         'Visualizador interactivo del ecosistema de turbera y curvas de retención hídrica',
@@ -2303,7 +2303,7 @@ export const initialCompanies: CompanyDossier[] = [
           "Sensibilidad a los cambios de la Política Agrícola Común (PAC) de la Unión Europea"
     ],
     interviewArguments: [
-          "Especialista en física de suelos, resistencia mecánica (tensión de preconsolidación) y dinámica de materia orgánica.",
+          "Especialista en física de suelos, propiedades hidrofísicas y dinámica de materia orgánica.",
           "Conocimiento del marco regulatorio de suelos de la Unión Europea y directivas de descarbonización.",
           "Perfil transdisciplinario capaz de conectar datos edáficos cuantitativos con interfaces para decisores."
     ],
@@ -2759,7 +2759,7 @@ export const initialCompanies: CompanyDossier[] = [
           "Contratos postdoctorales mayoritariamente sujetos a proyectos con plazos temporales delimitados"
     ],
     interviewArguments: [
-          "Geofísico con sólida formación en física de suelos, tensión de preconsolidación e hidrogeología.",
+          "Geofísico con sólida formación en física de suelos, relaciones hídricas e hidrogeología.",
           "Experiencia académica previa en el sistema universitario alemán (CAU Kiel) con dominio de R y Python.",
           "Alineación exacta con sus líneas de monitoreo de sequías y física de horizontes de suelo."
     ],

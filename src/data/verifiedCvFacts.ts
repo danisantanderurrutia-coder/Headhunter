@@ -90,8 +90,8 @@ export const TACTICAL_SUMMARIES: Record<TacticalAngle, { es: string; en: string 
     en: "Geophysicist (Universidad de Chile, with distinction) and dual M.Sc. in Environmental Management (CAU Kiel, Germany) and Environmental Protection (AMU Poznań, Poland). Combines quantitative fieldwork in hydrogeophysics and peatland greenhouse-gas fluxes with data analysis, scientific application development, testimony before Chile's National Congress, and large-scale public communication."
   },
   biofisica: {
-    es: 'Geofísico (U. de Chile) y doble M.Sc. europeo (CAU Kiel / AMU Poznań) especializado en balance de GEI (CO₂, CH₄) mediante Eddy Covariance y cámaras cerradas en turberas templadas. Experiencia directa en instrumentación micrometeorológica, cálculo de tensión de preconsolidación edáfica (σp = 62,4 kPa) y análisis de series temporales continuas en R y Python para centros de investigación y redes de monitoreo de flujos.',
-    en: 'Geophysicist (U. de Chile) and dual European M.Sc. (CAU Kiel / AMU Poznań) specializing in GHG balances (CO₂, CH₄) using Eddy Covariance and closed chambers in temperate peatlands. Hands-on experience with micrometeorological instrumentation, soil precompression stress analysis (σp = 62.4 kPa), and continuous flux time series in R/Python for research centers and flux networks.'
+    es: 'Geofísico (U. de Chile) y doble M.Sc. europeo (CAU Kiel / AMU Poznań) especializado en balance de GEI (CO₂, CH₄) mediante Eddy Covariance y cámaras cerradas en turberas templadas. Experiencia directa en instrumentación micrometeorológica, caracterización hidrofísica edáfica y análisis de series temporales continuas en R y Python para centros de investigación y redes de monitoreo de flujos.',
+    en: 'Geophysicist (U. de Chile) and dual European M.Sc. (CAU Kiel / AMU Poznań) specializing in GHG balances (CO₂, CH₄) using Eddy Covariance and closed chambers in temperate peatlands. Hands-on experience with micrometeorological instrumentation, soil hydro-physical characterization, and continuous flux time series in R/Python for research centers and flux networks.'
   },
   mrv_carbon: {
     es: 'Geofísico cuantitativo (U. de Chile, CAU Kiel) especializado en teledetección satelital (Google Earth Engine, Sentinel-2, Landsat), validación empírica en terreno y calificación de integridad en proyectos de carbono edáfico y humedales. Combina modelación de flujos de carbono, programación geoespacial en Python/R y rigor metodológico para plataformas de calificación MRV y rating de créditos climáticos.',
@@ -126,10 +126,10 @@ export const VERIFIED_FACTS: CvFact[] = [
       title: 'M.Sc. en Manejo Ambiental',
       org: 'Christian-Albrechts-Universität zu Kiel (CAU Kiel)',
       place: 'Kiel, Alemania',
-      short: 'Rehumedecimiento de turberas (Wallener Au), flujos de GEI (CO₂, CH₄), Eddy Covariance, paludicultura y tensión de preconsolidación del suelo (σp = 62,4 kPa).',
+      short: 'Rehumedecimiento de turberas (Wallener Au), flujos de GEI (CO₂, CH₄), Eddy Covariance, paludicultura y caracterización hidrofísica de suelos.',
       long: [
         'Facultad de Ciencias Agrícolas y Nutricionales. Tesis sobre la turbera rehumedecida Wallener Au (Schleswig-Holstein).',
-        'Flujos de GEI (CO₂, CH₄) con Eddy Covariance y cámaras cerradas; paludicultura; tensión de preconsolidación del suelo (σp = 62,4 kPa).',
+        'Flujos de GEI (CO₂, CH₄) con Eddy Covariance y cámaras cerradas; paludicultura y propiedades físicas del suelo.',
         'Desarrollo de Wetland Monitor, aplicación web 3D para presentar los resultados.'
       ]
     },
@@ -137,10 +137,10 @@ export const VERIFIED_FACTS: CvFact[] = [
       title: 'M.Sc. in Environmental Management',
       org: 'Christian-Albrechts-Universität zu Kiel (CAU Kiel)',
       place: 'Kiel, Germany',
-      short: 'Peatland rewetting (Wallener Au), GHG fluxes (CO₂, CH₄), Eddy Covariance, paludiculture and soil precompression stress (σp = 62.4 kPa).',
+      short: 'Peatland rewetting (Wallener Au), GHG fluxes (CO₂, CH₄), Eddy Covariance, paludiculture, and soil hydro-physical properties.',
       long: [
         'Faculty of Agricultural & Nutritional Sciences. Thesis on the rewetted Wallener Au peatland (Schleswig-Holstein).',
-        'GHG fluxes (CO₂, CH₄) with Eddy Covariance and closed chambers; paludiculture; soil precompression stress (σp = 62.4 kPa).',
+        'GHG fluxes (CO₂, CH₄) with Eddy Covariance and closed chambers; paludiculture; soil hydro-physical properties.',
         'Developed Wetland Monitor, a 3D web application presenting the results.'
       ]
     }

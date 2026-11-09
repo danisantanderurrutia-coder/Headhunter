@@ -75,7 +75,7 @@ describe('geminiService', () => {
       strategicAngle: 'Asimetría cuantitativa por formación en geofísica combinada con edafología.',
       recommendedEvidences: ['edu-kiel'],
       interviewPrep: [
-        { question: '¿Cómo evalúa la resistencia del suelo?', suggestedAnswer: 'Mediante curvas de preconsolidación...' }
+        { question: '¿Cómo evalúa la resistencia del suelo?', suggestedAnswer: 'Mediante curvas de retención hídrica y dinámica de poros...' }
       ]
     };
 

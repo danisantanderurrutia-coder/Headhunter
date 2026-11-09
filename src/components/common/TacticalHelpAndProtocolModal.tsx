@@ -142,7 +142,7 @@ export const TacticalHelpAndProtocolModal: React.FC<TacticalHelpAndProtocolModal
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-400 font-bold">3.</span>
-                    <span><strong>Filtro Editorial Anti-IA en Cover Letter Studio:</strong> Las cartas de postulación prohíben clichés genéricos de IA ("thrilled", "delve into", "testament to", "foster", "beacon of", "aligns seamlessly"). Exigen primera persona analítica y traducen la degradación ambiental a balances de masa y metodologías duras (resistividad eléctrica SEV, flujos de GEI por Eddy Covariance, tensión de preconsolidación σp = 62,4 kPa y modelación en R).</span>
+                    <span><strong>Filtro Editorial Anti-IA en Cover Letter Studio:</strong> Las cartas de postulación prohíben clichés genéricos de IA ("thrilled", "delve into", "testament to", "foster", "beacon of", "aligns seamlessly"). Exigen primera persona analítica y traducen la degradación ambiental a balances de masa y metodologías duras (resistividad eléctrica SEV, flujos de GEI por Eddy Covariance, curvas de retención hídrica y modelación en R).</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-400 font-bold">4.</span>

@@ -347,7 +347,7 @@ export const SkillTreeTab: React.FC<SkillTreeTabProps> = ({ onNavigateToAcademy 
       spineOrigin: { x: 505, y: 215 },
       archetypes: ['rd-scientist', 'policy-advisor'],
       synergies: ['n7-wetland', 'n6-consorcios'],
-      description: 'Tesis de M.Sc. en CAU Kiel: sumideros de carbono, transición sumidero-fuente de CH4, paludicultura y tensión de preconsolidación edáfica (62,4 kPa).',
+      description: 'Tesis de M.Sc. en CAU Kiel: sumideros de carbono, transición sumidero-fuente de CH4, paludicultura y caracterización hidrofísica edáfica.',
       evidenceTitle: 'Lámina 001: Dinámica de GEI en Turberas (Polonia/Alemania)',
       evidenceAnchor: '#investigacion-cuantitativa'
     },
@@ -389,7 +389,7 @@ export const SkillTreeTab: React.FC<SkillTreeTabProps> = ({ onNavigateToAcademy 
     },
     {
       id: 'n2-soil-lab',
-      name: 'Física de Suelos & Preconsolidación Edáfica',
+      name: 'Física de Suelos & Dinámica Hidrofísica',
       shortName: 'Física de Suelos',
       level: 4,
       maxLevel: 5,
@@ -401,7 +401,7 @@ export const SkillTreeTab: React.FC<SkillTreeTabProps> = ({ onNavigateToAcademy 
       spineOrigin: { x: 635, y: 170 },
       archetypes: ['rd-scientist', 'ai-product'],
       synergies: ['n7-agritwin'],
-      description: 'Ensayos edáficos de compresión, cálculo de tensión de preconsolidación (σp = 62,4 kPa) y análisis de compactación en turberas (CAU Kiel).',
+      description: 'Curvas de retención hídrica, porosidad edáfica y análisis de dinámica hídrica en turberas (CAU Kiel).',
       evidenceTitle: 'Lámina 002: Laboratorio de Suelos CAU Kiel',
       evidenceAnchor: '#capacidades-computacionales'
     },
@@ -443,7 +443,7 @@ export const SkillTreeTab: React.FC<SkillTreeTabProps> = ({ onNavigateToAcademy 
       evidenceAnchor: '#investigacion-cuantitativa',
       gapRoadmap: [
         'Completar el módulo oficial de la Comisión Europea sobre Soil Health',
-        'Alinear los datos de tensión de preconsolidación de Wallener Au con los descriptores de la Directiva',
+        'Alinear los datos hidrofísicos y de salud del suelo de Wallener Au con los descriptores de la Directiva',
         'Publicar documento de síntesis sobre monitoreo edáfico estandarizado'
       ]
     },

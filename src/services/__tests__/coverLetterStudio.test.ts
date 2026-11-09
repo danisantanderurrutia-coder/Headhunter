@@ -81,7 +81,7 @@ describe('coverLetterStudio · buildCoverLetter & Render', () => {
     const prompt = generateAntiAiPrompt({
       title: 'Postdoc in Soil Hydrology',
       company: 'CAU Kiel',
-      rawDescription: 'Soil precompression and water dynamics'
+      rawDescription: 'Soil hydro-physics and water dynamics'
     });
 
     expect(prompt).toContain('Reglas críticas de redacción (Anti-AI Clichés)');

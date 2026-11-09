@@ -136,7 +136,26 @@ export const getStoredProfile = (): MasterProfile => {
 
     const cleanedSummary = (parsed.summary || initialProfile.summary)
       .replace(/candidato a doble m[aá]ster/gi, 'doble Máster')
-      .replace(/candidato a m[aá]ster/gi, 'Máster');
+      .replace(/candidato a m[aá]ster/gi, 'Máster')
+      .replace(/tensi[oó]n de preconsolidaci[oó]n(?: ed[aá]fica)?\s*(?:\(σp\s*=\s*62[.,]4\s*kPa\))?/gi, 'propiedades hidrofísicas edáficas')
+      .replace(/σp\s*=\s*62[.,]4\s*kPa/gi, 'propiedades hidrofísicas');
+
+    const rawAchievements = (parsed.achievementsBank && parsed.achievementsBank.length >= 8) ? parsed.achievementsBank : initialProfile.achievementsBank;
+    const sanitizedAchievements = rawAchievements.map((ach: any) => {
+      if (ach.id === 'ach-5' && (ach.title?.includes('Preconsolidación') || ach.title?.includes('62'))) {
+        const canonical = initialProfile.achievementsBank.find(a => a.id === 'ach-5');
+        return canonical || ach;
+      }
+      return ach;
+    });
+
+    const rawSkills = (parsed.skills && parsed.skills.length > 0) ? parsed.skills : initialProfile.skills;
+    const sanitizedSkills = rawSkills.map((sk: any) => {
+      if (sk.name?.includes('62.4') || sk.name?.includes('Preconsolidación')) {
+        return { ...sk, name: 'Física y Mecánica de Suelos (Curvas de Retención & Hidrofísica)' };
+      }
+      return sk;
+    });
 
     const consolidated: MasterProfile = {
       ...initialProfile,
@@ -147,8 +166,8 @@ export const getStoredProfile = (): MasterProfile => {
       keyProjects: validKeyProjects.length >= 4 ? validKeyProjects : initialProfile.keyProjects,
       publications: (parsed.publications && parsed.publications.length >= 8) ? parsed.publications : initialProfile.publications,
       conferences: (parsed.conferences && parsed.conferences.length >= 4) ? parsed.conferences : initialProfile.conferences,
-      achievementsBank: (parsed.achievementsBank && parsed.achievementsBank.length >= 8) ? parsed.achievementsBank : initialProfile.achievementsBank,
-      skills: (parsed.skills && parsed.skills.length > 0) ? parsed.skills : initialProfile.skills,
+      achievementsBank: sanitizedAchievements,
+      skills: sanitizedSkills,
       languages: initialProfile.languages,
       otherCourses: finalCourses,
       fieldEquipment: (parsed.fieldEquipment && parsed.fieldEquipment.length > 0) ? parsed.fieldEquipment : initialProfile.fieldEquipment,

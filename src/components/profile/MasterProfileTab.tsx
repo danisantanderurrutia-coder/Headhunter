@@ -954,7 +954,7 @@ export const MasterProfileTab: React.FC = () => {
                 {
                   badge: '🇩🇪 ALEMANIA / UE • CIENCIA & TURBERAS',
                   title: 'Hidrogeofísica, Turberas & Gases GEI',
-                  focus: 'Wallener Au, Eddy Covariance, cámaras cerradas, compactación edáfica (σp = 62.4 kPa) y visor 3D Wetland Monitor.',
+                  focus: 'Wallener Au, Eddy Covariance, cámaras cerradas, hidrofísica edáfica y visor 3D Wetland Monitor.',
                   url: 'https://danisantanderurrutia-coder.github.io/portafolio/science?mission=kiel-cau'
                 },
                 {

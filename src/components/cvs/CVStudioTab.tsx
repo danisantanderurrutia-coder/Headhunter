@@ -835,7 +835,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                       {
                         id: 'biofisica' as TacticalAngle,
                         name: 'Biofísica & Eddy Covariance',
-                        desc: 'Flujos GEI (CO₂, CH₄), turberas, cámaras cerradas y σp edáfico.',
+                        desc: 'Flujos GEI (CO₂, CH₄), turberas, cámaras cerradas e hidrofísica de suelos.',
                         badge: 'I+D & Suelos'
                       },
                       {

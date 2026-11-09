@@ -142,12 +142,12 @@ export const CANONICAL_PORTFOLIO_WEAPONS: PortfolioWeapon[] = [
   },
   {
     id: 'w-wallener-au-stress',
-    name: 'Mecánica de Suelos & Preconsolidación (Wallener Au, σp = 62.4 kPa)',
+    name: 'Física y Retención Hídrica de Suelos (Wallener Au)',
     category: 'soil_physics',
-    matchedKeywords: ['62.4', '62,4', 'preconsolidación', 'precompression', 'vorbelastung', 'tensión de preconsolidación', 'mecánica de suelos', 'soil mechanics'],
-    relevanceTriggers: ['soil', 'suelo', 'boden', 'mechanics', 'mechanik', 'physics', 'physik', 'subsoil', 'unterboden', 'compaction', 'struktur'],
-    whyInclude: 'Es la prueba reina de física de suelos cuantitativa y mecánica continua (σp = 62.4 kPa), alejándote de la agronomía meramente descriptiva.',
-    suggestedInjection: 'Quantified soil precompression stress (σp = 62.4 kPa) and coupled geomechanical stability with eddy covariance gas fluxes (Wallener Au).'
+    matchedKeywords: ['física de suelos', 'soil physics', 'bodenphysik', 'retención hídrica', 'water retention', 'curvas de retención', 'porosidad', 'porosity', 'suelos'],
+    relevanceTriggers: ['soil', 'suelo', 'boden', 'physics', 'physik', 'subsoil', 'unterboden', 'moisture', 'feuchte', 'struktur'],
+    whyInclude: 'Acredita tu capacidad analítica cuantitativa en propiedades físicas del suelo y relaciones hídricas edáficas.',
+    suggestedInjection: 'Quantified soil hydro-physical properties and water retention dynamics coupled with eddy covariance gas fluxes (Wallener Au).'
   },
   {
     id: 'w-maule-ves',
@@ -229,7 +229,7 @@ const PHYSICAL_ASYMMETRY_KEYWORDS = [
   'balance de masa', 'mass balance', 'massenbilanz',
   'inversión', 'inversion',
   'resistividad', 'resistivity', 'widerstand',
-  'preconsolidación', 'precompression', 'vorbelastung',
+  'retención hídrica', 'water retention', 'retentionskurve',
   'transporte', 'transport',
   'hidrogeofísica', 'hydrogeophysics',
   'eddy covariance',
@@ -381,7 +381,7 @@ export const auditHeadhunterLens = (
       ? `Excelente densidad cuantitativa: ${quantifiedMetricsCount} métricas/escalas encontradas.` 
       : `Baja densidad cuantitativa (${quantifiedMetricsCount} métrica(s)). Los reclutadores buscan datos duros verificables.`,
     fixRecommendation: quantifiedMetricsCount < 2 
-      ? 'Incorpora números concretos: tensión de preconsolidación (σp = 62,4 kPa), alcance de divulgación (700.000 ciudadanos), o número de aplicaciones de software entregadas (3 apps).' 
+      ? 'Incorpora métricas concretas: alcance de divulgación (700.000 ciudadanos), número de aplicaciones científicas entregadas (3 apps) o resolución temporal de sensores de flujo.' 
       : undefined
   });
 
@@ -859,7 +859,7 @@ Por favor, responde de manera directa, rigurosa y analítica estructurada en:
 
 3. PROPUESTAS DE MEJORA Y REDACCIÓN CONCRETA (ANTES vs. DESPUÉS):
    - Proporciona redacciones concretas y fragmentos pulidos listos para copiar y pegar que resuelvan las falencias de los criterios evaluados.
-   - REGLA CRÍTICA: Basa tus mejoras ESTRICTAMENTE en los datos reales del candidato (Daniel Santander: Geofísico de la Universidad de Chile con distinción, CAU Kiel / AMU Poznań, balances de masa, SEV Schlumberger, Eddy Covariance en Wallener Au, σp = 62,4 kPa, aplicaciones AgriTwin, Wetland Monitor, Rewilding Field Suite). No inventes títulos, empresas ni tecnologías inexistentes.
+   - REGLA CRÍTICA: Basa tus mejoras ESTRICTAMENTE en los datos reales del candidato (Daniel Santander: Geofísico de la Universidad de Chile con distinción, CAU Kiel / AMU Poznań, balances de masa, SEV Schlumberger, Eddy Covariance en Wallener Au, física de suelos, aplicaciones AgriTwin, Wetland Monitor, Rewilding Field Suite). No inventes títulos, empresas ni tecnologías inexistentes.
    - PROHIBIDO usar fórmulas clichés de IA ("thrilled to apply", "beacon of", "delve into", "testament to", "foster", "in conclusion", "passionate about").
 `;
 };

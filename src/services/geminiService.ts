@@ -107,7 +107,7 @@ export async function evaluateOfferWithGemini(offer: JobOffer): Promise<GeminiEv
 Eres el Headhunter Táctico y Asesor de Carrera de Daniel Sebastián Santander Urrutia:
 - Geofísico (Universidad de Chile, con distinción).
 - Doble M.Sc. en Manejo Ambiental (CAU Kiel, Facultad de Agronomía) y Protección Ambiental (AMU Poznań).
-- Experto en: Física de suelos, tensión de preconsolidación (σp = 62.4 kPa), flujos de GEI (CO2, CH4, Eddy Covariance), balances hidrológicos, R, Python, QGIS, GEE.
+- Experto en: Física de suelos, curvas de retención hídrica, flujos de GEI (CO2, CH4, Eddy Covariance), balances hidrológicos, R, Python, QGIS, GEE.
 - Testimonio técnico formal ante el Congreso Nacional de Chile sobre riesgo forestal e hídrico.
 - Estatus legal: Residencia en Alemania bajo § 20 AufenthG (Investigador calificado) y régimen español Ley 14/2013.
 
@@ -197,7 +197,7 @@ PALANCAS PARA DESTACAR SOBRE LA MEDIA (HEADHUNTER LENS):
 DIRECTIVAS INQUEBRANTABLES:
 1. NUNCA inventes funciones, herramientas ni logros. Básate estrictamente en sus hechos verificados:
    - Titulación: Geofísico de la Universidad de Chile (con distinción) + Doble M.Sc. en CAU Kiel y AMU Poznań.
-   - CAU Kiel: Física de suelos, tensión de preconsolidación (σp = 62.4 kPa), Eddy Covariance, flujos de CO2 y CH4, R.
+   - CAU Kiel: Física de suelos, curvas de retención hídrica, Eddy Covariance, flujos de CO2 y CH4, R.
    - U. de Chile: Geofísica de campo, sondajes eléctricos verticales (VES Maule), física matemática y modelado continuo.
    - EPN / Global Forest Coalition: Biomasa, auditoría de contabilidad de carbono.
    - Congreso Nacional: Testimonio técnico pericial formal ante la Comisión de Medio Ambiente.
