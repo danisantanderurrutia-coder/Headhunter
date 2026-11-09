@@ -175,13 +175,13 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
       {/* Dual Scorecards: Side-by-Side Comparison */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
         
-        {/* Card 1: Headhunter Lens */}
+        {/* Card 1: Headhunter Lens (Blue Accent) */}
         <div 
-          className="p-3.5 rounded-xl border relative"
-          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+          className="p-3.5 rounded-xl border border-sky-500/40 dark:border-sky-500/30 relative"
+          style={{ backgroundColor: 'var(--panel-bg)' }}
         >
-          <div className="flex items-center justify-between pb-2 border-b border-[var(--panel-border)]">
-            <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
+          <div className="flex items-center justify-between pb-2 border-b border-sky-500/20">
+            <div className="flex items-center space-x-2 font-bold text-sky-600 dark:text-sky-400">
               <FileCheck className="h-4 w-4 text-sky-500" />
               <span>LENTE HEADHUNTER</span>
             </div>
@@ -210,14 +210,14 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
           </div>
         </div>
 
-        {/* Card 2: Wingman Lens */}
+        {/* Card 2: Wingman Lens (Pink Accent) */}
         <div 
-          className="p-3.5 rounded-xl border relative"
-          style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--panel-border)' }}
+          className="p-3.5 rounded-xl border border-pink-500/40 dark:border-pink-500/30 relative"
+          style={{ backgroundColor: 'var(--panel-bg)' }}
         >
-          <div className="flex items-center justify-between pb-2 border-b border-[var(--panel-border)]">
-            <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
-              <Bot className="h-4 w-4 text-sky-500" />
+          <div className="flex items-center justify-between pb-2 border-b border-pink-500/20">
+            <div className="flex items-center space-x-2 font-bold text-pink-600 dark:text-pink-400">
+              <Bot className="h-4 w-4 text-pink-500" />
               <span>LENTE WINGMAN (PI)</span>
             </div>
             <span className={`text-[11px] font-mono font-bold ${
@@ -392,21 +392,21 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         </button>
       </div>
 
-      {/* LENS CONTENT SECTION */}
-      <div className="space-y-4">
+      {/* LENS CONTENT SECTION: 2-COLUMN GRID (Headhunter on Left, Wingman on Right) */}
+      <div className={`gap-5 items-start ${activeLens === 'both' ? 'grid grid-cols-1 lg:grid-cols-2' : 'space-y-4'}`}>
         
-        {/* SECTION 1: HEADHUNTER CRITERIA DETAIL */}
+        {/* SECTION 1: HEADHUNTER CRITERIA DETAIL (LEFT - BLUE BORDER) */}
         {(activeLens === 'both' || activeLens === 'headhunter') && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-1.5">
-              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
-                <FileCheck className="h-4 w-4 text-sky-500" />
+          <div className="p-4 sm:p-5 rounded-2xl border border-sky-500/40 dark:border-sky-500/30 bg-[var(--panel-bg)] space-y-3.5 shadow-xs">
+            <div className="flex items-center justify-between border-b border-sky-500/20 pb-2">
+              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-sky-600 dark:text-sky-400">
+                <FileCheck className="h-4 w-4 text-sky-500 shrink-0" />
                 <span>Auditoría de Headhunter / ATS & Requisitos Mandatorios</span>
               </span>
               <button
                 type="button"
                 onClick={() => setIsComplianceExpanded(prev => !prev)}
-                className="text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] flex items-center gap-1 cursor-pointer"
+                className="text-[10px] font-mono text-[var(--text-muted)] hover:text-sky-500 flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <span>{isComplianceExpanded ? 'Ocultar' : 'Ver'} Checklist ({headhunter.complianceChecks.length})</span>
                 {isComplianceExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
@@ -414,7 +414,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             </div>
 
             {/* ATS Keywords Chips */}
-            <div className="p-3 rounded-xl border space-y-2 text-xs" style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
+            <div className="p-3 rounded-xl border border-sky-500/20 space-y-2 text-xs bg-[var(--card-bg)]">
               <div className="flex items-center justify-between text-[11px] font-mono">
                 <span className="text-[var(--text-muted)] uppercase">Rastreo de Palabras Clave ATS:</span>
                 <span className="text-[var(--text-secondary)] font-bold">
@@ -458,7 +458,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                 {headhunter.complianceChecks.map((check) => (
                   <div
                     key={check.id}
-                    className="p-3 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] text-xs space-y-1.5 transition hover:border-[var(--card-border)]"
+                    className="p-3 rounded-xl border border-[var(--panel-border)] bg-[var(--card-bg)] text-xs space-y-1.5 transition hover:border-sky-500/40"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 min-w-0">
@@ -506,18 +506,18 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
           </div>
         )}
 
-        {/* SECTION 2: WINGMAN CRITERIA DETAIL */}
+        {/* SECTION 2: WINGMAN CRITERIA DETAIL (RIGHT - PINK BORDER) */}
         {(activeLens === 'both' || activeLens === 'wingman') && (
-          <div className="space-y-3 pt-2">
-            <div className="flex items-center justify-between border-b border-[var(--panel-border)] pb-1.5">
-              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-[var(--text-primary)]">
-                <Bot className="h-4 w-4 text-sky-500" />
+          <div className="p-4 sm:p-5 rounded-2xl border border-pink-500/40 dark:border-pink-500/30 bg-[var(--panel-bg)] space-y-3.5 shadow-xs">
+            <div className="flex items-center justify-between border-b border-pink-500/20 pb-2">
+              <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-pink-600 dark:text-pink-400">
+                <Bot className="h-4 w-4 text-pink-500 shrink-0" />
                 <span>Auditoría de Wingman: PI Match, Asimetría & Armas Omitidas</span>
               </span>
               <button
                 type="button"
                 onClick={() => setIsWeaponsExpanded(prev => !prev)}
-                className="text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] flex items-center gap-1 cursor-pointer"
+                className="text-[10px] font-mono text-[var(--text-muted)] hover:text-pink-500 flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <span>{isWeaponsExpanded ? 'Ocultar' : 'Ver'} Armas ({wingman.portfolioWeaponActivation.omittedWeapons.length} omitidas)</span>
                 {isWeaponsExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
@@ -525,20 +525,20 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             </div>
 
             {/* Asymmetry Box */}
-            <div className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
-              selectedCriteriaIds.has('wm-asymmetry') ? 'ring-1 ring-sky-500/30' : ''
-            }`} style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
+            <div className={`p-3.5 rounded-xl border border-pink-500/20 space-y-2 text-xs transition bg-[var(--card-bg)] ${
+              selectedCriteriaIds.has('wm-asymmetry') ? 'ring-1 ring-pink-500/40' : ''
+            }`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     checked={selectedCriteriaIds.has('wm-asymmetry')}
                     onChange={() => toggleCriterion('wm-asymmetry')}
-                    className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
+                    className="rounded text-pink-600 focus:ring-pink-500 cursor-pointer"
                     title="Marcar asimetría física para evaluar con Gemini"
                   />
                   <div className="flex items-center space-x-1.5 font-bold font-mono text-[var(--text-primary)]">
-                    <Zap className="h-3.5 w-3.5 text-sky-500" />
+                    <Zap className="h-3.5 w-3.5 text-pink-500" />
                     <span>ASIMETRÍA COMPETITIVA (GEOFÍSICO VS. AGRÓNOMO GENÉRICO)</span>
                   </div>
                 </div>
@@ -568,16 +568,16 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             </div>
 
             {/* Zero-Servility Box */}
-            <div className={`p-3 rounded-xl border text-xs space-y-1.5 transition ${
-              selectedCriteriaIds.has('wm-zero-servility') ? 'ring-1 ring-sky-500/30' : ''
-            }`} style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}>
+            <div className={`p-3 rounded-xl border border-pink-500/20 text-xs space-y-1.5 transition bg-[var(--card-bg)] ${
+              selectedCriteriaIds.has('wm-zero-servility') ? 'ring-1 ring-pink-500/40' : ''
+            }`}>
               <div className="flex items-center justify-between text-[11px] font-mono">
                 <div className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     checked={selectedCriteriaIds.has('wm-zero-servility')}
                     onChange={() => toggleCriterion('wm-zero-servility')}
-                    className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
+                    className="rounded text-pink-600 focus:ring-pink-500 cursor-pointer"
                     title="Marcar tono paritario y cero clichés para auditar con Gemini"
                   />
                   <span className="font-bold text-[var(--text-primary)]">ESTÁNDAR CERO-SERVILISMO (PEER-LEVEL TONE)</span>
@@ -596,10 +596,9 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             {/* STRESS-TEST: DESARME DE OBJECIÓN OCULTA */}
             {wingman.stressTest && (
               <div 
-                className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
-                  selectedCriteriaIds.has('wm-stress-test') ? 'ring-1 ring-sky-500/30' : ''
+                className={`p-3.5 rounded-xl border border-pink-500/20 space-y-2 text-xs transition bg-[var(--card-bg)] ${
+                  selectedCriteriaIds.has('wm-stress-test') ? 'ring-1 ring-pink-500/40' : ''
                 }`}
-                style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                   <div className="flex items-center space-x-2">
@@ -607,7 +606,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       type="checkbox"
                       checked={selectedCriteriaIds.has('wm-stress-test')}
                       onChange={() => toggleCriterion('wm-stress-test')}
-                      className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
+                      className="rounded text-pink-600 focus:ring-pink-500 cursor-pointer"
                       title="Fiscalizar desarme de objeción con Gemini"
                     />
                     <span className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
@@ -661,10 +660,9 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
             {/* HOOK DE CONVERSIÓN: CIERRE TÁCTICO A ENTREVISTA */}
             {wingman.tacticalClosing && (
               <div 
-                className={`p-3.5 rounded-xl border space-y-2 text-xs transition ${
-                  selectedCriteriaIds.has('wm-tactical-closing') ? 'ring-1 ring-sky-500/30' : ''
+                className={`p-3.5 rounded-xl border border-pink-500/20 space-y-2 text-xs transition bg-[var(--card-bg)] ${
+                  selectedCriteriaIds.has('wm-tactical-closing') ? 'ring-1 ring-pink-500/40' : ''
                 }`}
-                style={{ backgroundColor: 'var(--panel-bg)', borderColor: 'var(--card-border)' }}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                   <div className="flex items-center space-x-2">
@@ -672,11 +670,11 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       type="checkbox"
                       checked={selectedCriteriaIds.has('wm-tactical-closing')}
                       onChange={() => toggleCriterion('wm-tactical-closing')}
-                      className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
+                      className="rounded text-pink-600 focus:ring-pink-500 cursor-pointer"
                       title="Fiscalizar cierre táctico con Gemini"
                     />
                     <span className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
-                      <Zap className="h-3.5 w-3.5 text-sky-500" />
+                      <Zap className="h-3.5 w-3.5 text-pink-500" />
                       <span>GANCHO DE CONVERSIÓN: CIERRE TÁCTICO A ENTREVISTA</span>
                     </span>
                   </div>
@@ -755,9 +753,9 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                       {wingman.portfolioWeaponActivation.omittedWeapons.map((w) => (
                         <div
                           key={w.id}
-                          className={`p-3 rounded-xl border transition space-y-2 text-xs border-[var(--panel-border)] bg-[var(--panel-bg)] ${
+                          className={`p-3 rounded-xl border transition space-y-2 text-xs border-[var(--panel-border)] bg-[var(--card-bg)] hover:border-pink-500/40 ${
                             selectedCriteriaIds.has(`wm-omitted-${w.id}`)
-                              ? 'ring-1 ring-sky-500/30'
+                              ? 'ring-1 ring-pink-500/40'
                               : ''
                           }`}
                         >
@@ -767,7 +765,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                                 type="checkbox"
                                 checked={selectedCriteriaIds.has(`wm-omitted-${w.id}`)}
                                 onChange={() => toggleCriterion(`wm-omitted-${w.id}`)}
-                                className="rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
+                                className="rounded text-pink-600 focus:ring-pink-500 cursor-pointer"
                                 title="Marcar esta arma para que Gemini la integre en la redacción"
                               />
                               <span className="font-bold text-[var(--text-primary)] font-sans text-xs">
@@ -799,7 +797,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] text-xs text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1.5">
+                  <div className="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--card-bg)] text-xs text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1.5">
                     <CheckCircle2 className="h-4 w-4" />
                     <span>Todas las armas relevantes del portafolio están activadas.</span>
                   </div>
