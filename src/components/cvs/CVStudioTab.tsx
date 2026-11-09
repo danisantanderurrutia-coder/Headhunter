@@ -249,6 +249,13 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const [copiedMarkdown, setCopiedMarkdown] = useState(false);
   const [checklistFilter, setChecklistFilter] = useState<'all' | 'anti_ai' | 'style_repetition' | 'golden_thread' | 'metrics_evidence' | 'tor_compliance'>('all');
 
+  // Estado para Generación IA con Gemini en Crafting
+  const [isGeneratingGeminiLetter, setIsGeneratingGeminiLetter] = useState(false);
+  const [isEvaluatingCvWithGemini, setIsEvaluatingCvWithGemini] = useState(false);
+  const [geminiLetterError, setGeminiLetterError] = useState<string | null>(null);
+  const [geminiCvEvaluation, setGeminiCvEvaluation] = useState<GeminiEvaluationResult | null>(null);
+  const [geminiCvError, setGeminiCvError] = useState<string | null>(null);
+
   useEffect(() => {
     if (initialOfferId) {
       setOfferId(initialOfferId);
@@ -582,6 +589,41 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     const next = letterVersions.filter((v) => v.id !== id);
     setLetterVersions(next);
     saveLetterVersions(next);
+  };
+
+  // ------------------------------------------------------------- Handlers Gemini en Crafting
+  const handleGenerateGeminiCoverLetter = async () => {
+    if (!offer) {
+      setGeminiLetterError('Por favor vincula una oferta laboral en el selector antes de redactar con Gemini.');
+      return;
+    }
+    setGeminiLetterError(null);
+    setIsGeneratingGeminiLetter(true);
+    try {
+      const res = await generateCoverLetterWithGemini(offer, letterLang);
+      setLetterBodyText(res.fullMarkdown);
+    } catch (err: any) {
+      setGeminiLetterError(err.message || 'Error al conectar con la API de Gemini');
+    } finally {
+      setIsGeneratingGeminiLetter(false);
+    }
+  };
+
+  const handleEvaluateCvWithGemini = async () => {
+    if (!offer) {
+      setGeminiCvError('Por favor vincula una oferta laboral para contrastar y calibrar tu CV con Gemini.');
+      return;
+    }
+    setGeminiCvError(null);
+    setIsEvaluatingCvWithGemini(true);
+    try {
+      const res = await evaluateOfferWithGemini(offer);
+      setGeminiCvEvaluation(res);
+    } catch (err: any) {
+      setGeminiCvError(err.message || 'Error al conectar con la API de Gemini');
+    } finally {
+      setIsEvaluatingCvWithGemini(false);
+    }
   };
 
   const applyFixes = () => {
@@ -1117,6 +1159,70 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
                       )}
                     </div>
+
+                    {/* Botón de Calibración Semántica con Gemini */}
+                    <div className="pt-2 border-t border-[var(--panel-border)] flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={handleEvaluateCvWithGemini}
+                        disabled={isEvaluatingCvWithGemini}
+                        className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/40 text-amber-700 dark:text-amber-300 font-mono font-bold text-[10.5px] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                        title="Ejecuta una evaluación semántica profunda con Gemini contrastando la oferta con tus antecedentes verificados"
+                      >
+                        {isEvaluatingCvWithGemini ? (
+                          <>
+                            <Loader2 className="h-3 w-3 animate-spin text-amber-500" />
+                            <span>Auditando con Gemini 3.8 Flash...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="h-3 w-3 text-amber-500" />
+                            <span>Calibrar CV con Gemini IA</span>
+                          </>
+                        )}
+                      </button>
+
+                      {geminiCvEvaluation && (
+                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30">
+                          Encaje Gemini: {geminiCvEvaluation.matchScore}%
+                        </span>
+                      )}
+                    </div>
+
+                    {geminiCvError && (
+                      <div className="p-2 rounded bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[10.5px]">
+                        ⚠️ {geminiCvError}
+                      </div>
+                    )}
+
+                    {geminiCvEvaluation && (
+                      <div className="p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-1.5 text-[11px] font-sans">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px] uppercase">
+                            Dictamen Gemini: {geminiCvEvaluation.verdict.replace(/_/g, ' ')}
+                          </span>
+                        </div>
+                        <p className="text-[var(--text-secondary)] italic text-[10.5px]">
+                          "{geminiCvEvaluation.strategicAngle}"
+                        </p>
+                        {geminiCvEvaluation.pros.length > 0 && (
+                          <div>
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">Fortalezas Clave:</span>
+                            <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
+                              {geminiCvEvaluation.pros.map((p, i) => <li key={i}>{p}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                        {geminiCvEvaluation.gaps.length > 0 && (
+                          <div>
+                            <span className="font-bold text-rose-600 dark:text-rose-400 font-mono text-[10px]">Brechas a compensar:</span>
+                            <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
+                              {geminiCvEvaluation.gaps.map((g, i) => <li key={i}>{g}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <p className="text-[11px] text-[var(--text-secondary)]">
@@ -1399,18 +1505,44 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 <div className="pt-1 flex flex-col sm:flex-row items-center gap-2">
                   <button
                     type="button"
+                    onClick={handleGenerateGeminiCoverLetter}
+                    disabled={isGeneratingGeminiLetter}
+                    className="w-full sm:w-auto flex-1 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-mono font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs disabled:opacity-50"
+                    title="Redacta automáticamente una carta DIN 5008 formal y rigurosa en el idioma seleccionado usando Gemini 3.8 Flash anclado en tus hechos del Portafolio"
+                  >
+                    {isGeneratingGeminiLetter ? (
+                      <>
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        <span>Redactando con Gemini...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="h-3.5 w-3.5" />
+                        <span>Redactar Carta con Gemini ({letterLang.toUpperCase()})</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={copyAntiAiPrompt}
-                    className="w-full sm:w-auto flex-1 px-3 py-2 rounded-xl bg-purple-600/15 hover:bg-purple-600/25 text-purple-600 dark:text-purple-300 border border-purple-500/40 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                    className="w-full sm:w-auto px-3 py-2 rounded-xl bg-purple-600/15 hover:bg-purple-600/25 text-purple-600 dark:text-purple-300 border border-purple-500/40 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     title="Copia el prompt editorial completo con el diagnóstico en vivo y los 9 criterios del checklist para usar en Claude, ChatGPT o Gemini"
                   >
                     <Copy className="h-3.5 w-3.5 text-purple-400" />
                     <span>
                       {copiedPrompt
-                        ? '¡Prompt Editorial Copiado!'
-                        : `Exportar Prompt Anti-IA (${letterLang.toUpperCase()}) para LLM`}
+                        ? '¡Prompt Copiado!'
+                        : `Exportar Prompt (${letterLang.toUpperCase()})`}
                     </span>
                   </button>
                 </div>
+
+                {geminiLetterError && (
+                  <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-500 dark:text-rose-400 text-xs flex items-center justify-between">
+                    <span>⚠️ {geminiLetterError}</span>
+                  </div>
+                )}
               </AccordionCard>
 
               {/* 2. Vincular a Oferta Laboral */}
@@ -1611,6 +1743,70 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         <span className="text-amber-700 dark:text-amber-400 font-medium">Sin coincidencias textuales directas en tags.</span>
                       )}
                     </div>
+
+                    {/* Botón de Calibración Semántica con Gemini */}
+                    <div className="pt-2 border-t border-[var(--panel-border)] flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={handleEvaluateCvWithGemini}
+                        disabled={isEvaluatingCvWithGemini}
+                        className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/40 text-amber-700 dark:text-amber-300 font-mono font-bold text-[10.5px] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                        title="Ejecuta una evaluación semántica profunda con Gemini contrastando la oferta con tus antecedentes verificados"
+                      >
+                        {isEvaluatingCvWithGemini ? (
+                          <>
+                            <Loader2 className="h-3 w-3 animate-spin text-amber-500" />
+                            <span>Auditando con Gemini 3.8 Flash...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="h-3 w-3 text-amber-500" />
+                            <span>Calibrar CV con Gemini IA</span>
+                          </>
+                        )}
+                      </button>
+
+                      {geminiCvEvaluation && (
+                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30">
+                          Encaje Gemini: {geminiCvEvaluation.matchScore}%
+                        </span>
+                      )}
+                    </div>
+
+                    {geminiCvError && (
+                      <div className="p-2 rounded bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[10.5px]">
+                        ⚠️ {geminiCvError}
+                      </div>
+                    )}
+
+                    {geminiCvEvaluation && (
+                      <div className="p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-1.5 text-[11px] font-sans">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-amber-600 dark:text-amber-400 font-mono text-[10px] uppercase">
+                            Dictamen Gemini: {geminiCvEvaluation.verdict.replace(/_/g, ' ')}
+                          </span>
+                        </div>
+                        <p className="text-[var(--text-secondary)] italic text-[10.5px]">
+                          "{geminiCvEvaluation.strategicAngle}"
+                        </p>
+                        {geminiCvEvaluation.pros.length > 0 && (
+                          <div>
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">Fortalezas Clave:</span>
+                            <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
+                              {geminiCvEvaluation.pros.map((p, i) => <li key={i}>{p}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                        {geminiCvEvaluation.gaps.length > 0 && (
+                          <div>
+                            <span className="font-bold text-rose-600 dark:text-rose-400 font-mono text-[10px]">Brechas a compensar:</span>
+                            <ul className="list-disc pl-3.5 space-y-0.5 text-[var(--text-secondary)] text-[10.5px]">
+                              {geminiCvEvaluation.gaps.map((g, i) => <li key={i}>{g}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <p className="text-[11px] text-[var(--text-secondary)]">
