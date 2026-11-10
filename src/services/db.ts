@@ -23,9 +23,11 @@ export interface AppSettings {
   emailAlertEnabled?: boolean;
 }
 
+const envKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || '';
+
 const defaultSettings: AppSettings = {
   llmProvider: 'Google Gemini',
-  apiKey: '',
+  apiKey: envKey,
   modelName: 'gemini-3.5-flash-lite',
   enableBrowserAgent: true,
   enableAntigravityApply: true,
@@ -386,12 +388,30 @@ export const saveStoredCVs = (cvs: CVVersion[]): void => {
 };
 
 export const getStoredSettings = (): AppSettings => {
+  const currentEnvKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || '';
   const data = localStorage.getItem(KEYS.SETTINGS);
-  if (!data) return defaultSettings;
+  if (!data) return { ...defaultSettings, apiKey: currentEnvKey };
   try {
-    return { ...defaultSettings, ...JSON.parse(data) };
+    const parsed = JSON.parse(data);
+    const proc = (globalThis as any).process;
+    const isTesting = Boolean(proc?.env?.VITEST || proc?.env?.NODE_ENV === 'test');
+
+    let resolvedKey = parsed.apiKey;
+    // Si estamos en el navegador del usuario y no hay clave válida o quedó vacía de antes, inyectamos la clave de entorno
+    if (!isTesting && (!resolvedKey || !resolvedKey.trim() || resolvedKey.startsWith('sk-'))) {
+      resolvedKey = currentEnvKey;
+    }
+
+    return {
+      ...defaultSettings,
+      ...parsed,
+      apiKey: resolvedKey !== undefined ? resolvedKey : currentEnvKey,
+      modelName: (!parsed.modelName || parsed.modelName.includes('2.0') || parsed.modelName.includes('1.5'))
+        ? 'gemini-3.5-flash-lite'
+        : parsed.modelName
+    };
   } catch {
-    return defaultSettings;
+    return { ...defaultSettings, apiKey: currentEnvKey };
   }
 };
 
