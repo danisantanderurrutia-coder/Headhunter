@@ -839,14 +839,22 @@ B. RUPTURA DE REITERACIONES MECÁNICAS Y MONOTONÍA SINTÁCTICA:
      * De metodología y aprendizaje: "Rather than imposing top-down agendas...", "In coordinating editorial cohorts across...", "My experience bridging... demonstrated that..."
      * De propuesta hacia adelante: "Stepping into this role, my immediate priority would be to...", "To bridge regional realities with...", "What I offer [Org] is..."
 
-C. EL HILO CONDUCTOR ("THE GOLDEN THREAD") Y ARQUITECTURA NARRATIVA:
-   - Párrafo 1 (Gancho y Tesis): No abras con la típica fórmula burocrática ("I am writing to apply..."). Abre directamente con tu tesis de alineamiento con la misión y desafío de la organización.
-   - Párrafos 2 y 3 (Evidencia de Facilitación y Rigor): Articula tu trayectoria en torno a cómo resuelves problemas (gestión de asincronía, consensos multiactor, rigor biofísico, prevención de burnout), no como un currículum andante.
-   - Párrafo 4 (Forward-Looking Pitch): Plantea qué harás en los primeros 90 días o cómo abordarás las prioridades operativas de la red.
-   - Cierre formal (ToR Compliance): Declara explícitamente disponibilidad horaria (ej. dedicación completa 40h/semana, flexibilidad de husos horarios) y rango de expectativas de honorarios (fees/salary).
+C. EL HILO CONDUCTOR ("THE GOLDEN THREAD") Y ARQUITECTURA NARRATIVA (1 PÁGINA DIN 5008):
+   - Párrafo 1 (Gancho y Tesis Técnica): No abras con la típica fórmula burocrática ("I am writing to apply..."). Abre directamente con tu tesis de alineamiento con la misión y el desafío del equipo.
+   - Párrafo 2 (Alineamiento con los Retos de Frontera): Conéctate con las dificultades o preguntas abiertas del proyecto desde la curiosidad intelectual compartida. NUNCA diagnostiques con arrogancia ("your core bottleneck is...") ni des clases teóricas de pregrado a los revisores.
+   - Párrafo 3 (Evidencia de Terreno & Artifact Hook): Articula tu experiencia empírica demostrando cómo resuelves problemas concretos (Eddy Covariance, curvas de retención hídrica, balances continuos, R/Python). Incluye un Artifact Hook verificado:
+     * Wetland Monitor 3D: https://danisantanderurrutia-coder.github.io/wetland-monitor/
+     * AgriTwin: https://danisantanderurrutia-coder.github.io/agritwin-app/
+     * ReWild (Resumof): https://github.com/danisantanderurrutia-coder/resumof
+     * Portafolio: https://danisantanderurrutia-coder.github.io/portafolio/
+     (Prohibido inventar URLs o enlazar a herramientas internas).
+   - Párrafo 4 (Propuesta de Trabajo Colaborativo Inmediato): Plantea cómo comenzarías a contrastar hipótesis, integrar datos o calibrar modelos numéricos frente a observaciones de superficie desde el primer mes, con actitud de equipo (sin jerga corporativa vacía como "90-day operational milestone").
+   - Cierre formal (ToR Compliance): Declara explícitamente dedicación (40h/sem, disponibilidad para terreno), encuadre salarial o de contratación y habilitación legal inmediata (§ 20 AufenthG / Directiva UE 2016/801).
 
-D. IDENTIDAD Y TONO:
-   - Mantén la primera persona y la autenticidad humana: compromiso con la justicia socioambiental, rigor científico empírico y respeto irrestricto a los saberes comunitarios e indígenas.
+D. IDENTIDAD, EDAD Y TONO (JOVEN LÍDER INTELECTUAL - 30 AÑOS):
+   - Tono enérgico, lúcido, riguroso y pragmático: Alguien que combina el rigor matemático con el barro de las botas en terreno y el desarrollo de software moderno.
+   - PROHIBIDO el tono pedante de "catedrático de 55 años / sacowea" que pontifica sobre obviedades. Horizontalidad, respeto y pasión empírica.
+   - Regla "Zero-Defensiveness": Jamás justificar ni disculpar cambios de área; presentarlos como activos acumulativos de valor único.
 
 ================================================================================
 4. MI BORRADOR BASE ACTUAL (A REVISAR O PULIR)

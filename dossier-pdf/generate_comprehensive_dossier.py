@@ -192,8 +192,9 @@ def build_pdf(filename):
         [Paragraph("<b>Nombre Completo</b>", body), Paragraph("Daniel Sebastián Santander Urrutia", body)],
         [Paragraph("<b>Titulación Base</b>", body), Paragraph("Licenciado en Geofísica (Universidad de Chile, Distinción Máxima) • Doble M.Sc. en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia)", body)],
         [Paragraph("<b>Contacto Oficial</b>", body), Paragraph("Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com", body)],
-        [Paragraph("<b>Portafolio de Evidencias</b>", body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker de proyectos, peritajes, modelos y código)", body)],
-        [Paragraph("<b>Habilitación Legal UE</b>", body), Paragraph("<b>Alemania:</b> Título de posgrado en universidad alemana con permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio previo de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", body)],
+        [Paragraph("<b>Portafolio de Evidencias</b>", body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker central de proyectos, peritajes, modelos y código)", body)],
+        [Paragraph("<b>Habilitación Legal UE</b>", body), Paragraph("<b>Alemania:</b> Permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", body)],
+        [Paragraph("<b>Enlaces de Proyectos (Artifact Hooks)</b>", body), Paragraph("<b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Resumof):</b> https://github.com/danisantanderurrutia-coder/resumof<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", body)],
     ]
     id_table = Table(id_data, colWidths=[120, 399])
     id_table.setStyle(TableStyle([
@@ -202,26 +203,30 @@ def build_pdf(filename):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
     story.append(id_table)
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 4))
 
     story.append(Paragraph("2. Directivas Críticas de Comportamiento para el LLM", h1))
     
     rules_data = [
         [
             Paragraph("<b>1. Postura 'Zero-Servility'</b>", body_bold),
-            Paragraph("El tono en cartas y entrevistas es el de un <b>par científico / consultor técnico soberano</b>, nunca el de un solicitante subordinado que pide favores. Trata al Investigador Principal (PI), director de grupo o comité de tú a tú, diagnosticando los cuellos de botella de su proyecto y aportando soluciones empíricas.", body)
+            Paragraph("El tono en cartas y entrevistas es el de un <b>par científico / consultor técnico soberano</b>, nunca el de un solicitante subordinado que pide favores. Trata al Investigador Principal (PI), director de grupo o comité de tú a tú, abordando los retos técnicos del proyecto y aportando soluciones empíricas.", body)
         ],
         [
             Paragraph("<b>2. Regla 'Zero-Defensiveness'<br/>(Cero Justificaciones)</b>", body_bold),
-            Paragraph("<b>Queda estrictamente prohibido usar conectores de disculpa o contraste defensivo</b> (<i>'a pesar de que mi formación es...', 'aunque no cuento con...', 'despite my background...'</i>). Plantar una objeción debilita la candidatura. Toda habilidad o antecedente previo se enmarca directamente como una <b>VENTAJA NATURAL y un activo acumulativo</b> que suma una perspectiva de la que carecen los candidatos estándar.", body)
+            Paragraph("<b>Queda estrictamente prohibido usar conectores de disculpa o contraste defensivo</b> (<i>'a pesar de que mi formación es...', 'aunque no cuento con...', 'despite my background...'</i>). Plantar una objeción debilita la candidatura. Toda habilidad previa se enmarca como una <b>VENTAJA NATURAL y un activo acumulativo</b> que suma una perspectiva única.", body)
         ],
         [
             Paragraph("<b>3. Principio Anti-Alucinación</b>", body_bold),
-            Paragraph("Cita exclusivamente los hechos del Portafolio y la experiencia empírica. <b>No inventar herramientas no utilizadas</b>. Si una vacante requiere un software que Daniel no domina, la estrategia es demostrar asimetría de aprendizaje rápido mediante R/Python y física de medios porosos.", body)
+            Paragraph("Cita exclusivamente los hechos del Portafolio y la experiencia empírica. <b>No inventar herramientas ni links inexistentes</b>. Si una vacante requiere un software que Daniel no domina, demostrar asimetría de aprendizaje rápido mediante R/Python y física de medios porosos.", body)
+        ],
+        [
+            Paragraph("<b>4. Voz: Joven Líder Intelectual Experto (30 años)</b>", body_bold),
+            Paragraph("<b>PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':</b><br/>• <b>Cero sermón obvio ('Preaching to the Choir'):</b> NUNCA des clases de física básica o machine learning a los revisores (ellos ya son expertos).<br/>• <b>Cero arrogancia diagnóstica:</b> NUNCA sentencies <i>'The core bottleneck at your lab is...'</i>. Habla de retos compartidos de frontera o dificultades metodológicas abiertas.<br/>• <b>Cero jerga corporativa:</b> NUNCA uses <i>'90-day operational milestone'</i> ni <i>'onboarding friction'</i>. En ciencia se habla de diseño experimental, contraste de hipótesis y calibración con terreno.", body)
         ]
     ]
     rules_table = Table(rules_data, colWidths=[130, 389])
@@ -231,8 +236,8 @@ def build_pdf(filename):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
     story.append(rules_table)
 
@@ -242,7 +247,7 @@ def build_pdf(filename):
     # PÁGINA 2: LA RECETA MAESTRA DE COVER LETTER & AUDITORÍA DUAL-LENS
     # =========================================================================
     story.append(Paragraph("3. La Receta Maestra de Cover Letter (1 Página DIN 5008)", h1))
-    story.append(Paragraph("La carta de postulación formal debe redactarse en <b>1 sola página A4 estricta (400 – 480 palabras en 4-5 párrafos densos)</b>. Pasar de 1 página se percibe en Europa como falta de capacidad de síntesis ejecutiva. Solo se admiten 2 páginas si la convocatoria exige formalmente un <i>Research Proposal / Statement</i>.", body))
+    story.append(Paragraph("La carta de postulación formal debe redactarse en <b>1 sola página A4 estricta (400 – 480 palabras en 4-5 párrafos fluidos)</b>. Pasar de 1 página se percibe en Europa como falta de capacidad de síntesis ejecutiva. Solo se admiten 2 páginas si la convocatoria exige formalmente un <i>Research Proposal / Statement</i>.", body))
 
     story.append(Paragraph("<b>Flujo Táctico Horizontal de la Receta Maestra (6 Pasos Consecutivos):</b>", h2))
     
@@ -250,26 +255,26 @@ def build_pdf(filename):
         [
             Paragraph("<b>PASO 1</b><br/>Apertura Fuerte<br/>(Hook & Tesis)", flow_step_style),
             Paragraph("➔", arrow_style),
-            Paragraph("<b>PASO 2</b><br/>Diagnóstico del<br/>Reto Central", flow_step_style),
+            Paragraph("<b>PASO 2</b><br/>Alineamiento con<br/>Retos de Frontera", flow_step_style),
             Paragraph("➔", arrow_style),
             Paragraph("<b>PASO 3</b><br/>Evidencia &<br/>Artifact Hook", flow_step_style),
             Paragraph("➔", arrow_style),
             Paragraph("<b>PASO 4</b><br/>Asimetría Neta<br/>(Zero-Defense)", flow_step_style),
             Paragraph("➔", arrow_style),
-            Paragraph("<b>PASO 5</b><br/>Forward-Looking<br/>Pitch (90 días)", flow_step_style),
+            Paragraph("<b>PASO 5</b><br/>Propuesta de<br/>Trabajo Inmediato", flow_step_style),
             Paragraph("➔", arrow_style),
             Paragraph("<b>PASO 6</b><br/>Cierre Sobrio &<br/>ToR Compliance", flow_step_style)
         ],
         [
-            Paragraph("Sin rodeos burocráticos. Entrada directa al dolor.", flow_sub_style),
+            Paragraph("Sin rodeos burocráticos. Entrada directa al núcleo.", flow_sub_style),
             "",
-            Paragraph("Demostrar comprensión profunda del proyecto.", flow_sub_style),
+            Paragraph("Tensiones o preguntas abiertas del área sin soberbia.", flow_sub_style),
             "",
-            Paragraph("Caso empírico comprobable + enlace al visor/repo.", flow_sub_style),
+            Paragraph("Caso empírico + link verificado (Wetland/AgriTwin/ReWild).", flow_sub_style),
             "",
             Paragraph("Enfoque 100% positivo. Cero disculpas ni peros.", flow_sub_style),
             "",
-            Paragraph("Prioridad inmediata al asumir el cargo.", flow_sub_style),
+            Paragraph("Diseño experimental y pipelines desde el 1er mes.", flow_sub_style),
             "",
             Paragraph("Disponibilidad 40h/sem, TVöD/fee y visa §20.", flow_sub_style)
         ]
@@ -295,29 +300,29 @@ def build_pdf(filename):
         ('BOTTOMPADDING', (0,0), (-1,-1), 3),
     ]))
     story.append(mermaid_table)
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 4))
 
     steps_data = [
         [Paragraph("<b>Párrafo / Tiempo</b>", body_bold), Paragraph("<b>Directiva de Redacción & Elementos Clave</b>", body_bold)],
         [
             Paragraph("<b>1. Apertura Fuerte<br/>(The Hook & Thesis)</b>", body),
-            Paragraph("<b>PROHIBIDO abrir con fórmulas burocráticas</b> (<i>'Me dirijo a usted...', 'I am writing to apply...'</i>). Abre en la primera frase conectando el dolor del proyecto con tu tesis técnica de entrada de par a par.", body)
+            Paragraph("<b>PROHIBIDO abrir con fórmulas burocráticas</b> (<i>'Me dirijo a usted...', 'I am writing to apply...'</i>). Abre en la primera frase conectando el foco del proyecto con tu tesis técnica de entrada de par a par.", body)
         ],
         [
-            Paragraph("<b>2. Diagnóstico del Reto</b>", body),
-            Paragraph("Demuestra que comprendes el cuello de botella técnico del equipo (falta de resolución temporal, fricción multiactor, integración de sensores). La carta se centra en su problema, no en tus deseos personales.", body)
+            Paragraph("<b>2. Alineamiento con Retos de Frontera</b>", body),
+            Paragraph("Conéctate con las dificultades metodológicas abiertas o preguntas del proyecto desde la curiosidad compartida. <b>PROHIBIDO diagnosticar cuellos de botella con arrogancia</b> ni dar cátedra sobre física elemental a expertos.", body)
         ],
         [
             Paragraph("<b>3. Evidencia & Artifact Hook</b>", body),
-            Paragraph("El caso de estudio empírico que valida tu capacidad de resolverlo (Eddy Covariance, R, balances de cuenca). <b>Artifact Hook obligatorio:</b> Incluir un enlace directo a la prueba física (ej. <i>[Wetland Monitor / Visor 3D]</i> o informe EPN).", body)
+            Paragraph("El caso empírico que valida tu capacidad de resolver problemas (Eddy Covariance, R, balances de masa). <b>Artifact Hook obligatorio:</b> Incluir enlace a la prueba verificada: <i>[Wetland Monitor]</i>, <i>[AgriTwin]</i> o <i>[ReWild]</i>.", body)
         ],
         [
             Paragraph("<b>4. Asimetría Positiva<br/>(Zero-Defensiveness)</b>", body),
-            Paragraph("Explica por qué tu combinación interdisciplinaria (geofísica + biogeoquímica + oratoria legislativa) eleva al consorcio. Todo se formula como activo neto de valor sin justificaciones ni disculpas.", body)
+            Paragraph("Explica por qué tu combinación interdisciplinaria (geofísica + biogeoquímica + código) eleva al consorcio. Todo se formula como activo neto de valor sin justificaciones ni disculpas.", body)
         ],
         [
-            Paragraph("<b>5. Forward-Looking Pitch</b>", body),
-            Paragraph("Plan concreto para los primeros 90 días o sobre el objetivo inmediato (ej. <i>'Al asumir este rol, mi prioridad operativa será integrar...'</i>). Muestra que ya estás resolviendo mentalmente el problema.", body)
+            Paragraph("<b>5. Propuesta de Trabajo Inmediato</b>", body),
+            Paragraph("Cómo aterrizarás el trabajo: diseño experimental, contraste de hipótesis con datos de terreno e integración de pipelines de datos desde las primeras semanas, con actitud de equipo (sin clichés de KPI corporativos).", body)
         ],
         [
             Paragraph("<b>6. Cierre Formal ToR</b>", body),
@@ -661,7 +666,16 @@ def build_pdf(filename):
     story.append(Spacer(1, 5))
     story.append(Paragraph("15. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
     
-    prompt_box = """Actúa como el Headhunter Táctico y Editor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de 6 puestos de experiencia, 8 logros verificados, 5 gemelos digitales/software, instrumental de campo, 9 publicaciones y conferencias. Tu tarea es 'servirte' los elementos exactos que maximicen el encaje con la vacante objetivo. Cualquier evaluación, CV o Carta de Postulación debe cumplir obligatoriamente la 'Receta Maestra' en 1 página DIN 5008 (Apertura fuerte con gancho y tesis, Artifact Hook, zero-defensiveness, forward-looking pitch, cero clichés de IA, tono de par científico y cumplimiento de ToR). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas de CV para puestos académicos/DACH (TVöD) o 1 página para startups. Nunca inventes herramientas ni datos que no figuren en este dossier."""
+    prompt_box = """Actúa como el Asesor Táctico y Redactor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de 6 puestos de experiencia, 8 logros cuantitativos, 5 gemelos digitales/software, instrumental de campo, 9 publicaciones y conferencias. Tu tarea es 'servirte' los elementos exactos que maximicen el encaje con la vacante objetivo.
+
+VOZ Y ESTILO OBLIGATORIO: Joven líder intelectual experto (30 años). Tono enérgico, fresco, riguroso y colaborativo.
+PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':
+1. CERO sermón teórico obvio ('preaching to the choir'): NUNCA des clases de física básica o machine learning a los revisores (ellos ya son expertos mundiales).
+2. CERO diagnósticos arrogantes: NUNCA digas 'The core bottleneck at your lab is...'. Habla de retos compartidos de frontera o dificultades metodológicas abiertas.
+3. CERO jerga corporativa: NUNCA uses '90-day operational milestone' ni clichés de consultoría. En ciencia se habla de diseño experimental, contraste de hipótesis y calibración con terreno.
+4. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ para Wetland Monitor, https://danisantanderurrutia-coder.github.io/agritwin-app/ para AgriTwin, https://github.com/danisantanderurrutia-coder/resumof para ReWild, y https://danisantanderurrutia-coder.github.io/portafolio/ para el portafolio central. No inventes otros enlaces ni cites apps internas.
+
+Cualquier Carta de Postulación debe cumplir la 'Receta Maestra' en 1 sola página A4 DIN 5008 (400-480 palabras). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
     
     prompt_table = Table([[Paragraph(prompt_box, code_text)]], colWidths=[519])
     prompt_table.setStyle(TableStyle([

@@ -244,7 +244,7 @@ PERFIL DEL INTERLOCUTOR A CONVENCER (WINGMAN LENS):
 - Psicología y expectativas: ${archetype.targetReader.psychology}
 - Líneas rojas / Red flags que debes evitar a toda costa: ${archetype.targetReader.redFlags.join(' | ')}
 - Formato esperado: ${archetype.wingmanGuidance.formatStyle}
-- Longitud objetivo: Entre ${archetype.wingmanGuidance.targetWordCount.min} y ${archetype.wingmanGuidance.targetWordCount.max} palabras (ideal: ~${archetype.wingmanGuidance.targetWordCount.ideal} palabras).
+- Longitud objetivo: DIN 5008 estricta en 1 sola página A4 (entre ${archetype.wingmanGuidance.targetWordCount.min} y ${archetype.wingmanGuidance.targetWordCount.max} palabras, ideal ~${archetype.wingmanGuidance.targetWordCount.ideal} palabras en 4-5 párrafos fluidos).
 - Apertura: ${archetype.wingmanGuidance.openingStrategy}
 - Cierre: ${archetype.wingmanGuidance.closingStrategy}
 
@@ -253,16 +253,31 @@ PALANCAS PARA DESTACAR SOBRE LA MEDIA (HEADHUNTER LENS):
 - Armas prioritarias a activar si guardan relación: ${archetype.headhunterGuidance.priorityWeapons.join(', ')}
 - Cumplimiento clave a declarar: ${archetype.headhunterGuidance.keyComplianceChecks.join(' | ')}
 
+VOZ Y POSICIONAMIENTO DEL CANDIDATO (JOVEN LÍDER INTELECTUAL - 30 AÑOS):
+- Tono: Intelectual, fresco, enérgico, riguroso, colaborativo y con mentalidad de construcción conjunta de hipótesis.
+- PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':
+  1. CERO sermón teórico obvio ("Preaching to the Choir"): NUNCA des clases de física básica, termodinámica o machine learning a los revisores (ej. no les digas que "el machine learning viola la conservación de masa" a un laboratorio de IA atmosférica). Ellos ya son expertos mundiales.
+  2. CERO diagnósticos arrogantes no solicitados: NUNCA digas "The core bottleneck at your lab is...". Tú no estás dentro del laboratorio. Habla en cambio de "desafíos compartidos de frontera", "dificultades metodológicas abiertas" o "preguntas estimulantes en la intersección de física y datos".
+  3. CERO jerga corporativa de consultoría fuera de lugar en ciencia: NUNCA uses "immediate 90-day operational milestone", "deliverables ejecutivos" o "onboarding friction". En ciencia se habla de diseño experimental, contraste de hipótesis con datos de terreno y colaboración iterativa de pipelines.
+
+CATÁLOGO ESTRICTO DE ENLACES (ARTIFACT HOOKS - PROHIBIDO INVENTAR OTROS):
+- Portafolio Central / Evidence Bunker: https://danisantanderurrutia-coder.github.io/portafolio/
+- Wetland Monitor 3D (Wallener Au): https://danisantanderurrutia-coder.github.io/wetland-monitor/
+- AgriTwin (Chile Agrotech IoT & Satélites): https://danisantanderurrutia-coder.github.io/agritwin-app/
+- ReWild / Resumof (Analítica de Incendios & Cortafuegos Vivos): https://github.com/danisantanderurrutia-coder/resumof
+(NOTA: NO cites la app de empleo en las cartas ni inventes URLs o subdominios que no estén en esta lista).
+
 DIRECTIVAS INQUEBRANTABLES:
 1. NUNCA inventes funciones, herramientas ni logros. Básate estrictamente en sus hechos verificados:
    - Titulación: Geofísico de la Universidad de Chile (con distinción) + Doble M.Sc. en CAU Kiel y AMU Poznań.
    - CAU Kiel: Física de suelos, curvas de retención hídrica, Eddy Covariance, flujos de CO2 y CH4, R.
    - U. de Chile: Geofísica de campo, sondajes eléctricos verticales (VES Maule), física matemática y modelado continuo.
    - EPN / Global Forest Coalition: Biomasa, auditoría de contabilidad de carbono.
-   - Congreso Nacional: Testimonio técnico pericial formal ante la Comisión de Medio Ambiente.
+   - Congreso Nacional: Testimonio técnico pericial formal ante la Comisión de Emergencias y Bomberos.
    - Estatus legal: Residencia en Alemania bajo § 20 AufenthG (habilitación inmediata para contratación en investigación) y régimen español Ley 14/2013.
 2. Tono "Zero-Servility": Trato horizontal de colega científico o par técnico de alto nivel. Cero sumisión ni adulación vacía.
-3. Devuelve únicamente el texto markdown listo para imprimir o enviar, sin preámbulos ni comentarios meta.
+3. Regla "Zero-Defensiveness": Sin justificaciones ni disculpas. Todos los cambios de área se formulan como activos acumulativos positivos.
+4. Devuelve únicamente el texto markdown listo para imprimir o enviar, sin preámbulos ni comentarios meta.
 `.trim();
 
   const userPrompt = `
