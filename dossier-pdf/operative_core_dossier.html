@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Daniel Santander Urrutia - Operative Core Dossier</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 15mm 15mm 15mm 15mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 9pt;
+      line-height: 1.45;
+      color: #0f172a;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+
+    /* Header & Branding */
+    .header-banner {
+      border-bottom: 2.5px solid #0284c7;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-title {
+      font-size: 16pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .header-subtitle {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #0284c7;
+      margin-top: 3px;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 7.5pt;
+      color: #475569;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* Section Styles */
+    h2 {
+      font-size: 11pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #0f172a;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 3px;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h3 {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #0369a1;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin: 0 0 6px 0;
+    }
+
+    ul, ol {
+      margin: 2px 0 6px 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    /* Badges & Pills */
+    .badge {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 1.5px 6px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .badge-blue {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #7dd3fc;
+    }
+
+    .badge-amber {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
+    .badge-emerald {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #6ee7b7;
+    }
+
+    .badge-purple {
+      background: #ede9fe;
+      color: #5b21b6;
+      border-color: #c4b5fd;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 8.2pt;
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 7.2pt;
+      letter-spacing: 0.5px;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      padding: 5px 8px;
+      text-align: left;
+    }
+
+    td {
+      border: 1px solid #e2e8f0;
+      padding: 5px 8px;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background: #fcfdfe;
+    }
+
+    /* Box Containers */
+    .callout {
+      background: #f8fafc;
+      border-left: 3.5px solid #0284c7;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin: 8px 0 10px 0;
+      font-size: 8.5pt;
+    }
+
+    .callout-amber {
+      background: #fffbeb;
+      border-left-color: #f59e0b;
+    }
+
+    .callout-rose {
+      background: #fff1f2;
+      border-left-color: #f43f5e;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 7.8pt;
+      background: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: #be123c;
+    }
+
+    .footer-note {
+      font-size: 7.5pt;
+      color: #64748b;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 4px;
+      margin-top: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- PÁGINA 1: IDENTIDAD, MANDATO DEL SISTEMA & REGLAS SUPREMAS PARA EL LLM   -->
+  <!-- ========================================================================= -->
+
+  <div class="header-banner">
+    <div>
+      <h1 class="header-title">Operative Core Dossier // Directiva Canónica</h1>
+      <div class="header-subtitle">Perfil Integrado, Criterios de Auditoría Dual-Lens & Receta Maestra de Cover Letter</div>
+    </div>
+    <div class="header-meta">
+      OPERADOR: DANIEL SANTANDER URRUTIA<br>
+      REF: EMPLEO ⟷ PORTAFOLIO // AGY-V3.8<br>
+      FECHA: NOVIEMBRE 2026
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>MANDATO SUPREMO PARA EL MODELO DE IA (GOOGLE GEMINI):</strong><br>
+    Este documento constituye la <em>Única Fuente de Verdad (Ground Truth)</em> sobre Daniel Sebastián Santander Urrutia. Cualquier CV, carta de postulación (Anschreiben), respuesta de entrevista o evaluación estratégica generada en la web de Gemini <strong>DEBE ceñirse estrictamente a los hechos empíricos, métricas y criterios de auditoría</strong> aquí estipulados. Queda terminantemente prohibido inventar empresas, cargos, titulaciones, fórmulas burocráticas o clichés genéricos.
+  </div>
+
+  <h2>1. Identidad, Habilitación Legal y Canales Verificados</h2>
+  <table>
+    <tr>
+      <th style="width: 25%;">Parámetro</th>
+      <th>Valor Canónico Verificado (Ground Truth)</th>
+    </tr>
+    <tr>
+      <td><strong>Nombre Completo</strong></td>
+      <td>Daniel Sebastián Santander Urrutia</td>
+    </tr>
+    <tr>
+      <td><strong>Perfil Base</strong></td>
+      <td>Geofísico Ambiental (FCFM Universidad de Chile) • Doble M.Sc. Europeo en Ciencias (CAU Kiel, Alemania & AMU Poznań, Polonia)</td>
+    </tr>
+    <tr>
+      <td><strong>Residencia & Contacto</strong></td>
+      <td>Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com</td>
+    </tr>
+    <tr>
+      <td><strong>Portafolio Multimedia</strong></td>
+      <td><code>https://danisantanderurrutia-coder.github.io/portafolio/</code> (Evidencias de proyectos, peritajes, modelos y código)</td>
+    </tr>
+    <tr>
+      <td><strong>Redes Profesionales</strong></td>
+      <td>LinkedIn: <code>linkedin.com/in/santanderurrutia/</code> | GitHub: <code>github.com/danisantanderurrutia-coder</code></td>
+    </tr>
+    <tr>
+      <td><strong>Estatus Legal Unión Europea</strong></td>
+      <td>
+        • <strong>Alemania:</strong> Titulado de Máster en universidad alemana con permiso de residencia <strong>§ 20 AufenthG</strong> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio previo de visa).<br>
+        • <strong>España:</strong> Régimen de Profesionales Altamente Cualificados (PAC) / Ley 14/2013 de Apoyo a los Emprendedores.
+      </td>
+    </tr>
+  </table>
+
+  <h2>2. Directivas Críticas de Comportamiento para el LLM</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0;">1. Principio Anti-Alucinación</h3>
+      <p style="font-size:8.3pt;">
+        Cita exclusivamente los hechos del Portafolio y la experiencia empírica. <strong>No inventar herramientas no utilizadas</strong> (ej. LoRaWAN, FastAPI en producción o tesis imaginadas). Si una vacante requiere un software que Daniel no domina, la estrategia es <strong>demostrar asimetría de aprendizaje</strong> mediante R/Python y física de medios porosos, no fingir maestría inexistente.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;">2. Postura "Zero-Servility"</h3>
+      <p style="font-size:8.3pt;">
+        El tono en cartas y entrevistas es el de un <strong>par científico / consultor técnico soberano</strong>, nunca el de un solicitante subordinado que pide favores. Trata al Investigador Principal (PI), director de grupo o comité de tú a tú, diagnosticando los cuellos de botella de su proyecto y aportando soluciones empíricas.
+      </p>
+    </div>
+  </div>
+
+  <h2>3. Lo Que SÍ Tiene Alto Valor (Ground Truth Empírico) vs. Lo Vetado</h2>
+  <div class="callout callout-rose">
+    <strong>LO VETADO (NO APORTA VALOR Y DEBE EVITARSE):</strong><br>
+    • <strong>NO incluir cifras aisladas de laboratorio descontextualizadas</strong> como <em>"tensión de preconsolidación σp = 62.4 kPa"</em>. Poner números sueltos sin escala física no demuestra impacto para un reclutador.<br>
+    • <strong>NO usar clichés de IA</strong>: <em>"thrilled to apply", "delve into", "testament to", "beacon of", "foster", "seamlessly align", "tapestry", "cabe destacar", "jugar un papel crucial"</em>.
+  </div>
+
+  <table>
+    <tr>
+      <th style="width: 30%;">Área de Impacto</th>
+      <th>Evidencia Real Comprobable a Destacar</th>
+    </tr>
+    <tr>
+      <td><strong>Dinámica de GEI & Suelos</strong><br><span class="badge badge-blue">CAU Kiel / AMU Poznań</span></td>
+      <td>
+        Cuantificación continua de flujos de carbono (CO₂, CH₄) en la turbera templada rehumedecida Wallener Au mediante <strong>torres micrometeorológicas de Eddy Covariance y cámaras de flujo cerrado</strong>. Caracterización de <strong>curvas de retención hídrica, estructura y porosidad edáfica</strong>. Monitoreo limnológico de bioindicadores en lagos de Poznań bajo la Directiva Marco del Agua de la UE.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Hidrogeofísica de Cuencas</strong><br><span class="badge badge-emerald">FCFM Universidad de Chile</span></td>
+      <td>
+        Memoria de título aprobada <strong>Con Distinción</strong>. Prospección con <strong>Sondeos Eléctricos Verticales (SEV), resistividad eléctrica del subsuelo y gravimetría</strong> en la Cuenca del Río Maule. Modelación cuantitativa del abatimiento del nivel freático frente al avance de monocultivos forestales industriales y sequía.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Contabilidad de Carbono</strong><br><span class="badge badge-amber">EPN & Global Forest Coalition</span></td>
+      <td>
+        <strong>Autor Técnico Principal</strong> del informe internacional <em>"Spotlight on Burning Biomass"</em> (Parral, Maule). Auditoría de vacíos metodológicos en balances de carbono de centrales bioeléctricas, fiscalizando subsidios europeos bajo directivas <strong>RED III y ETS</strong>.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Interlocución Legislativa</strong><br><span class="badge badge-purple">Congreso Nacional de Chile</span></td>
+      <td>
+        <strong>Comparecencia como perito técnico oficial</strong> ante la Comisión Especial de Emergencia, Desastres y Bomberos de la Cámara de Diputadas y Diputados de Chile. Defensa de modelos biofísicos de riesgo de megaincendios e hidrogeología ante parlamentarios y convencionales constituyentes.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Tracción Social & Prensa</strong><br><span class="badge badge-blue">Apruebo Rural / Primera Línea</span></td>
+      <td>
+        Coordinación general de campaña nacional (14 regiones, +80 asambleas comunales, +500.000 kits pedagógicos). Dirección editorial en medio socioambiental independiente con <strong>más de 700.000 seguidores orgánicos</strong> y programas radiales semanales.
+      </td>
+    </tr>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ========================================================================= -->
+  <!-- PÁGINA 2: ÁRBOL DE APTITUDES (7 RAMAS) & MATRIZ DE ARQUETIPOS DE CARRERA  -->
+  <!-- ========================================================================= -->
+
+  <div class="header-banner">
+    <div>
+      <h1 class="header-title">Árbol de Aptitudes & Matriz de Arquetipos</h1>
+      <div class="header-subtitle">Estructura Modular de Competencias y Posicionamiento Estratégico</div>
+    </div>
+    <div class="header-meta">
+      SECCIÓN 02 // AGY-SKILL-TREE
+    </div>
+  </div>
+
+  <h2>4. Las 7 Ramas del Árbol de Aptitudes (Skill Tree)</h2>
+  <p style="font-size:8.3pt; color:#475569;">
+    El perfil de Daniel Santander no es lineal ni generalista difuso; es una <strong>red transdisciplinaria calibrada</strong> donde cada rama se conecta con evidencias verificables del Portafolio:
+  </p>
+
+  <table>
+    <tr>
+      <th style="width: 22%;">Rama de Competencia</th>
+      <th style="width: 28%;">Habilidades Clave Dominadas</th>
+      <th>Armas del Portafolio & Evidencias Conectadas</th>
+    </tr>
+    <tr>
+      <td><strong>1. Geofísica & Sensores</strong><br><span class="badge badge-emerald">RAMA GEOFÍSICA</span></td>
+      <td>Sondeos Eléctricos Verticales (SEV), resistividad de suelos, gravimetría, inversión física de datos, teledetección satelital (Sentinel-2, GEE).</td>
+      <td>Memoria FCFM Maule, sondajes de resistividad, procesamiento multiespectral y modelación hidrogeológica del subsuelo.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Biogeoquímica & Suelos</strong><br><span class="badge badge-blue">RAMA SUELOS/AGUA</span></td>
+      <td>Torres de Eddy Covariance, cámaras de flujo cerrado de CO₂/CH₄, micrometeorología, curvas de retención hídrica, limnología (Directiva Marco Agua UE).</td>
+      <td>Proyecto turbera Wallener Au (Kiel), balances hidrológicos en cuencas europeas y bioindicadores en lagos de Poznań.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Software & AI Product</strong><br><span class="badge badge-blue">RAMA CÓDIGO</span></td>
+      <td>Lenguaje R (Tidyverse, series temporales, modelos lineales/ANOVA), Python (NumPy, GeoPandas, QGIS), pipelines de datos, Three.js / React 19.</td>
+      <td>Gemelo digital 3D <em>Wetland Monitor</em>, repositorios de análisis reproducible en R/Python y desarrollo de la plataforma <em>Empleo</em>.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Políticas & Cuencas</strong><br><span class="badge badge-purple">RAMA GOBERNANZA</span></td>
+      <td>Legislación de aguas, salvaguardas ambientales, ordenamiento territorial por cuencas, auditoría de directivas de la UE (RED III, ETS, CSRD).</td>
+      <td>Informe internacional EPN sobre biomasa, minutas normativas para la Convención Constitucional y peritaje ante la Cámara de Diputados.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Comunicaciones & Prensa</strong><br><span class="badge badge-amber">RAMA PRENSA</span></td>
+      <td>Dirección editorial, periodismo de investigación climática, locución radial, verificación de datos (fact-checking), gestión de crisis.</td>
+      <td>Primera Línea Prensa (+700.000 seguidores), panelista en Radio Cristalina 96.3 FM y capacitación de 45 corresponsales ciudadanos.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Grassroots & Territorio</strong><br><span class="badge badge-emerald">RAMA SOCIAL</span></td>
+      <td>Coordinación de asambleas rurales, comités de agua potable rural (APR), diálogo con comunidades campesinas y bomberos de interfaz.</td>
+      <td>Campaña nacional Apruebo Rural (14 regiones, 80 asambleas, distribución de 500.000 volantes y kits pedagógicos).</td>
+    </tr>
+    <tr>
+      <td><strong>7. Gestión de Proyectos & I+D</strong><br><span class="badge badge-amber">RAMA COOPERACIÓN</span></td>
+      <td>Postulación y gestión de convocatorias europeas (Horizon Europe, DFG, Life, Interreg), articulación multiactor, informes de balance.</td>
+      <td>Consorcios transfronterizos CAU Kiel (Alemania) – AMU Poznań (Polonia) y coordinación con ONGs globales (GFC, EPN).</td>
+    </tr>
+  </table>
+
+  <h2>5. Matriz de los 4 Arquetipos de Salida Profesional</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0; color:#0369a1;">Arquetipo A: Investigador I+D Científico</h3>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Destinos:</strong> Institutos públicos DACH (Thünen, Helmholtz, UFZ, GFZ, PIK), centros vascos (BC3, AZTI, Neiker) y universidades europeas (TVöD E13 / Postdoc / PhD).</p>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Ángulo Táctico:</strong> Asimetría cuantitativa. Unir física de suelos y subsuelo con biogeoquímica de superficie y R reproducible.</p>
+      <span class="badge badge-blue">CV Recomendado: 2 Páginas DIN</span>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0; color:#065f46;">Arquetipo B: AI Product Owner / Climate-Tech</h3>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Destinos:</strong> Startups de carbono, teledetección (MRV), gemelos digitales agroambientales, consultoras de software científico.</p>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Ángulo Táctico:</strong> Traductor técnico infalible: comprende la física y biogeoquímica dura y la traduce a arquitectura de software moderna.</p>
+      <span class="badge badge-emerald">CV Recomendado: 1-2 Páginas</span>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0; color:#5b21b6;">Arquetipo C: Consultor en Políticas & Cuencas</h3>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Destinos:</strong> Agencias de aguas (URA, Confederaciones Hidrográficas), consultoras de riesgo climático (CSRD / Taxonomía UE) y ONGs internacionales.</p>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Ángulo Táctico:</strong> Rigor técnico parlamentario: peritajes demostrados en el Congreso Nacional y auditoría de directivas de carbono.</p>
+      <span class="badge badge-purple">CV Recomendado: 2 Páginas</span>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0; color:#92400e;">Arquetipo D: Director de Campañas & Grassroots</h3>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Destinos:</strong> Movimientos socioambientales, fundaciones climáticas, federaciones rurales y plataformas de justicia ambiental.</p>
+      <p style="font-size:8pt; margin-bottom:4px;"><strong>Ángulo Táctico:</strong> Capacidad masiva de articulación: +700k audiencia, 14 regiones en terreno y conexión real con el mundo rural.</p>
+      <span class="badge badge-amber">CV Recomendado: 2 Páginas</span>
+    </div>
+  </div>
+
+  <h2>6. Longitud del CV: Cuándo usar 1 Página vs. 2 Páginas</h2>
+  <div class="callout">
+    <strong>CRITERIO DIFERENCIAL SEGÚN DESTINO:</strong><br>
+    • <strong>1 Página (Máx. 4 bloques de experiencia):</strong> Usar en postulaciones ágiles para startups tecnológicas, aceleradoras o sector privado anglosajón.<br>
+    • <strong>2 Páginas (Estándar preferido en Alemania / TVöD / UE):</strong> Para institutos de investigación (Thünen, Helmholtz, CSIC), universidades y convocatorias públicas en Alemania y Euskadi. Permite desglosar proyectos de campo, instrumentación (Eddy Covariance, SEV), publicaciones y conferencias oficiales con el rigor requerido por los comités evaluadores.
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ========================================================================= -->
+  <!-- PÁGINA 3: LA RECETA MAESTRA DE COVER LETTER & AUDITORÍA DUAL-LENS        -->
+  <!-- ========================================================================= -->
+
+  <div class="header-banner">
+    <div>
+      <h1 class="header-title">Receta Maestra de Cover Letter & Dual-Lens</h1>
+      <div class="header-subtitle">Checklist de 5 Dimensiones, Ruptura de Monotonía y Evaluación Táctica</div>
+    </div>
+    <div class="header-meta">
+      SECCIÓN 03 // AUDIT-ENGINE-V2
+    </div>
+  </div>
+
+  <h2>7. La Receta Maestra de Cover Letter (Checklist de 5 Dimensiones)</h2>
+  <p style="font-size:8.3pt;">
+    Toda carta redactada o revisada por Gemini para Daniel debe satisfacer obligatoriamente los siguientes 5 pilares operativos:
+  </p>
+
+  <div class="card">
+    <h3 style="margin-top:0;">Dimensión 1: El Hilo Conductor (The Golden Thread) & Arquitectura Narrativa</h3>
+    <ul>
+      <li><strong>Párrafo 1 (El Gancho y Tesis):</strong> <em>PROHIBIDO</em> abrir con la fórmula burocrática estándar (<em>"Me dirijo a usted para postular al puesto de..."</em> o <em>"I am writing to apply..."</em>). Abre directamente conectando el <strong>desafío o dolor central del proyecto/organización</strong> con tu <strong>tesis de valor técnico</strong>.</li>
+      <li><strong>Párrafos 2 y 3 (Evidencia Empírica de Resolución):</strong> No listar cargos pasados como un currículum andante. Articula cómo resuelves problemas concretos: balance de masa, integración de R con series temporales, operación de torres Eddy Covariance o facilitación de consensos multiactor.</li>
+      <li><strong>Párrafo 4 (Forward-Looking Pitch):</strong> Plantea una visión proactiva de qué harás en los primeros meses o cuál será tu aporte inmediato prioritario (ej. <em>"Stepping into this role, my immediate priority will be to integrate the sensor pipeline with..."</em>).</li>
+      <li><strong>Cierre Mandatorio (ToR Compliance):</strong> Incluir declaración expresa de <strong>disponibilidad horaria</strong> (ej. 40h/semana, trabajo de campo en cualquier clima), <strong>rango de honorarios/salario</strong> (TVöD E13 o consultoría) y <strong>estatus de residencia legal inmediata</strong> (§ 20 AufenthG).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">Dimensión 2: Filtro Anti-IA y Erradicación Total de Clichés</h3>
+    <p style="font-size:8.3pt;">
+      El texto no debe sonar a modelo de lenguaje obediente. Se prohíben taxativamente las siguientes palabras y sus derivados:
+    </p>
+    <div class="grid-2" style="font-size:8pt; font-family:ui-monospace, monospace;">
+      <div>
+        <strong>Lista Negra en Inglés:</strong><br>
+        • thrilled to / excited to<br>
+        • delve into / dive into<br>
+        • testament to / beacon of<br>
+        • foster / cultivate<br>
+        • seamlessly align / tapestry<br>
+        • spearhead / passionate about<br>
+        • in conclusion / furthermore
+      </div>
+      <div>
+        <strong>Lista Negra en Español:</strong><br>
+        • jugar un papel crucial<br>
+        • cabe destacar que / es menester<br>
+        • apasionado por / entusiasmo desbordante<br>
+        • amplio abanico / crisol<br>
+        • sinergia perfecta / alineamiento natural<br>
+        • en conclusión / en resumen<br>
+        • me dirijo a ustedes para postular
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">Dimensión 3: Ruptura de Reiteraciones Mecánicas y Monotonía Sintáctica</h3>
+    <ul>
+      <li><strong>Densidad Léxica:</strong> Ninguna palabra clave (salvo conectores básicos) puede repetirse 4 o más veces en la carta. Usar sinónimos técnicos precisos.</li>
+      <li><strong>Ruptura de Iniciadores Monótonos:</strong> Prohibido comenzar oraciones sucesivas con <em>"I", "I am", "I have", "Yo", "Mi experiencia"</em>. Alternar con:
+        <ul>
+          <li><em>De contexto y contraste:</em> "Rather than imposing top-down agendas...", "En la intersección entre la física de medios porosos y la política de cuencas..."</li>
+          <li><em>De aprendizaje empírico:</em> "Having coordinated multi-stakeholder coalitions across...", "La experiencia articulando comités de agua potable demostró que..."</li>
+          <li><em>De propuesta hacia adelante:</em> "Stepping into this role, my immediate priority would be to...", "Para conectar las metas del consorcio con la realidad de terreno..."</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <h2>8. Criterios de Evaluación del Sistema "Dual-Lens"</h2>
+  <table>
+    <tr>
+      <th style="width: 50%;">Lente 1: Headhunter / ATS (Filtro Formal 45%)</th>
+      <th style="width: 50%;">Lente 2: Wingman / PI (Filtro Colega 55%)</th>
+    </tr>
+    <tr>
+      <td>
+        • <strong>Densidad de Keywords ATS:</strong> Coincidencia exacta con los requisitos de la vacante (software, idiomas, titulación requerida).<br>
+        • <strong>Cumplimiento Mandatorio (ToR):</strong> Mención explícita a titulación homologable, horas semanales, movilidad para terreno y honorarios.<br>
+        • <strong>Legibilidad y Extensión:</strong> Tiempos de lectura controlados (1.5 - 2.5 min), formato DIN 5008 y viñetas estructuradas con métricas.
+      </td>
+      <td>
+        • <strong>Dolores del PI (Pain Points):</strong> La postulación ataca directamente el cuello de botella del laboratorio (ej. falta de instrumentación, vacíos en R).<br>
+        • <strong>Asimetría Competitiva:</strong> Explicar por qué Daniel es único (ej. combina geofísica de subsuelo con biogeoquímica y capacidad comunicacional pública).<br>
+        • <strong>Desmontaje de Objeciones (Stress Test):</strong> Neutralizar dudas sobre reubicación, idioma alemán o transición interdisciplinaria de antemano.
+      </td>
+    </tr>
+  </table>
+
+  <h2>9. System Prompt de Inicialización Rápida para Gemini Web</h2>
+  <div class="callout" style="background:#f1f5f9; font-family:ui-monospace, monospace; font-size:7.8pt;">
+    "Actúa como el Headhunter Táctico y Editor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Cualquier CV o carta debe cumplir la 'Receta Maestra' (Apertura con gancho, Forward-Looking Pitch, cero clichés de IA, tono de par científico soberano y cumplimiento estricto de ToR). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas para instituciones DACH/europeas o 1 página para startups. No inventes datos que no figuren en este dossier."
+  </div>
+
+  <div class="footer-note">
+    DOCUMENTO OPERATIVO GENERADO AUTOMÁTICAMENTE DESDE EL ECOSISTEMA HEADHUNTER // EMPLEO ⟷ PORTAFOLIO.
+  </div>
+
+</body>
+</html>

@@ -230,9 +230,8 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
                     onChange={(e) => setSettings({ ...settings, modelName: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
                   >
-                    <option value="gemini-2.0-flash">Gemini 2.0 Flash (Recomendado - Multimodal & Rápido)</option>
-                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (Alta Disponibilidad)</option>
-                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (Razonamiento Profundo)</option>
+                    <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite (Ultra Rápido & Recomendado)</option>
+                    <option value="gemini-3.8-flash">Gemini 3.8 Flash (Razonamiento Profundo)</option>
                   </select>
                 </div>
 
@@ -254,7 +253,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
                       type="password"
                       value={settings.apiKey}
                       onChange={(e) => setSettings({ ...settings, apiKey: e.target.value })}
-                      placeholder="AIzaSy..."
+                      placeholder="AQ... o AIzaSy..."
                       className="flex-1 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
                     />
                     <button
@@ -290,7 +289,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
                   )}
 
                   <p className="text-[10px] text-slate-500 mt-1">
-                    La clave debe empezar por <code className="text-cyan-400 font-mono">AIzaSy...</code>. Se guarda únicamente en tu navegador (localStorage) y nunca viaja a servidores intermedios.
+                    La clave empieza por <code className="text-cyan-400 font-mono">AQ...</code> o <code className="text-cyan-400 font-mono">AIzaSy...</code>. Se guarda únicamente en tu navegador (localStorage) y nunca viaja a servidores intermedios.
                   </p>
                 </div>
               </div>

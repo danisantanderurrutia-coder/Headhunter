@@ -42,22 +42,17 @@ async function callGeminiRest(
 
   if (apiKey.startsWith('sk-') || apiKey.startsWith('sk-ant-')) {
     throw new Error(
-      'La clave introducida empieza por "sk-", lo que indica que es de OpenAI o Anthropic. Google Gemini requiere una API Key que empieza por "AIzaSy...". Puedes obtenerla gratis en https://aistudio.google.com/app/apikey'
+      'La clave introducida empieza por "sk-", lo que indica que es de OpenAI o Anthropic. Google Gemini requiere una API Key de Google AI Studio (comienza por "AQ." o "AIzaSy..."). Puedes obtenerla gratis en https://aistudio.google.com/app/apikey'
     );
   }
 
-  // Model normalisation: Gemini 2.0 Flash y Gemini 1.5 Flash son los modelos oficiales de Google
-  let model = modelNameOverride || settings.modelName || 'gemini-2.0-flash';
-  if (model.includes('pro')) {
-    model = 'gemini-1.5-pro';
-  } else if (model.includes('1.5') && model.includes('flash')) {
-    model = 'gemini-1.5-flash';
+  // Model normalisation: Gemini 3.5 Flash Lite y Gemini 3.8 Flash son los modelos oficiales activos de Google
+  let model = modelNameOverride || settings.modelName || 'gemini-3.5-flash-lite';
+  if (model.includes('3.8') || model.includes('pro')) {
+    model = 'gemini-3.8-flash';
   } else {
-    // gemini-2.0-flash por defecto (cubre también gemini-3.8 legacy del config)
-    model = 'gemini-2.0-flash';
+    model = 'gemini-3.5-flash-lite';
   }
-
-  const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
   const payload = {
     system_instruction: {
@@ -75,11 +70,21 @@ async function callGeminiRest(
     }
   };
 
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
+  const executePost = async (targetModel: string) => {
+    const endpoint = `${GEMINI_API_BASE}/${targetModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  };
+
+  let response = await executePost(model);
+
+  // Si 3.8 Flash tiene un pico de saturación (503) o 404, fallback inmediato y transparente a 3.5 Flash Lite
+  if (!response.ok && (response.status === 503 || response.status === 404) && model !== 'gemini-3.5-flash-lite') {
+    response = await executePost('gemini-3.5-flash-lite');
+  }
 
   if (!response.ok) {
     const errorBody = await response.text();
@@ -88,7 +93,7 @@ async function callGeminiRest(
       const parsed = JSON.parse(errorBody);
       if (parsed.error?.message) {
         if (parsed.error.message.includes('API key not valid')) {
-          message = 'Error de Gemini: API key not valid. Tu clave fue rechazada por Google AI Studio. Asegúrate de usar una clave que empiece por "AIzaSy..." generada en https://aistudio.google.com/app/apikey (las claves de OpenAI sk-... no son compatibles).';
+          message = 'Error de Gemini: API key not valid. Tu clave fue rechazada por Google AI Studio. Asegúrate de usar una clave de Google AI Studio (comienza por "AQ." o "AIzaSy...") generada en https://aistudio.google.com/app/apikey.';
         } else {
           message = `Error de Gemini: ${parsed.error.message}`;
         }
@@ -122,11 +127,11 @@ export async function testGeminiConnection(keyToTest?: string): Promise<{ ok: bo
   if (apiKey.startsWith('sk-') || apiKey.startsWith('sk-ant-')) {
     return {
       ok: false,
-      message: 'La clave empieza por "sk-", correspondiente a OpenAI/Anthropic. Google Gemini requiere una clave que comienza por "AIzaSy...".'
+      message: 'La clave empieza por "sk-", correspondiente a OpenAI/Anthropic. Google Gemini requiere una clave de Google AI Studio ("AQ." o "AIzaSy...").'
     };
   }
 
-  const endpoint = `${GEMINI_API_BASE}/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const endpoint = `${GEMINI_API_BASE}/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey)}`;
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -147,7 +152,7 @@ export async function testGeminiConnection(keyToTest?: string): Promise<{ ok: bo
       return { ok: false, message: msg };
     }
 
-    return { ok: true, message: 'Conexión exitosa con Gemini 2.0 Flash' };
+    return { ok: true, message: 'Conexión exitosa con Gemini 3.5 Flash Lite' };
   } catch (err: any) {
     return { ok: false, message: err.message || 'Error de conexión de red al conectar con Google' };
   }

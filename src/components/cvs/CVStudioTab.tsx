@@ -743,12 +743,12 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
             {(parseOfferError.toLowerCase().includes('api key') || parseOfferError.toLowerCase().includes('clave api')) && (
               <div className="p-2.5 rounded-lg bg-[var(--card-bg)] border border-rose-500/20 text-[var(--text-primary)] space-y-2.5 mt-1 shadow-xs">
                 <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
-                  Para utilizar las funciones de Gemini necesitas una API Key gratuita de <strong>Google AI Studio</strong> (debe comenzar por <code className="bg-slate-800 text-sky-400 px-1 py-0.5 rounded font-mono">AIzaSy...</code>). Las claves de OpenAI (<code className="bg-slate-800 text-rose-400 px-1 py-0.5 rounded font-mono">sk-...</code>) no son compatibles.
+                  Para utilizar las funciones de Gemini necesitas una API Key gratuita de <strong>Google AI Studio</strong> (debe comenzar por <code className="bg-slate-800 text-sky-400 px-1 py-0.5 rounded font-mono">AQ...</code> o <code className="bg-slate-800 text-sky-400 px-1 py-0.5 rounded font-mono">AIzaSy...</code>). Las claves de OpenAI (<code className="bg-slate-800 text-rose-400 px-1 py-0.5 rounded font-mono">sk-...</code>) no son compatibles.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2 items-center">
                   <input
                     type="password"
-                    placeholder="Pega aquí tu clave: AIzaSy..."
+                    placeholder="Pega aquí tu clave: AQ... o AIzaSy..."
                     value={quickApiKey}
                     onChange={(e) => setQuickApiKey(e.target.value)}
                     className="flex-1 w-full px-2.5 py-1.5 rounded-md border bg-[var(--panel-bg)] text-xs font-mono focus:outline-none focus:border-sky-500 placeholder:text-[var(--text-muted)]"
