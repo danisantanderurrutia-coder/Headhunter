@@ -29,9 +29,9 @@ class NumberedCanvas(canvas.Canvas):
         self.setFont("Helvetica-Bold", 7.5)
         self.setFillColor(colors.HexColor("#64748b"))
         
-        # Header (pages > 1)
+        # Header (páginas > 1)
         if self._pageNumber > 1:
-            self.drawString(40, 810, "OPERATIVE CORE DOSSIER // DIRECTIVA CANÓNICA & RECETA MAESTRA DE COVER LETTER")
+            self.drawString(40, 810, "OPERATIVE CORE DOSSIER // DIRECTIVA CANÓNICA & RECETA MAESTRA")
             self.drawRightString(555, 810, "DANIEL SANTANDER URRUTIA")
             self.setStrokeColor(colors.HexColor("#cbd5e1"))
             self.setLineWidth(0.6)
@@ -41,9 +41,9 @@ class NumberedCanvas(canvas.Canvas):
         self.setFont("Helvetica", 7.5)
         self.setStrokeColor(colors.HexColor("#cbd5e1"))
         self.setLineWidth(0.6)
-        self.line(40, 36, 555, 36)
-        self.drawString(40, 26, "CONFIDENCIAL // RECURSO DE CONTEXTO TÁCTICO PARA MODELO GEMINI / LLM")
-        self.drawRightString(555, 26, f"Página {self._pageNumber} de {page_count}")
+        self.line(40, 34, 555, 34)
+        self.drawString(40, 24, "CONFIDENCIAL // RECURSO DE CONTEXTO TÁCTICO PARA MODELO GEMINI / LLM")
+        self.drawRightString(555, 24, f"Página {self._pageNumber} de {page_count}")
         self.restoreState()
 
 def build_pdf(filename):
@@ -58,7 +58,6 @@ def build_pdf(filename):
 
     styles = getSampleStyleSheet()
     
-    # Custom styles
     title_style = ParagraphStyle(
         'DocTitle',
         parent=styles['Normal'],
@@ -83,11 +82,11 @@ def build_pdf(filename):
         'Header1',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=10.5,
-        leading=13,
+        fontSize=10,
+        leading=12.5,
         textColor=colors.HexColor("#0f172a"),
-        spaceBefore=11,
-        spaceAfter=5,
+        spaceBefore=10,
+        spaceAfter=4,
         keepWithNext=True
     )
 
@@ -95,10 +94,10 @@ def build_pdf(filename):
         'Header2',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=9,
-        leading=11.5,
+        fontSize=8.5,
+        leading=11,
         textColor=colors.HexColor("#0369a1"),
-        spaceBefore=7,
+        spaceBefore=6,
         spaceAfter=3,
         keepWithNext=True
     )
@@ -107,10 +106,10 @@ def build_pdf(filename):
         'Body',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8,
-        leading=11,
+        fontSize=7.8,
+        leading=10.6,
         textColor=colors.HexColor("#1e293b"),
-        spaceAfter=4
+        spaceAfter=3
     )
 
     body_bold = ParagraphStyle(
@@ -123,8 +122,8 @@ def build_pdf(filename):
         'CalloutText',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=7.8,
-        leading=10.8,
+        fontSize=7.6,
+        leading=10.4,
         textColor=colors.HexColor("#0f172a")
     )
 
@@ -132,18 +131,18 @@ def build_pdf(filename):
         'CodeText',
         parent=styles['Normal'],
         fontName='Courier',
-        fontSize=7.2,
-        leading=9.5,
+        fontSize=7.0,
+        leading=9.2,
         textColor=colors.HexColor("#0f172a")
     )
 
     story = []
 
     # =========================================================================
-    # PORTADA / ENCABEZADO
+    # PÁGINA 1: PORTADA & GROUND TRUTH EMPÍRICO
     # =========================================================================
     story.append(Paragraph("OPERATIVE CORE DOSSIER // DIRECTIVA CANÓNICA", title_style))
-    story.append(Paragraph("Perfil Maestro Ground Truth, Criterios Dual-Lens & La Receta Universal de una Gran Carta de Postulación", sub_title))
+    story.append(Paragraph("Perfil Maestro Ground Truth, Dual-Lens Audit & Receta Universal de Cover Letter (1 Página DIN 5008)", sub_title))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#0284c7"), spaceAfter=8))
 
     # Mandato Box
@@ -152,24 +151,21 @@ def build_pdf(filename):
     mandate_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#fffbeb")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#f59e0b")),
-        ('LEFTPADDING', (0,0), (-1,-1), 8),
-        ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(mandate_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
-    # =========================================================================
-    # SECCIÓN 1: IDENTIDAD Y ESTATUS LEGAL
-    # =========================================================================
+    # Sección 1: Identidad
     story.append(Paragraph("1. Identidad, Estatus Contractual y Canales Verificados", h1))
-    
     id_data = [
         [Paragraph("<b>Nombre Completo</b>", body), Paragraph("Daniel Sebastián Santander Urrutia", body)],
         [Paragraph("<b>Titulación Base</b>", body), Paragraph("Licenciado en Geofísica (Universidad de Chile, Distinción Máxima) • Doble M.Sc. en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia)", body)],
         [Paragraph("<b>Contacto Oficial</b>", body), Paragraph("Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com", body)],
-        [Paragraph("<b>Portafolio de Evidencias</b>", body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker de proyectos, peritajes y código)", body)],
+        [Paragraph("<b>Portafolio de Evidencias</b>", body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker de proyectos, peritajes, modelos y código)", body)],
         [Paragraph("<b>Habilitación Legal UE</b>", body), Paragraph("<b>Alemania:</b> Título de posgrado en universidad alemana con permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación inmediata sin patrocinio previo de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", body)],
     ]
     id_table = Table(id_data, colWidths=[120, 399])
@@ -177,17 +173,15 @@ def build_pdf(filename):
         ('BACKGROUND', (0,0), (0,-1), colors.HexColor("#f8fafc")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 6),
-        ('RIGHTPADDING', (0,0), (-1,-1), 6),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('LEFTPADDING', (0,0), (-1,-1), 5),
+        ('RIGHTPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 3.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
     ]))
     story.append(id_table)
     story.append(Spacer(1, 6))
 
-    # =========================================================================
-    # SECCIÓN 2: GROUND TRUTH EMPÍRICO
-    # =========================================================================
+    # Sección 2: Ground Truth
     story.append(Paragraph("2. Resumen de Impacto Real (Ground Truth) vs. Datos Descartados", h1))
     story.append(Paragraph("<b>Regla de Relevancia:</b> Queda prohibido incluir cifras de laboratorio aisladas como <i>'σp = 62.4 kPa'</i>. No comunican impacto. En su lugar, el modelo debe resaltar la capacidad de integrar sistemas, instrumentación avanzada de terreno y oratoria pública demostrada:", body))
 
@@ -221,93 +215,171 @@ def build_pdf(filename):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 3.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
     ]))
     story.append(impact_table)
 
     story.append(PageBreak())
 
     # =========================================================================
-    # SECCIÓN 3: LA TEORÍA UNIVERSAL DE UNA GRAN COVER LETTER
+    # PÁGINA 2: RECETA MAESTRA DE COVER LETTER & ESQUEMA HORIZONTAL
     # =========================================================================
-    story.append(Paragraph("3. La Teoría Universal y Receta Maestra de una Gran Carta de Postulación", h1))
-    story.append(Paragraph("Una carta de postulación excepcional <b>no es un currículum en prosa ni un ejercicio de adulación</b>. Es una <b>pieza de persuasión estratégica</b> que resuelve una única pregunta para el decisor: <i>'¿Entiende este candidato el problema real de mi organización y puede acelerar su solución mejor que nadie?'</i>", body))
+    story.append(Paragraph("3. La Receta Maestra de Cover Letter (1 Página DIN 5008)", h1))
+    story.append(Paragraph("La carta de postulación formal debe redactarse en <b>1 sola página A4 estricta (400 – 480 palabras en 4-5 párrafos densos)</b>. Pasar de 1 página se percibe en Europa como falta de capacidad de síntesis ejecutiva. Solo se admiten 2 páginas si la convocatoria exige formalmente un <i>Research Proposal / Statement</i>.", body))
 
-    story.append(Paragraph("A. Los 4 Principios Inquebrantables de una Carta de Alto Nivel", h2))
+    # ESQUEMA MERMAID HORIZONTAL
+    story.append(Paragraph("<b>Flujo Táctico Horizontal de la Receta Maestra (6 Pasos Consecutivos):</b>", h2))
     
-    principles = [
-        "<b>1. Enfoque 'Zero-Servility' (De Colega a Colega):</b> El candidato escribe como un par profesional o consultor soberano. No pide oportunidades ni expresa agradecimiento anticipado por 'ser considerado'. Diagnostica la situación técnica y plantea valor de igual a igual.",
-        "<b>2. Orientación al Problema (Problem-Centric, no Me-Centric):</b> El 80% de las cartas fracasan porque hablan de lo que el postulante 'desea aprender' o lo que 'le apasiona'. Una gran carta habla de los cuellos de botella del proyecto, los riesgos del sector y cómo se destraban.",
-        "<b>3. Densidad de Evidencia vs. Densidad de Adjetivos:</b> Queda prohibido afirmar que uno es 'meticuloso, apasionado o visionario'. El adjetivo se reemplaza siempre por el protocolo, la herramienta y el resultado medible (ej. en vez de 'gran analista', citar 'modelación multivariada en R acoplando balances hidrológicos').",
-        "<b>4. Asimetría de Entrada (The Unfair Advantage):</b> Toda postulación ganadora articula un puente que los candidatos promedio no tienen (ej. unir geofísica dura de subsuelo con biogeoquímica de superficie y oratoria legislativa)."
-    ]
-    for p in principles:
-        story.append(Paragraph(f"• {p}", body))
+    flow_step_style = ParagraphStyle(
+        'FlowStep',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=6.8,
+        leading=8.5,
+        alignment=1, # Center
+        textColor=colors.HexColor("#0f172a")
+    )
+    flow_sub_style = ParagraphStyle(
+        'FlowSub',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=5.8,
+        leading=7.2,
+        alignment=1,
+        textColor=colors.HexColor("#475569")
+    )
 
+    arrow_style = ParagraphStyle(
+        'ArrowStyle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=10,
+        leading=10,
+        alignment=1,
+        textColor=colors.HexColor("#0284c7")
+    )
+
+    mermaid_table_data = [
+        [
+            Paragraph("<b>PASO 1</b><br/>Apertura Fuerte<br/>(Hook & Tesis)", flow_step_style),
+            Paragraph("➔", arrow_style),
+            Paragraph("<b>PASO 2</b><br/>Diagnóstico del<br/>Reto Central", flow_step_style),
+            Paragraph("➔", arrow_style),
+            Paragraph("<b>PASO 3</b><br/>Evidencia &<br/>Artifact Hook", flow_step_style),
+            Paragraph("➔", arrow_style),
+            Paragraph("<b>PASO 4</b><br/>Asimetría Neta<br/>(Zero Defensiveness)", flow_step_style),
+            Paragraph("➔", arrow_style),
+            Paragraph("<b>PASO 5</b><br/>Forward-Looking<br/>Pitch (90 días)", flow_step_style),
+            Paragraph("➔", arrow_style),
+            Paragraph("<b>PASO 6</b><br/>Cierre Sobrio &<br/>ToR Compliance", flow_step_style)
+        ],
+        [
+            Paragraph("Sin rodeos burocráticos. Entrada directa al dolor.", flow_sub_style),
+            "",
+            Paragraph("Demostrar comprensión profunda del proyecto.", flow_sub_style),
+            "",
+            Paragraph("Caso empírico comprobable + enlace al visor/repo.", flow_sub_style),
+            "",
+            Paragraph("Enfoque 100% positivo. Cero disculpas ni peros.", flow_sub_style),
+            "",
+            Paragraph("Prioridad inmediata al asumir el cargo.", flow_sub_style),
+            "",
+            Paragraph("Disponibilidad 40h/sem, TVöD/fee y visa §20.", flow_sub_style)
+        ]
+    ]
+    mermaid_table = Table(mermaid_table_data, colWidths=[76, 12, 76, 12, 76, 12, 79, 12, 76, 12, 76])
+    mermaid_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (0,-1), colors.HexColor("#e0f2fe")),
+        ('BACKGROUND', (2,0), (2,-1), colors.HexColor("#f1f5f9")),
+        ('BACKGROUND', (4,0), (4,-1), colors.HexColor("#d1fae5")),
+        ('BACKGROUND', (6,0), (6,-1), colors.HexColor("#ede9fe")),
+        ('BACKGROUND', (8,0), (8,-1), colors.HexColor("#fef3c7")),
+        ('BACKGROUND', (10,0), (10,-1), colors.HexColor("#f1f5f9")),
+        ('BOX', (0,0), (0,-1), 0.8, colors.HexColor("#0284c7")),
+        ('BOX', (2,0), (2,-1), 0.8, colors.HexColor("#64748b")),
+        ('BOX', (4,0), (4,-1), 0.8, colors.HexColor("#059669")),
+        ('BOX', (6,0), (6,-1), 0.8, colors.HexColor("#7c3aed")),
+        ('BOX', (8,0), (8,-1), 0.8, colors.HexColor("#d97706")),
+        ('BOX', (10,0), (10,-1), 0.8, colors.HexColor("#0284c7")),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('LEFTPADDING', (0,0), (-1,-1), 2),
+        ('RIGHTPADDING', (0,0), (-1,-1), 2),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+    ]))
+    story.append(mermaid_table)
+    story.append(Spacer(1, 6))
+
+    # Regla Zero-Defensiveness
+    zero_def_html = """<b>REGLA CRÍTICA DE ORO // ZERO-DEFENSIVENESS (CERO JUSTIFICACIONES):</b><br/>
+Queda estrictamente prohibido usar conectores de disculpa o contraste defensivo como <i>'a pesar de que mi formación es...'</i>, <i>'aunque no cuento con...'</i> o <i>'despite my background being...'</i>. Plantar una objeción debilita la candidatura. Toda habilidad o antecedente previo se enmarca directamente como una <b>VENTAJA NATURAL y un activo acumulativo</b> que suma una perspectiva de la que carecen los candidatos estándar."""
+    zero_def_table = Table([[Paragraph(zero_def_html, callout_text)]], colWidths=[519])
+    zero_def_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#eff6ff")),
+        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#3b82f6")),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+    ]))
+    story.append(zero_def_table)
     story.append(Spacer(1, 4))
-    story.append(Paragraph("B. La Arquitectura Narrativa en 4 Actos (The Golden Thread)", h2))
 
-    acts_data = [
-        [Paragraph("<b>Acto / Párrafo</b>", body_bold), Paragraph("<b>Función Táctica & Reglas Obligatorias</b>", body_bold)],
+    # Desglose de los 6 Tiempos
+    story.append(Paragraph("Desglose Operativo de los 6 Tiempos (Estructura DIN 5008):", h2))
+    
+    steps_data = [
+        [Paragraph("<b>Párrafo / Tiempo</b>", body_bold), Paragraph("<b>Directiva de Redacción & Elementos Clave</b>", body_bold)],
         [
-            Paragraph("<b>Acto 1: Apertura Fuerte<br/>(The Hook & Thesis)</b>", body),
-            Paragraph("<b>PROHIBIDO abrir con fórmulas burocráticas</b> (<i>'Me dirijo a usted para postular...', 'I am writing to express my interest in...'</i>).<br/><b>Regla:</b> Abre en la primera línea con el desafío central de la organización o proyecto y tu tesis de alineamiento técnico. Conecta directamente con la coyuntura del sector.", body)
+            Paragraph("<b>1. Apertura Fuerte<br/>(The Hook & Thesis)</b>", body),
+            Paragraph("<b>PROHIBIDO abrir con fórmulas burocráticas</b> (<i>'Me dirijo a usted...', 'I am writing to apply...'</i>). Abre en la primera frase conectando el dolor del proyecto con tu tesis técnica de entrada de par a par.", body)
         ],
         [
-            Paragraph("<b>Acto 2: Evidencia Empírica de Resolución</b>", body),
-            Paragraph("Demuestra competencia resolviendo un problema similar al que enfrenta el equipo. Cita marcos metodológicos verificables, instrumentación real y tratamiento de datos. No listes cargos; narra la fricción superada y el balance técnico obtenido.", body)
+            Paragraph("<b>2. Diagnóstico del Reto</b>", body),
+            Paragraph("Demuestra que comprendes el cuello de botella técnico del equipo (falta de resolución temporal, fricción multiactor, integración de sensores). La carta se centra en su problema, no en tus deseos personales.", body)
         ],
         [
-            Paragraph("<b>Acto 3: Asimetría & Facilitación Multiactor</b>", body),
-            Paragraph("Explica por qué tu formación transdisciplinaria neutraliza los riesgos del puesto. Conecta el rigor analítico con la capacidad de interlocución (traducción de datos a tomadores de decisión, gestión de desacuerdos o articulación de campo).", body)
+            Paragraph("<b>3. Evidencia & Artifact Hook</b>", body),
+            Paragraph("El caso de estudio empírico que valida tu capacidad de resolverlo (Eddy Covariance, R, balances de cuenca). <b>Artifact Hook obligatorio:</b> Incluir un enlace directo a la prueba física (ej. <i>[Wetland Monitor / Visor 3D]</i> o informe EPN).", body)
         ],
         [
-            Paragraph("<b>Acto 4: Propuesta Hacia Adelante (Forward-Looking Pitch)</b>", body),
-            Paragraph("Proyecta tu acción en los primeros 90 días o sobre el objetivo inmediato del proyecto (ej. <i>'Al asumir este rol, mi prioridad operativa será articular...'</i>). Demuestra que comienzas a trabajar mentalmente antes de ser contratado.", body)
+            Paragraph("<b>4. Asimetría Positiva<br/>(Cero Excusas)</b>", body),
+            Paragraph("Explica por qué tu combinación interdisciplinaria (geofísica + biogeoquímica + oratoria legislativa) eleva al consorcio. Todo se formula como activo neto de valor sin justificaciones ni disculpas.", body)
         ],
         [
-            Paragraph("<b>Cierre Formal:<br/>Cumplimiento ToR</b>", body),
-            Paragraph("Declaración explícita de disponibilidad horaria (ej. 40h/semana, trabajo en terreno), expectativas de honorarios/convenio (TVöD E13 o consultoría) y estatus legal inmediato de contratación (§ 20 AufenthG). Cierre sobrio sin servilismo.", body)
+            Paragraph("<b>5. Forward-Looking Pitch</b>", body),
+            Paragraph("Plan concreto para los primeros 90 días o sobre el objetivo inmediato (ej. <i>'Al asumir este rol, mi prioridad operativa será integrar...'</i>). Muestra que ya estás resolviendo mentalmente el problema.", body)
+        ],
+        [
+            Paragraph("<b>6. Cierre Formal ToR</b>", body),
+            Paragraph("Declaración explícita de disponibilidad horaria (40h/sem, disponibilidad para terreno), encuadre salarial (TVöD E13 o consultoría) y estatus legal inmediato (§ 20 AufenthG / Ley 14/2013). Cierre sobrio sin servilismo.", body)
         ],
     ]
-    acts_table = Table(acts_data, colWidths=[120, 399])
-    acts_table.setStyle(TableStyle([
+    steps_table = Table(steps_data, colWidths=[120, 399])
+    steps_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
-    story.append(acts_table)
-
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("C. Catálogo de Iniciadores de Oración de Alto Impacto", h2))
-    story.append(Paragraph("Para romper la monotonía de oraciones que comienzan con 'Yo', 'I', 'I have' o 'En este rol', el modelo debe alternar con iniciadores sintácticos de contexto:", body))
-
-    starters = [
-        "<b>De Contexto & Contraste:</b> <i>'Rather than imposing top-down agendas...', 'En la intersección entre la física de medios porosos y la política de cuencas...', 'Where traditional approaches treat catchment dynamics as...'</i>",
-        "<b>De Aprendizaje Empírico & Tracción:</b> <i>'Having coordinated multi-stakeholder coalitions across...', 'La experiencia articulando comités de agua potable rural y equipos científicos demostró que...', 'Through direct field instrumentation in...'</i>",
-        "<b>De Propuesta Hacia Adelante:</b> <i>'Stepping into this role, my immediate priority would be to...', 'To bridge regional field realities with European reporting standards...', 'What I offer [Institución] is the verified capacity to...'</i>"
-    ]
-    for s in starters:
-        story.append(Paragraph(f"• {s}", body))
+    story.append(steps_table)
 
     story.append(PageBreak())
 
     # =========================================================================
-    # SECCIÓN 4: AUDITORÍA DUAL-LENS & CHECKLIST DE CONTROL
+    # PÁGINA 3: AUDITORÍA DUAL-LENS, ÁRBOL DE APTITUDES & PROMPT DE ACTIVACIÓN
     # =========================================================================
     story.append(Paragraph("4. Sistema de Auditoría Dual-Lens (Headhunter ATS vs. Wingman PI)", h1))
-    story.append(Paragraph("Todo documento generado debe someterse a la doble auditoría simultánea implementada en el motor de <i>Empleo</i>:", body))
-
+    
     dual_lens_data = [
         [Paragraph("<b>Lente 1: Headhunter / ATS (Filtro Formal 45%)</b>", body_bold), Paragraph("<b>Lente 2: Wingman / PI (Filtro Colega 55%)</b>", body_bold)],
         [
             Paragraph("• <b>Densidad de Palabras Clave:</b> Coincidencia exacta con requisitos indispensables del anuncio.<br/>• <b>Cumplimiento ToR:</b> Mención expresa de títulos homologables, horas semanales y habilitación contractual.<br/>• <b>Legibilidad Estricta:</b> 1.5 a 2.5 min de lectura, formato DIN 5008 y viñetas estructuradas.", body),
-            Paragraph("• <b>Ataque a los Dolores del PI:</b> La carta ataca directamente el cuello de botella del laboratorio o proyecto.<br/>• <b>Asimetría Competitiva:</b> Deja claro por qué Daniel es irreemplazable frente a agrónomos o geólogos estándar.<br/>• <b>Desmontaje de Objeciones (Stress Test):</b> Neutraliza dudas sobre idioma, terreno o estatus antes de la entrevista.", body)
+            Paragraph("• <b>Ataque a los Dolores del PI:</b> La carta ataca directamente el cuello de botella del laboratorio o proyecto.<br/>• <b>Asimetría Competitiva:</b> Deja claro por qué Daniel es irreemplazable frente a perfiles convencionales.<br/>• <b>Zero-Servility:</b> Tono científico soberano libre de adulación vacía.", body)
         ]
     ]
     dual_lens_table = Table(dual_lens_data, colWidths=[255, 264])
@@ -315,43 +387,30 @@ def build_pdf(filename):
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f8fafc")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 6),
-        ('RIGHTPADDING', (0,0), (-1,-1), 6),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('LEFTPADDING', (0,0), (-1,-1), 5),
+        ('RIGHTPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(dual_lens_table)
 
-    story.append(Paragraph("5. Lista Negra de Clichés de IA y Relleno Burocrático", h1))
-    story.append(Paragraph("El modelo debe verificar que el texto tenga <b>cero ocurrencias</b> de las siguientes palabras vetadas:", body))
-
+    story.append(Paragraph("5. Lista Negra de Clichés de IA y Fórmulas Burocráticas Vetadas", h1))
     cliche_box = """<b>Inglés:</b> thrilled to, delve into, testament to, beacon of, foster, seamlessly align, tapestry, spearhead, unwavering, passionate about, in conclusion, furthermore.<br/>
 <b>Español:</b> jugar un papel crucial, cabe destacar que, es menester, apasionado por, amplio abanico, crisol, sinergia perfecta, en conclusión, me dirijo a ustedes para postular."""
-    
     cliche_table = Table([[Paragraph(cliche_box, code_text)]], colWidths=[519])
     cliche_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#fff1f2")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#f43f5e")),
-        ('LEFTPADDING', (0,0), (-1,-1), 8),
-        ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(cliche_table)
 
     story.append(Spacer(1, 4))
-    story.append(Paragraph("6. Guía de Longitud de CV: Cuándo usar 1 Página vs. 2 Páginas", h1))
-    story.append(Paragraph("<b>No imponer 1 página como dogma ciego.</b> Aplicar el siguiente criterio contextual europeo:", body))
-    
-    cv_rules = [
-        "<b>CV de 1 Página (Ultra-Condensado):</b> Indicado para postulaciones ágiles en startups tecnológicas, consultoras privadas anglosajonas o empresas donde el primer filtro es un screener junior con menos de 30 segundos por perfil. Máximo 4 bloques de experiencia y 2 publicaciones.",
-        "<b>CV de 2 Páginas (Estándar Académico y Público DACH / TVöD):</b> Indicado para institutos de investigación (Thünen, Helmholtz, CSIC, Fraunhofer), universidades, ministerios y proyectos de la UE. Permite desglosar proyectos de campo, instrumentación (Eddy Covariance, SEV), publicaciones y conferencias oficiales con el rigor requerido por los comités evaluadores."
-    ]
-    for r in cv_rules:
-        story.append(Paragraph(f"• {r}", body))
-
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("7. Árbol de Aptitudes (7 Ramas) & Arquetipos de Posicionamiento", h1))
+    story.append(Paragraph("6. Árbol de Aptitudes (7 Ramas) & Longitud de CV (1 vs. 2 Págs.)", h1))
+    story.append(Paragraph("<b>Criterio de Longitud de CV:</b> 1 Página para startups/tech ágil. 2 Páginas (estándar preferido en Alemania/DACH, TVöD y consorcios de la UE) para detallar proyectos de campo, instrumentación (Eddy Covariance, SEV), publicaciones y conferencias oficiales.", body))
     
     tree_data = [
         [Paragraph("<b>Rama de Aptitud</b>", body_bold), Paragraph("<b>Competencias Clave</b>", body_bold), Paragraph("<b>Arquetipos Aplicables</b>", body_bold)],
@@ -370,25 +429,24 @@ def build_pdf(filename):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 4),
         ('RIGHTPADDING', (0,0), (-1,-1), 4),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
     story.append(tree_table)
 
     story.append(Spacer(1, 4))
-    story.append(Paragraph("8. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
-    story.append(Paragraph("Copia y pega este comando en Gemini Web junto con este PDF adjunto:", body))
+    story.append(Paragraph("7. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
     
-    prompt_box = """Actúa como el Headhunter Táctico y Editor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Cualquier evaluación, CV o Carta de Postulación debe cumplir obligatoriamente la 'Receta Maestra' (Apertura fuerte con gancho y tesis, forward-looking pitch, cero clichés de IA, tono soberano de colega científico y cumplimiento estricto de ToR). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas para puestos académicos/DACH (TVöD) o 1 página para startups. Nunca inventes herramientas ni datos que no figuren en este documento."""
+    prompt_box = """Actúa como el Headhunter Táctico y Editor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Cualquier evaluación, CV o Carta de Postulación debe cumplir obligatoriamente la 'Receta Maestra' en 1 página DIN 5008 (Apertura fuerte con gancho y tesis, Artifact Hook, cero justificaciones/zero-defensiveness, forward-looking pitch, cero clichés de IA, tono soberano de colega científico y cumplimiento estricto de ToR). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas de CV para puestos académicos/DACH (TVöD) o 1 página para startups. Nunca inventes herramientas ni datos que no figuren en este documento."""
     
     prompt_table = Table([[Paragraph(prompt_box, code_text)]], colWidths=[519])
     prompt_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#0284c7")),
-        ('LEFTPADDING', (0,0), (-1,-1), 8),
-        ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('LEFTPADDING', (0,0), (-1,-1), 7),
+        ('RIGHTPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(prompt_table)
 
