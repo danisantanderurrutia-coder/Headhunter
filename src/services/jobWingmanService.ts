@@ -162,16 +162,81 @@ export const UBA_KILAB_DOSSIER: JobDossier = {
 };
 
 /**
+ * DOSSIER CANÓNICO: ENERGY WEATHER & AI LAB (TU DELFT & BFH BIEL)
+ * Prof. Dr. Angela Meyer - Geoscience and Remote Sensing / AI
+ */
+export const ENERGYWEATHER_AI_DOSSIER: JobDossier = {
+  id: 'dossier-energyweather-angela-meyer',
+  offerId: 'src-energyweather-ai',
+  targetCompany: 'Energy Weather & AI Lab (TU Delft & Bern UAS)',
+  projectTitle: 'Physics-Informed AI, Atmospheric Dynamics & Renewable Energy Meteorology',
+  createdAt: '2026-11-10T08:00:00.000Z',
+  notes: 'Dossier de alta prioridad científica. Foco en modelos neuronales informados por física (PINNs), emuladores atmosféricos, teledetección satelital (Copernicus/Meteosat) y predicción espaciotemporal solar/eólica.',
+  leadProfile: {
+    name: 'Angela Meyer',
+    titleHonorific: 'Prof. Dr.',
+    role: 'Assistant Professor (TU Delft) & Group Leader / Professor (BFH Biel)',
+    institution: 'TU Delft (Dept. of Geoscience & Remote Sensing) & Bern UAS (BFH)',
+    email: 'a.meyer@tudelft.nl',
+    researchFocus: [
+      'Physics-Informed Neural Networks (PINNs) & Climate Emulators',
+      'Spatiotemporal Renewable Power Forecasting (Solar PV & Wind)',
+      'Satellite Remote Sensing (Earth Observation / Copernicus / Meteosat)',
+      'Atmospheric Dynamics, Boundary-Layer Physics & Extreme Weather Impact',
+      'Critical Energy Infrastructure Resilience'
+    ],
+    keyPublications: [
+      'Lanzilao & Meyer (2026): Intraday spatiotemporal PV power prediction at national scale using satellite-based solar forecast models (Energy and AI)',
+      'Meyer et al.: Probabilistic intraday forecasting of PV power generation for the Swiss Plateau (SNSF / BFH / ETH Zurich)',
+      'Meyer (2015): Doctoral Dissertation in Atmospheric Physics, ETH Zurich',
+      'Meyer (2009): Master in Mathematics, University of Cambridge'
+    ],
+    styleNotes: 'Rigor matemático y físico de primer nivel mundial (Cambridge en matemáticas + ETH Zúrich en física atmosférica). Escéptica del machine learning "de juguete" sin anclaje físico. Valora enormemente perfiles con base MINT cuantitativa (geofísica, ecuaciones diferenciales) combinada con experiencia de terreno en sensores reales, calibración de datos y código reproducible en Python/R. Odia que le den cátedra de su propia especialidad.',
+    knownProjects: ['Energy Weather & AI Lab', 'SNSF Swiss PV Forecasting', 'TU Delft Geoscience & Remote Sensing Initiatives']
+  },
+  projectPainPoints: [
+    'Disparidad espaciotemporal satélite vs. superficie: Los satélites resuelven la macroescala de nubes y radiación, pero sufren con la heterogeneidad superficial, la capa límite y la turbulencia micrometeorológica.',
+    'Ground-truth ruidoso y sensores heterogéneos: Dificultad para calibrar modelos frente a redes de observación de superficie continuas con ruido instrumental e intermitencias.',
+    'Violación de balances físicos en modelos caja negra: Modelos de deep learning puros que predicen radiación o viento pero violan balances de masa, momento o conservación de energía en situaciones extremas fuera de distribución.',
+    'Consorcio binacional (Delft / Biel): Necesidad de investigadores autónomos con movilidad entre los Países Bajos y Suiza, capaces de coordinar experimentos y datos entre instituciones.'
+  ],
+  technicalHooks: [
+    'Formación rigurosa en Geofísica (U. de Chile, con distinción): Base sólida en mecánica de medios continuos, cálculo tensorial, EDPs y dinámica de fluidos que se comunica de par a par con el perfil matemático del PI.',
+    'Operación directa de micrometeorología Eddy Covariance (CAU Kiel): Experiencia real midiendo y procesando flujos turbulentos de calor sensible, calor latente y gases con torres de alta frecuencia en R/Python.',
+    'Desarrollo probado de gemelos digitales y teledetección: Creador de Wetland Monitor (visor 3D), AgriTwin (IoT + Sentinel-2 NDVI/NDRE) y Rewilding Field Suite (PWA offline-first en Portugal).',
+    'Elegibilidad legal europea y disponibilidad inmediata: Permiso de residencia § 20 AufenthG para investigadores en Alemania, movilidad plena en la UE/Suiza y dedicación completa de 40h/semana.'
+  ],
+  candidateValueThesis: 'Daniel aporta la combinación ideal para el laboratorio de Angela Meyer: la fundamentación física/matemática de un geofísico para entender las ecuaciones de Navier-Stokes y transporte, unida a la experiencia práctica de terreno operando sensores y torres Eddy Covariance, y la capacidad de construir herramientas de software interactivo basadas en datos satelitales y de superficie.',
+  coverLetterAngles: [
+    'Ángulo 1 (Alineamiento con Energy and AI 2026): Citar con respeto su reciente trabajo con Luca Lanzilao en predicción espaciotemporal solar y enfocar la postulación en resolver la discrepancia entre satélites y observaciones de superficie.',
+    'Ángulo 2 (Geofísica + Eddy Covariance): Posicionar el background en geofísica y medición de flujos turbulentos como la base empírica indispensable para anclar los modelos neuronales informados por la física.',
+    'Ángulo 3 (Gemelos Digitales y Software Vivo): Demostrar capacidad constructiva mediante los enlaces a Wetland Monitor, AgriTwin y ReWild.'
+  ],
+  cvGuidance: [
+    'Destacar en primera plana la base cuantitativa en geofísica (U. de Chile) y doble M.Sc. en CAU Kiel y AMU Poznań.',
+    'Resaltar Eddy Covariance, procesamiento de flujos micrometeorológicos continuos, R, Python, PyTorch y teledetección Sentinel-2.',
+    'Incluir los gemelos digitales como proyectos de software ambiental y reproducibilidad.',
+    'Mencionar disponibilidad inmediata y permiso § 20 AufenthG.'
+  ],
+  coldApproachEmail: {
+    subjectDe: 'Fachliche Anfrage zu Forschungs- und Promotionsmöglichkeiten im Energy Weather & AI Lab',
+    bodyDe: `Sehr geehrte Frau Prof. Dr. Meyer,\n\nmit großem Interesse verfolge ich die Arbeiten Ihrer Forschungsgruppe an der Schnittstelle von Atmosphärenphysik, Fernerkundung und erneuerbarer Energiemeteorologie – insbesondere Ihre jüngste Publikation mit Luca Lanzilao in Energy and AI zur raumzeitlichen Solarprognose.\n\nAls Umweltgeophysiker (Universidad de Chile, Abschluss mit Auszeichnung) und Doppel-M.Sc. in Umweltmanagement (CAU Kiel) und Umweltschutz (AMU Poznań) verbinde ich kontinuierliche In-situ-Sensormessungen (Eddy Covariance, Oberflächenenergiebilanzen) mit Satellitenzeitreihen (Copernicus Sentinel-2) und physik-informierten Modellen.\n\nIch würde mich sehr über die Gelegenheit freuen, mich darüber auszutauschen, wie meine Vorerfahrung in Kontinuumsmechanik, instrumenteller Feldarbeit und reproduzierbarer wissenschaftlicher Software zu Ihren Projekten an der TU Delft und der BFH beitragen kann.\n\nMit freundlichen Grüßen,\nDaniel Santander Urrutia\ndanisantander.urrutia@gmail.com | +49 176 76497440`,
+    subjectEn: 'Scientific inquiry regarding Energy Weather & AI research / PhD opportunities',
+    bodyEn: `Dear Prof. Dr. Meyer,\n\nI have been following your group's research at the intersection of atmospheric physics, remote sensing, and renewable energy forecasting with deep interest—particularly your recent paper with Luca Lanzilao in Energy and AI on spatiotemporal solar forecasting.\n\nAs an Environmental Geophysicist (B.Sc. with Distinction, Universidad de Chile) and dual European M.Sc. in Environmental Management (CAU Kiel) and Environmental Protection (AMU Poznań), my work focuses on coupling continuous field sensor observations (Eddy Covariance, surface energy budgets) with satellite time series (Copernicus Sentinel-2) and physics-informed models.\n\nI would be eager to explore how my background in continuum mechanics, field instrumentation, and reproducible scientific software could contribute to your upcoming projects across TU Delft and BFH.\n\nSincerely,\nDaniel Santander Urrutia\ndanisantander.urrutia@gmail.com | +49 176 76497440`
+  }
+};
+
+/**
  * Recuperar todos los dossiers guardados
  */
 export const getStoredDossiers = (): JobDossier[] => {
   try {
     if (typeof localStorage === 'undefined') {
-      return [THUENEN_TECHWORMS_DOSSIER, UBA_KILAB_DOSSIER];
+      return [THUENEN_TECHWORMS_DOSSIER, UBA_KILAB_DOSSIER, ENERGYWEATHER_AI_DOSSIER];
     }
     const raw = localStorage.getItem(WINGMAN_STORAGE_KEY);
     if (!raw) {
-      return [THUENEN_TECHWORMS_DOSSIER, UBA_KILAB_DOSSIER];
+      return [THUENEN_TECHWORMS_DOSSIER, UBA_KILAB_DOSSIER, ENERGYWEATHER_AI_DOSSIER];
     }
     const parsed = JSON.parse(raw) as JobDossier[];
     // Asegurar que los dossiers canónicos estén presentes
@@ -181,9 +246,12 @@ export const getStoredDossiers = (): JobDossier[] => {
     if (!parsed.some(d => d.id === UBA_KILAB_DOSSIER.id)) {
       parsed.push(UBA_KILAB_DOSSIER);
     }
+    if (!parsed.some(d => d.id === ENERGYWEATHER_AI_DOSSIER.id)) {
+      parsed.push(ENERGYWEATHER_AI_DOSSIER);
+    }
     return parsed;
   } catch {
-    return [THUENEN_TECHWORMS_DOSSIER, UBA_KILAB_DOSSIER];
+    return [THUENEN_TECHWORMS_DOSSIER, UBA_KILAB_DOSSIER, ENERGYWEATHER_AI_DOSSIER];
   }
 };
 
@@ -233,7 +301,18 @@ export const getDossierForOffer = (offer: JobOffer): JobDossier => {
     return THUENEN_TECHWORMS_DOSSIER;
   }
 
-  // 4. Fallback inteligente: construir dossier preliminar
+  // 4. Si la oferta menciona Energy Weather, Angela Meyer, TU Delft o BFH
+  if (
+    text.includes('energy weather') ||
+    text.includes('energyweather') ||
+    text.includes('angela meyer') ||
+    text.includes('meyer') ||
+    (text.includes('delft') && (text.includes('weather') || text.includes('wind') || text.includes('solar') || text.includes('atmosphere')))
+  ) {
+    return ENERGYWEATHER_AI_DOSSIER;
+  }
+
+  // 5. Fallback inteligente: construir dossier preliminar
   return createPreliminaryDossier(offer);
 };
 

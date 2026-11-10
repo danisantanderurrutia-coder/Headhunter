@@ -2,6 +2,7 @@ import { getStoredSettings, getStoredProfile } from './db';
 import { VERIFIED_FACTS, CANONICAL_CONTACT } from '../data/verifiedCvFacts';
 import { CANONICAL_PORTFOLIO_WEAPONS } from './dualAuditEngine';
 import { classifyOfferArchetype, type ApplicationArchetype } from './archetypeClassifier';
+import { getDossierForOffer } from './jobWingmanService';
 import type { JobOffer } from '../types/offers';
 
 export interface GeminiEvaluationResult {
@@ -228,6 +229,8 @@ export async function generateCoverLetterWithGemini(
 ): Promise<GeminiLetterResult> {
   const profile = getStoredProfile();
   const archetype = archetypeOverride ? (await import('./archetypeClassifier')).ARCHETYPE_PROFILES[archetypeOverride] : classifyOfferArchetype(offer);
+  const dossier = getDossierForOffer(offer);
+  const lead = dossier.leadProfile;
 
   const langInstructions = {
     de: 'en ALEMÁN formal (Anschreiben DIN 5008 con vocabulario técnico preciso para el ecosistema DACH)',
@@ -238,6 +241,21 @@ export async function generateCoverLetterWithGemini(
   const systemInstruction = `
 Eres el Redactor Táctico Senior para las cartas de postulación de Daniel Sebastián Santander Urrutia.
 Tu misión es redactar una carta de presentación calibrada para el ARQUETIPO: "${archetype.label}" (${langInstructions}).
+
+INTELIGENCIA WINGMAN DEL INTERLOCUTOR / PI (PERSONA A CARGO):
+- Nombre del PI / Responsable: ${lead.titleHonorific || ''} ${lead.name}
+- Cargo e Institución: ${lead.role} (${lead.institution})
+- Enfoque de Investigación del PI: ${(lead.researchFocus || []).join(' | ')}
+- Publicaciones y Referencias Clave: ${(lead.keyPublications || []).join(' | ')}
+- Psicología y Estilo del PI: ${lead.styleNotes || ''}
+- Puntos de Dolor del Proyecto / Laboratorio: ${(dossier.projectPainPoints || []).join(' | ')}
+- Ganchos Técnicos recomendados: ${(dossier.technicalHooks || []).join(' | ')}
+- Tesis de Valor del Candidato: ${dossier.candidateValueThesis || ''}
+
+DIRECTIVA SUPREMA WINGMAN PARA EL PI:
+1. DIRIGIRSE AL INTERLOCUTOR ESPECÍFICO: Si el PI está identificado (ej. ${lead.name}), la carta DEBE dirigirse explícitamente a esa persona en el saludo y encabezado (ej. "Dear ${lead.titleHonorific || ''} ${lead.name}," o "Sehr geehrte(r) Frau/Herr ${lead.name},").
+2. CONEXIÓN OBLIGATORIA CON SU TRABAJO: Haz referencia específica y respetuosa a las líneas de investigación, publicaciones o proyectos del PI (ej. ${(lead.keyPublications && lead.keyPublications[0]) || 'sus publicaciones recientes'}), demostrando que has estudiado a fondo su grupo.
+3. PROHIBIDO DARLE CLASES DE SU PROPIA ESPECIALIDAD: NUNCA expliques conceptos básicos, teoría elemental o manuales a este PI (ej. si es doctor en física de ETH o matemático de Cambridge como la Dra. Angela Meyer, no le expliques termodinámica ni ecuaciones diferenciales). Trátalo como par científico, enfocándote en resolver los dolores de terreno, sensores y datos del laboratorio.
 
 PERFIL DEL INTERLOCUTOR A CONVENCER (WINGMAN LENS):
 - Rol del lector: ${archetype.targetReader.roleTitle}
@@ -300,6 +318,9 @@ VACANTE OBJETIVO:
 - Institución: ${offer.company}
 - Ubicación: ${offer.location}
 - Arquetipo Detectado: ${archetype.label} (${archetype.targetReader.roleTitle})
+- Interlocutor / PI Detectado: ${lead.titleHonorific || ''} ${lead.name} (${lead.role})
+- Publicaciones / Foco del PI: ${(lead.keyPublications || []).slice(0, 2).join('; ') || (lead.researchFocus || []).slice(0, 3).join(', ')}
+- Dolores Técnicos del Proyecto: ${(dossier.projectPainPoints || []).slice(0, 2).join('; ')}
 - Descripción de la vacante:
 ${offer.rawDescription}
 

@@ -52,8 +52,8 @@ def build_pdf(filename):
         pagesize=A4,
         leftMargin=38,
         rightMargin=38,
-        topMargin=46,
-        bottomMargin=46
+        topMargin=36,
+        bottomMargin=36
     )
 
     styles = getSampleStyleSheet()
@@ -62,8 +62,8 @@ def build_pdf(filename):
         'DocTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=14,
-        leading=17,
+        fontSize=13,
+        leading=15.5,
         textColor=colors.HexColor("#0f172a"),
         spaceAfter=2
     )
@@ -72,21 +72,21 @@ def build_pdf(filename):
         'DocSubtitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=8.5,
-        leading=11,
+        fontSize=8.0,
+        leading=10,
         textColor=colors.HexColor("#0284c7"),
-        spaceAfter=8
+        spaceAfter=5
     )
 
     h1 = ParagraphStyle(
         'Header1',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=10,
-        leading=12.5,
+        fontSize=9.2,
+        leading=11.5,
         textColor=colors.HexColor("#0f172a"),
-        spaceBefore=10,
-        spaceAfter=4,
+        spaceBefore=7,
+        spaceAfter=2.5,
         keepWithNext=True
     )
 
@@ -94,22 +94,70 @@ def build_pdf(filename):
         'Header2',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=8.5,
-        leading=11,
+        fontSize=8.0,
+        leading=10,
         textColor=colors.HexColor("#0369a1"),
-        spaceBefore=6,
-        spaceAfter=3,
+        spaceBefore=4,
+        spaceAfter=2,
         keepWithNext=True
+    )
+
+    rule_body = ParagraphStyle(
+        'RuleBody',
+        fontName='Helvetica',
+        fontSize=6.8,
+        leading=8.3,
+        textColor=colors.HexColor("#1e293b")
+    )
+
+    rule_bold = ParagraphStyle(
+        'RuleBold',
+        fontName='Helvetica-Bold',
+        fontSize=6.8,
+        leading=8.3,
+        textColor=colors.HexColor("#0f172a")
+    )
+
+    id_body = ParagraphStyle(
+        'IdBody',
+        fontName='Helvetica',
+        fontSize=7.0,
+        leading=8.6,
+        textColor=colors.HexColor("#1e293b")
+    )
+
+    course_style = ParagraphStyle(
+        'CourseText',
+        fontName='Helvetica',
+        fontSize=6.4,
+        leading=7.7,
+        textColor=colors.HexColor("#1e293b")
+    )
+
+    tree_body = ParagraphStyle(
+        'TreeBody',
+        fontName='Helvetica',
+        fontSize=6.6,
+        leading=8.0,
+        textColor=colors.HexColor("#1e293b")
+    )
+
+    tree_bold = ParagraphStyle(
+        'TreeBold',
+        fontName='Helvetica-Bold',
+        fontSize=6.6,
+        leading=8.0,
+        textColor=colors.HexColor("#0f172a")
     )
 
     body = ParagraphStyle(
         'Body',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=7.8,
-        leading=10.5,
+        fontSize=7.6,
+        leading=10.0,
         textColor=colors.HexColor("#1e293b"),
-        spaceAfter=3
+        spaceAfter=2.5
     )
 
     body_bold = ParagraphStyle(
@@ -122,8 +170,8 @@ def build_pdf(filename):
         'CalloutText',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=7.5,
-        leading=10.2,
+        fontSize=7.0,
+        leading=9.2,
         textColor=colors.HexColor("#0f172a")
     )
 
@@ -131,8 +179,8 @@ def build_pdf(filename):
         'CodeText',
         parent=styles['Normal'],
         fontName='Courier',
-        fontSize=7.0,
-        leading=9.2,
+        fontSize=6.3,
+        leading=7.6,
         textColor=colors.HexColor("#0f172a")
     )
 
@@ -189,52 +237,56 @@ def build_pdf(filename):
 
     story.append(Paragraph("1. Identidad, Estatus Contractual Europeo y Canales Canónicos", h1))
     id_data = [
-        [Paragraph("<b>Nombre Completo</b>", body), Paragraph("Daniel Sebastián Santander Urrutia", body)],
-        [Paragraph("<b>Titulación Base</b>", body), Paragraph("Licenciado en Geofísica (Universidad de Chile, Distinción Máxima) • Doble M.Sc. en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia)", body)],
-        [Paragraph("<b>Contacto Oficial</b>", body), Paragraph("Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com", body)],
-        [Paragraph("<b>Portafolio de Evidencias</b>", body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker central de proyectos, peritajes, modelos y código)", body)],
-        [Paragraph("<b>Habilitación Legal UE</b>", body), Paragraph("<b>Alemania:</b> Permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", body)],
-        [Paragraph("<b>Enlaces Canónicos (Artifact Hooks)</b>", body), Paragraph("<b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Field Suite):</b> https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", body)],
+        [Paragraph("<b>Nombre Completo</b>", id_body), Paragraph("Daniel Sebastián Santander Urrutia", id_body)],
+        [Paragraph("<b>Titulación Base</b>", id_body), Paragraph("Licenciado en Geofísica (Universidad de Chile, Distinción Máxima) • Doble M.Sc. en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia)", id_body)],
+        [Paragraph("<b>Contacto Oficial</b>", id_body), Paragraph("Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com", id_body)],
+        [Paragraph("<b>Portafolio de Evidencias</b>", id_body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker central de proyectos, peritajes, modelos y código)", id_body)],
+        [Paragraph("<b>Habilitación Legal UE</b>", id_body), Paragraph("<b>Alemania:</b> Permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", id_body)],
+        [Paragraph("<b>Enlaces Canónicos (Artifact Hooks)</b>", id_body), Paragraph("<b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Field Suite):</b> https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", id_body)],
     ]
     id_table = Table(id_data, colWidths=[120, 399])
     id_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (0,-1), colors.HexColor("#f8fafc")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 5),
-        ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 2),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
+        ('LEFTPADDING', (0,0), (-1,-1), 4),
+        ('RIGHTPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 1.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1.2),
     ]))
     story.append(id_table)
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
     story.append(Paragraph("2. Directivas Críticas de Comportamiento para el LLM", h1))
     
     rules_data = [
         [
-            Paragraph("<b>1. Postura 'Zero-Servility'</b>", body_bold),
-            Paragraph("El tono en cartas y entrevistas es el de un <b>par científico / consultor técnico soberano</b>, nunca el de un solicitante subordinado que pide favores. Trata al Investigador Principal (PI), director de grupo o comité de tú a tú, abordando los retos técnicos del proyecto y aportando soluciones empíricas.", body)
+            Paragraph("<b>1. Postura 'Zero-Servility'</b>", rule_bold),
+            Paragraph("El tono en cartas y entrevistas es el de un <b>par científico / consultor técnico soberano</b>, nunca el de un solicitante subordinado que pide favores. Trata al Investigador Principal (PI), director de grupo o comité de tú a tú, abordando los retos técnicos del proyecto y aportando soluciones empíricas.", rule_body)
         ],
         [
-            Paragraph("<b>2. Regla 'Zero-Defensiveness'<br/>(Cero Justificaciones)</b>", body_bold),
-            Paragraph("<b>Queda estrictamente prohibido usar conectores de disculpa o contraste defensivo</b> (<i>'a pesar de que mi formación es...', 'aunque no cuento con...', 'despite my background...'</i>). Plantar una objeción debilita la candidatura. Toda habilidad previa se enmarca como una <b>VENTAJA NATURAL y un activo acumulativo</b> que suma una perspectiva única.", body)
+            Paragraph("<b>2. Regla 'Zero-Defensiveness'<br/>(Cero Justificaciones)</b>", rule_bold),
+            Paragraph("<b>Queda estrictamente prohibido usar conectores de disculpa o contraste defensivo</b> (<i>'a pesar de que mi formación es...', 'aunque no cuento con...', 'despite my background...'</i>). Plantar una objeción debilita la candidatura. Toda habilidad previa se enmarca como una <b>VENTAJA NATURAL y un activo acumulativo</b> que suma una perspectiva única.", rule_body)
         ],
         [
-            Paragraph("<b>3. Principio Anti-Alucinación</b>", body_bold),
-            Paragraph("Cita exclusivamente los hechos del Portafolio y la experiencia empírica. <b>No inventar herramientas ni links inexistentes</b>. Si una vacante requiere un software que Daniel no domina, demostrar asimetría de aprendizaje rápido mediante R/Python y física de medios porosos.", body)
+            Paragraph("<b>3. Principio Anti-Alucinación</b>", rule_bold),
+            Paragraph("Cita exclusivamente los hechos del Portafolio y la experiencia empírica. <b>No inventar herramientas ni links inexistentes</b>. Si una vacante requiere un software que Daniel no domina, demostrar asimetría de aprendizaje rápido mediante R/Python y física de medios porosos.", rule_body)
         ],
         [
-            Paragraph("<b>4. Voz: Joven Líder Intelectual Experto (30 años)</b>", body_bold),
-            Paragraph("<b>PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':</b><br/>• <b>Cero sermón obvio ('Preaching to the Choir'):</b> NUNCA des clases de física básica o machine learning a los revisores (ellos ya son expertos).<br/>• <b>Cero arrogancia diagnóstica:</b> NUNCA sentencies <i>'The core bottleneck at your lab is...'</i>. Habla de retos compartidos de frontera o dificultades metodológicas abiertas.<br/>• <b>Cero jerga corporativa:</b> NUNCA uses <i>'90-day operational milestone'</i> ni <i>'onboarding friction'</i>. En ciencia se habla de diseño experimental, contraste de hipótesis y calibración con terreno.", body)
+            Paragraph("<b>4. Voz: Joven Líder Intelectual Experto (30 años)</b>", rule_bold),
+            Paragraph("<b>PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':</b><br/>• <b>Cero sermón obvio ('Preaching to the Choir'):</b> NUNCA des clases de física básica o machine learning a los revisores (ellos ya son expertos).<br/>• <b>Cero arrogancia diagnóstica:</b> NUNCA sentencies <i>'The core bottleneck at your lab is...'</i>. Habla de retos compartidos de frontera o dificultades metodológicas abiertas.<br/>• <b>Cero jerga corporativa:</b> NUNCA uses <i>'90-day operational milestone'</i> ni <i>'onboarding friction'</i>. En ciencia se habla de diseño experimental, contraste de hipótesis y calibración con terreno.", rule_body)
         ],
         [
-            Paragraph("<b>5. Demostrar Relevancia sin Dar Clases<br/>(Cero Sermón vs. Cero Frialdad)</b>", body_bold),
-            Paragraph("<b>Transmitir la gravedad del problema desde la PERSPECTIVA EN PRIMERA PERSONA</b> (<i>'During my career, I have seen...', 'My trajectory is driven by...'</i>).<br/>• <b>Sermón obvio (PROHIBIDO):</b> Enseñar teoría básica en tercera persona como si fuera un manual (<i>'Climate change causes catastrophic losses and ML is needed because...'</i>).<br/>• <b>Relevancia vivencial / metodológica (OBLIGATORIA):</b> Declarar el imperativo ético y físico como punto de partida personal y reto operativo (<i>'Having witnessed the acceleration of drought and wildfire extremes across complex terrain, my commitment is to ensure data-driven models do not bypass physical conservation laws'</i>).<br/>• <b>Regla de transformación:</b> NUNCA borres motivaciones personales ni contexto climático; conviértelos en el <b>MOTOR DE TU PREGUNTA CIENTÍFICA</b>.", body)
+            Paragraph("<b>5. Demostrar Relevancia sin Dar Clases<br/>(Cero Sermón vs. Cero Frialdad)</b>", rule_bold),
+            Paragraph("<b>Transmitir la gravedad del problema desde la PERSPECTIVA EN PRIMERA PERSONA</b> (<i>'During my career, I have seen...', 'My trajectory is driven by...'</i>).<br/>• <b>Sermón obvio (PROHIBIDO):</b> Enseñar teoría básica en tercera persona como si fuera un manual (<i>'Climate change causes catastrophic losses and ML is needed because...'</i>).<br/>• <b>Relevancia vivencial / metodológica (OBLIGATORIA):</b> Declarar el imperativo ético y físico como punto de partida personal y reto operativo (<i>'Having witnessed the acceleration of drought and wildfire extremes across complex terrain, my commitment is to ensure data-driven models do not bypass physical conservation laws'</i>).<br/>• <b>Regla de transformación:</b> NUNCA borres motivaciones personales ni contexto climático; conviértelos en el <b>MOTOR DE TU PREGUNTA CIENTÍFICA</b>.", rule_body)
         ],
         [
-            Paragraph("<b>6. Preservación Estricta de la Voz y Borradores</b>", body_bold),
-            Paragraph("Si el usuario proporciona un borrador o párrafo propio, <b>QUEDA ESTRICTAMENTE PROHIBIDO eliminar frases vivenciales o reemplazar la primera persona por fórmulas impersonales</b>. El LLM debe actuar como pulidor gramatical y elevador de vocabulario técnico, preservando el 100% de la intención, los matices éticos y la estructura original.", body)
+            Paragraph("<b>6. Preservación Estricta de la Voz y Borradores</b>", rule_bold),
+            Paragraph("Si el usuario proporciona un borrador o párrafo propio, <b>QUEDA ESTRICTAMENTE PROHIBIDO eliminar frases vivenciales o reemplazar la primera persona por fórmulas impersonales</b>. El LLM debe actuar como pulidor gramatical y elevador de vocabulario técnico, preservando el 100% de la intención, los matices éticos y la estructura original.", rule_body)
+        ],
+        [
+            Paragraph("<b>7. Estudio Obligatorio del Interlocutor / PI<br/>(Inteligencia Wingman)</b>", rule_bold),
+            Paragraph("Antes de redactar la carta o preparar la entrevista, es <b>REQUISITO OBLIGATORIO investigar y mapear quién es la persona a cargo (PI, Catedrático o Responsable)</b>:<br/>• <b>Filiación & Alma Máter:</b> Mapear su origen académico (ej. Cambridge, ETH Zúrich, Max Planck, TU Delft) para calibrar la altura conceptual.<br/>• <b>Publicaciones Recientes:</b> Citar con respeto sus investigaciones del último trienio (ej. <i>Lanzilao & Meyer 2026 en Energy and AI</i>).<br/>• <b>Dolores del Laboratorio:</b> Enfocar la postulación en resolver cuellos de botella de terreno, sensores ruidosos o calibración multiescala.<br/>• <b>Regla de Oro:</b> NUNCA dar clases teóricas de su propia especialidad al PI; tratarlo de par científico a par científico.", rule_body)
         ]
     ]
     rules_table = Table(rules_data, colWidths=[130, 389])
@@ -244,8 +296,8 @@ def build_pdf(filename):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 4),
         ('RIGHTPADDING', (0,0), (-1,-1), 4),
-        ('TOPPADDING', (0,0), (-1,-1), 1.8),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 1.8),
+        ('TOPPADDING', (0,0), (-1,-1), 1.0),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1.0),
     ]))
     story.append(rules_table)
 
@@ -633,45 +685,58 @@ def build_pdf(filename):
     story.append(Paragraph("13. Cursos Internacionales, Cumbres y Formación Especializada", h1))
     
     courses = [
-        "<b>BlueGreen Biodiversity Summit:</b> WSL Swiss Federal Research Institute, Davos, Suiza (2025). Biodiversidad acuática y terrestre frente al cambio global.",
-        "<b>Interlinked Justice & Resilient Landscapes:</b> Leibniz Institute of Ecological Urban and Regional Development (IOER), Dresden, Alemania (2024–2025).",
-        "<b>Doughnut Economics Practitioner:</b> DEAL Doughnut Economics Action Lab, Copenhague, Dinamarca (2025). Límites planetarios y pisos sociales aplicados.",
-        "<b>Rewilding & Gestión Forestal:</b> Plano de Gestão Florestal & StoryMaps, Aljezur, Portugal (2024). Restauración y cortafuegos vivos nativos.",
-        "<b>Curso Certificado de Diseño en Permacultura (CDP):</b> EPAC & Fundación Suelo (2023, 80 h). Diseño hidrológico Keyline y regeneración de suelos.",
-        "<b>3ª Escuela de Verano 'Costas Resilientes':</b> (CR)2, Universidad de Chile (2023, 57 h, dir. René Garreaud). Eventos extremos, marejadas y cambio climático.",
-        "<b>Modelado de Nicho Ecológico, Teledetección y R:</b> Instituto Ambiental GIS (2022, 20 h). Algoritmos MaxEnt, R y procesamiento satelital.",
-        "<b>Economía Verde y Financiarización de la Naturaleza:</b> Censat Agua Viva & Amigos de la Tierra Internacional, Bogotá, Colombia (2022, 16 h)."
+        "<b>BlueGreen Biodiversity Summit:</b> WSL Swiss Federal Research Institute, Davos, Suiza (2025). Biodiversidad acuática y terrestre.",
+        "<b>Interlinked Justice & Resilient Landscapes:</b> Leibniz Institute IOER, Dresden, Alemania (2024–2025). Paisajes resilientes.",
+        "<b>Doughnut Economics Practitioner:</b> DEAL Doughnut Economics Action Lab, Copenhague, Dinamarca (2025). Límites planetarios.",
+        "<b>Rewilding & Gestión Forestal:</b> Plano de Gestão Florestal & StoryMaps, Aljezur, Portugal (2024). Cortafuegos vivos nativos.",
+        "<b>Curso Certificado en Permacultura (CDP):</b> EPAC & Fundación Suelo (2023, 80 h). Diseño hidrológico Keyline y regeneración de suelos.",
+        "<b>3ª Escuela de Verano 'Costas Resilientes':</b> (CR)2, Universidad de Chile (2023, 57 h, dir. René Garreaud). Eventos extremos y marejadas.",
+        "<b>Modelado de Nicho Ecológico, Teledetección y R:</b> Instituto Ambiental GIS (2022, 20 h). Algoritmos MaxEnt y teledetección.",
+        "<b>Economía Verde y Financiarización:</b> Censat Agua Viva & Amigos de la Tierra Internacional, Bogotá, Colombia (2022, 16 h)."
     ]
-    for c in courses:
-        story.append(Paragraph(f"• {c}", body))
+    course_table_data = [
+        [Paragraph(f"• {courses[0]}", course_style), Paragraph(f"• {courses[4]}", course_style)],
+        [Paragraph(f"• {courses[1]}", course_style), Paragraph(f"• {courses[5]}", course_style)],
+        [Paragraph(f"• {courses[2]}", course_style), Paragraph(f"• {courses[6]}", course_style)],
+        [Paragraph(f"• {courses[3]}", course_style), Paragraph(f"• {courses[7]}", course_style)],
+    ]
+    course_table = Table(course_table_data, colWidths=[255, 264])
+    course_table.setStyle(TableStyle([
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('LEFTPADDING', (0,0), (-1,-1), 1),
+        ('RIGHTPADDING', (0,0), (-1,-1), 1),
+        ('TOPPADDING', (0,0), (-1,-1), 0.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 0.5),
+    ]))
+    story.append(course_table)
 
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 3))
     story.append(Paragraph("14. Árbol de Aptitudes (7 Ramas) & Guía de Longitud de CV (1 vs. 2 Págs.)", h1))
     story.append(Paragraph("<b>Criterio de Longitud de CV:</b> 1 Página para startups/tech ágil. 2 Páginas (estándar preferido en Alemania/DACH, TVöD y consorcios de la UE) para detallar proyectos de campo, instrumentación (Eddy Covariance, SEV), publicaciones y conferencias oficiales.", body))
     
     tree_data = [
-        [Paragraph("<b>Rama de Aptitud</b>", body_bold), Paragraph("<b>Competencias Clave</b>", body_bold), Paragraph("<b>Arquetipos Aplicables</b>", body_bold)],
-        [Paragraph("1. Geofísica & Sensores", body), Paragraph("SEV, resistividad, gravimetría, inversión física, Sentinel-2, GEE.", body), Paragraph("Investigador I+D / Climate-Tech", body)],
-        [Paragraph("2. Biogeoquímica & Suelos", body), Paragraph("Eddy Covariance, cámaras GEI (CO₂/CH₄), retención hídrica, limnología.", body), Paragraph("Investigador I+D / TVöD Suelos", body)],
-        [Paragraph("3. Software & AI Product", body), Paragraph("R reproducible (Tidyverse, series), Python, Three.js, React 19.", body), Paragraph("Climate-Tech / Data Scientist", body)],
-        [Paragraph("4. Políticas & Cuencas", body), Paragraph("Ordenamiento de cuencas, salvaguardas, directivas UE (RED III, ETS).", body), Paragraph("Consultor Políticas / CSRD", body)],
-        [Paragraph("5. Prensa & Comunicaciones", body), Paragraph("Dirección editorial, radio, fact-checking, +700k audiencia en redes.", body), Paragraph("Director de Campañas / Outreach", body)],
-        [Paragraph("6. Grassroots & Territorio", body), Paragraph("Comités de agua potable rural (APR), 80 asambleas en 14 regiones.", body), Paragraph("Director de Campañas / Territorio", body)],
-        [Paragraph("7. Gestión de Proyectos", body), Paragraph("Consorcios europeos CAU Kiel / AMU Poznań, cooperación multiactor.", body), Paragraph("Project Manager I+D / UE", body)],
+        [Paragraph("<b>Rama de Aptitud</b>", tree_bold), Paragraph("<b>Competencias Clave</b>", tree_bold), Paragraph("<b>Arquetipos Aplicables</b>", tree_bold)],
+        [Paragraph("1. Geofísica & Sensores", tree_body), Paragraph("SEV, resistividad, gravimetría, inversión física, Sentinel-2, GEE.", tree_body), Paragraph("Investigador I+D / Climate-Tech", tree_body)],
+        [Paragraph("2. Biogeoquímica & Suelos", tree_body), Paragraph("Eddy Covariance, cámaras GEI (CO₂/CH₄), retención hídrica, limnología.", tree_body), Paragraph("Investigador I+D / TVöD Suelos", tree_body)],
+        [Paragraph("3. Software & AI Product", tree_body), Paragraph("R reproducible (Tidyverse, series), Python, Three.js, React 19.", tree_body), Paragraph("Climate-Tech / Data Scientist", tree_body)],
+        [Paragraph("4. Políticas & Cuencas", tree_body), Paragraph("Ordenamiento de cuencas, salvaguardas, directivas UE (RED III, ETS).", tree_body), Paragraph("Consultor Políticas / CSRD", tree_body)],
+        [Paragraph("5. Prensa & Comunicaciones", tree_body), Paragraph("Dirección editorial, radio, fact-checking, +700k audiencia en redes.", tree_body), Paragraph("Director de Campañas / Outreach", tree_body)],
+        [Paragraph("6. Grassroots & Territorio", tree_body), Paragraph("Comités de agua potable rural (APR), 80 asambleas en 14 regiones.", tree_body), Paragraph("Director de Campañas / Territorio", tree_body)],
+        [Paragraph("7. Gestión de Proyectos", tree_body), Paragraph("Consorcios europeos CAU Kiel / AMU Poznań, cooperación multiactor.", tree_body), Paragraph("Project Manager I+D / UE", tree_body)],
     ]
     tree_table = Table(tree_data, colWidths=[110, 260, 149])
     tree_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 4),
-        ('RIGHTPADDING', (0,0), (-1,-1), 4),
-        ('TOPPADDING', (0,0), (-1,-1), 2),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
+        ('LEFTPADDING', (0,0), (-1,-1), 3),
+        ('RIGHTPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 1.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1.2),
     ]))
     story.append(tree_table)
 
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 3))
     story.append(Paragraph("15. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
     
     prompt_box = """Actúa como el Asesor Táctico y Redactor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de 6 puestos de experiencia, 8 logros cuantitativos, 5 gemelos digitales/software, instrumental de campo, 9 publicaciones y conferencias. Tu tarea es 'servirte' los elementos exactos que maximicen el encaje con la vacante objetivo.
@@ -683,7 +748,8 @@ VOZ Y ESTILO OBLIGATORIO: Joven líder intelectual experto (30 años). Tono ené
    - PROHIBIDO el sermón de libro de texto ("preaching to the choir") y la soberbia diagnóstica ("The core bottleneck at your lab is...").
    - Cero jerga corporativa ("90-day operational milestone", "onboarding friction").
 2. PRESERVACIÓN ESTRICTA DE LA VOZ: Si el usuario provee un borrador o párrafo propio, PROHIBIDO borrar frases vivenciales o despersonalizarlo a 3ª persona. Actúa elevando el vocabulario técnico y gramatical preservando el 100% de la intención ética y la estructura original.
-3. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ para Wetland Monitor, https://danisantanderurrutia-coder.github.io/agritwin-app/ para AgriTwin, https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html para ReWild, y https://danisantanderurrutia-coder.github.io/portafolio/ para el portafolio central. No inventes otros enlaces ni cites apps internas.
+3. ESTUDIO OBLIGATORIO DEL PI (INTELIGENCIA WINGMAN): Investiga y dirígete explícitamente a la persona a cargo (ej. Prof. Dr. Angela Meyer en TU Delft/BFH), citando con respeto sus investigaciones recientes (ej. Lanzilao & Meyer 2026 en Energy and AI) y conectando con los retos de su grupo. NUNCA des clases teóricas de su propia especialidad.
+4. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ para Wetland Monitor, https://danisantanderurrutia-coder.github.io/agritwin-app/ para AgriTwin, https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html para ReWild, y https://danisantanderurrutia-coder.github.io/portafolio/ para el portafolio central. No inventes otros enlaces ni cites apps internas.
 
 Cualquier Carta de Postulación debe cumplir la 'Receta Maestra' en 1 sola página A4 DIN 5008 (400-480 palabras). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
     
@@ -691,10 +757,10 @@ Cualquier Carta de Postulación debe cumplir la 'Receta Maestra' en 1 sola pági
     prompt_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#0284c7")),
-        ('LEFTPADDING', (0,0), (-1,-1), 6),
-        ('RIGHTPADDING', (0,0), (-1,-1), 6),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('LEFTPADDING', (0,0), (-1,-1), 5),
+        ('RIGHTPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
     ]))
     story.append(prompt_table)
 

@@ -27,6 +27,7 @@ import {
   Sparkles,
   Target,
   Trash2,
+  UserCheck,
   X
 } from 'lucide-react';
 import { getStoredOffers, saveStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs, getStoredSettings, saveStoredSettings } from '../../services/db';
@@ -60,6 +61,7 @@ import {
 } from '../../services/coverLetterStudio';
 import { auditDocumentDualLens } from '../../services/dualAuditEngine';
 import { generateCoverLetterWithGemini, evaluateOfferWithGemini, parseRawJobWithGemini, type GeminiEvaluationResult } from '../../services/geminiService';
+import { getDossierForOffer } from '../../services/jobWingmanService';
 import { DualLensAuditHub } from './DualLensAuditHub';
 import { CANONICAL_CONTACT, type CvSection } from '../../data/verifiedCvFacts';
 
@@ -1655,6 +1657,27 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     </button>
                   </div>
                 </div>
+
+                {/* Badge de Inteligencia Wingman / PI si está mapeado */}
+                {(() => {
+                  const d = offer ? getDossierForOffer(offer) : null;
+                  const lead = d?.leadProfile?.name && d.leadProfile.name !== 'Hiring Lead / PI' ? d.leadProfile : null;
+                  if (!lead) return null;
+                  return (
+                    <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-[11px] space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono font-bold text-purple-600 dark:text-purple-300 flex items-center gap-1.5">
+                          <UserCheck className="h-3.5 w-3.5 text-purple-500" />
+                          <span>PI / Interlocutor: {lead.titleHonorific || ''} {lead.name}</span>
+                        </span>
+                        <span className="text-[10px] font-mono text-[var(--text-muted)]">{lead.institution}</span>
+                      </div>
+                      <p className="text-[10.5px] text-[var(--text-secondary)] italic">
+                        {lead.role} · {(lead.researchFocus || []).slice(0, 3).join(', ')}
+                      </p>
+                    </div>
+                  );
+                })()}
 
                 <textarea
                   value={effectiveLetterBody}
