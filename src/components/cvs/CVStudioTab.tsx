@@ -59,7 +59,7 @@ import {
   type SavedCoverLetterVersion
 } from '../../services/coverLetterStudio';
 import { auditDocumentDualLens } from '../../services/dualAuditEngine';
-import { generateCoverLetterWithGemini, evaluateOfferWithGemini, type GeminiEvaluationResult } from '../../services/geminiService';
+import { generateCoverLetterWithGemini, evaluateOfferWithGemini, parseRawJobWithGemini, type GeminiEvaluationResult } from '../../services/geminiService';
 import { DualLensAuditHub } from './DualLensAuditHub';
 import { CANONICAL_CONTACT, type CvSection } from '../../data/verifiedCvFacts';
 
@@ -207,6 +207,9 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
   // Modal / Formulario para añadir nueva oferta laboral manual
   const [isAddingOffer, setIsAddingOffer] = useState(false);
+  const [rawOfferInput, setRawOfferInput] = useState('');
+  const [isParsingOffer, setIsParsingOffer] = useState(false);
+  const [parseOfferError, setParseOfferError] = useState<string | null>(null);
   const [newOfferTitle, setNewOfferTitle] = useState('');
   const [newOfferCompany, setNewOfferCompany] = useState('');
   const [newOfferLocation, setNewOfferLocation] = useState('Alemania / Remoto');
@@ -448,30 +451,33 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     setExclude([]);
   };
 
-  const handleCreateOffer = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newOfferTitle.trim() || !newOfferCompany.trim()) return;
-
+  const commitNewOffer = (data: {
+    title: string;
+    company: string;
+    location: string;
+    requirements: string[];
+    desc: string;
+    recipientName?: string;
+    recipientRole?: string;
+    recipientAddress?: string;
+    url?: string;
+  }) => {
     const id = `offer-manual-${Date.now()}`;
     const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 16);
-    const reqs = newOfferRequirements
-      .split(/[,;\n]/)
-      .map((r) => r.trim())
-      .filter(Boolean);
 
     const partialOffer: Partial<JobOffer> = {
       id,
-      title: newOfferTitle.trim(),
-      company: newOfferCompany.trim(),
-      location: newOfferLocation.trim() || 'Alemania / Remoto',
-      isBilbaoLocation: newOfferLocation.toLowerCase().includes('bilbao') || newOfferLocation.toLowerCase().includes('bizkaia'),
-      isRemote: newOfferLocation.toLowerCase().includes('remot'),
-      url: '',
+      title: data.title.trim(),
+      company: data.company.trim(),
+      location: data.location.trim() || 'Alemania / Remoto',
+      isBilbaoLocation: data.location.toLowerCase().includes('bilbao') || data.location.toLowerCase().includes('bizkaia'),
+      isRemote: data.location.toLowerCase().includes('remot'),
+      url: data.url || (rawOfferInput.startsWith('http') ? rawOfferInput.trim() : ''),
       sourceId: 'src-manual-studio',
-      sourceName: 'Añadida manualmente en Studio',
+      sourceName: 'Smart Ingest Gemini Studio',
       publishedDate: timestamp.split(' ')[0],
-      rawDescription: newOfferDesc.trim() || `${newOfferTitle.trim()} en ${newOfferCompany.trim()}`,
-      requirements: reqs.length > 0 ? reqs : ['Ciencias Ambientales / Geofísica', 'Análisis de Datos', 'Modelación'],
+      rawDescription: data.desc.trim() || `${data.title.trim()} en ${data.company.trim()}`,
+      requirements: data.requirements.length > 0 ? data.requirements : ['Ciencias Ambientales / Geofísica', 'Análisis de Datos', 'Modelación'],
       responsibilities: [],
       status: 'Nueva',
       extractedAt: timestamp,
@@ -490,10 +496,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     saveStoredOffers(updatedOffers);
 
     // Si se especificaron datos del destinatario para la carta, precargarlos
-    if (newOfferCompany.trim()) setRecipientOrg(newOfferCompany.trim());
-    if (newOfferRecipientName.trim()) setRecipientName(newOfferRecipientName.trim());
-    if (newOfferRecipientRole.trim()) setRecipientRole(newOfferRecipientRole.trim());
-    if (newOfferRecipientAddress.trim()) setRecipientAddress(newOfferRecipientAddress.trim());
+    if (data.company.trim()) setRecipientOrg(data.company.trim());
+    if (data.recipientName?.trim()) setRecipientName(data.recipientName.trim());
+    if (data.recipientRole?.trim()) setRecipientRole(data.recipientRole.trim());
+    if (data.recipientAddress?.trim()) setRecipientAddress(data.recipientAddress.trim());
 
     // Seleccionar automáticamente la nueva oferta
     setOfferId(id);
@@ -508,7 +514,66 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     setNewOfferRecipientName('');
     setNewOfferRecipientRole('');
     setNewOfferRecipientAddress('');
+    setRawOfferInput('');
+    setParseOfferError(null);
     setIsAddingOffer(false);
+  };
+
+  const handleCreateOffer = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newOfferTitle.trim() || !newOfferCompany.trim()) return;
+
+    const reqs = newOfferRequirements
+      .split(/[,;\n]/)
+      .map((r) => r.trim())
+      .filter(Boolean);
+
+    commitNewOffer({
+      title: newOfferTitle,
+      company: newOfferCompany,
+      location: newOfferLocation,
+      requirements: reqs,
+      desc: newOfferDesc,
+      recipientName: newOfferRecipientName,
+      recipientRole: newOfferRecipientRole,
+      recipientAddress: newOfferRecipientAddress
+    });
+  };
+
+  const handleSmartParseOffer = async (autoSave = false) => {
+    if (!rawOfferInput.trim()) return;
+    setParseOfferError(null);
+    setIsParsingOffer(true);
+    try {
+      const parsed = await parseRawJobWithGemini(rawOfferInput.trim());
+
+      setNewOfferTitle(parsed.title || '');
+      setNewOfferCompany(parsed.company || '');
+      setNewOfferLocation(parsed.location || 'Alemania / Remoto');
+      setNewOfferRequirements((parsed.requirements || []).join(', '));
+      setNewOfferDesc(parsed.cleanDescription || '');
+      setNewOfferRecipientName(parsed.recipientName || '');
+      setNewOfferRecipientRole(parsed.recipientRole || '');
+      setNewOfferRecipientAddress(parsed.recipientAddress || '');
+
+      if (autoSave && parsed.title && parsed.company) {
+        commitNewOffer({
+          title: parsed.title,
+          company: parsed.company,
+          location: parsed.location || 'Alemania / Remoto',
+          requirements: parsed.requirements || [],
+          desc: parsed.cleanDescription || '',
+          recipientName: parsed.recipientName || '',
+          recipientRole: parsed.recipientRole || '',
+          recipientAddress: parsed.recipientAddress || '',
+          url: rawOfferInput.startsWith('http') ? rawOfferInput.trim() : ''
+        });
+      }
+    } catch (err: any) {
+      setParseOfferError(err.message || 'Error al conectar con la API de Gemini para analizar la oferta');
+    } finally {
+      setIsParsingOffer(false);
+    }
   };
 
   const handleDeleteOffer = (targetId: string) => {
@@ -631,6 +696,188 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     saveStoredProfile(fixed);
     setProfile(fixed);
   };
+
+  const renderOfferCreationForm = () => (
+    <form onSubmit={handleCreateOffer} className="p-3.5 rounded-xl border border-sky-500/40 bg-[var(--panel-bg)] space-y-3 text-xs shadow-xs">
+      <div className="flex items-center justify-between pb-1.5 border-b border-[var(--panel-border)]">
+        <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1.5">
+          <PlusCircle className="h-4 w-4" /> Registrar Vacante Verificada
+        </span>
+        <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
+      </div>
+
+      {/* Caja de Smart Ingest con Gemini */}
+      <div className="p-3 rounded-xl border border-sky-500/30 bg-sky-500/5 space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1.5">
+            <Sparkles className="h-3.5 w-3.5 text-sky-500" />
+            <span>Smart Ingest con Gemini IA (1-Clic)</span>
+          </span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">Texto o URL</span>
+        </div>
+        <textarea
+          rows={3}
+          value={rawOfferInput}
+          onChange={(e) => setRawOfferInput(e.target.value)}
+          placeholder="Pega aquí el enlace (URL) o el texto completo copiado de la vacante (título, requisitos, descripción, correo de contacto)..."
+          className="w-full p-2.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500 placeholder-[var(--text-muted)]"
+          style={{ borderColor: 'var(--panel-border)' }}
+        />
+        
+        {parseOfferError && (
+          <div className="p-2 rounded bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[10.5px] font-mono">
+            ⚠️ {parseOfferError}
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <span className="text-[10.5px] text-[var(--text-muted)] font-sans">
+            Gemini estructurará automáticamente título, entidad, requisitos y dirección DIN 5008.
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleSmartParseOffer(false)}
+              disabled={isParsingOffer || !rawOfferInput.trim()}
+              className="px-2.5 py-1.5 rounded-lg border border-sky-500/40 bg-[var(--card-bg)] hover:bg-sky-500/10 text-sky-600 dark:text-sky-300 font-mono text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition"
+              title="Analiza y rellena los campos del formulario para que puedas revisarlos antes de guardar"
+            >
+              {isParsingOffer ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
+              <span>Rellenar Campos</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSmartParseOffer(true)}
+              disabled={isParsingOffer || !rawOfferInput.trim()}
+              className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition shadow-xs"
+              title="Analiza con Gemini, guarda la vacante y la vincula de inmediato"
+            >
+              {isParsingOffer ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
+              <span>Auto-Vincular en 1 Clic</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Campos editables estructurados */}
+      <div className="space-y-2 pt-1 border-t border-[var(--panel-border)]">
+        <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
+          Detalles Estructurados de la Oferta:
+        </span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div>
+            <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
+            <input
+              type="text"
+              required
+              value={newOfferTitle}
+              onChange={(e) => setNewOfferTitle(e.target.value)}
+              placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
+              className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+          </div>
+          <div>
+            <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
+            <input
+              type="text"
+              required
+              value={newOfferCompany}
+              onChange={(e) => setNewOfferCompany(e.target.value)}
+              placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
+              className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div>
+            <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
+            <input
+              type="text"
+              value={newOfferLocation}
+              onChange={(e) => setNewOfferLocation(e.target.value)}
+              placeholder="Ej: Braunschweig / Kiel / Remoto"
+              className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+          </div>
+          <div>
+            <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
+            <input
+              type="text"
+              value={newOfferRequirements}
+              onChange={(e) => setNewOfferRequirements(e.target.value)}
+              placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
+              className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
+          <textarea
+            rows={2}
+            value={newOfferDesc}
+            onChange={(e) => setNewOfferDesc(e.target.value)}
+            placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
+            className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
+            style={{ borderColor: 'var(--panel-border)' }}
+          />
+        </div>
+
+        <div className="pt-1.5 border-t border-[var(--panel-border)] space-y-1.5">
+          <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
+            Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
+          </span>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <input
+              type="text"
+              value={newOfferRecipientName}
+              onChange={(e) => setNewOfferRecipientName(e.target.value)}
+              placeholder="Contacto: Prof. Dr. X"
+              className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+            <input
+              type="text"
+              value={newOfferRecipientRole}
+              onChange={(e) => setNewOfferRecipientRole(e.target.value)}
+              placeholder="Cargo: Selección / AG"
+              className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+            <input
+              type="text"
+              value={newOfferRecipientAddress}
+              onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
+              placeholder="Dirección postal / Ciudad"
+              className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
+              style={{ borderColor: 'var(--panel-border)' }}
+            />
+          </div>
+        </div>
+
+        <div className="pt-2 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={() => setIsAddingOffer(false)}
+            className="px-3 py-1.5 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
+          >
+            Guardar y Vincular
+          </button>
+        </div>
+      </div>
+    </form>
+  );
 
   return (
     <div className="space-y-5 text-[var(--text-primary)]">
@@ -984,128 +1231,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 }
               >
                 {/* Formulario desplegable para agregar oferta real paso a paso */}
-                {isAddingOffer && (
-                  <form onSubmit={handleCreateOffer} className="p-3 rounded-xl border border-sky-500/30 bg-[var(--panel-bg)] space-y-2.5 text-xs">
-                    <div className="flex items-center justify-between pb-1 border-b border-[var(--panel-border)]">
-                      <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1">
-                        <PlusCircle className="h-3.5 w-3.5" /> Registrar Oferta Verificada
-                      </span>
-                      <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
-                        <input
-                          type="text"
-                          required
-                          value={newOfferTitle}
-                          onChange={(e) => setNewOfferTitle(e.target.value)}
-                          placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
-                        <input
-                          type="text"
-                          required
-                          value={newOfferCompany}
-                          onChange={(e) => setNewOfferCompany(e.target.value)}
-                          placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
-                        <input
-                          type="text"
-                          value={newOfferLocation}
-                          onChange={(e) => setNewOfferLocation(e.target.value)}
-                          placeholder="Ej: Braunschweig / Kiel / Remoto"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
-                        <input
-                          type="text"
-                          value={newOfferRequirements}
-                          onChange={(e) => setNewOfferRequirements(e.target.value)}
-                          placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
-                      <textarea
-                        rows={2}
-                        value={newOfferDesc}
-                        onChange={(e) => setNewOfferDesc(e.target.value)}
-                        placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
-                        className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                        style={{ borderColor: 'var(--panel-border)' }}
-                      />
-                    </div>
-
-                    <div className="pt-1 border-t border-[var(--panel-border)] space-y-1.5">
-                      <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
-                        Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        <input
-                          type="text"
-                          value={newOfferRecipientName}
-                          onChange={(e) => setNewOfferRecipientName(e.target.value)}
-                          placeholder="Contacto: Prof. Dr. X"
-                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                        <input
-                          type="text"
-                          value={newOfferRecipientRole}
-                          onChange={(e) => setNewOfferRecipientRole(e.target.value)}
-                          placeholder="Cargo: Selección / AG"
-                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                        <input
-                          type="text"
-                          value={newOfferRecipientAddress}
-                          onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
-                          placeholder="Dirección postal / Ciudad"
-                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="pt-1 flex items-center justify-end gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setIsAddingOffer(false)}
-                        className="px-3 py-1 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
-                      >
-                        Cancelar
-                      </button>
-                      <button
-                        type="submit"
-                        className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
-                      >
-                        Guardar y Vincular
-                      </button>
-                    </div>
-                  </form>
-                )}
+                {isAddingOffer && renderOfferCreationForm()}
 
                 <div className="flex items-center gap-1.5">
                   <select
@@ -1568,128 +1694,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 }
               >
                 {/* Formulario desplegable para agregar oferta real paso a paso */}
-                {isAddingOffer && (
-                  <form onSubmit={handleCreateOffer} className="p-3 rounded-xl border border-sky-500/30 bg-[var(--panel-bg)] space-y-2.5 text-xs">
-                    <div className="flex items-center justify-between pb-1 border-b border-[var(--panel-border)]">
-                      <span className="font-mono font-bold text-[11px] text-sky-600 dark:text-sky-400 flex items-center gap-1">
-                        <PlusCircle className="h-3.5 w-3.5" /> Registrar Oferta Verificada
-                      </span>
-                      <span className="text-[10px] text-[var(--text-muted)] font-mono">Sin alucinaciones</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Título del Puesto / Rol *:</label>
-                        <input
-                          type="text"
-                          required
-                          value={newOfferTitle}
-                          onChange={(e) => setNewOfferTitle(e.target.value)}
-                          placeholder="Ej: Wissenschaftliche*r Mitarbeiter*in"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Institución / Empresa *:</label>
-                        <input
-                          type="text"
-                          required
-                          value={newOfferCompany}
-                          onChange={(e) => setNewOfferCompany(e.target.value)}
-                          placeholder="Ej: Thünen-Institut für Agrarklimaschutz"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Ubicación / Modalidad:</label>
-                        <input
-                          type="text"
-                          value={newOfferLocation}
-                          onChange={(e) => setNewOfferLocation(e.target.value)}
-                          placeholder="Ej: Braunschweig / Kiel / Remoto"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Requisitos clave (separados por coma):</label>
-                        <input
-                          type="text"
-                          value={newOfferRequirements}
-                          onChange={(e) => setNewOfferRequirements(e.target.value)}
-                          placeholder="Ej: Eddy Covariance, R, Suelos, GEI"
-                          className="w-full px-2.5 py-1.5 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="text-[10px] font-mono text-[var(--text-muted)] block mb-0.5">Descripción / Objetivos relevantes:</label>
-                      <textarea
-                        rows={2}
-                        value={newOfferDesc}
-                        onChange={(e) => setNewOfferDesc(e.target.value)}
-                        placeholder="Pega aquí los objetivos de investigación, responsabilidades o contexto relevante de la vacante..."
-                        className="w-full p-2 rounded-lg border bg-[var(--card-bg)] text-[var(--text-primary)] text-xs focus:outline-none focus:border-sky-500"
-                        style={{ borderColor: 'var(--panel-border)' }}
-                      />
-                    </div>
-
-                    <div className="pt-1 border-t border-[var(--panel-border)] space-y-1.5">
-                      <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] block">
-                        Datos para Encabezado DIN 5008 (Opcional para Cover Letter):
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        <input
-                          type="text"
-                          value={newOfferRecipientName}
-                          onChange={(e) => setNewOfferRecipientName(e.target.value)}
-                          placeholder="Contacto: Prof. Dr. X"
-                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                        <input
-                          type="text"
-                          value={newOfferRecipientRole}
-                          onChange={(e) => setNewOfferRecipientRole(e.target.value)}
-                          placeholder="Cargo: Selección / AG"
-                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                        <input
-                          type="text"
-                          value={newOfferRecipientAddress}
-                          onChange={(e) => setNewOfferRecipientAddress(e.target.value)}
-                          placeholder="Dirección postal / Ciudad"
-                          className="w-full px-2 py-1 rounded-lg border bg-[var(--card-bg)] text-[11px] focus:outline-none focus:border-sky-500"
-                          style={{ borderColor: 'var(--panel-border)' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="pt-1 flex items-center justify-end gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setIsAddingOffer(false)}
-                        className="px-3 py-1 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
-                      >
-                        Cancelar
-                      </button>
-                      <button
-                        type="submit"
-                        className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold text-xs cursor-pointer shadow-xs"
-                      >
-                        Guardar y Vincular
-                      </button>
-                    </div>
-                  </form>
-                )}
+                {isAddingOffer && renderOfferCreationForm()}
 
                 <div className="flex items-center gap-1.5">
                   <select

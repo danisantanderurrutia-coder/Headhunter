@@ -270,3 +270,76 @@ ${userQuestion}
 
   return callGeminiRest(systemInstruction, prompt);
 }
+
+export interface ParsedJobOfferResult {
+  title: string;
+  company: string;
+  location: string;
+  country?: string;
+  isRemote: boolean;
+  salaryText?: string;
+  requirements: string[];
+  cleanDescription: string;
+  recipientName?: string;
+  recipientRole?: string;
+  recipientAddress?: string;
+  archetypeId?: ApplicationArchetype;
+  strategicAngleSuggestion?: string;
+}
+
+/**
+ * Analiza un volcado de texto o enlace de vacante con Gemini y extrae todos los datos estructurados
+ */
+export async function parseRawJobWithGemini(rawTextOrUrl: string): Promise<ParsedJobOfferResult> {
+  const isUrl = /^https?:\/\//i.test(rawTextOrUrl.trim());
+
+  const systemInstruction = `
+Eres un Analista Senior de Ofertas de Empleo y Headhunter Técnico de Alta Precisión.
+Tu tarea es analizar el texto o la información de la convocatoria proporcionada y estructurar los datos de la vacante para el expediente del candidato Daniel Santander (Geofísico y Doble M.Sc. en CAU Kiel y AMU Poznań).
+
+Debes responder ÚNICAMENTE en formato JSON con la siguiente estructura:
+{
+  "title": string,
+  "company": string,
+  "location": string,
+  "country": string,
+  "isRemote": boolean,
+  "salaryText": string,
+  "requirements": string[],
+  "cleanDescription": string,
+  "recipientName": string,
+  "recipientRole": string,
+  "recipientAddress": string,
+  "archetypeId": "academia" | "think_tank" | "climate_tech" | "cat_risk" | "multilateral" | "agency",
+  "strategicAngleSuggestion": string
+}
+`.trim();
+
+  const userPrompt = isUrl
+    ? `ANALIZA LA CONVOCATORIA EN ESTE ENLACE O DESCRIPCIÓN:
+${rawTextOrUrl.trim()}
+
+Extrae los datos estructurados del puesto con máxima precisión. Infiere país e institución si el enlace o contexto lo especifica.`
+    : `EXTRAE Y ESTRUCTURA ESTE VOLCADO DE TEXTO DE OFERTA DE EMPLEO:
+${rawTextOrUrl.trim()}`;
+
+  const rawJsonText = await callGeminiRest(systemInstruction, userPrompt);
+
+  const cleanJson = rawJsonText
+    .replace(/^```json/im, '')
+    .replace(/^```/im, '')
+    .replace(/```$/im, '')
+    .trim();
+
+  try {
+    return JSON.parse(cleanJson) as ParsedJobOfferResult;
+  } catch {
+    const firstBrace = cleanJson.indexOf('{');
+    const lastBrace = cleanJson.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      const extracted = cleanJson.substring(firstBrace, lastBrace + 1);
+      return JSON.parse(extracted) as ParsedJobOfferResult;
+    }
+    throw new Error(`Gemini respondió pero el JSON no fue válido: ${rawJsonText.slice(0, 180)}...`);
+  }
+}

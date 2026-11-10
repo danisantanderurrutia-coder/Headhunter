@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
-import { evaluateOfferWithGemini, generateCoverLetterWithGemini } from '../geminiService';
+import { evaluateOfferWithGemini, generateCoverLetterWithGemini, parseRawJobWithGemini } from '../geminiService';
 import type { JobOffer } from '../../types/offers';
 
 const mockStore: Record<string, string> = {};
@@ -121,5 +121,48 @@ describe('geminiService', () => {
     const res = await generateCoverLetterWithGemini(mockOffer, 'de');
     expect(res.language).toBe('de');
     expect(res.fullMarkdown).toContain('Sehr geehrte');
+  });
+
+  it('analiza y auto-estructura un volcado de oferta de empleo con parseRawJobWithGemini', async () => {
+    localStorage.setItem(
+      'job_search_os_settings_v19',
+      JSON.stringify({ apiKey: 'fake-api-key', modelName: 'gemini-3.8-flash' })
+    );
+
+    const mockParsed = {
+      title: 'Wissenschaftliche*r Mitarbeiter*in (m/w/d)',
+      company: 'Thünen-Institut für Agrarklimaschutz',
+      location: 'Braunschweig, Deutschland',
+      country: 'Alemania',
+      isRemote: false,
+      salaryText: 'TVöD E13',
+      requirements: ['Eddy Covariance', 'Flujos de GEI', 'R'],
+      cleanDescription: 'Investigación en balances de carbono y flujos de gases de efecto invernadero en turberas.',
+      recipientName: 'Prof. Dr. Axel Don',
+      recipientRole: 'Leitung der Arbeitsgruppe',
+      recipientAddress: 'Bundesallee 50, 38116 Braunschweig',
+      archetypeId: 'academia',
+      strategicAngleSuggestion: 'Enfoque en física cuantitativa de suelos y Eddy Covariance en CAU Kiel.'
+    };
+
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        candidates: [
+          {
+            content: {
+              parts: [{ text: `\`\`\`json\n${JSON.stringify(mockParsed)}\n\`\`\`` }]
+            }
+          }
+        ]
+      })
+    } as any);
+
+    const res = await parseRawJobWithGemini('Thünen-Institut sucht Wissenschaftliche*r Mitarbeiter*in in Braunschweig...');
+    expect(res.title).toBe('Wissenschaftliche*r Mitarbeiter*in (m/w/d)');
+    expect(res.company).toBe('Thünen-Institut für Agrarklimaschutz');
+    expect(res.requirements).toContain('Eddy Covariance');
+    expect(res.recipientName).toBe('Prof. Dr. Axel Don');
+    expect(res.archetypeId).toBe('academia');
   });
 });
