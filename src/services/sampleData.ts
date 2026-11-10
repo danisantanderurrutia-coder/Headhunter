@@ -523,7 +523,7 @@ export const initialProfile: MasterProfile = {
       ],
       techStack: ['Google Earth Engine', 'Python GIS', 'Sentinel-2', 'GeoPandas', 'Streamlit', 'Rasterio'],
       githubUrl: 'https://github.com/danisantanderurrutia-coder/resumof',
-      url: 'https://danisantanderurrutia-coder.github.io/portafolio/'
+      url: 'https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html'
     },
     {
       id: 'proj-smart-food-parks',

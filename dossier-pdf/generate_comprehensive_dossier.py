@@ -194,7 +194,7 @@ def build_pdf(filename):
         [Paragraph("<b>Contacto Oficial</b>", body), Paragraph("Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com", body)],
         [Paragraph("<b>Portafolio de Evidencias</b>", body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker central de proyectos, peritajes, modelos y código)", body)],
         [Paragraph("<b>Habilitación Legal UE</b>", body), Paragraph("<b>Alemania:</b> Permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", body)],
-        [Paragraph("<b>Enlaces de Proyectos (Artifact Hooks)</b>", body), Paragraph("<b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Resumof):</b> https://github.com/danisantanderurrutia-coder/resumof<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", body)],
+        [Paragraph("<b>Enlaces Canónicos (Artifact Hooks)</b>", body), Paragraph("<b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Field Suite):</b> https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", body)],
     ]
     id_table = Table(id_data, colWidths=[120, 399])
     id_table.setStyle(TableStyle([
@@ -203,11 +203,11 @@ def build_pdf(filename):
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 2.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+        ('TOPPADDING', (0,0), (-1,-1), 2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
     ]))
     story.append(id_table)
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 3))
 
     story.append(Paragraph("2. Directivas Críticas de Comportamiento para el LLM", h1))
     
@@ -227,6 +227,14 @@ def build_pdf(filename):
         [
             Paragraph("<b>4. Voz: Joven Líder Intelectual Experto (30 años)</b>", body_bold),
             Paragraph("<b>PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':</b><br/>• <b>Cero sermón obvio ('Preaching to the Choir'):</b> NUNCA des clases de física básica o machine learning a los revisores (ellos ya son expertos).<br/>• <b>Cero arrogancia diagnóstica:</b> NUNCA sentencies <i>'The core bottleneck at your lab is...'</i>. Habla de retos compartidos de frontera o dificultades metodológicas abiertas.<br/>• <b>Cero jerga corporativa:</b> NUNCA uses <i>'90-day operational milestone'</i> ni <i>'onboarding friction'</i>. En ciencia se habla de diseño experimental, contraste de hipótesis y calibración con terreno.", body)
+        ],
+        [
+            Paragraph("<b>5. Demostrar Relevancia sin Dar Clases<br/>(Cero Sermón vs. Cero Frialdad)</b>", body_bold),
+            Paragraph("<b>Transmitir la gravedad del problema desde la PERSPECTIVA EN PRIMERA PERSONA</b> (<i>'During my career, I have seen...', 'My trajectory is driven by...'</i>).<br/>• <b>Sermón obvio (PROHIBIDO):</b> Enseñar teoría básica en tercera persona como si fuera un manual (<i>'Climate change causes catastrophic losses and ML is needed because...'</i>).<br/>• <b>Relevancia vivencial / metodológica (OBLIGATORIA):</b> Declarar el imperativo ético y físico como punto de partida personal y reto operativo (<i>'Having witnessed the acceleration of drought and wildfire extremes across complex terrain, my commitment is to ensure data-driven models do not bypass physical conservation laws'</i>).<br/>• <b>Regla de transformación:</b> NUNCA borres motivaciones personales ni contexto climático; conviértelos en el <b>MOTOR DE TU PREGUNTA CIENTÍFICA</b>.", body)
+        ],
+        [
+            Paragraph("<b>6. Preservación Estricta de la Voz y Borradores</b>", body_bold),
+            Paragraph("Si el usuario proporciona un borrador o párrafo propio, <b>QUEDA ESTRICTAMENTE PROHIBIDO eliminar frases vivenciales o reemplazar la primera persona por fórmulas impersonales</b>. El LLM debe actuar como pulidor gramatical y elevador de vocabulario técnico, preservando el 100% de la intención, los matices éticos y la estructura original.", body)
         ]
     ]
     rules_table = Table(rules_data, colWidths=[130, 389])
@@ -234,10 +242,10 @@ def build_pdf(filename):
         ('BACKGROUND', (0,0), (0,-1), colors.HexColor("#f8fafc")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 5),
-        ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 2.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+        ('LEFTPADDING', (0,0), (-1,-1), 4),
+        ('RIGHTPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 1.8),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1.8),
     ]))
     story.append(rules_table)
 
@@ -305,8 +313,8 @@ def build_pdf(filename):
     steps_data = [
         [Paragraph("<b>Párrafo / Tiempo</b>", body_bold), Paragraph("<b>Directiva de Redacción & Elementos Clave</b>", body_bold)],
         [
-            Paragraph("<b>1. Apertura Fuerte<br/>(The Hook & Thesis)</b>", body),
-            Paragraph("<b>PROHIBIDO abrir con fórmulas burocráticas</b> (<i>'Me dirijo a usted...', 'I am writing to apply...'</i>). Abre en la primera frase conectando el foco del proyecto con tu tesis técnica de entrada de par a par.", body)
+            Paragraph("<b>1. Apertura Fuerte<br/>(The Hook & Impact Driver)</b>", body),
+            Paragraph("<b>PROHIBIDO abrir con burocracia pasiva</b> (<i>'Me dirijo a usted...', 'I am writing to apply...'</i>) o sentencias impersonales de libro de texto. <b>ESTRUCTURA OBLIGATORIA:</b> Iniciar en primera persona activa (<i>'During my career, I have seen...', 'My research trajectory is driven by...'</i>). Conectar la gravedad de los extremos climáticos (sequías, incendios, pérdidas socioecológicas) como el motor empírico que justifica tu investigación y el valor del laboratorio.", body)
         ],
         [
             Paragraph("<b>2. Alineamiento con Retos de Frontera</b>", body),
@@ -468,7 +476,7 @@ def build_pdf(filename):
     projects = [
         ("Wetland Monitor (Wallener Au)", "Gemelo Digital & Software Científico (2023-2026)", "Simulación interactiva 3D de flujos de CO₂ y picos de CH₄ en turberas templadas rehumedecidas bajo forzantes de Eddy Covariance y curvas de retención hídrica edáfica.", "React, TypeScript, R, Eddy Covariance, Three.js", "https://danisantanderurrutia-coder.github.io/wetland-monitor/"),
         ("Chile Agrotech & AgriTwin", "Agrotech, IoT & Satélites (2023-Presente)", "Gemelo digital de telemetría de suelo IoT LoRaWAN combinado con pipeline automatizado de índices satelitales Copernicus Sentinel-2 (NDVI/NDRE) para prevención de estrés hídrico.", "Python, Sentinel-2 API, IoT LoRaWAN, FastAPI, QGIS, PostGIS, Next.js", "https://danisantanderurrutia-coder.github.io/agritwin-app/"),
-        ("ReWild: Analítica de Incendios (Resumof)", "Soporte de Decisión Espacial (2023-Presente)", "Sistema de soporte de decisión para reemplazo de monocultivos combustibles por barreras cortafuego de bosque nativo, modelando la amortiguación del fuego y recuperación hídrica.", "Google Earth Engine, Python GIS, Sentinel-2, GeoPandas, Streamlit, Rasterio", "https://github.com/danisantanderurrutia-coder/resumof"),
+        ("ReWild: Rewilding Field Suite", "PWA Offline-First & Analítica de Incendios (2024)", "Plataforma PWA offline-first (IndexedDB) para protocolos GoWild de restauración ecológica, monitoreo de biomasa y mitigación de riesgo de incendios forestales mediante cortafuegos vivos.", "PWA Offline IndexedDB, Python GIS, Sentinel-2, StoryMaps", "https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html"),
         ("Smart Food Parks (UN Citiverse)", "Gemelo Digital & Agro-IoT Urbano (2024)", "Gemelo digital y plataforma ciberfísica para soberanía alimentaria urbana, control microclimático y redes de sensores IoT. Semifinalista Global ONU Citiverse Challenge.", "Unity 3D, IoT Telemetry, MQTT, Python AI, Google Earth Engine, QGIS", "https://danisantanderurrutia-coder.github.io/portafolio/"),
         ("Lauwersmeer: Simulación 2D Delft3D", "Ingeniería Costera & Modelación (2023-2024)", "Modelación hidrodinámica 2D en Delft3D para simulación de marejadas de tempestad, oleaje extremo y aumento del nivel del mar bajo escenarios IPCC en el Mar de Wadden.", "Delft3D, Python Hydro, LiDAR DEM, QGIS, Copernicus Marine, NetCDF", "https://danisantanderurrutia-coder.github.io/portafolio/")
     ]
@@ -669,11 +677,13 @@ def build_pdf(filename):
     prompt_box = """Actúa como el Asesor Táctico y Redactor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de 6 puestos de experiencia, 8 logros cuantitativos, 5 gemelos digitales/software, instrumental de campo, 9 publicaciones y conferencias. Tu tarea es 'servirte' los elementos exactos que maximicen el encaje con la vacante objetivo.
 
 VOZ Y ESTILO OBLIGATORIO: Joven líder intelectual experto (30 años). Tono enérgico, fresco, riguroso y colaborativo.
-PROHIBIDO EL TONO 'PROFESOR CATEDRÁTICO DE 55 AÑOS / SACOWEA':
-1. CERO sermón teórico obvio ('preaching to the choir'): NUNCA des clases de física básica o machine learning a los revisores (ellos ya son expertos mundiales).
-2. CERO diagnósticos arrogantes: NUNCA digas 'The core bottleneck at your lab is...'. Habla de retos compartidos de frontera o dificultades metodológicas abiertas.
-3. CERO jerga corporativa: NUNCA uses '90-day operational milestone' ni clichés de consultoría. En ciencia se habla de diseño experimental, contraste de hipótesis y calibración con terreno.
-4. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ para Wetland Monitor, https://danisantanderurrutia-coder.github.io/agritwin-app/ para AgriTwin, https://github.com/danisantanderurrutia-coder/resumof para ReWild, y https://danisantanderurrutia-coder.github.io/portafolio/ para el portafolio central. No inventes otros enlaces ni cites apps internas.
+1. DEMOSTRAR RELEVANCIA SIN DAR CLASES (CERO SERMÓN VS. CERO FRIALDAD):
+   - OBLIGATORIO: Iniciar en primera persona activa ("During my career, I have seen...", "My trajectory is driven by...").
+   - Transmitir la gravedad del contexto climático (sequías, incendios, pérdidas socioecológicas) NO como sermón teórico a los revisores en 3ª persona, sino como el imperativo ético y físico que actúa como MOTOR DE TU INVESTIGACIÓN.
+   - PROHIBIDO el sermón de libro de texto ("preaching to the choir") y la soberbia diagnóstica ("The core bottleneck at your lab is...").
+   - Cero jerga corporativa ("90-day operational milestone", "onboarding friction").
+2. PRESERVACIÓN ESTRICTA DE LA VOZ: Si el usuario provee un borrador o párrafo propio, PROHIBIDO borrar frases vivenciales o despersonalizarlo a 3ª persona. Actúa elevando el vocabulario técnico y gramatical preservando el 100% de la intención ética y la estructura original.
+3. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ para Wetland Monitor, https://danisantanderurrutia-coder.github.io/agritwin-app/ para AgriTwin, https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html para ReWild, y https://danisantanderurrutia-coder.github.io/portafolio/ para el portafolio central. No inventes otros enlaces ni cites apps internas.
 
 Cualquier Carta de Postulación debe cumplir la 'Receta Maestra' en 1 sola página A4 DIN 5008 (400-480 palabras). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
     
