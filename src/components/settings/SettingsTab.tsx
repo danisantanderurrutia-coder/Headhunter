@@ -8,7 +8,11 @@ import {
   ChevronLeft,
   Mail,
   Sliders,
-  ShieldCheck
+  ShieldCheck,
+  Sparkles,
+  Loader2,
+  AlertCircle,
+  ExternalLink
 } from 'lucide-react';
 import { EmailAlertsPipelineSection } from './EmailAlertsPipelineSection';
 import { 
@@ -19,6 +23,7 @@ import {
   resetDatabase
 } from '../../services/db';
 import type { AppSettings } from '../../services/db';
+import { testGeminiConnection } from '../../services/geminiService';
 
 interface SettingsTabProps {
   onRefreshData: () => void;
@@ -30,6 +35,21 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
   const [settings, setSettings] = useState<AppSettings>(getStoredSettings());
   const [isSaved, setIsSaved] = useState(false);
   const [importStatus, setImportStatus] = useState<string | null>(null);
+  const [isTestingKey, setIsTestingKey] = useState(false);
+  const [testResult, setTestResult] = useState<{ ok: boolean; message: string } | null>(null);
+
+  const handleTestConnection = async () => {
+    setIsTestingKey(true);
+    setTestResult(null);
+    try {
+      const res = await testGeminiConnection(settings.apiKey);
+      setTestResult(res);
+    } catch (err: any) {
+      setTestResult({ ok: false, message: err.message || 'Error desconocido' });
+    } finally {
+      setIsTestingKey(false);
+    }
+  };
 
   const handleSaveSettings = () => {
     saveStoredSettings(settings);
@@ -210,23 +230,67 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({ onRefreshData, onRetur
                     onChange={(e) => setSettings({ ...settings, modelName: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
                   >
-                    <option value="gemini-3.8-flash">Gemini 3.8 Flash (Recomendado - Razonamiento Rápido & Thinking)</option>
-                    <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite (Ultra Rápido)</option>
-                    <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview (Análisis Profundo)</option>
+                    <option value="gemini-2.0-flash">Gemini 2.0 Flash (Recomendado - Multimodal & Rápido)</option>
+                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (Alta Disponibilidad)</option>
+                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (Razonamiento Profundo)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="text-slate-400 block mb-1 font-mono">Clave API (Opcional, guardada localmente)</label>
-                  <input
-                    type="password"
-                    value={settings.apiKey}
-                    onChange={(e) => setSettings({ ...settings, apiKey: e.target.value })}
-                    placeholder="••••••••••••••••••••••••••••"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
-                  />
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-slate-400 font-mono">Clave API de Google Gemini</label>
+                    <a
+                      href="https://aistudio.google.com/app/apikey"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-cyan-400 hover:text-cyan-300 text-[10.5px] inline-flex items-center gap-1 font-mono underline"
+                    >
+                      <span>Obtener gratis en Google AI Studio</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                  <div className="flex gap-2">
+                    <input
+                      type="password"
+                      value={settings.apiKey}
+                      onChange={(e) => setSettings({ ...settings, apiKey: e.target.value })}
+                      placeholder="AIzaSy..."
+                      className="flex-1 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500 font-mono"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleTestConnection}
+                      disabled={isTestingKey || !settings.apiKey.trim()}
+                      className="px-3 py-2 rounded-xl border border-cyan-500/40 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 font-mono text-xs font-bold flex items-center gap-1.5 disabled:opacity-40 transition cursor-pointer"
+                      title="Realiza un ping a la API de Gemini para comprobar que la clave es válida"
+                    >
+                      {isTestingKey ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
+                      <span>Probar</span>
+                    </button>
+                  </div>
+
+                  {testResult && (
+                    <div
+                      className={`p-2.5 rounded-lg text-xs font-mono mt-2 flex items-start gap-2 border ${
+                        testResult.ok
+                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                          : 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+                      }`}
+                    >
+                      {testResult.ok ? (
+                        <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      ) : (
+                        <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                      )}
+                      <div>
+                        <div className="font-bold">{testResult.ok ? 'Clave verificada' : 'Fallo de verificación'}</div>
+                        <div className="text-[11px] opacity-90">{testResult.message}</div>
+                      </div>
+                    </div>
+                  )}
+
                   <p className="text-[10px] text-slate-500 mt-1">
-                    La clave se almacena exclusivamente en tu navegador (localStorage) y nunca sale a servidores intermedios.
+                    La clave debe empezar por <code className="text-cyan-400 font-mono">AIzaSy...</code>. Se guarda únicamente en tu navegador (localStorage) y nunca viaja a servidores intermedios.
                   </p>
                 </div>
               </div>

@@ -29,7 +29,7 @@ import {
   Trash2,
   X
 } from 'lucide-react';
-import { getStoredOffers, saveStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs } from '../../services/db';
+import { getStoredOffers, saveStoredOffers, getStoredProfile, saveStoredProfile, getStoredCVs, getStoredSettings, saveStoredSettings } from '../../services/db';
 import { calculateMatchScore } from '../../services/matchEngine';
 import type { JobOffer } from '../../types/offers';
 import { cvTemplatesList } from '../../services/sampleData';
@@ -210,6 +210,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
   const [rawOfferInput, setRawOfferInput] = useState('');
   const [isParsingOffer, setIsParsingOffer] = useState(false);
   const [parseOfferError, setParseOfferError] = useState<string | null>(null);
+  const [quickApiKey, setQuickApiKey] = useState(() => getStoredSettings().apiKey || '');
   const [newOfferTitle, setNewOfferTitle] = useState('');
   const [newOfferCompany, setNewOfferCompany] = useState('');
   const [newOfferLocation, setNewOfferLocation] = useState('Alemania / Remoto');
@@ -576,6 +577,15 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     }
   };
 
+  const handleSaveQuickApiKey = () => {
+    const trimmed = quickApiKey.trim();
+    if (!trimmed) return;
+    const current = getStoredSettings();
+    saveStoredSettings({ ...current, apiKey: trimmed });
+    setParseOfferError(null);
+    handleSmartParseOffer(false);
+  };
+
   const handleDeleteOffer = (targetId: string) => {
     const updated = offers.filter((o) => o.id !== targetId);
     setOffers(updated);
@@ -725,8 +735,46 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
         />
         
         {parseOfferError && (
-          <div className="p-2 rounded bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[10.5px] font-mono">
-            ⚠️ {parseOfferError}
+          <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs space-y-2">
+            <div className="font-mono text-[11px] font-bold flex items-start gap-1.5">
+              <span className="shrink-0 mt-0.5">⚠️</span>
+              <span className="leading-snug">{parseOfferError}</span>
+            </div>
+            {(parseOfferError.toLowerCase().includes('api key') || parseOfferError.toLowerCase().includes('clave api')) && (
+              <div className="p-2.5 rounded-lg bg-[var(--card-bg)] border border-rose-500/20 text-[var(--text-primary)] space-y-2.5 mt-1 shadow-xs">
+                <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
+                  Para utilizar las funciones de Gemini necesitas una API Key gratuita de <strong>Google AI Studio</strong> (debe comenzar por <code className="bg-slate-800 text-sky-400 px-1 py-0.5 rounded font-mono">AIzaSy...</code>). Las claves de OpenAI (<code className="bg-slate-800 text-rose-400 px-1 py-0.5 rounded font-mono">sk-...</code>) no son compatibles.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2 items-center">
+                  <input
+                    type="password"
+                    placeholder="Pega aquí tu clave: AIzaSy..."
+                    value={quickApiKey}
+                    onChange={(e) => setQuickApiKey(e.target.value)}
+                    className="flex-1 w-full px-2.5 py-1.5 rounded-md border bg-[var(--panel-bg)] text-xs font-mono focus:outline-none focus:border-sky-500 placeholder:text-[var(--text-muted)]"
+                    style={{ borderColor: 'var(--panel-border)' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSaveQuickApiKey}
+                    disabled={!quickApiKey.trim()}
+                    className="w-full sm:w-auto px-3 py-1.5 rounded-md bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold whitespace-nowrap cursor-pointer disabled:opacity-50 transition"
+                  >
+                    Guardar Clave y Reintentar
+                  </button>
+                </div>
+                <div className="text-[10.5px] text-[var(--text-muted)] flex items-center justify-between pt-0.5">
+                  <a
+                    href="https://aistudio.google.com/app/apikey"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sky-500 hover:text-sky-400 underline font-mono inline-flex items-center gap-1"
+                  >
+                    <span>↗ Obtener API Key gratuita en Google AI Studio</span>
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

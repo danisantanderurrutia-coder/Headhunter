@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
-import { evaluateOfferWithGemini, generateCoverLetterWithGemini, parseRawJobWithGemini } from '../geminiService';
+import { evaluateOfferWithGemini, generateCoverLetterWithGemini, parseRawJobWithGemini, testGeminiConnection } from '../geminiService';
 import type { JobOffer } from '../../types/offers';
 
 const mockStore: Record<string, string> = {};
@@ -164,5 +164,51 @@ describe('geminiService', () => {
     expect(res.requirements).toContain('Eddy Covariance');
     expect(res.recipientName).toBe('Prof. Dr. Axel Don');
     expect(res.archetypeId).toBe('academia');
+  });
+
+  it('detecta y rechaza claves que empiezan por sk- orientadas a OpenAI', async () => {
+    localStorage.setItem(
+      'job_search_os_settings_v19',
+      JSON.stringify({ apiKey: 'sk-proj-1234567890', modelName: 'gemini-2.0-flash' })
+    );
+
+    await expect(evaluateOfferWithGemini(mockOffer)).rejects.toThrow(
+      'La clave introducida empieza por "sk-"'
+    );
+  });
+
+  it('proporciona un mensaje claro cuando Google rechaza una clave con 400', async () => {
+    localStorage.setItem(
+      'job_search_os_settings_v19',
+      JSON.stringify({ apiKey: 'AIzaSy_fake_bad_key', modelName: 'gemini-2.0-flash' })
+    );
+
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 400,
+      statusText: 'Bad Request',
+      text: async () => JSON.stringify({
+        error: { message: 'API key not valid. Please pass a valid API key.' }
+      })
+    } as any);
+
+    await expect(evaluateOfferWithGemini(mockOffer)).rejects.toThrow(
+      'Tu clave fue rechazada por Google AI Studio'
+    );
+  });
+
+  it('testGeminiConnection detecta clave vacía y prueba con éxito cuando Google responde ok', async () => {
+    const emptyRes = await testGeminiConnection('');
+    expect(emptyRes.ok).toBe(false);
+    expect(emptyRes.message).toContain('vacía');
+
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({})
+    } as any);
+
+    const okRes = await testGeminiConnection('AIzaSyValidKey');
+    expect(okRes.ok).toBe(true);
+    expect(okRes.message).toContain('Conexión exitosa');
   });
 });

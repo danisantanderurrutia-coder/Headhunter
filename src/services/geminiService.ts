@@ -36,23 +36,28 @@ async function callGeminiRest(
 
   if (!apiKey) {
     throw new Error(
-      'No se ha configurado ninguna clave API de Gemini. Ve a Configuración > LLM y pega tu Gemini API Key.'
+      'No se ha configurado ninguna clave API de Gemini. Ve a Configuración > LLM o introduce tu Gemini API Key.'
     );
   }
 
-  // Model normalisation: Gemini 3.8 Flash y 3.5 Flash Lite son los modelos nativos activos
-  let model = modelNameOverride || settings.modelName || 'gemini-3.8-flash';
-  if (model.includes('3.8') || model.includes('flash')) {
-    model = 'gemini-3.8-flash';
-  } else if (model.includes('lite')) {
-    model = 'gemini-3.5-flash-lite';
-  } else if (model.includes('pro')) {
-    model = 'gemini-3.1-pro-preview';
-  } else {
-    model = 'gemini-3.8-flash';
+  if (apiKey.startsWith('sk-') || apiKey.startsWith('sk-ant-')) {
+    throw new Error(
+      'La clave introducida empieza por "sk-", lo que indica que es de OpenAI o Anthropic. Google Gemini requiere una API Key que empieza por "AIzaSy...". Puedes obtenerla gratis en https://aistudio.google.com/app/apikey'
+    );
   }
 
-  const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
+  // Model normalisation: Gemini 2.0 Flash y Gemini 1.5 Flash son los modelos oficiales de Google
+  let model = modelNameOverride || settings.modelName || 'gemini-2.0-flash';
+  if (model.includes('pro')) {
+    model = 'gemini-1.5-pro';
+  } else if (model.includes('1.5') && model.includes('flash')) {
+    model = 'gemini-1.5-flash';
+  } else {
+    // gemini-2.0-flash por defecto (cubre también gemini-3.8 legacy del config)
+    model = 'gemini-2.0-flash';
+  }
+
+  const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
   const payload = {
     system_instruction: {
@@ -82,7 +87,11 @@ async function callGeminiRest(
     try {
       const parsed = JSON.parse(errorBody);
       if (parsed.error?.message) {
-        message = `Error de Gemini: ${parsed.error.message}`;
+        if (parsed.error.message.includes('API key not valid')) {
+          message = 'Error de Gemini: API key not valid. Tu clave fue rechazada por Google AI Studio. Asegúrate de usar una clave que empiece por "AIzaSy..." generada en https://aistudio.google.com/app/apikey (las claves de OpenAI sk-... no son compatibles).';
+        } else {
+          message = `Error de Gemini: ${parsed.error.message}`;
+        }
       }
     } catch {
       // Ignorar parse error
@@ -97,6 +106,51 @@ async function callGeminiRest(
   }
 
   return text;
+}
+
+/**
+ * Prueba la validez de una API Key contra el endpoint v1beta de Gemini
+ */
+export async function testGeminiConnection(keyToTest?: string): Promise<{ ok: boolean; message: string }> {
+  const settings = getStoredSettings();
+  const apiKey = (keyToTest !== undefined ? keyToTest : settings.apiKey || '').trim();
+
+  if (!apiKey) {
+    return { ok: false, message: 'La clave de API está vacía. Por favor introduce tu clave de Google AI Studio.' };
+  }
+
+  if (apiKey.startsWith('sk-') || apiKey.startsWith('sk-ant-')) {
+    return {
+      ok: false,
+      message: 'La clave empieza por "sk-", correspondiente a OpenAI/Anthropic. Google Gemini requiere una clave que comienza por "AIzaSy...".'
+    };
+  }
+
+  const endpoint = `${GEMINI_API_BASE}/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: 'Ping test' }] }],
+        generationConfig: { maxOutputTokens: 5 }
+      })
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      let msg = `Error ${response.status}: ${response.statusText}`;
+      try {
+        const parsed = JSON.parse(errorBody);
+        if (parsed.error?.message) msg = parsed.error.message;
+      } catch {}
+      return { ok: false, message: msg };
+    }
+
+    return { ok: true, message: 'Conexión exitosa con Gemini 2.0 Flash' };
+  } catch (err: any) {
+    return { ok: false, message: err.message || 'Error de conexión de red al conectar con Google' };
+  }
 }
 
 /**
