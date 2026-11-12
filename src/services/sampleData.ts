@@ -3892,6 +3892,139 @@ export const initialCVs: CVVersion[] = [
     }
   },
   {
+    id: 'cv-daniel-santander-de',
+    name: 'Lebenslauf Daniel Santander — Umweltforschung & Biophysikalische Systeme (Track A - DE)',
+    templateId: 'de_two_page',
+    language: 'de',
+    createdAt: '2026-11-12',
+    updatedAt: '2026-11-12',
+    selectedExperiences: ['exp-cau-kiel', 'exp-advocacy-policy', 'exp-biomass-epn'],
+    selectedEducation: ['edu-msc-kiel-amu', 'edu-geophysics-uchile', 'edu-permaculture-epac'],
+    selectedSkills: ['sk-1', 'sk-2', 'sk-3', 'sk-4', 'sk-5', 'sk-6', 'sk-7', 'sk-8', 'sk-9', 'sk-10'],
+    selectedAchievements: ['ach-1', 'ach-2', 'ach-3', 'ach-4'],
+    customSummary: 'Interdisziplinärer Umweltwissenschaftler mit solidem Hintergrund in Geophysik (FCFM, Universidad de Chile, mit Auszeichnung) und europäischem Doppel-M.Sc. in Umweltmanagement & Umweltschutz (CAU Kiel, Deutschland / AMU Poznań, Polen). Spezialisiert auf biophysikalische Quantifizierung, Treibhausgasflussdynamik (Eddy-Kovarianz-Türme in wiedervernässten Mooren), hydrologische Einzugsgebietsbilanzen, Geodatenmodellierung (R, Python, QGIS, GEE) und umweltpolitische Beratung.',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: 'Kiel, Deutschland / Europaweit mobil',
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Interdisziplinärer Umweltwissenschaftler mit solidem Hintergrund in Geophysik (FCFM, Universidad de Chile, mit Auszeichnung) und europäischem Doppel-M.Sc. in Umweltmanagement & Umweltschutz (CAU Kiel, Deutschland / AMU Poznań, Polen). Spezialisiert auf biophysikalische Quantifizierung, Treibhausgasflussdynamik (Eddy-Kovarianz-Türme in wiedervernässten Mooren), hydrologische Einzugsgebietsbilanzen, Geodatenmodellierung (R, Python, QGIS, GEE) und umweltpolitische Beratung.',
+      experiences: [
+        {
+          id: 'exp-cau-kiel-de',
+          company: 'Christian-Albrechts-Universität zu Kiel & Adam-Mickiewicz-Universität Posen',
+          role: 'Wissenschaftlicher Mitarbeiter / Forscher in Biophysikalischen Systemen & Moordynamik',
+          location: 'Kiel (Deutschland) / Posen (Polen)',
+          startDate: '2023',
+          endDate: 'Present',
+          isCurrent: true,
+          summary: 'Empirische Quantifizierung von Treibhausgasflüssen (CO2/CH4) in wiedervernässten Niedermooren mittels mikrometeorologischer Eddy-Kovarianz-Messtürme und geschlossener Hauben. Boden- und Vegetationsbeprobung sowie hydrophysikalische Modellierung (R, GIS).',
+          achievements: [
+            'Kontinuierliche Kohlenstoffbilanzierung und Analyse der Methan-Emissionsdynamik unter meteorologischen Forcierenden.',
+            'Entwicklung und Veröffentlichung des digitalen 3D-Zwillings "Wetland Monitor" zur saisonalen Simulation von Kohlenstoffflüssen.'
+          ],
+          technologies: ['R', 'Python', 'QGIS', 'ArcGIS', 'Google Earth Engine', 'Eddy Covariance'],
+          isVerified: true
+        },
+        {
+          id: 'exp-advocacy-policy-de',
+          company: 'Umweltpolitische Fachberatung & Gesetzgebungsbegleitung',
+          role: 'Wissenschaftlicher Berater für Umweltpolitik & Einzugsgebietsmanagement',
+          location: 'Chile & Deutschland',
+          startDate: '2021',
+          endDate: 'Present',
+          isCurrent: true,
+          summary: 'Parlamentarische und kommunale Fachberatung zu Waldbrandprävention, integrierter Einzugsgebietsbewirtschaftung und agroökologischem Übergang. Offizielles Sachverständigengutachten vor der Notstandskommission der chilenischen Abgeordnetenkammer zum strukturellen Zusammenhang zwischen industriellen Forstmonokulturen und Katastrophenrisiken.',
+          achievements: [
+            'Offizielle Anhörung und Gutachtenpräsentation vor dem Nationalkongress von Chile.',
+            'Fachliche Unterstützung ländlicher Trinkwasserkomitees und kommunaler Wassernetzwerke.'
+          ],
+          technologies: ['Umweltpolitik', 'Einzugsgebietsmanagement', 'Waldbrandprävention', 'Ressourcengovernance'],
+          isVerified: true
+        },
+        {
+          id: 'exp-biomass-epn-de',
+          company: 'Environmental Paper Network & Global Forest Coalition',
+          role: 'Wissenschaftlicher Gutachter für Biomasse & forstwirtschaftliche Nachhaltigkeit',
+          location: 'Lateinamerika & Europa',
+          startDate: '2022',
+          endDate: '2024',
+          isCurrent: false,
+          summary: 'Unabhängige wissenschaftliche Untersuchung zu biophysikalischen und sozioökologischen Auswirkungen industrieller Holzplantagen, Bioenergie und Kohlenstoffbilanzierungsmethoden. Internationale Koordination mit zivilgesellschaftlichen Koalitionen und Institutionen.',
+          achievements: [
+            'Veröffentlichung von Fachberichten zur Integrität der Kohlenstoffbuchhaltung in forstwirtschaftlichen Lieferketten.',
+            'Mitorganisation internationaler Fachdialoge zu gemeindebasiertem Waldschutz.'
+          ],
+          technologies: ['Kohlenstoffbuchhaltung', 'Umweltschutzstandards', 'Internationale Kooperation'],
+          isVerified: true
+        }
+      ],
+      education: [
+        {
+          id: 'edu-msc-kiel-amu-de',
+          institution: 'Christian-Albrechts-Universität zu Kiel (Deutschland) & Adam-Mickiewicz-Universität Posen (Polen)',
+          degree: 'Doppel-M.Sc. in Umweltmanagement & Umweltschutz',
+          fieldOfStudy: 'Umweltwissenschaften, Einzugsgebietsmanagement & Ökosystemschutz',
+          startDate: '2023',
+          endDate: '2026',
+          location: 'Kiel & Posen',
+          isVerified: true
+        },
+        {
+          id: 'edu-geophysics-uchile-de',
+          institution: 'Universidad de Chile (FCFM)',
+          degree: 'B.Sc. in Geophysik (Abschluss mit höchster Auszeichnung)',
+          fieldOfStudy: 'Feste Erde, Hydrogeophysik & Fluidmechanik',
+          startDate: '2016',
+          endDate: '2021',
+          location: 'Santiago, Chile',
+          isVerified: true
+        },
+        {
+          id: 'edu-permaculture-epac-de',
+          institution: 'Permakultur- und Agroökologieschule Chile (EPAC)',
+          degree: 'Zertifizierter Permakultur-Designer (PDC)',
+          fieldOfStudy: 'Keyline-Wassereinzugsdesign, Bodenregeneration & Renaturierung',
+          startDate: '2023',
+          endDate: '2023',
+          location: 'Chile',
+          isVerified: true
+        }
+      ],
+      skills: initialProfile.skills,
+      languages: [
+        { id: 'lang-es', language: 'Spanisch', proficiency: 'Nativo' },
+        { id: 'lang-en', language: 'Englisch', proficiency: 'C1' },
+        { id: 'lang-de', language: 'Deutsch', proficiency: 'B1' }
+      ],
+      achievements: [
+        {
+          id: 'ach-1-de',
+          title: 'Offizielles Gutachten vor dem Nationalkongress von Chile',
+          description: 'Wissenschaftlicher Nachweis des strukturellen Zusammenhangs zwischen Forstplantagen und Waldbrandkatastrophen.',
+          metrics: 'Offizielles Parlamentsgutachten',
+          tags: ['Parlament', 'Gesetzgebung', 'Klimafolgen'],
+          date: '2024-03-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-2-de',
+          title: 'Internationale Untersuchung zur Biomasseindustrie & Kohlenstoffintegrität',
+          description: 'Umfassende Studie zu Kohlenstoffstandards mit Global Forest Coalition und Environmental Paper Network.',
+          metrics: 'Internationale Publikation',
+          tags: ['Biomasse', 'Kohlenstoffbilanz', 'Forstwirtschaft'],
+          date: '2024-06-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: initialProfile.otherCourses
+    }
+  },
+  {
     id: 'cv-daniel-santander-gastro-es',
     name: 'CV Daniel Santander — Hostelería, Barra & Servicio al Cliente (Track B - ES)',
     templateId: 'es_standard',
@@ -4200,6 +4333,162 @@ export const initialCVs: CVVersion[] = [
         'Lebensmittelhygiene & HACCP-Grundlagen',
         'Belehrung nach § 43 Infektionsschutzgesetz (IfSG) kurzfristig abrufbar',
         'Erste Hilfe im Betrieb'
+      ]
+    }
+  },
+  {
+    id: 'cv-daniel-santander-gastro-en',
+    name: 'Resume Daniel Santander — Hospitality, Bartending & Customer Service (Track B - EN)',
+    templateId: 'en_tech',
+    language: 'en',
+    createdAt: '2026-11-12',
+    updatedAt: '2026-11-12',
+    selectedExperiences: ['op-el-huerto-en', 'op-subterraneo-en', 'op-thai-pals-en', 'op-nuria-en', 'op-ferias-en'],
+    selectedEducation: ['edu-univ-dan-en'],
+    selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
+    selectedAchievements: ['ach-gastro-en-1', 'ach-gastro-en-2'],
+    customSummary: 'Energetic, versatile, and multilingual hospitality professional (Native Spanish, Fluent English C1, German B1/B2) with proven hands-on experience in à-la-carte dining service, high-volume cocktail/bar operations, and retail customer care. Exceptional stamina during peak service rushes, calm under pressure, meticulous with hygiene and cash handling, and fully flexible for rotating, evening, and weekend shifts.',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: 'Germany / Spain / Open to Relocation & Flexible Shifts',
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Energetic, versatile, and multilingual hospitality professional (Native Spanish, Fluent English C1, German B1/B2) with proven hands-on experience in à-la-carte dining service, high-volume cocktail/bar operations, and retail customer care. Exceptional stamina during peak service rushes, calm under pressure, meticulous with hygiene and cash handling, and fully flexible for rotating, evening, and weekend shifts.',
+      experiences: [
+        {
+          id: 'op-el-huerto-en',
+          company: 'Restaurant El Huerto (Providencia, Santiago)',
+          role: 'Food & Beverage Server (à-la-carte Dining)',
+          location: 'Santiago, Chile',
+          startDate: '2021',
+          endDate: '2022',
+          isCurrent: false,
+          summary: 'High-standard table service in renowned organic dining restaurant. Managed multi-table sections, order taking, wine recommendations, detailed dietary/allergen guidance, and courteous guest hospitality.',
+          achievements: [
+            'Delivered seamless service during peak lunch and dinner rushes with top guest satisfaction ratings.',
+            'Maintained flawless dining room mise-en-place and strict food hygiene standards.'
+          ],
+          technologies: ['Table Service', 'Mise-en-place', 'Fine Casual Dining', 'Allergen Guidance', 'Guest Relations'],
+          isVerified: true
+        },
+        {
+          id: 'op-subterraneo-en',
+          company: 'Club & Bar Subterráneo (Paseo Orrego Luco)',
+          role: 'High-Volume Bartender & Nightshift Counter Staff',
+          location: 'Santiago, Chile',
+          startDate: '2020',
+          endDate: '2021',
+          isCurrent: false,
+          summary: 'Fast-paced bartending and drink service in high-capacity live music venue and nightclub. Rapid cocktail preparation, draft beer pouring, POS register operation, cash balancing, and bottle inventory restock under high auditory and time pressure.',
+          achievements: [
+            'Efficiently served hundreds of patrons per shift with zero cash discrepancies or glass breakages.',
+            'Demonstrated top physical resilience during long nocturnal shifts while maintaining an upbeat demeanor.'
+          ],
+          technologies: ['Speed Bartending', 'POS & Cash Handling', 'Nocturnal Shifts', 'Keg & Inventory Management', 'Stress Resilience'],
+          isVerified: true
+        },
+        {
+          id: 'op-thai-pals-en',
+          company: 'Restaurant Thai Pals (Providencia)',
+          role: 'Dining Room Server & Take-away Coordinator',
+          location: 'Santiago, Chile',
+          startDate: '2019',
+          endDate: '2020',
+          isCurrent: false,
+          summary: 'Front-of-house customer service in authentic Thai cuisine venue. Coordinated table turnarounds, take-away orders, bar support, and kitchen communication.',
+          achievements: [
+            'Streamlined table turnaround times during peak executive lunch rush hours.',
+            'Ensured clear communication between kitchen staff and front-of-house to reduce guest wait times.'
+          ],
+          technologies: ['Dining Room Service', 'Take-away Logistics', 'Kitchen-Floor Coordination', 'Multilingual Care'],
+          isVerified: true
+        },
+        {
+          id: 'op-nuria-en',
+          company: 'Bar & Restaurant Nuria (Downtown Santiago)',
+          role: 'Traditional Bartender & Counter Service',
+          location: 'Santiago, Chile',
+          startDate: '2018',
+          endDate: '2019',
+          isCurrent: false,
+          summary: 'Counter service in classic historic downtown bar with steady patron footfall. Prepared morning espresso drinks, draft beers, and classic aperitifs with daily cash register balancing.',
+          achievements: [
+            'Consistently achieved 100% accurate daily register closures and built strong rapport with regular patrons.',
+            'Simultaneously managed direct bar counter orders and floor drink service.'
+          ],
+          technologies: ['Bar Counter Service', 'Espresso Brewing', 'Cash Handling', 'Customer Retention', 'Station Sanitization'],
+          isVerified: true
+        },
+        {
+          id: 'op-ferias-en',
+          company: 'Direct Retail at Book, Cultural & Vintage Fairs',
+          role: 'Customer Sales & Stand Coordinator',
+          location: 'Santiago, Concepción & Parral, Chile',
+          startDate: '2016',
+          endDate: '2020',
+          isCurrent: false,
+          summary: 'Face-to-face customer engagement, price negotiation, inventory curation, and direct sales at outdoor cultural book and vintage markets. Managed stand setup, cash transactions, and logistics.',
+          achievements: [
+            'Developed natural rapport, active listening, and strong commercial communication skills.',
+            'Independently coordinated transportation, merchandise display, and end-of-day accounting.'
+          ],
+          technologies: ['Direct Sales', 'Customer Engagement', 'Cash Management', 'Logistics', 'Product Display'],
+          isVerified: true
+        }
+      ],
+      education: [
+        {
+          id: 'edu-univ-dan-en',
+          institution: 'University of Chile & European Universities (CAU Kiel / AMU Poznań)',
+          degree: 'University Background in Exact & Environmental Sciences',
+          fieldOfStudy: 'Quantitative Sciences & Project Coordination',
+          startDate: '2016',
+          endDate: '2026',
+          location: 'Chile & Germany',
+          isVerified: true
+        }
+      ],
+      skills: [
+        { id: 'sk-g-en-1', name: 'Dining Room & Table Service', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-en-2', name: 'High-Volume Bartending & Counter Care', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-en-3', name: 'Mise-en-place & Food Safety Hygiene', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-en-4', name: 'POS & Cash Register Balancing', category: 'Tools', level: 'Avanzado', yearsOfExperience: 4 },
+        { id: 'sk-g-en-5', name: 'Guest Hospitality & Active Care', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
+        { id: 'sk-g-en-6', name: 'Physical Stamina & Shift Flexibility', category: 'Soft', level: 'Experto', yearsOfExperience: 5 }
+      ],
+      languages: [
+        { id: 'lang-es-en', language: 'Spanish', proficiency: 'Nativo' },
+        { id: 'lang-en-en', language: 'English', proficiency: 'C1' },
+        { id: 'lang-de-en', language: 'German', proficiency: 'B1' }
+      ],
+      achievements: [
+        {
+          id: 'ach-gastro-en-1',
+          title: 'Battle-Tested High-Volume Service Stamina',
+          description: 'Hands-on hospitality experience across high-traffic Santiago venues (El Huerto, Club Subterráneo) with calm, courteous customer focus.',
+          metrics: '+3 Years Hospitality Experience',
+          tags: ['Hospitality', 'Bartending', 'Service', 'Resilience'],
+          date: '2022-01-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-gastro-en-2',
+          title: 'Practical Allrounder & Facility Skills',
+          description: 'Demonstrated capability in operational support, basic woodwork/carpentry, and equipment handling.',
+          metrics: 'Handy Allrounder & Quick Learner',
+          tags: ['Allrounder', 'Maintenance', 'Self-Reliance'],
+          date: '2021-01-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: [
+        'Food Hygiene & HACCP Principles',
+        'German Health Infection Certificate (§ 43 IfSG) available on short notice',
+        'Workplace Safety & First Aid'
       ]
     }
   }
