@@ -379,8 +379,23 @@ export const getStoredCVs = (): CVVersion[] => {
   try {
     let list: CVVersion[] = JSON.parse(data);
 
-    // Auto-purga: asegurar que cualquier versión en caché tenga siempre Inglés en C2
+    // Actualizar CVs canónicos de fábrica para reflejar traducciones completas
     let listModified = false;
+    list = list.map(cv => {
+      const canonical = initialCVs.find(c => c.id === cv.id);
+      if (canonical) {
+        listModified = true;
+        return {
+          ...cv,
+          name: canonical.name,
+          compiledData: canonical.compiledData,
+          customSummary: canonical.customSummary
+        };
+      }
+      return cv;
+    });
+
+    // Auto-purga: asegurar que cualquier versión en caché tenga siempre Inglés en C2
     list = list.map(cv => {
       let cvModified = false;
       let newCompiled = cv.compiledData;

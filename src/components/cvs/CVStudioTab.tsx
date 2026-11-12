@@ -86,6 +86,60 @@ const segBtn = (active: boolean) =>
     active ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
   }`;
 
+const STUDIO_I18N = {
+  de: {
+    accordion1Title: 'Basis-Vorlage & Fachliche Ausrichtung (Bereich A)',
+    accordion5Title: 'Gespeicherte Versionen & Vorlagen (Bereich A & B)',
+    accordion5Summary: (c: number, v: number) => `${c} Offizielle Lebensläufe · ${v} Gespeichert`,
+    precompiledHeader: 'Offizielle Vorformatierte Lebensläufe',
+    precompiledSub: 'Klicken zum Öffnen & Drucken',
+    trackATitle: '🔬 Bereich A · Wissenschaft & Umwelt',
+    trackABadge: '3 Muster',
+    trackASub: '3 vorkompilierte Muster (Im Menü 1 oben flexibel anpassbar).',
+    trackBTitle: '🍽️ Bereich B · Gastronomie, Bar & Service',
+    trackBBadge: '3 Sprachen (Identischer Inhalt)',
+    trackBSub: 'Schwerpunkt: à-la-carte-Service, Barbetrieb, Kassenführung & Gästebetreuung (El Huerto, Subterráneo, Nuria, Märkte).',
+    langNames: { es: 'Spanisch', de: 'Deutsch', en: 'Englisch' },
+    saveTitle: 'Aktuelle Version Speichern',
+    saveBtn: 'Speichern',
+    versionPlaceholder: 'Bezeichnung der Version'
+  },
+  en: {
+    accordion1Title: 'Base Template & Tactical Positioning (Track A)',
+    accordion5Title: 'Versions & Pre-compiled Resumes (Track A & B)',
+    accordion5Summary: (c: number, v: number) => `${c} Resumes · ${v} Saved`,
+    precompiledHeader: 'Official Pre-formatted Resumes',
+    precompiledSub: 'Click to Open & Print',
+    trackATitle: '🔬 Track A · Science & Environment',
+    trackABadge: '3 Samples',
+    trackASub: '3 pre-compiled samples (Use Menu 1 above to customize angle and language).',
+    trackBTitle: '🍽️ Track B · Hospitality, Bartending & Service',
+    trackBBadge: '3 Languages (Identical Content)',
+    trackBSub: 'Focus: Table service, high-volume bartending, cash register balancing & guest relations (El Huerto, Subterráneo, Nuria, Fairs).',
+    langNames: { es: 'Spanish', de: 'German', en: 'English' },
+    saveTitle: 'Save Current Snapshot',
+    saveBtn: 'Save',
+    versionPlaceholder: 'Version name'
+  },
+  es: {
+    accordion1Title: 'Plantilla Base & Posicionamiento (Sector A)',
+    accordion5Title: 'Versiones y Compilaciones (Sector A & B)',
+    accordion5Summary: (c: number, v: number) => `${c} prearmados (A & B) · ${v} guardadas`,
+    precompiledHeader: 'CVs Prearmados Oficiales',
+    precompiledSub: 'Clic para Abrir / Imprimir',
+    trackATitle: '🔬 Sector A · Científico & Ambiental',
+    trackABadge: '3 Muestras',
+    trackASub: '3 muestras oficiales precompiladas (en el Menú 1 puedes compilar cualquier combinación de ángulo e idioma).',
+    trackBTitle: '🍽️ Sector B · Hostelería & Servicios',
+    trackBBadge: 'Mismo contenido en 3 idiomas',
+    trackBSub: 'Enfoque: Servicio de mesa, barra y atención al cliente (El Huerto, Subterráneo, Nuria, Ferias).',
+    langNames: { es: 'Español', de: 'Deutsch', en: 'English' },
+    saveTitle: 'Guardar Instantánea Actual',
+    saveBtn: 'Guardar',
+    versionPlaceholder: 'Nombre de versión'
+  }
+};
+
 interface AccordionCardProps {
   id: string;
   isOpen: boolean;
@@ -224,6 +278,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
   // ------------------------------------------------------------- Estado CV
   const [lang, setLang] = useState<CvLang>('es');
+  const uiT = STUDIO_I18N[lang];
   const [length, setLength] = useState<CvLength>('1p');
   const [tacticalAngle, setTacticalAngle] = useState<TacticalAngle>('general');
   const [forceInclude, setForceInclude] = useState<string[]>([]);
@@ -1103,7 +1158,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 id="format"
                 isOpen={!!openCvSections.format}
                 onToggle={toggleCvSection}
-                title="Plantilla Base & Posicionamiento (Sector A)"
+                title={uiT.accordion1Title}
                 icon={<Layers className="h-4 w-4 text-sky-500" />}
                 summary={`${lang.toUpperCase()} · ${cvTemplatesList.find(t => t.id === selectedTemplateId)?.name || 'Académico'} · ${tacticalAngle}`}
               >
@@ -1563,9 +1618,9 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 id="saved"
                 isOpen={!!openCvSections.saved}
                 onToggle={toggleCvSection}
-                title="Versiones y Compilaciones (Sector A & B)"
+                title={uiT.accordion5Title}
                 icon={<Save className="h-4 w-4 text-sky-500" />}
-                summary={`${storedCompiledCVs.length} prearmados (A & B) · ${versions.length} guardadas`}
+                summary={uiT.accordion5Summary(storedCompiledCVs.length, versions.length)}
               >
                 <div className="space-y-3.5 text-xs">
                   {/* SECCIÓN 1: CVs Prearmados de Fábrica (Sector A y B) con botones interactivos por idioma */}
@@ -1573,10 +1628,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-mono font-bold text-[var(--text-primary)] uppercase flex items-center gap-1.5">
                         <Sparkles className="h-3.5 w-3.5 text-sky-500" />
-                        <span>CVs Prearmados Oficiales ({storedCompiledCVs.length})</span>
+                        <span>{uiT.precompiledHeader} ({storedCompiledCVs.length})</span>
                       </span>
                       <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                        Clic para Abrir / Imprimir
+                        {uiT.precompiledSub}
                       </span>
                     </div>
 
@@ -1584,14 +1639,14 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                     <div className="p-3 rounded-xl border border-sky-500/30 bg-sky-500/5 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-bold text-sky-700 dark:text-sky-300 flex items-center gap-1">
-                          <span>🔬 Sector A · Científico & Ambiental</span>
+                          <span>{uiT.trackATitle}</span>
                         </span>
                         <span className="text-[9px] font-mono font-bold text-sky-500 uppercase">
-                          3 Muestras
+                          {uiT.trackABadge}
                         </span>
                       </div>
                       <div className="text-[10px] text-[var(--text-muted)]">
-                        3 muestras oficiales precompiladas (en el Menú 1 puedes compilar cualquier combinación de ángulo e idioma).
+                        {uiT.trackASub}
                       </div>
                       <div className="grid grid-cols-3 gap-1.5">
                         {storedCompiledCVs
@@ -1606,7 +1661,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                             >
                               <span className="uppercase text-[11px] font-black">{cv.language}</span>
                               <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
-                                {cv.language === 'es' ? 'ES · Gobernanza' : cv.language === 'en' ? 'EN · Biophysics' : 'DE · Umwelt'}
+                                {uiT.langNames[cv.language as keyof typeof uiT.langNames] || cv.language.toUpperCase()}
                               </span>
                             </button>
                           ))}
@@ -1618,14 +1673,14 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                       <div className="p-3 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-[11px] font-bold text-amber-700 dark:text-amber-300 flex items-center gap-1">
-                            <span>🍽️ Sector B · Hostelería & Servicios</span>
+                            <span>{uiT.trackBTitle}</span>
                           </span>
                           <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40 font-bold uppercase font-mono">
-                            Mismo contenido en 3 idiomas
+                            {uiT.trackBBadge}
                           </span>
                         </div>
                         <div className="text-[10px] text-[var(--text-muted)]">
-                          Enfoque: Servicio de mesa, barra y atención al cliente (El Huerto, Subterráneo, Nuria, Ferias).
+                          {uiT.trackBSub}
                         </div>
                         <div className="grid grid-cols-3 gap-1.5">
                           {storedCompiledCVs
@@ -1640,7 +1695,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                               >
                                 <span className="uppercase text-[11px] font-black">{cv.language}</span>
                                 <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
-                                  {cv.language === 'es' ? 'Español' : cv.language === 'de' ? 'Deutsch' : 'English'}
+                                  {uiT.langNames[cv.language as keyof typeof uiT.langNames] || cv.language.toUpperCase()}
                                 </span>
                               </button>
                             ))}
@@ -1652,14 +1707,14 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                   {/* SECCIÓN 2: Guardar Versión Personalizada */}
                   <div className="pt-3 border-t border-[var(--panel-border)] space-y-2">
                     <div className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase">
-                      Guardar Instantánea Actual
+                      {uiT.saveTitle}
                     </div>
                     <div className="flex gap-2">
                       <input
                         type="text"
                         value={versionName}
                         onChange={(e) => setVersionName(e.target.value)}
-                        placeholder={offer ? `${offer.title} (${offer.company})` : 'Nombre de versión'}
+                        placeholder={offer ? `${offer.title} (${offer.company})` : uiT.versionPlaceholder}
                         className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-transparent"
                         style={{ borderColor: 'var(--panel-border)' }}
                       />
@@ -1668,7 +1723,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         onClick={saveCvVersion}
                         className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold cursor-pointer transition shrink-0"
                       >
-                        Guardar
+                        {uiT.saveBtn}
                       </button>
                     </div>
 

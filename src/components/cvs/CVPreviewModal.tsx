@@ -10,6 +10,138 @@ interface CVPreviewModalProps {
   availableCvs?: CVVersion[];
 }
 
+type UiLang = 'es' | 'de' | 'en';
+
+const MODAL_I18N: Record<UiLang, {
+  langLabel: string;
+  summaryTitle: string;
+  achievementsTitle: string;
+  experienceTitle: string;
+  technologiesLabel: string;
+  educationTitle: string;
+  otherCoursesTitle: string;
+  skillsTitle: string;
+  languagesTitle: string;
+  footerNotice: string;
+  printBtn: string;
+  badgeTrackA: string;
+  badgeTrackB: string;
+  languagesNameMap: Record<string, string>;
+  proficienciesMap: Record<string, string>;
+}> = {
+  de: {
+    langLabel: 'Sprache:',
+    summaryTitle: 'Berufliches Profil & Qualifikationsprofil',
+    achievementsTitle: 'Besondere Praxiserfolge (Verifiziert)',
+    experienceTitle: 'Berufserfahrung & Praxiseinsätze',
+    technologiesLabel: 'Schwerpunkte & Fachpraxis:',
+    educationTitle: 'Ausbildung & Studium',
+    otherCoursesTitle: 'Zertifikate, Belehrungen & Weiterbildung',
+    skillsTitle: 'Fachliche Kompetenzen',
+    languagesTitle: 'Sprachkenntnisse',
+    footerNotice: 'Job Search OS — Offizieller Lebenslauf auf Basis 100 % verifizierter Angaben.',
+    printBtn: 'Drucken / PDF',
+    badgeTrackA: 'Bereich A · Wissenschaft & Umwelt',
+    badgeTrackB: 'Bereich B · Gastronomie & Service',
+    languagesNameMap: {
+      Español: 'Spanisch',
+      Spanish: 'Spanisch',
+      Spanisch: 'Spanisch',
+      Inglés: 'Englisch',
+      English: 'Englisch',
+      Englisch: 'Englisch',
+      Alemán: 'Deutsch',
+      German: 'Deutsch',
+      Deutsch: 'Deutsch'
+    },
+    proficienciesMap: {
+      Nativo: 'Muttersprache',
+      Native: 'Muttersprache',
+      Muttersprache: 'Muttersprache',
+      C2: 'C2 (Verhandlungssicher / Bilinguale Kompetenz)',
+      C1: 'C1 (Verhandlungssicher)',
+      B2: 'B2 (Berufliche Praxis)',
+      B1: 'B1 (Gute Grundkenntnisse / Konversation)',
+      A2: 'A2 (Grundkenntnisse)',
+      A1: 'A1 (Grundlagen)'
+    }
+  },
+  en: {
+    langLabel: 'Language:',
+    summaryTitle: 'Professional Summary',
+    achievementsTitle: 'Key Achievements & Qualifications (Verified)',
+    experienceTitle: 'Work & Operational Experience',
+    technologiesLabel: 'Core Competencies & Responsibilities:',
+    educationTitle: 'Education & Academic Background',
+    otherCoursesTitle: 'Certifications & Relevant Training',
+    skillsTitle: 'Key Skills',
+    languagesTitle: 'Languages',
+    footerNotice: 'Job Search OS — Official resume compiled from 100% verified credentials.',
+    printBtn: 'Print / PDF',
+    badgeTrackA: 'Track A · Science & Environment',
+    badgeTrackB: 'Track B · Hospitality & Operations',
+    languagesNameMap: {
+      Español: 'Spanish',
+      Spanish: 'Spanish',
+      Spanisch: 'Spanish',
+      Inglés: 'English',
+      English: 'English',
+      Englisch: 'English',
+      Alemán: 'German',
+      German: 'German',
+      Deutsch: 'German'
+    },
+    proficienciesMap: {
+      Nativo: 'Native',
+      Native: 'Native',
+      Muttersprache: 'Native',
+      C2: 'C2 (Full Professional Proficiency / Bilingual)',
+      C1: 'C1 (Professional Working)',
+      B2: 'B2 (Operational Working)',
+      B1: 'B1 (Intermediate)',
+      A2: 'A2 (Elementary)',
+      A1: 'A1 (Beginner)'
+    }
+  },
+  es: {
+    langLabel: 'Idioma:',
+    summaryTitle: 'Resumen Profesional',
+    achievementsTitle: 'Logros Destacados (Verificados)',
+    experienceTitle: 'Experiencia Laboral',
+    technologiesLabel: 'Competencias & Funciones:',
+    educationTitle: 'Educación & Formación Principal',
+    otherCoursesTitle: 'Otros Cursos & Estudios Complementarios',
+    skillsTitle: 'Competencias Técnicas',
+    languagesTitle: 'Idiomas',
+    footerNotice: 'Job Search OS — Documento generado automáticamente con datos 100 % verificados.',
+    printBtn: 'Imprimir / PDF',
+    badgeTrackA: 'Sector A · Científico & Ambiental',
+    badgeTrackB: 'Sector B · Hostelería & Servicios',
+    languagesNameMap: {
+      Español: 'Español',
+      Spanish: 'Español',
+      Spanisch: 'Español',
+      Inglés: 'Inglés',
+      English: 'Inglés',
+      Englisch: 'Inglés',
+      Alemán: 'Alemán',
+      German: 'Alemán',
+      Deutsch: 'Alemán'
+    },
+    proficienciesMap: {
+      Nativo: 'Nativo',
+      Native: 'Nativo',
+      Muttersprache: 'Nativo',
+      C2: 'C2 (Bilingüe / Fluido)',
+      C1: 'C1 (Avanzado)',
+      B2: 'B2 (Operativo)',
+      B1: 'B1 (Intermedio)',
+      A2: 'A2 (Básico)',
+      A1: 'A1 (Inicial)'
+    }
+  }
+};
+
 export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
   cv,
   isOpen,
@@ -28,7 +160,13 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
     isSectorB ? c.id.includes('gastro') : !c.id.includes('gastro')
   );
 
+  const uiLang: UiLang = (cv.language === 'de' || cv.language === 'en') ? cv.language : 'es';
+  const t = MODAL_I18N[uiLang];
+
   const data = cv.compiledData;
+
+  const translateLang = (name: string) => t.languagesNameMap[name] || name;
+  const translateProf = (prof: string) => t.proficienciesMap[prof] || prof;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
@@ -45,7 +183,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
                   : 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20'
               }`}>
-                {isSectorB ? 'Sector B · Hostelería' : 'Sector A · Científico'}
+                {isSectorB ? t.badgeTrackB : t.badgeTrackA}
               </span>
             </h3>
             <p className="text-xs text-[var(--text-muted)]">
@@ -57,7 +195,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
           {relatedCvs.length > 1 && (
             <div className="flex items-center gap-1 bg-[var(--panel-bg)] p-1 rounded-xl border border-[var(--panel-border)]">
               <span className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase px-1.5">
-                Idioma:
+                {t.langLabel}
               </span>
               {relatedCvs.map((rcv) => {
                 const isActive = rcv.id === cv.id;
@@ -89,7 +227,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
               }`}
             >
               <Printer className="h-4 w-4" />
-              <span>Imprimir / PDF</span>
+              <span>{t.printBtn}</span>
             </button>
             <button onClick={onClose} className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg cursor-pointer">
               <X className="h-5 w-5" />
@@ -113,13 +251,13 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">Resumen Profesional</h2>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">{t.summaryTitle}</h2>
               <p className="text-xs text-slate-700 leading-relaxed">{data.summary}</p>
             </div>
 
             {data.achievements && data.achievements.length > 0 && (
               <div className="space-y-2">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">Logros Destacados (Verificados)</h2>
+                <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">{t.achievementsTitle}</h2>
                 <div className="space-y-1.5">
                   {data.achievements.map((ach) => (
                     <div key={ach.id} className="text-xs text-slate-800">
@@ -133,7 +271,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
             )}
 
             <div className="space-y-3">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">Experiencia Laboral</h2>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">{t.experienceTitle}</h2>
               <div className="space-y-3">
                 {data.experiences.map((exp) => (
                   <div key={exp.id} className="space-y-1">
@@ -144,7 +282,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
                     <div className="text-[11px] text-slate-500">📍 {exp.location}</div>
                     <p className="text-xs text-slate-700">{exp.summary}</p>
                     <div className="text-[11px] text-slate-600 font-mono">
-                      Tecnologías: {exp.technologies.join(', ')}
+                      {t.technologiesLabel} {exp.technologies.join(', ')}
                     </div>
                   </div>
                 ))}
@@ -152,7 +290,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">Educación & Formación Principal</h2>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">{t.educationTitle}</h2>
               <div className="space-y-1">
                 {data.education.map((edu) => (
                   <div key={edu.id} className="flex justify-between text-xs text-slate-800">
@@ -167,7 +305,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
 
             {data.otherCourses && data.otherCourses.length > 0 && (
               <div className="space-y-1">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">Otros Cursos & Estudios Complementarios</h2>
+                <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700">{t.otherCoursesTitle}</h2>
                 <div className="space-y-0.5 text-xs text-slate-700">
                   {data.otherCourses.map((course, idx) => (
                     <div key={idx} className="flex items-start gap-1.5">
@@ -181,22 +319,22 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
 
             <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-200 text-xs">
               <div>
-                <h3 className="font-bold text-indigo-700 uppercase tracking-wider text-[11px] mb-1">Competencias Técnicas</h3>
+                <h3 className="font-bold text-indigo-700 uppercase tracking-wider text-[11px] mb-1">{t.skillsTitle}</h3>
                 <div className="text-slate-700">
                   {data.skills.map(s => s.name).join(' • ')}
                 </div>
               </div>
 
               <div>
-                <h3 className="font-bold text-indigo-700 uppercase tracking-wider text-[11px] mb-1">Idiomas</h3>
+                <h3 className="font-bold text-indigo-700 uppercase tracking-wider text-[11px] mb-1">{t.languagesTitle}</h3>
                 <div className="text-slate-700">
-                  {data.languages.map(l => `${l.language} (${l.proficiency})`).join(' • ')}
+                  {data.languages.map(l => `${translateLang(l.language)} (${translateProf(l.proficiency)})`).join(' • ')}
                 </div>
               </div>
             </div>
 
             <div className="text-[10px] text-slate-400 pt-4 border-t border-slate-100 flex items-center justify-between">
-              <span>Job Search OS — Documento generado automáticamente sin invención de datos.</span>
+              <span>{t.footerNotice}</span>
               <span className="font-mono">ID: {cv.id}</span>
             </div>
           </div>
