@@ -14,7 +14,7 @@ import {
 } from '../data/verifiedCvFacts';
 
 export type { TacticalAngle };
-export type CvLang = 'es' | 'en';
+export type CvLang = 'es' | 'en' | 'de';
 export type CvLength = '1p' | '2p';
 
 export interface StudioConfig {
@@ -157,8 +157,8 @@ export const buildCv = (config: StudioConfig): BuiltCv => {
   if (location) contact.unshift({ label: 'location', value: location });
   if (config.includePhone && config.phone?.trim()) contact.splice(1, 0, { label: 'phone', value: config.phone.trim() });
 
-  const headline = TACTICAL_HEADLINES[tacticalAngle]?.[lang] || CV_HEADLINE[lang];
-  const summary = TACTICAL_SUMMARIES[tacticalAngle]?.[lang] || CV_SUMMARY[lang];
+  const headline = TACTICAL_HEADLINES[tacticalAngle]?.[lang] || CV_HEADLINE[lang] || CV_HEADLINE.en;
+  const summary = TACTICAL_SUMMARIES[tacticalAngle]?.[lang] || CV_SUMMARY[lang] || CV_SUMMARY.en;
 
   return {
     config,
@@ -168,7 +168,7 @@ export const buildCv = (config: StudioConfig): BuiltCv => {
     sections,
     allFacts: scored,
     matchedTags,
-    footer: hasOffer ? undefined : CV_FOOTER_GENERAL[lang]
+    footer: hasOffer ? undefined : (CV_FOOTER_GENERAL[lang] || CV_FOOTER_GENERAL.en)
   };
 };
 
@@ -180,12 +180,12 @@ const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const SECTION_TITLES: Record<CvSection, Record<CvLang, string>> = {
-  education: { es: 'Formación académica', en: 'Education' },
-  experience: { es: 'Experiencia y proyectos', en: 'Experience & Projects' },
-  publications: { es: 'Publicaciones seleccionadas', en: 'Selected Publications' },
-  courses: { es: 'Cursos y formación complementaria', en: 'Courses & Further Training' },
-  skills: { es: 'Competencias técnicas', en: 'Technical Skills' },
-  languages: { es: 'Idiomas', en: 'Languages' }
+  education: { es: 'Formación académica', en: 'Education', de: 'Akademische Ausbildung' },
+  experience: { es: 'Experiencia y proyectos', en: 'Experience & Projects', de: 'Berufserfahrung & Projekte' },
+  publications: { es: 'Publicaciones seleccionadas', en: 'Selected Publications', de: 'Ausgewählte Publikationen' },
+  courses: { es: 'Cursos y formación complementaria', en: 'Courses & Further Training', de: 'Weiterbildung & Zertifikate' },
+  skills: { es: 'Competencias técnicas', en: 'Technical Skills', de: 'Fachliche Kompetenzen' },
+  languages: { es: 'Idiomas', en: 'Languages', de: 'Sprachkenntnisse' }
 };
 
 const CV_CSS = `
@@ -238,7 +238,7 @@ const FIT_JS = `
 
 const renderItem = (s: ScoredFact, lang: CvLang, length: CvLength): string => {
   const f = s.fact;
-  const x = f[lang];
+  const x = f[lang] || f.en || f.es;
   const head = `<div class="row"><div><span class="t">${esc(x.title)}</span>${x.org ? ` — <span class="o">${esc(x.org)}</span>` : ''}</div><div class="m">${esc([x.place, f.period].filter(Boolean).join(' | '))}</div></div>`;
   if (f.section === 'skills' || f.section === 'languages') {
     return `<div class="it"><div class="d"><b>${esc(x.title)}:</b> ${esc(x.short || '')}</div></div>`;
@@ -316,7 +316,7 @@ export const renderCvMarkdown = (built: BuiltCv): string => {
     lines.push('');
     sec.items.forEach((item) => {
       const f = item.fact;
-      const x = f[lang];
+      const x = f[lang] || f.en || f.es;
       if (f.section === 'skills' || f.section === 'languages') {
         lines.push(`- **${x.title}**: ${x.short || ''}`);
       } else if (f.section === 'publications') {

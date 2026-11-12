@@ -1044,8 +1044,9 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
             {docMode === 'cv' ? (
               <>
                 <div className="flex p-0.5 rounded-lg border gap-0.5" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
-                  <button className={segBtn(lang === 'es')} onClick={() => setLang('es')}>ES</button>
-                  <button className={segBtn(lang === 'en')} onClick={() => setLang('en')}>EN</button>
+                  <button className={segBtn(lang === 'es')} onClick={() => setLang('es')} title="CV en Español">ES</button>
+                  <button className={segBtn(lang === 'en')} onClick={() => setLang('en')} title="CV en Inglés">EN</button>
+                  <button className={segBtn(lang === 'de')} onClick={() => setLang('de')} title="CV en Alemán">DE</button>
                 </div>
                 <div className="flex p-0.5 rounded-lg border gap-0.5" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
                   <button className={segBtn(length === '1p')} onClick={() => setLength('1p')}>1 pág.</button>
@@ -1178,8 +1179,55 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 onToggle={toggleCvSection}
                 title="Plantilla Base & Posicionamiento"
                 icon={<Layers className="h-4 w-4 text-sky-500" />}
-                summary={`${cvTemplatesList.find(t => t.id === selectedTemplateId)?.name || 'Académico'} · ${tacticalAngle}`}
+                summary={`${lang.toUpperCase()} · ${cvTemplatesList.find(t => t.id === selectedTemplateId)?.name || 'Académico'} · ${tacticalAngle}`}
               >
+                {/* Idioma de Redacción y Compilador */}
+                <div className="space-y-1.5 pb-2 border-b border-[var(--panel-border)]">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-[var(--text-muted)] uppercase">
+                      Idioma del CV
+                    </span>
+                    <span className="text-[10px] font-mono text-sky-500 font-bold uppercase">
+                      Activo: {lang === 'es' ? 'Español' : lang === 'en' ? 'Inglés' : 'Alemán'}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setLang('es')}
+                      className={`py-1.5 px-2 rounded-lg text-xs font-semibold border transition text-center cursor-pointer ${
+                        lang === 'es'
+                          ? 'border-sky-500 bg-sky-500/10 text-sky-500 font-bold shadow-xs'
+                          : 'border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:border-[var(--panel-border)]'
+                      }`}
+                    >
+                      ES · Español
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLang('en')}
+                      className={`py-1.5 px-2 rounded-lg text-xs font-semibold border transition text-center cursor-pointer ${
+                        lang === 'en'
+                          ? 'border-sky-500 bg-sky-500/10 text-sky-500 font-bold shadow-xs'
+                          : 'border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:border-[var(--panel-border)]'
+                      }`}
+                    >
+                      EN · English
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLang('de')}
+                      className={`py-1.5 px-2 rounded-lg text-xs font-semibold border transition text-center cursor-pointer ${
+                        lang === 'de'
+                          ? 'border-sky-500 bg-sky-500/10 text-sky-500 font-bold shadow-xs'
+                          : 'border-[var(--card-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:border-[var(--panel-border)]'
+                      }`}
+                    >
+                      DE · Deutsch
+                    </button>
+                  </div>
+                </div>
+
                 {/* Formatos de Plantilla */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
@@ -1201,6 +1249,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                             setSelectedTemplateId(tpl.id);
                             if (tpl.language === 'en') setLang('en');
                             else if (tpl.language === 'es') setLang('es');
+                            else if (tpl.language === 'de') setLang('de');
                             if (tpl.pages === '1 pág.') setLength('1p');
                             else if (tpl.pages === '2 pág.' || tpl.pages === '2-3 pág.') setLength('2p');
                           }}
@@ -1517,8 +1566,8 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                                 />
                                 <span className="min-w-0 flex-1">
                                   <span className={s.included ? '' : 'text-[var(--text-muted)]'}>
-                                    {s.fact[lang].title}
-                                    {s.fact[lang].org ? ` · ${s.fact[lang].org}` : ''}
+                                    {(s.fact[lang] || s.fact.en || s.fact.es).title}
+                                    {(s.fact[lang] || s.fact.en || s.fact.es).org ? ` · ${(s.fact[lang] || s.fact.en || s.fact.es).org}` : ''}
                                   </span>
                                   {s.matchedTags.length > 0 && (
                                     <span className="ml-1 text-[9px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">

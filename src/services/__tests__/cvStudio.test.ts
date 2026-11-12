@@ -153,6 +153,18 @@ describe('cvStudio · renderCvMarkdown', () => {
     expect(md).toContain('## EDUCATION');
     expect(md).toContain('M.Sc. in Environmental Management');
   });
+
+  it('genera texto y HTML en alemán correctamente', () => {
+    const cv = buildCv({ lang: 'de', length: '1p', tacticalAngle: 'biofisica' });
+    expect(cv.config.lang).toBe('de');
+    expect(cv.headline).toContain('Eddy-Kovarianz');
+    const md = renderCvMarkdown(cv);
+    expect(md).toContain('## AKADEMISCHE AUSBILDUNG');
+    expect(md).toContain('BERUFSERFAHRUNG & PROJEKTE');
+    const html = renderCvHtml(cv);
+    expect(html).toContain('<html lang="de">');
+    expect(html).toContain('Akademische Ausbildung');
+  });
 });
 
 describe('cvStudio · auditProfile', () => {
