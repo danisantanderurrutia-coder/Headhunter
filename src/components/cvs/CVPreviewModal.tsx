@@ -6,14 +6,27 @@ interface CVPreviewModalProps {
   cv: CVVersion | null;
   isOpen: boolean;
   onClose: () => void;
+  onSelectCv?: (cv: CVVersion) => void;
+  availableCvs?: CVVersion[];
 }
 
-export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({ cv, isOpen, onClose }) => {
+export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
+  cv,
+  isOpen,
+  onClose,
+  onSelectCv,
+  availableCvs = []
+}) => {
   if (!isOpen || !cv) return null;
 
   const handlePrint = () => {
     window.print();
   };
+
+  const isSectorB = cv.id.includes('gastro');
+  const relatedCvs = availableCvs.filter((c) =>
+    isSectorB ? c.id.includes('gastro') : !c.id.includes('gastro')
+  );
 
   const data = cv.compiledData;
 
@@ -23,28 +36,62 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({ cv, isOpen, onCl
         className="max-w-4xl w-full rounded-2xl border shadow-2xl space-y-4 my-8 flex flex-col max-h-[90vh]"
         style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)', color: 'var(--text-primary)' }}
       >
-        <div className="flex items-center justify-between p-4 border-b border-[var(--panel-border)] shrink-0">
-          <div>
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-[var(--panel-border)] shrink-0">
+          <div className="min-w-0">
             <h3 className="font-bold text-[var(--text-primary)] text-base flex items-center gap-2">
-              <span>{cv.name}</span>
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20 font-bold">
-                {cv.templateId}
+              <span className="truncate">{cv.name}</span>
+              <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+                isSectorB
+                  ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                  : 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20'
+              }`}>
+                {isSectorB ? 'Sector B · Hostelería' : 'Sector A · Científico'}
               </span>
             </h3>
             <p className="text-xs text-[var(--text-muted)]">
-              Generado dinámicamente desde Master Profile • {cv.updatedAt}
+              {cv.templateId} · {cv.updatedAt}
             </p>
           </div>
+
+          {/* Selector de idioma interactivo */}
+          {relatedCvs.length > 1 && (
+            <div className="flex items-center gap-1 bg-[var(--panel-bg)] p-1 rounded-xl border border-[var(--panel-border)]">
+              <span className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase px-1.5">
+                Idioma:
+              </span>
+              {relatedCvs.map((rcv) => {
+                const isActive = rcv.id === cv.id;
+                return (
+                  <button
+                    key={rcv.id}
+                    type="button"
+                    onClick={() => onSelectCv?.(rcv)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                      isActive
+                        ? isSectorB
+                          ? 'bg-amber-600 text-white shadow-xs'
+                          : 'bg-sky-600 text-white shadow-xs'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--card-bg)]'
+                    }`}
+                  >
+                    {rcv.language.toUpperCase()}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow transition"
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-white text-xs font-semibold shadow transition cursor-pointer ${
+                isSectorB ? 'bg-amber-600 hover:bg-amber-500' : 'bg-indigo-600 hover:bg-indigo-500'
+              }`}
             >
               <Printer className="h-4 w-4" />
               <span>Imprimir / PDF</span>
             </button>
-            <button onClick={onClose} className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg">
+            <button onClick={onClose} className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg cursor-pointer">
               <X className="h-5 w-5" />
             </button>
           </div>

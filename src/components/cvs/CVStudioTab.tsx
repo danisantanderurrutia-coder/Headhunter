@@ -1098,86 +1098,12 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
           {/* ============================================ CV MODE ACCORDIONS ============================================ */}
           {docMode === 'cv' && (
             <>
-              {/* Tarjeta de Acceso Rápido a CVs Prearmados Oficiales (6) */}
-              {storedCompiledCVs.length > 0 && (
-                <div
-                  className="p-3.5 rounded-2xl border shadow-xs space-y-2.5"
-                  style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono font-bold uppercase text-[var(--text-primary)] flex items-center gap-1.5">
-                      <Sparkles className="h-3.5 w-3.5 text-sky-500" />
-                      <span>CVs Prearmados de Fábrica ({storedCompiledCVs.length})</span>
-                    </span>
-                    <span className="text-[10px] font-mono text-[var(--text-muted)]">Clic para Ver / Imprimir</span>
-                  </div>
-
-                  {/* Sector A */}
-                  <div className="space-y-1.5">
-                    <div className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 uppercase flex items-center justify-between">
-                      <span>🔬 Sector A · Científico & Ambiental</span>
-                      <span className="text-[9px] text-[var(--text-muted)] font-mono">ES · EN · DE</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-1.5">
-                      {storedCompiledCVs
-                        .filter((c) => !c.id.includes('gastro'))
-                        .map((cv) => (
-                          <button
-                            key={cv.id}
-                            type="button"
-                            onClick={() => setSelectedCvForModal(cv)}
-                            className="py-1.5 px-2 rounded-lg bg-sky-600/10 hover:bg-sky-600 text-sky-700 dark:text-sky-300 hover:text-white border border-sky-500/30 text-[10.5px] font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex items-center justify-center gap-1"
-                            title={cv.name}
-                          >
-                            <span className="uppercase font-extrabold">{cv.language}</span>
-                            <span className="text-[9.5px] opacity-80 truncate">
-                              {cv.language === 'es' ? 'Gobernanza' : cv.language === 'en' ? 'Biophysics' : 'Umwelt'}
-                            </span>
-                          </button>
-                        ))}
-                    </div>
-                  </div>
-
-                  {/* Sector B */}
-                  {storedCompiledCVs.some((c) => c.id.includes('gastro')) && (
-                    <div className="space-y-1.5 pt-2 border-t border-[var(--panel-border)]">
-                      <div className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase flex items-center justify-between">
-                        <span className="flex items-center gap-1">
-                          <span>🍽️ Sector B · Hostelería & Servicios</span>
-                        </span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40 font-bold uppercase font-mono">
-                          Aislado (ES · DE · EN)
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-3 gap-1.5">
-                        {storedCompiledCVs
-                          .filter((c) => c.id.includes('gastro'))
-                          .map((cv) => (
-                            <button
-                              key={cv.id}
-                              type="button"
-                              onClick={() => setSelectedCvForModal(cv)}
-                              className="py-1.5 px-2 rounded-lg bg-amber-600/10 hover:bg-amber-600 text-amber-700 dark:text-amber-300 hover:text-white border border-amber-500/30 text-[10.5px] font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex items-center justify-center gap-1"
-                              title={cv.name}
-                            >
-                              <span className="uppercase font-extrabold">{cv.language}</span>
-                              <span className="text-[9.5px] opacity-80 truncate">
-                                {cv.language === 'es' ? 'Hostelería' : cv.language === 'de' ? 'Gastronomie' : 'Hospitality'}
-                              </span>
-                            </button>
-                          ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* 1. Plantilla Base & Posicionamiento */}
+              {/* 1. Plantilla Base & Posicionamiento (Sector A) */}
               <AccordionCard
                 id="format"
                 isOpen={!!openCvSections.format}
                 onToggle={toggleCvSection}
-                title="Plantilla Base & Posicionamiento"
+                title="Plantilla Base & Posicionamiento (Sector A)"
                 icon={<Layers className="h-4 w-4 text-sky-500" />}
                 summary={`${lang.toUpperCase()} · ${cvTemplatesList.find(t => t.id === selectedTemplateId)?.name || 'Académico'} · ${tacticalAngle}`}
               >
@@ -1637,132 +1563,134 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 id="saved"
                 isOpen={!!openCvSections.saved}
                 onToggle={toggleCvSection}
-                title="Versiones y Compilaciones"
+                title="Versiones y Compilaciones (Sector A & B)"
                 icon={<Save className="h-4 w-4 text-sky-500" />}
-                summary={`${versions.length} versiones · ${storedCompiledCVs.length} compilaciones`}
+                summary={`${storedCompiledCVs.length} prearmados (A & B) · ${versions.length} guardadas`}
               >
-                <div className="space-y-2 text-xs">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={versionName}
-                      onChange={(e) => setVersionName(e.target.value)}
-                      placeholder={offer ? `${offer.title} (${offer.company})` : 'Nombre de versión'}
-                      className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-transparent"
-                      style={{ borderColor: 'var(--panel-border)' }}
-                    />
-                    <button
-                      type="button"
-                      onClick={saveCvVersion}
-                      className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold cursor-pointer"
-                    >
-                      Guardar
-                    </button>
+                <div className="space-y-3.5 text-xs">
+                  {/* SECCIÓN 1: CVs Prearmados de Fábrica (Sector A y B) con botones interactivos por idioma */}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-mono font-bold text-[var(--text-primary)] uppercase flex items-center gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5 text-sky-500" />
+                        <span>CVs Prearmados Oficiales ({storedCompiledCVs.length})</span>
+                      </span>
+                      <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                        Clic para Abrir / Imprimir
+                      </span>
+                    </div>
+
+                    {/* Sector A: Científico & Ambiental */}
+                    <div className="p-3 rounded-xl border border-sky-500/30 bg-sky-500/5 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-sky-700 dark:text-sky-300 flex items-center gap-1">
+                          <span>🔬 Sector A · Científico & Ambiental</span>
+                        </span>
+                        <span className="text-[9px] font-mono font-bold text-sky-500 uppercase">
+                          3 Idiomas
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {storedCompiledCVs
+                          .filter((c) => !c.id.includes('gastro'))
+                          .map((cv) => (
+                            <button
+                              key={cv.id}
+                              type="button"
+                              onClick={() => setSelectedCvForModal(cv)}
+                              className="py-2 px-1.5 rounded-lg bg-sky-600/10 hover:bg-sky-600 text-sky-800 dark:text-sky-200 hover:text-white border border-sky-500/30 text-xs font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex flex-col items-center justify-center gap-0.5 group"
+                              title={cv.name}
+                            >
+                              <span className="uppercase text-[11px] font-black">{cv.language}</span>
+                              <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
+                                {cv.language === 'es' ? 'Gobernanza' : cv.language === 'en' ? 'Biophysics' : 'Umwelt'}
+                              </span>
+                            </button>
+                          ))}
+                      </div>
+                    </div>
+
+                    {/* Sector B: Hostelería, Gastronomía & Servicios */}
+                    {storedCompiledCVs.some((c) => c.id.includes('gastro')) && (
+                      <div className="p-3 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-amber-700 dark:text-amber-300 flex items-center gap-1">
+                            <span>🍽️ Sector B · Hostelería & Servicios</span>
+                          </span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40 font-bold uppercase font-mono">
+                            Aislado
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-1.5">
+                          {storedCompiledCVs
+                            .filter((c) => c.id.includes('gastro'))
+                            .map((cv) => (
+                              <button
+                                key={cv.id}
+                                type="button"
+                                onClick={() => setSelectedCvForModal(cv)}
+                                className="py-2 px-1.5 rounded-lg bg-amber-600/10 hover:bg-amber-600 text-amber-800 dark:text-amber-200 hover:text-white border border-amber-500/30 text-xs font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex flex-col items-center justify-center gap-0.5 group"
+                                title={cv.name}
+                              >
+                                <span className="uppercase text-[11px] font-black">{cv.language}</span>
+                                <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
+                                  {cv.language === 'es' ? 'Hostelería' : cv.language === 'de' ? 'Gastronomie' : 'Hospitality'}
+                                </span>
+                              </button>
+                            ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  {versions.length > 0 && (
-                    <ul className="space-y-1 pt-2 border-t border-[var(--panel-border)] max-h-40 overflow-y-auto">
-                      {versions.map((v) => (
-                        <li key={v.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)' }}>
-                          <button
-                            type="button"
-                            onClick={() => loadCvVersion(v)}
-                            className="text-left min-w-0 flex-1 cursor-pointer hover:text-sky-500"
-                          >
-                            <div className="font-bold truncate">{v.name}</div>
-                            <div className="text-[var(--text-muted)] font-mono">{v.createdAt} · {v.lang.toUpperCase()} · {v.length}</div>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => removeCvVersion(v.id)}
-                            className="text-[var(--text-muted)] hover:text-red-500 cursor-pointer"
-                            title="Eliminar"
-                          >
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Versiones pre-compiladas del Expediente */}
-                  {storedCompiledCVs.length > 0 && (
-                    <div className="pt-2 border-t border-[var(--panel-border)] space-y-2.5">
-                      <div className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase">
-                        Compilaciones Rápidas ({storedCompiledCVs.length})
-                      </div>
-
-                      {/* Sector A: Científico & Académico */}
-                      <div className="space-y-1">
-                        <div className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 uppercase flex items-center gap-1">
-                          <span>🔬 Sector A · Científico & Ambiental</span>
-                        </div>
-                        <ul className="space-y-1">
-                          {storedCompiledCVs
-                            .filter((cv) => !cv.id.includes('gastro'))
-                            .map((cv) => (
-                              <li
-                                key={cv.id}
-                                className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border"
-                                style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}
-                              >
-                                <div className="min-w-0 flex-1">
-                                  <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
-                                  <div className="text-[9px] text-[var(--text-muted)] font-mono">
-                                    {cv.updatedAt} · {cv.templateId} · {cv.language.toUpperCase()}
-                                  </div>
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => setSelectedCvForModal(cv)}
-                                  className="px-2 py-1 rounded-md bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
-                                >
-                                  Ver / Imprimir
-                                </button>
-                              </li>
-                            ))}
-                        </ul>
-                      </div>
-
-                      {/* Sector B: Hostelería, Barra & Servicios */}
-                      {storedCompiledCVs.some((cv) => cv.id.includes('gastro')) && (
-                        <div className="space-y-1 pt-1.5 border-t border-[var(--panel-border)]">
-                          <div className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase flex items-center justify-between">
-                            <span className="flex items-center gap-1">
-                              <span>🍽️ Sector B · Hostelería & Servicios</span>
-                            </span>
-                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold">
-                              Aislado
-                            </span>
-                          </div>
-                          <ul className="space-y-1">
-                            {storedCompiledCVs
-                              .filter((cv) => cv.id.includes('gastro'))
-                              .map((cv) => (
-                                <li
-                                  key={cv.id}
-                                  className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border border-amber-500/30 bg-amber-500/5"
-                                >
-                                  <div className="min-w-0 flex-1">
-                                    <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
-                                    <div className="text-[9px] text-amber-700/80 dark:text-amber-300/80 font-mono">
-                                      {cv.updatedAt} · {cv.templateId} · {cv.language.toUpperCase()}
-                                    </div>
-                                  </div>
-                                  <button
-                                    type="button"
-                                    onClick={() => setSelectedCvForModal(cv)}
-                                    className="px-2 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
-                                  >
-                                    Ver / Imprimir
-                                  </button>
-                                </li>
-                              ))}
-                          </ul>
-                        </div>
-                      )}
+                  {/* SECCIÓN 2: Guardar Versión Personalizada */}
+                  <div className="pt-3 border-t border-[var(--panel-border)] space-y-2">
+                    <div className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase">
+                      Guardar Instantánea Actual
                     </div>
-                  )}
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={versionName}
+                        onChange={(e) => setVersionName(e.target.value)}
+                        placeholder={offer ? `${offer.title} (${offer.company})` : 'Nombre de versión'}
+                        className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-transparent"
+                        style={{ borderColor: 'var(--panel-border)' }}
+                      />
+                      <button
+                        type="button"
+                        onClick={saveCvVersion}
+                        className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold cursor-pointer transition shrink-0"
+                      >
+                        Guardar
+                      </button>
+                    </div>
+
+                    {versions.length > 0 && (
+                      <ul className="space-y-1 pt-1.5 max-h-40 overflow-y-auto">
+                        {versions.map((v) => (
+                          <li key={v.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--card-bg)' }}>
+                            <button
+                              type="button"
+                              onClick={() => loadCvVersion(v)}
+                              className="text-left min-w-0 flex-1 cursor-pointer hover:text-sky-500"
+                            >
+                              <div className="font-bold truncate">{v.name}</div>
+                              <div className="text-[var(--text-muted)] font-mono">{v.createdAt} · {v.lang.toUpperCase()} · {v.length}</div>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => removeCvVersion(v.id)}
+                              className="text-[var(--text-muted)] hover:text-red-500 cursor-pointer"
+                              title="Eliminar"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </AccordionCard>
             </>
@@ -2488,6 +2416,8 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
         cv={selectedCvForModal}
         isOpen={!!selectedCvForModal}
         onClose={() => setSelectedCvForModal(null)}
+        onSelectCv={(cv) => setSelectedCvForModal(cv)}
+        availableCvs={storedCompiledCVs}
       />
     </div>
   );
