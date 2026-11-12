@@ -187,7 +187,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     offer: true,
     facts: false,
     audit: false,
-    saved: false
+    saved: true
   });
 
   const [openLetterSections, setOpenLetterSections] = useState<Record<string, boolean>>({
@@ -1097,6 +1097,80 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
           {/* ============================================ CV MODE ACCORDIONS ============================================ */}
           {docMode === 'cv' && (
             <>
+              {/* Tarjeta de Acceso Rápido a CVs Prearmados Oficiales (6) */}
+              {storedCompiledCVs.length > 0 && (
+                <div
+                  className="p-3.5 rounded-2xl border shadow-xs space-y-2.5"
+                  style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold uppercase text-[var(--text-primary)] flex items-center gap-1.5">
+                      <Sparkles className="h-3.5 w-3.5 text-sky-500" />
+                      <span>CVs Prearmados de Fábrica ({storedCompiledCVs.length})</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)]">Clic para Ver / Imprimir</span>
+                  </div>
+
+                  {/* Sector A */}
+                  <div className="space-y-1.5">
+                    <div className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 uppercase flex items-center justify-between">
+                      <span>🔬 Sector A · Científico & Ambiental</span>
+                      <span className="text-[9px] text-[var(--text-muted)] font-mono">ES · EN · DE</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {storedCompiledCVs
+                        .filter((c) => !c.id.includes('gastro'))
+                        .map((cv) => (
+                          <button
+                            key={cv.id}
+                            type="button"
+                            onClick={() => setSelectedCvForModal(cv)}
+                            className="py-1.5 px-2 rounded-lg bg-sky-600/10 hover:bg-sky-600 text-sky-700 dark:text-sky-300 hover:text-white border border-sky-500/30 text-[10.5px] font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex items-center justify-center gap-1"
+                            title={cv.name}
+                          >
+                            <span className="uppercase font-extrabold">{cv.language}</span>
+                            <span className="text-[9.5px] opacity-80 truncate">
+                              {cv.language === 'es' ? 'Gobernanza' : cv.language === 'en' ? 'Biophysics' : 'Umwelt'}
+                            </span>
+                          </button>
+                        ))}
+                    </div>
+                  </div>
+
+                  {/* Sector B */}
+                  {storedCompiledCVs.some((c) => c.id.includes('gastro')) && (
+                    <div className="space-y-1.5 pt-2 border-t border-[var(--panel-border)]">
+                      <div className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase flex items-center justify-between">
+                        <span className="flex items-center gap-1">
+                          <span>🍽️ Sector B · Hostelería & Servicios</span>
+                        </span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40 font-bold uppercase font-mono">
+                          Aislado (ES · DE · EN)
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {storedCompiledCVs
+                          .filter((c) => c.id.includes('gastro'))
+                          .map((cv) => (
+                            <button
+                              key={cv.id}
+                              type="button"
+                              onClick={() => setSelectedCvForModal(cv)}
+                              className="py-1.5 px-2 rounded-lg bg-amber-600/10 hover:bg-amber-600 text-amber-700 dark:text-amber-300 hover:text-white border border-amber-500/30 text-[10.5px] font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex items-center justify-center gap-1"
+                              title={cv.name}
+                            >
+                              <span className="uppercase font-extrabold">{cv.language}</span>
+                              <span className="text-[9.5px] opacity-80 truncate">
+                                {cv.language === 'es' ? 'Hostelería' : cv.language === 'de' ? 'Gastronomie' : 'Hospitality'}
+                              </span>
+                            </button>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* 1. Plantilla Base & Posicionamiento */}
               <AccordionCard
                 id="format"
