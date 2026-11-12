@@ -133,4 +133,22 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     const uchileIssue = issues.find((i) => i.id === 'edu-uchile-start');
     expect(uchileIssue).toBeUndefined();
   });
+
+  it('Sector B contiene 9 experiencias operativas aisladas sin alterar las 6 académicas', () => {
+    expect(initialProfile.experiences.length).toBe(6);
+    expect(initialProfile.operationalTrackB).toBeDefined();
+    expect(initialProfile.operationalTrackB?.length).toBe(9);
+
+    const ops = initialProfile.operationalTrackB || [];
+    const establishments = ops.map(o => o.establishment).join(' ');
+    expect(establishments).toContain('El Huerto');
+    expect(establishments).toContain('Subterráneo');
+    expect(establishments).toContain('Thai Pals');
+    expect(establishments).toContain('Nuria');
+    expect(establishments).toContain('Ferias');
+    expect(establishments).toContain('Supermercado');
+    expect(establishments).toContain('Carpintería');
+    expect(establishments).toContain('Compostaje');
+    expect(establishments).toContain('Clases Particulares');
+  });
 });

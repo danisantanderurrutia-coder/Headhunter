@@ -110,6 +110,20 @@ export interface FieldEquipmentItem {
   description: string;
 }
 
+export interface OperationalExperienceItem {
+  id: string;
+  establishment: string;
+  role: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  category: 'gastronomy' | 'bar' | 'retail' | 'trades' | 'teaching';
+  summary: string;
+  achievements: string[];
+  skills: string[];
+  isVerified: boolean;
+}
+
 export interface MasterProfile {
   fullName: string;
   email: string;
@@ -134,6 +148,7 @@ export interface MasterProfile {
   keyProjects?: KeyProjectProfileItem[];
   conferences?: ConferenceProfileItem[];
   fieldEquipment?: FieldEquipmentItem[];
+  operationalTrackB?: OperationalExperienceItem[];
   pendingFields: string[]; // List of unverified or missing profile items
   lastUpdated: string;
 }

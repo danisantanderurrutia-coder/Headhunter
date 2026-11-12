@@ -173,6 +173,7 @@ export const getStoredProfile = (): MasterProfile => {
       languages: initialProfile.languages,
       otherCourses: finalCourses,
       fieldEquipment: (parsed.fieldEquipment && parsed.fieldEquipment.length > 0) ? parsed.fieldEquipment : initialProfile.fieldEquipment,
+      operationalTrackB: (parsed.operationalTrackB && parsed.operationalTrackB.length > 0) ? parsed.operationalTrackB : initialProfile.operationalTrackB,
       lastUpdated: initialProfile.lastUpdated
     };
 
@@ -377,6 +378,12 @@ export const getStoredCVs = (): CVVersion[] => {
   }
   try {
     const list: CVVersion[] = JSON.parse(data);
+    const missingCanonical = initialCVs.filter(init => !list.some(l => l.id === init.id));
+    if (missingCanonical.length > 0) {
+      const merged = [...list, ...missingCanonical];
+      saveStoredCVs(merged);
+      return merged;
+    }
     return list.length > 0 ? list : initialCVs;
   } catch {
     return initialCVs;

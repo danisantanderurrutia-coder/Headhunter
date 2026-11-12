@@ -594,6 +594,152 @@ export const initialProfile: MasterProfile = {
       description: 'Fotogrametría aérea de alta resolución y cálculo de índices multiespectrales de vigor vegetal (NDVI/NDRE).'
     }
   ],
+  operationalTrackB: [
+    {
+      id: 'op-el-huerto',
+      establishment: 'Restaurante El Huerto',
+      role: 'Camarero / Servicio de Sala (à-la-carte)',
+      location: 'Providencia, Santiago, Chile',
+      startDate: '2021',
+      endDate: '2022',
+      category: 'gastronomy',
+      summary: 'Servicio de mesa à-la-carte en restaurante gastronómico emblemático de cocina vegetariana y saludable. Atención personalizada a comensales nacionales e internacionales, toma de comandas, conocimiento estricto de alérgenos y asesoramiento de vinos y platos.',
+      achievements: [
+        'Atención de alto ritmo en turnos de almuerzo y cena con máxima valoración en encuestas de servicio.',
+        'Mise-en-place impecable de salón y aplicación rigurosa de protocolos de higiene alimentaria.'
+      ],
+      skills: ['Servicio de Mesa', 'Mise-en-place', 'Protocolo Gastronómico', 'Atención al Cliente', 'Alérgenos & Dietas'],
+      isVerified: true
+    },
+    {
+      id: 'op-subterraneo',
+      establishment: 'Club & Bar Subterráneo',
+      role: 'Bartender / Tresenkraft (Barra de Alto Volumen)',
+      location: 'Paseo Orrego Luco, Providencia, Chile',
+      startDate: '2020',
+      endDate: '2021',
+      category: 'bar',
+      summary: 'Servicio rápido de barra y coctelería en local icónico de música en vivo y alta afluencia nocturna. Preparación acelerada de combinados, cerveza de barril, control y arqueo de caja con TPV, y reposición de inventario en horas punta.',
+      achievements: [
+        'Gestión de barra con flujo continuo de cientos de clientes por turno sin incidencias en caja ni roturas.',
+        'Dominio del trabajo bajo presión acústica y temporal con trato enérgico y amable.'
+      ],
+      skills: ['Coctelería Rápida', 'Caja & TPV', 'Resistencia Nocturna', 'Gestión de Barriles & Stock', 'Control de Estrés'],
+      isVerified: true
+    },
+    {
+      id: 'op-thai-pals',
+      establishment: 'Restaurante Thai Pals',
+      role: 'Camarero / Asistente de Sala & Barra',
+      location: 'Providencia, Santiago, Chile',
+      startDate: '2019',
+      endDate: '2020',
+      category: 'gastronomy',
+      summary: 'Atención al público en restaurante de gastronomía tailandesa. Explicación de carta, gestión de pedidos para sala y take-away, asistencia en barra y preparación de bebidas.',
+      achievements: [
+        'Agilidad en rotación de mesas durante horas pico de oficina en Providencia.',
+        'Coordinación fluida entre cocina y sala para reducir tiempos de espera.'
+      ],
+      skills: ['Servicio de Sala', 'Take-away', 'Coordinación Cocina-Sala', 'Atención Bilingüe', 'Rapidez'],
+      isVerified: true
+    },
+    {
+      id: 'op-nuria',
+      establishment: 'Bar & Restaurante Nuria',
+      role: 'Bartender / Servicio de Barra Tradicional',
+      location: 'Santiago Centro, Chile',
+      startDate: '2018',
+      endDate: '2019',
+      category: 'bar',
+      summary: 'Servicio en barra tradicional del centro histórico de Santiago. Despacho rápido de cafetería matutina, aperitivos, cañas y copas, con trato cercano a clientela habitual y ejecutivos.',
+      achievements: [
+        'Manejo de caja con arqueos diarios exactos y reposición continua de botellería.',
+        'Servicio rápido simultáneo de barra y apoyo a salón.'
+      ],
+      skills: ['Barra Tradicional', 'Cafetería', 'Arqueo de Caja', 'Fidelización de Clientes', 'Limpieza de Estación'],
+      isVerified: true
+    },
+    {
+      id: 'op-ferias',
+      establishment: 'Venta Directa en Plazas & Ferias',
+      role: 'Vendedor & Gestor de Puesto (Libros & Ropa Usada)',
+      location: 'Santiago, Concepción y Parral, Chile',
+      startDate: '2016',
+      endDate: '2020',
+      category: 'retail',
+      summary: 'Venta comercial directa y trato con el público en ferias de libros, cultura y ropa vintage. Montaje de puesto, selección de catálogo, negociación de precios, atención personalizada y control de cuentas.',
+      achievements: [
+        'Desarrollo de excelente empatía comercial, persuasión y comunicación cara a cara.',
+        'Logística completa de transporte, exhibición atractiva y cierre de ventas.'
+      ],
+      skills: ['Venta Directa', 'Negociación', 'Montaje & Logística', 'Cierre de Ventas', 'Comunicación Interpersonal'],
+      isVerified: true
+    },
+    {
+      id: 'op-supermercado',
+      establishment: 'Supermercado de Parral',
+      role: 'Asistente de Empaque, Atención & Soporte en Cajas',
+      location: 'Parral, Maule, Chile',
+      startDate: '2015',
+      endDate: '2016',
+      category: 'retail',
+      summary: 'Atención directa en línea de cajas de gran afluencia. Empaque ágil y seguro de productos, asistencia a personas mayores o con movilidad reducida y resolución de dudas con actitud servicial.',
+      achievements: [
+        'Reconocimiento por rapidez y cortesía constante durante jornadas completas de pie.',
+        'Colaboración con personal de reposición para mantener la zona de cajas despejada.'
+      ],
+      skills: ['Atención Rápida', 'Servicio al Cliente', 'Trabajo Físico Continuo', 'Puntualidad', 'Cortesía'],
+      isVerified: true
+    },
+    {
+      id: 'op-carpinteria',
+      establishment: 'Taller de Carpintería & Reparaciones',
+      role: 'Ayudante de Carpintería & Operaciones Manuales',
+      location: 'Parral y Chillán, Chile',
+      startDate: '2017',
+      endDate: '2021',
+      category: 'trades',
+      summary: 'Trabajos manuales de corte, cepillado, lijado y ensamblaje de madera. Fabricación de muebles sencillos, estructuras rústicas, reparaciones domésticas y manejo seguro de herramientas eléctricas y manuales.',
+      achievements: [
+        'Habilidad práctica resolutiva en mantenimiento, uso de herramientas y prevención de riesgos laborales.',
+        'Capacidad de resolver problemas físicos de infraestructura con autonomía.'
+      ],
+      skills: ['Herramientas Manuales & Eléctricas', 'Holzbearbeitung / Madera', 'Mantenimiento Preventivo', 'Seguridad Laboral', 'Resolución Práctica'],
+      isVerified: true
+    },
+    {
+      id: 'op-compostaje',
+      establishment: 'Iniciativas de Compostaje Comunitario & Huerta',
+      role: 'Operador de Compostaje & Mantenimiento de Áreas Verdes',
+      location: 'Parral, Maule, Chile',
+      startDate: '2018',
+      endDate: '2022',
+      category: 'trades',
+      summary: 'Recolección, trituración y volteo manual de pilas de residuos orgánicos. Cuidado de suelo, poda básica, riego y mantenimiento de espacios verdes comunitarios.',
+      achievements: [
+        'Gestión de biomasa orgánica a escala local con esfuerzo físico sostenido.',
+        'Mantenimiento ordenado y limpio de parcelas y herramientas de campo.'
+      ],
+      skills: ['Trabajo Físico en Exteriores', 'Mantenimiento de Jardines', 'Gestión de Residuos', 'Autonomía', 'Esfuerzo Sostenido'],
+      isVerified: true
+    },
+    {
+      id: 'op-clases',
+      establishment: 'Clases Particulares & Tutorías',
+      role: 'Profesor Particular (Matemáticas, Física & Ciencias)',
+      location: 'Santiago, Chile',
+      startDate: '2017',
+      endDate: '2022',
+      category: 'teaching',
+      summary: 'Refuerzo escolar y preuniversitario individualizado. Diagnóstico de dificultades de aprendizaje, diseño de explicaciones didácticas y preparación para exámenes.',
+      achievements: [
+        '100% de estudiantes aprobados con mejora visible de notas y confianza.',
+        'Desarrollo de paciencia pedagógica, escucha activa y adaptación al ritmo de cada persona.'
+      ],
+      skills: ['Pedagogía', 'Comunicación Clara', 'Paciencia', 'Escucha Activa', 'Organización de Tiempo'],
+      isVerified: true
+    }
+  ],
   pendingFields: [],
   lastUpdated: '2026-11-06'
 };
@@ -3743,6 +3889,318 @@ export const initialCVs: CVVersion[] = [
         }
       ],
       otherCourses: initialProfile.otherCourses
+    }
+  },
+  {
+    id: 'cv-daniel-santander-gastro-es',
+    name: 'CV Daniel Santander — Hostelería, Barra & Servicio al Cliente (Track B - ES)',
+    templateId: 'es_standard',
+    language: 'es',
+    createdAt: '2026-11-12',
+    updatedAt: '2026-11-12',
+    selectedExperiences: ['op-el-huerto', 'op-subterraneo', 'op-thai-pals', 'op-nuria', 'op-ferias'],
+    selectedEducation: ['edu-geophysics-uchile', 'edu-msc-kiel-amu'],
+    selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
+    selectedAchievements: ['ach-gastro-1', 'ach-gastro-2'],
+    customSummary: 'Profesional dinámico, metódico y polivalente con amplia experiencia práctica en hostelería (servicio de sala à-la-carte y barra de alta afluencia), atención directa al público y venta comercial. Destacada capacidad para trabajar bajo presión en horas punta, rapidez en el servicio, disciplina operativa y flexibilidad horaria total para turnos rotativos y fines de semana.',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: 'Bilbao, España / Alemania / Remoto',
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Profesional dinámico, metódico y polivalente con amplia experiencia práctica en hostelería (servicio de sala à-la-carte y barra de alta afluencia), atención directa al público y venta comercial. Destacada capacidad para trabajar bajo presión en horas punta, rapidez en el servicio, disciplina operativa y flexibilidad horaria total para turnos rotativos y fines de semana.',
+      experiences: [
+        {
+          id: 'op-el-huerto',
+          company: 'Restaurante El Huerto (Providencia, Santiago)',
+          role: 'Camarero / Servicio de Sala (à-la-carte)',
+          location: 'Santiago, Chile',
+          startDate: '2021',
+          endDate: '2022',
+          isCurrent: false,
+          summary: 'Servicio de mesa à-la-carte en restaurante gastronómico vegetariano de alta rotación. Atención de mesas, toma de comandas, conocimiento exhaustivo de la carta, asesoramiento sobre alérgenos e intolerancias, y protocolo impecable de sala.',
+          achievements: [
+            'Atención ágil en turnos intensos de almuerzo y cena con excelentes valoraciones de clientes.',
+            'Mise-en-place sistemática de comedor y aplicación rigurosa de normas higiénico-sanitarias.'
+          ],
+          technologies: ['Servicio de Sala', 'Mise-en-place', 'Protocolo Gastronómico', 'Atención al Cliente', 'Alérgenos'],
+          isVerified: true
+        },
+        {
+          id: 'op-subterraneo',
+          company: 'Club & Bar Subterráneo (Paseo Orrego Luco)',
+          role: 'Bartender / Servicio de Barra de Alto Volumen',
+          location: 'Santiago, Chile',
+          startDate: '2020',
+          endDate: '2021',
+          isCurrent: false,
+          summary: 'Servicio acelerado de barra y bebidas en sala de conciertos y ocio nocturno con gran afluencia. Despacho rápido de cerveza de barril, combinados y refrescos, cobro con TPV, cuadre de caja y reposición continua de botellería bajo alta presión acústica y temporal.',
+          achievements: [
+            'Gestión fluida de barra sirviendo a cientos de comensales por noche con cero descuadres en caja.',
+            'Excelente resistencia física nocturna y control de la calma en momentos de máxima aglomeración.'
+          ],
+          technologies: ['Coctelería Rápida', 'Caja & TPV', 'Resistencia Nocturna', 'Gestión de Barriles & Stock', 'Control de Estrés'],
+          isVerified: true
+        },
+        {
+          id: 'op-thai-pals',
+          company: 'Restaurante Thai Pals (Providencia)',
+          role: 'Camarero / Asistente de Sala & Take-away',
+          location: 'Santiago, Chile',
+          startDate: '2019',
+          endDate: '2020',
+          isCurrent: false,
+          summary: 'Atención al cliente en restaurante de cocina tailandesa. Gestión integral de comandas en sala y pedidos de comida para llevar, apoyo en barra y reposición de estación de servicio.',
+          achievements: [
+            'Optimización del ritmo de servicio en franja punta de almuerzos ejecutivos.',
+            'Coordinación directa y eficaz entre cocina y sala para acortar tiempos de espera.'
+          ],
+          technologies: ['Servicio de Comedor', 'Take-away', 'Coordinación Cocina-Sala', 'Atención Bilingüe'],
+          isVerified: true
+        },
+        {
+          id: 'op-nuria',
+          company: 'Bar & Restaurante Nuria (Santiago Centro)',
+          role: 'Bartender / Servicio de Barra Tradicional',
+          location: 'Santiago, Chile',
+          startDate: '2018',
+          endDate: '2019',
+          isCurrent: false,
+          summary: 'Servicio en barra tradicional histórica con alto flujo continuo de clientes. Preparación de cafetería, cañas, aperitivos y combinados clásicos, con arqueo diario de caja y mantenimiento higiénico.',
+          achievements: [
+            'Arqueos de caja diarios sin incidencias y fidelización de clientela habitual.',
+            'Atención rápida y simultánea de barra y despacho a mesas.'
+          ],
+          technologies: ['Barra Tradicional', 'Cafetería', 'Arqueo de Caja', 'Fidelización', 'Limpieza de Estación'],
+          isVerified: true
+        },
+        {
+          id: 'op-ferias',
+          company: 'Venta Directa en Ferias Culturales & Plazas',
+          role: 'Vendedor & Gestor de Puesto (Libros & Textil)',
+          location: 'Santiago, Concepción y Parral, Chile',
+          startDate: '2016',
+          endDate: '2020',
+          isCurrent: false,
+          summary: 'Venta cara a cara con el público, negociación de precios, asesoramiento personalizado, gestión de cobros en efectivo y medios electrónicos, y montaje y desmontaje logístico de puestos.',
+          achievements: [
+            'Habilidad comprobada de empatía comercial, trato cercano y persuasión honesta.',
+            'Autonomía en transporte de mercancías y gestión de inventario.'
+          ],
+          technologies: ['Venta Directa', 'Negociación', 'Gestión de Efectivo', 'Atención al Público', 'Logística'],
+          isVerified: true
+        }
+      ],
+      education: [
+        {
+          id: 'edu-univ-dan',
+          institution: 'Universidad de Chile & Universidades Europeas (CAU Kiel / AMU Poznań)',
+          degree: 'Formación Universitaria en Geofísica & Ciencias Ambientales',
+          fieldOfStudy: 'Ciencias Exactas & Gestión de Proyectos',
+          startDate: '2016',
+          endDate: '2026',
+          location: 'Chile & Alemania',
+          isVerified: true
+        }
+      ],
+      skills: [
+        { id: 'sk-g-1', name: 'Servicio de Sala y Comedor', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-2', name: 'Barra, Coctelería & Cafetería', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-3', name: 'Mise-en-place & Estándares Sanitarios', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-4', name: 'Control de Caja & TPV', category: 'Tools', level: 'Avanzado', yearsOfExperience: 4 },
+        { id: 'sk-g-5', name: 'Atención al Cliente & Trato Amable', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
+        { id: 'sk-g-6', name: 'Resistencia Física en Turnos Rotativos', category: 'Soft', level: 'Experto', yearsOfExperience: 5 }
+      ],
+      languages: [
+        { id: 'lang-es', language: 'Español', proficiency: 'Nativo' },
+        { id: 'lang-en', language: 'Inglés', proficiency: 'C1' },
+        { id: 'lang-de', language: 'Alemán', proficiency: 'B1' }
+      ],
+      achievements: [
+        {
+          id: 'ach-gastro-1',
+          title: 'Servicio Impecable en Horas Pico',
+          description: 'Experiencia contrastada en sala y barra de alta afluencia (El Huerto, Club Subterráneo) manteniendo la calma y el trato cortés.',
+          metrics: '+3 años de experiencia en gastronomía',
+          tags: ['Gastronomía', 'Barra', 'Sala', 'Resistencia'],
+          date: '2022-01-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-gastro-2',
+          title: 'Polivalencia y Habilidades Manuales',
+          description: 'Capacidad para realizar tareas auxiliares de mantenimiento, carpintería, logística de compras y apoyo integral al negocio.',
+          metrics: 'Allrounder con autonomía práctica',
+          tags: ['Allrounder', 'Mantenimiento', 'Autonomía'],
+          date: '2021-01-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: [
+        'Manipulación de Alimentos y Protocolos de Higiene',
+        'Primeros Auxilios Básicos y Seguridad Laboral',
+        'Atención y Resolución de Conflictos con Clientes'
+      ]
+    }
+  },
+  {
+    id: 'cv-daniel-santander-gastro-de',
+    name: 'Lebenslauf Daniel Santander — Gastronomie, Bar & Service (Track B - DE)',
+    templateId: 'europass',
+    language: 'de',
+    createdAt: '2026-11-12',
+    updatedAt: '2026-11-12',
+    selectedExperiences: ['op-el-huerto', 'op-subterraneo', 'op-thai-pals', 'op-nuria', 'op-ferias'],
+    selectedEducation: ['edu-geophysics-uchile', 'edu-msc-kiel-amu'],
+    selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
+    selectedAchievements: ['ach-gastro-1', 'ach-gastro-2'],
+    customSummary: 'Zuverlässige, dynamische und mehrsprachige Persönlichkeit (Spanisch Muttersprache, Englisch verhandlungssicher C1, Deutsch B1/B2) mit mehrjähriger praktischer Erfahrung in Gastronomie (à-la-carte Service & Barbetrieb), Kundenbetreuung und Allround-Tätigkeiten. Hohe Belastbarkeit in Stoßzeiten, teamorientiert und sofort einsatzbereit für Schicht- und Wochenendarbeit. Belehrung nach § 43 IfSG kurzfristig abrufbar.',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: 'Deutschland / Sofort mobil & einsatzbereit',
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Zuverlässige, dynamische und mehrsprachige Persönlichkeit (Spanisch Muttersprache, Englisch verhandlungssicher C1, Deutsch B1/B2) mit mehrjähriger praktischer Erfahrung in Gastronomie (à-la-carte Service & Barbetrieb), Kundenbetreuung und Allround-Tätigkeiten. Hohe Belastbarkeit in Stoßzeiten, teamorientiert und sofort einsatzbereit für Schicht- und Wochenendarbeit. Belehrung nach § 43 IfSG kurzfristig abrufbar.',
+      experiences: [
+        {
+          id: 'op-el-huerto-de',
+          company: 'Restaurant El Huerto (Santiago de Chile)',
+          role: 'Servicekraft im à-la-carte-Service',
+          location: 'Santiago, Chile',
+          startDate: '2021',
+          endDate: '2022',
+          isCurrent: false,
+          summary: 'Professionelle Gästebetreuung und à-la-carte-Servicetätigkeit in renommiertem vegetarischem Gastronomiebetrieb. Aufnahme von Bestellungen, Beratung zu Speisen und Allergenen, Servieren von Speisen und Getränken sowie Einhaltung strenger Hygienevorschriften.',
+          achievements: [
+            'Erfolgreiche Bewältigung starker Gästeaufkommen in Mittags- und Abendschichten mit hervorragendem Feedback.',
+            'Sorgfältiges Mise-en-place des Gastraums und vorbildliche Einhaltung aller Hygiene- und Servicestandards.'
+          ],
+          technologies: ['Gästebetreuung', 'à-la-carte Service', 'Mise-en-place', 'Allergene & Ernährung', 'Hygienestandards'],
+          isVerified: true
+        },
+        {
+          id: 'op-subterraneo-de',
+          company: 'Club & Bar Subterráneo (Paseo Orrego Luco)',
+          role: 'Barkeeper & Tresenkraft (Nacht- & Hochfrequenzbetrieb)',
+          location: 'Santiago, Chile',
+          startDate: '2020',
+          endDate: '2021',
+          isCurrent: false,
+          summary: 'Schneller und präziser Ausschank im stark besuchten Bar- und Live-Musik-Betrieb. Zubereitung von Drinks, Fassbier-Zapfen, Bedienung von Kassensystemen (Kassieren & Abrechnung), Auffüllen von Beständen und Arbeitsplatzreinigung unter hohem Zeiteinfluss.',
+          achievements: [
+            'Souveräne Betreuung hunderter Gäste pro Nacht ohne Abrechnungsdifferenzen.',
+            'Hohe körperliche Belastbarkeit und ruhiges, freundliches Auftreten bei Spitzenbetrieb.'
+          ],
+          technologies: ['Schneller Tresenausschank', 'Kassensysteme & Abrechnung', 'Belastbarkeit', 'Warenbestand', 'Teamwork'],
+          isVerified: true
+        },
+        {
+          id: 'op-thai-pals-de',
+          company: 'Restaurant Thai Pals (Providencia)',
+          role: 'Servicekraft & Gastbetreuung',
+          location: 'Santiago, Chile',
+          startDate: '2019',
+          endDate: '2020',
+          isCurrent: false,
+          summary: 'Gästeservice in thailändischem Spezialitätenrestaurant. Bestellungsannahme für Tischgäste und Take-away, Thekenunterstützung und reibungslose Schnittstelle zur Küche.',
+          achievements: [
+            'Schnelle Tischwechsel und zügiger Service während geschäftiger Mittagszeiten.',
+            'Effiziente Koordination zwischen Küche und Service zur Minimierung von Wartezeiten.'
+          ],
+          technologies: ['Tischservice', 'Take-away', 'Küchen-Service-Koordination', 'Mehrsprachige Gäste', 'Schnelligkeit'],
+          isVerified: true
+        },
+        {
+          id: 'op-nuria-de',
+          company: 'Bar & Restaurant Nuria (Santiago Centro)',
+          role: 'Tresenkraft & Traditioneller Barservice',
+          location: 'Santiago, Chile',
+          startDate: '2018',
+          endDate: '2019',
+          isCurrent: false,
+          summary: 'Traditioneller Tresen- und Kaffeeausschank in stark frequentierter Gaststätte im Stadtzentrum. Ausgabe von Kaffeespezialitäten, Fassbier und Snacks sowie täglicher Kassenabschluss.',
+          achievements: [
+            'Zuverlässige Kassenführung ohne Differenzen und Zuvorkommenheit gegenüber Stammgästen.',
+            'Paralleles Bedienen von Thekengästen und Bereitstellung für den Saal.'
+          ],
+          technologies: ['Traditionelle Theke', 'Kaffeespezialitäten', 'Kassieren', 'Stammkundenpflege', 'Station-Hygiene'],
+          isVerified: true
+        },
+        {
+          id: 'op-ferias-de',
+          company: 'Direktvertrieb auf Kultur- & Textilmärkten',
+          role: 'Kundenberater & Standverkauf',
+          location: 'Santiago, Concepción und Parral, Chile',
+          startDate: '2016',
+          endDate: '2020',
+          isCurrent: false,
+          summary: 'Direkter Kundenkontakt, persönliche Beratung und aktiver Verkauf von Büchern und Textilien. Standauf- und -abbau, Preiskalkulation, Bargeld- und Kartenzahlungsabwicklung.',
+          achievements: [
+            'Ausgeprägte kommunikative Stärke, Überzeugungskraft und Freude am Kontakt mit Menschen.',
+            'Eigenverantwortliche Organisation von Logistik, Standgestaltung und Kassenabschluss.'
+          ],
+          technologies: ['Direktverkauf', 'Verhandlungsgeschick', 'Kundenorientierung', 'Kassenführung', 'Logistik'],
+          isVerified: true
+        }
+      ],
+      education: [
+        {
+          id: 'edu-univ-dan-de',
+          institution: 'Universidad de Chile & Universitäten Kiel / Poznań (Deutschland / Polen)',
+          degree: 'Akademische Ausbildung in Natur- & Umweltwissenschaften',
+          fieldOfStudy: 'Exakte Wissenschaften & Projektorganisation',
+          startDate: '2016',
+          endDate: '2026',
+          location: 'Chile & Deutschland',
+          isVerified: true
+        }
+      ],
+      skills: [
+        { id: 'sk-g-de-1', name: 'à-la-carte Service & Gästebetreuung', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-de-2', name: 'Tresen- & Barbereich (Ausschank)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-de-3', name: 'Mise-en-place & Hygiene-Standards', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+        { id: 'sk-g-de-4', name: 'Kassensysteme & Abrechnung', category: 'Tools', level: 'Avanzado', yearsOfExperience: 4 },
+        { id: 'sk-g-de-5', name: 'Freundlichkeit & Kundenorientierung', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
+        { id: 'sk-g-de-6', name: 'Körperliche Belastbarkeit in Schichten', category: 'Soft', level: 'Experto', yearsOfExperience: 5 }
+      ],
+      languages: [
+        { id: 'lang-es-de', language: 'Spanisch', proficiency: 'Nativo' },
+        { id: 'lang-en-de', language: 'Englisch', proficiency: 'C1' },
+        { id: 'lang-de-de', language: 'Deutsch', proficiency: 'B1' }
+      ],
+      achievements: [
+        {
+          id: 'ach-gastro-de-1',
+          title: 'Praxiserprobte Belastbarkeit in Spitzenzeiten',
+          description: 'Nachgewiesene Gastronomie-Erfahrung in hochfrequentierten Betrieben (El Huerto, Subterráneo) mit ruhigem und gastorientiertem Auftreten.',
+          metrics: '+3 Jahre Gastronomie-Praxis',
+          tags: ['Gastronomie', 'Theke', 'Service', 'Belastbarkeit'],
+          date: '2022-01-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-gastro-de-2',
+          title: 'Allround-Fähigkeiten & Handwerkliches Geschick',
+          description: 'Zusatzqualifikation für Instandhaltung, Holzbearbeitung und praktische Betriebsassistenz.',
+          metrics: 'Handwerklich geschickter Allrounder',
+          tags: ['Allrounder', 'Handwerk', 'Selbstständigkeit'],
+          date: '2021-01-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: [
+        'Lebensmittelhygiene & HACCP-Grundlagen',
+        'Belehrung nach § 43 Infektionsschutzgesetz (IfSG) kurzfristig abrufbar',
+        'Erste Hilfe im Betrieb'
+      ]
     }
   }
 ];

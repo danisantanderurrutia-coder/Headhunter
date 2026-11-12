@@ -19,7 +19,9 @@ import {
   FileText,
   Cpu,
   Activity,
-  Compass
+  Compass,
+  UtensilsCrossed,
+  ShieldCheck
 } from 'lucide-react';
 import { getStoredProfile, saveStoredProfile } from '../../services/db';
 import { initialProfile } from '../../services/sampleData';
@@ -49,6 +51,7 @@ export const MasterProfileTab: React.FC = () => {
   const [isCopiedMd, setIsCopiedMd] = useState(false);
   const [copiedItemId, setCopiedItemId] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<TacticalFilter>('all');
+  const [activeTrack, setActiveTrack] = useState<'sector_a' | 'sector_b'>('sector_a');
   const [isParserOpen, setIsParserOpen] = useState(false);
   const [isAddExpOpen, setIsAddExpOpen] = useState(false);
   const [editingExperience, setEditingExperience] = useState<WorkExperience | null>(null);
@@ -471,71 +474,127 @@ export const MasterProfileTab: React.FC = () => {
           </div>
         </div>
 
-        {/* Global Asset Counter Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 pt-2 border-t border-[var(--panel-border)] text-[11px] font-mono">
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">TÍTULOS UNIV.</span>
-            <span className="text-emerald-500 font-bold text-sm">{profile.education.length} Títulos</span>
+        {/* =========================================================================
+         * TRACK SWITCHER: SECTOR A (CIENTÍFICO) vs SECTOR B (HOSTELERÍA & SERVICIOS)
+         * ========================================================================= */}
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-[var(--panel-bg)] border border-[var(--panel-border)]">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[11px] font-mono font-bold text-[var(--text-muted)] uppercase">
+              Sector del Expediente:
+            </span>
+            <div className="inline-flex rounded-xl p-1 bg-[var(--card-bg)] border border-[var(--panel-border)] shadow-xs">
+              <button
+                type="button"
+                onClick={() => setActiveTrack('sector_a')}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                  activeTrack === 'sector_a'
+                    ? 'bg-sky-600 text-white shadow-sm'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <span>🔬</span>
+                <span>Sector A: Científico & Ambiental</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-black/20 text-white font-mono">
+                  {profile.experiences.length} exp
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTrack('sector_b')}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                  activeTrack === 'sector_b'
+                    ? 'bg-amber-600 text-white shadow-sm'
+                    : 'text-[var(--text-muted)] hover:text-amber-500'
+                }`}
+              >
+                <span>🍽️</span>
+                <span>Sector B: Hostelería, Gastronomía & Oficios</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-black/20 text-white font-mono">
+                  {(profile.operationalTrackB || initialProfile.operationalTrackB || []).length} exp
+                </span>
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-200 border border-amber-300/30 uppercase font-mono font-bold">
+                  Aislado
+                </span>
+              </button>
+            </div>
           </div>
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">CERTIFICACIONES</span>
-            <span className="text-cyan-500 font-bold text-sm">{profile.otherCourses?.length || 0} Acreditadas</span>
-          </div>
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">EXPERIENCIAS</span>
-            <span className="text-emerald-500 font-bold text-sm">{profile.experiences.length} Verificadas</span>
-          </div>
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">PUBLICACIONES</span>
-            <span className="text-amber-500 font-bold text-sm">{profile.publications?.length || 0} Artículos/Docs</span>
-          </div>
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">CONFERENCIAS</span>
-            <span className="text-rose-400 font-bold text-sm">{profile.conferences?.length || 0} Cumbres/Foros</span>
-          </div>
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">GEMELOS & SOFTWARE</span>
-            <span className="text-blue-400 font-bold text-sm">{profile.keyProjects?.length || 0} Proyectos</span>
-          </div>
-          <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
-            <span className="text-[var(--text-muted)] text-[10px]">LOGROS AUDITADOS</span>
-            <span className="text-purple-400 font-bold text-sm">{profile.achievementsBank.length} Hitos</span>
+
+          <div className="text-[11px] font-mono text-[var(--text-muted)] flex items-center gap-1.5">
+            <ShieldCheck className="h-4 w-4 text-emerald-500" />
+            <span>Aislamiento activo: Las postulaciones científicas nunca leen el Sector B</span>
           </div>
         </div>
 
-        {/* Tactical Angle Filters Bar */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-1">
-          <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] mr-1">
-            ENFOQUE TÁCTICO PARA CV:
-          </span>
-          {[
-            { id: 'all', label: 'Ver Todo (Completo)', icon: '🌐' },
-            { id: 'biofisica', label: 'Ciencia Biofísica & GEI', icon: '🔬' },
-            { id: 'mrv', label: 'MRV, Carbono & Satélites', icon: '🛰️' },
-            { id: 'cat_risk', label: 'Riesgo Físico & Incendios', icon: '🔥' },
-            { id: 'policy', label: 'Políticas Públicas & Cuencas', icon: '⚖️' },
-            { id: 'comms', label: 'Comunicaciones & Campañas', icon: '📢' }
-          ].map(btn => (
-            <button
-              key={btn.id}
-              onClick={() => setActiveFilter(btn.id as TacticalFilter)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
-                activeFilter === btn.id
-                  ? 'bg-emerald-600 text-white shadow'
-                  : 'bg-[var(--panel-bg)] hover:bg-[var(--panel-border)] text-[var(--text-secondary)] border border-[var(--panel-border)]'
-              }`}
-            >
-              <span>{btn.icon}</span>
-              <span>{btn.label}</span>
-            </button>
-          ))}
-        </div>
+        {activeTrack === 'sector_a' && (
+          <>
+            {/* Global Asset Counter Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 pt-2 border-t border-[var(--panel-border)] text-[11px] font-mono">
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">TÍTULOS UNIV.</span>
+                <span className="text-emerald-500 font-bold text-sm">{profile.education.length} Títulos</span>
+              </div>
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">CERTIFICACIONES</span>
+                <span className="text-cyan-500 font-bold text-sm">{profile.otherCourses?.length || 0} Acreditadas</span>
+              </div>
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">EXPERIENCIAS</span>
+                <span className="text-emerald-500 font-bold text-sm">{profile.experiences.length} Verificadas</span>
+              </div>
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">PUBLICACIONES</span>
+                <span className="text-amber-500 font-bold text-sm">{profile.publications?.length || 0} Artículos/Docs</span>
+              </div>
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">CONFERENCIAS</span>
+                <span className="text-rose-400 font-bold text-sm">{profile.conferences?.length || 0} Cumbres/Foros</span>
+              </div>
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">GEMELOS & SOFTWARE</span>
+                <span className="text-blue-400 font-bold text-sm">{profile.keyProjects?.length || 0} Proyectos</span>
+              </div>
+              <div className="p-2 rounded-xl bg-[var(--panel-bg)] border border-[var(--panel-border)] flex flex-col">
+                <span className="text-[var(--text-muted)] text-[10px]">LOGROS AUDITADOS</span>
+                <span className="text-purple-400 font-bold text-sm">{profile.achievementsBank.length} Hitos</span>
+              </div>
+            </div>
+
+            {/* Tactical Angle Filters Bar */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+              <span className="text-[10px] font-mono uppercase font-bold text-[var(--text-muted)] mr-1">
+                ENFOQUE TÁCTICO PARA CV:
+              </span>
+              {[
+                { id: 'all', label: 'Ver Todo (Completo)', icon: '🌐' },
+                { id: 'biofisica', label: 'Ciencia Biofísica & GEI', icon: '🔬' },
+                { id: 'mrv', label: 'MRV, Carbono & Satélites', icon: '🛰️' },
+                { id: 'cat_risk', label: 'Riesgo Físico & Incendios', icon: '🔥' },
+                { id: 'policy', label: 'Políticas Públicas & Cuencas', icon: '⚖️' },
+                { id: 'comms', label: 'Comunicaciones & Campañas', icon: '📢' }
+              ].map(btn => (
+                <button
+                  key={btn.id}
+                  onClick={() => setActiveFilter(btn.id as TacticalFilter)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
+                    activeFilter === btn.id
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'bg-[var(--panel-bg)] hover:bg-[var(--panel-border)] text-[var(--text-secondary)] border border-[var(--panel-border)]'
+                  }`}
+                >
+                  <span>{btn.icon}</span>
+                  <span>{btn.label}</span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
-      {/* =========================================================================
-       * 2. MAIN 3-COLUMN RESPONSIVE LAYOUT
-       * ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      {activeTrack === 'sector_a' ? (
+        /* =========================================================================
+         * 2. MAIN 3-COLUMN RESPONSIVE LAYOUT (SECTOR A)
+         * ========================================================================= */
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* LEFT COLUMN: IDENTITY, EDUCATION & CERTIFICATIONS (4 COLS) */}
         <div className="lg:col-span-4 space-y-6">
@@ -1623,6 +1682,127 @@ export const MasterProfileTab: React.FC = () => {
           )}
         </div>
       </div>
+      ) : (
+          <div className="space-y-6">
+            {/* Sector B Banner & Guidance */}
+            <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/5 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-sm">
+                  <UtensilsCrossed className="h-5 w-5" />
+                  <span>SECTOR B · EXPERIENCIA OPERATIVA (HOSTELERÍA, BARRA, COMERCIO & OFICIOS)</span>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40 font-bold uppercase">
+                  Aislamiento Estricto
+                </span>
+              </div>
+              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                Este sector documenta tu trayectoria laboral real fuera de la academia y la ciencia (Santiago, Parral, Concepción y Alemania). 
+                <strong> Está completamente blindado</strong>: ningún selector de CV científico ni auditoría de convocatorias académicas leerá estos datos, garantizando que tu perfil de Geofísico e Investigador se mantenga 100% puro para instituciones científicas, mientras que dispones de un expediente operativo listo para activar cuando busques empleo en hoteles, cocina, sala o comercios.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-1 font-mono text-[11px]">
+                <div className="p-2 rounded-lg bg-[var(--card-bg)] border border-amber-500/20">
+                  <span className="text-[10px] text-[var(--text-muted)] block">SALA & RESTAURANTE</span>
+                  <span className="font-bold text-amber-500">El Huerto & Thai Pals</span>
+                </div>
+                <div className="p-2 rounded-lg bg-[var(--card-bg)] border border-amber-500/20">
+                  <span className="text-[10px] text-[var(--text-muted)] block">BARRA & NOCHE</span>
+                  <span className="font-bold text-amber-500">Subterráneo & Nuria</span>
+                </div>
+                <div className="p-2 rounded-lg bg-[var(--card-bg)] border border-amber-500/20">
+                  <span className="text-[10px] text-[var(--text-muted)] block">VENTA DIRECTA</span>
+                  <span className="font-bold text-amber-500">Ferias Libros / Ropa</span>
+                </div>
+                <div className="p-2 rounded-lg bg-[var(--card-bg)] border border-amber-500/20">
+                  <span className="text-[10px] text-[var(--text-muted)] block">SERVICIO & CAJA</span>
+                  <span className="font-bold text-amber-500">Supermercado Parral</span>
+                </div>
+                <div className="p-2 rounded-lg bg-[var(--card-bg)] border border-amber-500/20">
+                  <span className="text-[10px] text-[var(--text-muted)] block">OFICIOS PRÁCTICOS</span>
+                  <span className="font-bold text-amber-500">Carpintería & Compost</span>
+                </div>
+                <div className="p-2 rounded-lg bg-[var(--card-bg)] border border-amber-500/20">
+                  <span className="text-[10px] text-[var(--text-muted)] block">DOCENCIA & TUTORÍA</span>
+                  <span className="font-bold text-amber-500">Clases Particulares</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Grid of Sector B Operational Experiences */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(profile.operationalTrackB || initialProfile.operationalTrackB || []).map((item) => (
+                <div
+                  key={item.id}
+                  className="p-4 rounded-xl border space-y-3 flex flex-col justify-between hover:border-amber-500/50 transition shadow-xs"
+                  style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full uppercase font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                        {item.category === 'gastronomy' && '🍽️ Gastronomía'}
+                        {item.category === 'bar' && '🍸 Barra & Noche'}
+                        {item.category === 'retail' && '🛍️ Venta & Comercio'}
+                        {item.category === 'trades' && '🔨 Oficios & Práctica'}
+                        {item.category === 'teaching' && '📚 Pedagogía'}
+                      </span>
+                      <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                        {item.startDate} - {item.endDate}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold text-sm text-[var(--text-primary)] leading-tight">{item.role}</h3>
+                      <div className="text-xs text-amber-600 dark:text-amber-400 font-semibold">{item.establishment}</div>
+                      <div className="text-[11px] text-[var(--text-muted)] pt-0.5">📍 {item.location}</div>
+                    </div>
+
+                    <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{item.summary}</p>
+
+                    {item.achievements && item.achievements.length > 0 && (
+                      <div className="space-y-1 pt-1 border-t border-[var(--panel-border)]">
+                        <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase font-bold block">
+                          Logros Operativos:
+                        </span>
+                        {item.achievements.map((ach, idx) => (
+                          <div key={idx} className="text-[11px] text-[var(--text-secondary)] flex items-start gap-1">
+                            <span className="text-amber-500 font-bold">•</span>
+                            <span>{ach}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="pt-2 border-t border-[var(--panel-border)] space-y-2">
+                    <div className="flex flex-wrap gap-1">
+                      {item.skills.map((sk, idx) => (
+                        <span
+                          key={idx}
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--panel-bg)] text-[var(--text-muted)] border border-[var(--panel-border)]"
+                        >
+                          {sk}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-1">
+                      <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                        <CheckCircle2 className="h-3 w-3" /> Verificado
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopySnippet(item.id, `${item.role} - ${item.establishment} (${item.startDate}-${item.endDate})\n${item.summary}`)}
+                        className="text-[10px] font-mono text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        {copiedItemId === item.id ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                        <span>{copiedItemId === item.id ? 'Copiado' : 'Copiar'}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       {/* CV Parser Modal */}
       <CVParserModal

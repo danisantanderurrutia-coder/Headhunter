@@ -1564,27 +1564,80 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
                   {/* Versiones pre-compiladas del Expediente */}
                   {storedCompiledCVs.length > 0 && (
-                    <div className="pt-2 border-t border-[var(--panel-border)] space-y-1">
+                    <div className="pt-2 border-t border-[var(--panel-border)] space-y-2.5">
                       <div className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase">
                         Compilaciones Rápidas ({storedCompiledCVs.length})
                       </div>
-                      <ul className="space-y-1 max-h-36 overflow-y-auto">
-                        {storedCompiledCVs.map((cv) => (
-                          <li key={cv.id} className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border" style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}>
-                            <div className="min-w-0 flex-1">
-                              <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
-                              <div className="text-[9px] text-[var(--text-muted)] font-mono">{cv.updatedAt} · {cv.templateId}</div>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => setSelectedCvForModal(cv)}
-                              className="px-2 py-1 rounded-md bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
-                            >
-                              Ver / Imprimir
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+
+                      {/* Sector A: Científico & Académico */}
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-mono font-bold text-sky-600 dark:text-sky-400 uppercase flex items-center gap-1">
+                          <span>🔬 Sector A · Científico & Ambiental</span>
+                        </div>
+                        <ul className="space-y-1">
+                          {storedCompiledCVs
+                            .filter((cv) => !cv.id.includes('gastro'))
+                            .map((cv) => (
+                              <li
+                                key={cv.id}
+                                className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border"
+                                style={{ borderColor: 'var(--panel-border)', backgroundColor: 'var(--panel-bg)' }}
+                              >
+                                <div className="min-w-0 flex-1">
+                                  <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
+                                  <div className="text-[9px] text-[var(--text-muted)] font-mono">
+                                    {cv.updatedAt} · {cv.templateId} · {cv.language.toUpperCase()}
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedCvForModal(cv)}
+                                  className="px-2 py-1 rounded-md bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
+                                >
+                                  Ver / Imprimir
+                                </button>
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+
+                      {/* Sector B: Hostelería, Barra & Servicios */}
+                      {storedCompiledCVs.some((cv) => cv.id.includes('gastro')) && (
+                        <div className="space-y-1 pt-1.5 border-t border-[var(--panel-border)]">
+                          <div className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase flex items-center justify-between">
+                            <span className="flex items-center gap-1">
+                              <span>🍽️ Sector B · Hostelería & Servicios</span>
+                            </span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold">
+                              Aislado
+                            </span>
+                          </div>
+                          <ul className="space-y-1">
+                            {storedCompiledCVs
+                              .filter((cv) => cv.id.includes('gastro'))
+                              .map((cv) => (
+                                <li
+                                  key={cv.id}
+                                  className="flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg border border-amber-500/30 bg-amber-500/5"
+                                >
+                                  <div className="min-w-0 flex-1">
+                                    <div className="font-bold truncate text-[var(--text-primary)]">{cv.name}</div>
+                                    <div className="text-[9px] text-amber-700/80 dark:text-amber-300/80 font-mono">
+                                      {cv.updatedAt} · {cv.templateId} · {cv.language.toUpperCase()}
+                                    </div>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => setSelectedCvForModal(cv)}
+                                    className="px-2 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-bold cursor-pointer transition shrink-0"
+                                  >
+                                    Ver / Imprimir
+                                  </button>
+                                </li>
+                              ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
