@@ -389,7 +389,8 @@ export const getStoredCVs = (): CVVersion[] => {
           ...cv,
           name: canonical.name,
           compiledData: canonical.compiledData,
-          customSummary: canonical.customSummary
+          customSummary: canonical.customSummary,
+          selectedExperiences: canonical.selectedExperiences
         };
       }
       return cv;

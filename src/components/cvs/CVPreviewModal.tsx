@@ -235,7 +235,7 @@ export const CVPreviewModal: React.FC<CVPreviewModalProps> = ({
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 bg-slate-900/10 dark:bg-slate-950/80 rounded-b-2xl">
+        <div className="flex-1 overflow-y-auto p-6 pb-24 bg-slate-900/10 dark:bg-slate-950/80 rounded-b-2xl">
           <div 
             id="printable-cv"
             className="max-w-2xl mx-auto bg-white text-slate-900 p-8 rounded-xl shadow-2xl space-y-6 font-sans border border-slate-200"

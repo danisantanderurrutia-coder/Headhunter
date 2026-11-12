@@ -229,20 +229,61 @@ html.theme-luminous,
 
 /* Print styles for CV export */
 @media print {
-  body * {
-    visibility: hidden;
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm 12mm 15mm;
   }
+  html, body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  /* Show only printable CV and all its descendants */
   #printable-cv, #printable-cv * {
-    visibility: visible;
+    visibility: visible !important;
+  }
+  /* Reset all modal overlays and fixed wrappers so they never clip during printing */
+  .fixed, .overflow-y-auto, [class*="max-h-"], [class*="max-w-"] {
+    position: static !important;
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
   }
   #printable-cv {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: white !important;
-    color: black !important;
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border: none !important;
     box-shadow: none !important;
+    background: #fff !important;
+    color: #1e293b !important;
+    page-break-after: auto;
+  }
+  #printable-cv h1, #printable-cv h2, #printable-cv h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  #printable-cv .space-y-1, 
+  #printable-cv .space-y-2,
+  #printable-cv .space-y-3 > div,
+  #printable-cv .grid {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
 

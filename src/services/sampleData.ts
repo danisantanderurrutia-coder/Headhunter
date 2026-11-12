@@ -4031,7 +4031,7 @@ export const initialCVs: CVVersion[] = [
     language: 'es',
     createdAt: '2026-11-12',
     updatedAt: '2026-11-12',
-    selectedExperiences: ['op-el-huerto', 'op-subterraneo', 'op-thai-pals', 'op-nuria', 'op-ferias'],
+    selectedExperiences: ['op-el-huerto', 'op-subterraneo', 'op-thai-pals', 'op-nuria', 'op-ferias', 'op-empaquetador', 'op-carpinteria', 'op-compostador', 'op-clases'],
     selectedEducation: ['edu-geophysics-uchile', 'edu-msc-kiel-amu'],
     selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
     selectedAchievements: ['ach-gastro-1', 'ach-gastro-2'],
@@ -4126,6 +4126,70 @@ export const initialCVs: CVVersion[] = [
           ],
           technologies: ['Venta Directa', 'Negociación', 'Gestión de Efectivo', 'Atención al Público', 'Logística'],
           isVerified: true
+        },
+        {
+          id: 'op-empaquetador',
+          company: 'Supermercado de Parral (Chile)',
+          role: 'Empaquetador y Asistente de Cajas',
+          location: 'Parral, Chile',
+          startDate: '2015',
+          endDate: '2016',
+          isCurrent: false,
+          summary: 'Atención ágil en línea de cajas, embolsado y empaque de compras, asistencia directa al cliente y reposición de mercancías con ritmo constante y cordialidad.',
+          achievements: [
+            'Alto dinamismo en horas punta de compras y excelente trato con familias y clientes habituales.',
+            'Cuidado estricto de productos frágiles y apoyo a los cajeros.'
+          ],
+          technologies: ['Atención en Caja', 'Empaque Rápido', 'Trato Amable', 'Ritmo Continuo', 'Trabajo en Equipo'],
+          isVerified: true
+        },
+        {
+          id: 'op-carpinteria',
+          company: 'Taller de Carpintería & Mueblería Santander',
+          role: 'Ayudante de Carpintería y Montaje',
+          location: 'Parral y Chillán, Chile',
+          startDate: '2016',
+          endDate: '2019',
+          isCurrent: false,
+          summary: 'Fabricación, corte, cepillado y ensamblaje de muebles a medida y estructuras de madera. Manejo de herramientas manuales y eléctricas, lijado, barnizado y montaje in situ.',
+          achievements: [
+            'Fabricación de piezas resistentes de alta durabilidad con acabado manual prolijo.',
+            'Versatilidad técnica y resolución práctica de problemas de taller.'
+          ],
+          technologies: ['Carpintería', 'Mueblería', 'Herramientas de Corte', 'Montaje', 'Mantenimiento'],
+          isVerified: true
+        },
+        {
+          id: 'op-compostador',
+          company: 'Planta de Compostaje y Predio Orgánico Parral',
+          role: 'Operario de Compostaje y Gestión Orgánica',
+          location: 'Parral, Chile',
+          startDate: '2019',
+          endDate: '2021',
+          isCurrent: false,
+          summary: 'Recepción y trituración de restos vegetales, volteo y aireación de pilas de compost, control térmico e hídrico y tamizado de abono orgánico para uso agrícola.',
+          achievements: [
+            'Generación de abono orgánico maduro con óptima relación carbono-nitrógeno.',
+            'Resistencia física en labores agrícolas a la intemperie.'
+          ],
+          technologies: ['Compostaje', 'Economía Circular', 'Manejo de Suelos', 'Esfuerzo Físico', 'Agricultura Orgánica'],
+          isVerified: true
+        },
+        {
+          id: 'op-clases',
+          company: 'Clases Particulares Independientes',
+          role: 'Profesor de Apoyo en Ciencias y Matemáticas',
+          location: 'Santiago, Chile',
+          startDate: '2017',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Tutorías personalizadas en física, matemáticas y ciencias a estudiantes de secundaria y primeros años universitarios. Metodología basada en la paciencia y comprensión lógica.',
+          achievements: [
+            'Más de 90 % de aprobados con mejora sustancial en notas y confianza académica.',
+            'Gran capacidad didáctica y empatía pedagógica.'
+          ],
+          technologies: ['Pedagogía', 'Paciencia', 'Didáctica Científica', 'Comunicación', 'Motivación'],
+          isVerified: true
         }
       ],
       education: [
@@ -4187,7 +4251,7 @@ export const initialCVs: CVVersion[] = [
     language: 'de',
     createdAt: '2026-11-12',
     updatedAt: '2026-11-12',
-    selectedExperiences: ['op-el-huerto', 'op-subterraneo', 'op-thai-pals', 'op-nuria', 'op-ferias'],
+    selectedExperiences: ['op-el-huerto', 'op-subterraneo', 'op-thai-pals', 'op-nuria', 'op-ferias', 'op-empaquetador', 'op-carpinteria', 'op-compostador', 'op-clases'],
     selectedEducation: ['edu-geophysics-uchile', 'edu-msc-kiel-amu'],
     selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
     selectedAchievements: ['ach-gastro-1', 'ach-gastro-2'],
@@ -4282,6 +4346,70 @@ export const initialCVs: CVVersion[] = [
           ],
           technologies: ['Direktverkauf', 'Verhandlungsgeschick', 'Kundenorientierung', 'Kassenführung', 'Logistik'],
           isVerified: true
+        },
+        {
+          id: 'op-empaquetador-de',
+          company: 'Supermarkt Parral (Chile)',
+          role: 'Kassenservice & Verpackungslogistik',
+          location: 'Parral, Chile',
+          startDate: '2015',
+          endDate: '2016',
+          isCurrent: false,
+          summary: 'Kundenbetreuung an der Kasse, zügige und produktschonende Verpackung von Einkäufen, Unterstützung des Warenflusses und Regalpflege bei hohem Kundendurchsatz.',
+          achievements: [
+            'Hohes Arbeitstempo und vorbildliche Hilfsbereitschaft bei Kundenandrang.',
+            'Zuverlässige Handhabung empfindlicher Lebensmittel und reibungslose Kassenunterstützung.'
+          ],
+          technologies: ['Warenverpackung', 'Kassenservice', 'Kundenfreundlichkeit', 'Teamwork', 'Schnelligkeit'],
+          isVerified: true
+        },
+        {
+          id: 'op-carpinteria-de',
+          company: 'Holzwerkstatt & Möbelbau Santander',
+          role: 'Tischlerei- & Montageassistent',
+          location: 'Parral und Chillán, Chile',
+          startDate: '2016',
+          endDate: '2019',
+          isCurrent: false,
+          summary: 'Herstellung, Reparatur und Montage von Holzmöbeln und Bauteilen. Sicherer Einsatz handwerklicher Werkzeuge und Maschinen, Schleif-, Lackier- und Ausbesserungsarbeiten sowie Montage vor Ort.',
+          achievements: [
+            'Präzise Fertigung robuster Möbelstücke und selbstständige Instandhaltungsarbeiten.',
+            'Vielseitiges handwerkliches Geschick und hohe Eigenverantwortung.'
+          ],
+          technologies: ['Holzbearbeitung', 'Möbelbau', 'Werkzeugsicherheit', 'Präzision', 'Instandhaltung'],
+          isVerified: true
+        },
+        {
+          id: 'op-compostador-de',
+          company: 'Kompostanlage & Ökologischer Landbetrieb Parral',
+          role: 'Betriebsassistent Kompostierung & Wertstoffkreislauf',
+          location: 'Parral, Chile',
+          startDate: '2019',
+          endDate: '2021',
+          isCurrent: false,
+          summary: 'Aufbereitung organischer Reststoffe, Schichtung, Belüftung und Temperaturüberwachung von Heißkompostmieten, Siebung und Qualitätskontrolle des Reifekomposts.',
+          achievements: [
+            'Erfolgreiche Herstellung hochwertiger Komposterde zur Bodenverbesserung.',
+            'Zuverlässige Verrichtung anspruchsvoller körperlicher Außenarbeiten bei jedem Wetter.'
+          ],
+          technologies: ['Kompostierung', 'Kreislaufwirtschaft', 'Bodenpflege', 'Körperliche Ausdauer', 'Umwelttechnik'],
+          isVerified: true
+        },
+        {
+          id: 'op-clases-de',
+          company: 'Selbstständige Lehrtätigkeit & Nachhilfe',
+          role: 'Dozent für Naturwissenschaften & Mathematik',
+          location: 'Santiago, Chile',
+          startDate: '2017',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Didaktische Betreuung von Schülern und Studierenden in Physik, Mathematik und Umweltlehre. Individuelle Wissensvermittlung, Motivation und strukturierte Prüfungsvorbereitung.',
+          achievements: [
+            'Über 90 % Erfolgsquote bei Reifeprüfungen durch geduldige und zielorientierte Didaktik.',
+            'Hervorragende didaktische und zwischenmenschliche Kommunikationsstärke.'
+          ],
+          technologies: ['Pädagogik & Didaktik', 'Geduld', 'Wissenschaftskommunikation', 'Empathie', 'Motivation'],
+          isVerified: true
         }
       ],
       education: [
@@ -4343,7 +4471,7 @@ export const initialCVs: CVVersion[] = [
     language: 'en',
     createdAt: '2026-11-12',
     updatedAt: '2026-11-12',
-    selectedExperiences: ['op-el-huerto-en', 'op-subterraneo-en', 'op-thai-pals-en', 'op-nuria-en', 'op-ferias-en'],
+    selectedExperiences: ['op-el-huerto-en', 'op-subterraneo-en', 'op-thai-pals-en', 'op-nuria-en', 'op-ferias-en', 'op-empaquetador-en', 'op-carpinteria-en', 'op-compostador-en', 'op-clases-en'],
     selectedEducation: ['edu-univ-dan-en'],
     selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
     selectedAchievements: ['ach-gastro-en-1', 'ach-gastro-en-2'],
@@ -4437,6 +4565,70 @@ export const initialCVs: CVVersion[] = [
             'Independently coordinated transportation, merchandise display, and end-of-day accounting.'
           ],
           technologies: ['Direct Sales', 'Customer Engagement', 'Cash Management', 'Logistics', 'Product Display'],
+          isVerified: true
+        },
+        {
+          id: 'op-empaquetador-en',
+          company: 'Parral Supermarket (Chile)',
+          role: 'Checkout Assistant & Packaging Logistics',
+          location: 'Parral, Chile',
+          startDate: '2015',
+          endDate: '2016',
+          isCurrent: false,
+          summary: 'Fast-paced checkout bagging, customer care, grocery transport assistance, and shelf restocking during high-volume commercial shopping rush hours.',
+          achievements: [
+            'Recognized for exceptional stamina, speed, and courteous customer interactions.',
+            'Flawless handling of delicate grocery items and reliable cash register team support.'
+          ],
+          technologies: ['Customer Care', 'High-Speed Packaging', 'Cashier Support', 'Teamwork', 'Stamina'],
+          isVerified: true
+        },
+        {
+          id: 'op-carpinteria-en',
+          company: 'Santander Woodworking & Carpentry Workshop',
+          role: 'Carpentry & On-Site Furniture Assembly Assistant',
+          location: 'Parral & Chillán, Chile',
+          startDate: '2016',
+          endDate: '2019',
+          isCurrent: false,
+          summary: 'Manufacturing, sanding, lacquering, and on-site assembly of bespoke wooden furniture and structural fittings. Safe operation of hand tools and cutting machinery.',
+          achievements: [
+            'Precision manufacturing of durable custom furniture with high-quality manual finishes.',
+            'Versatile practical problem-solving and workshop independence.'
+          ],
+          technologies: ['Carpentry', 'Furniture Craft', 'Power Tools', 'On-Site Assembly', 'Precision'],
+          isVerified: true
+        },
+        {
+          id: 'op-compostador-en',
+          company: 'Parral Composting Facility & Organic Farm',
+          role: 'Composting & Organic Waste Operations Assistant',
+          location: 'Parral, Chile',
+          startDate: '2019',
+          endDate: '2021',
+          isCurrent: false,
+          summary: 'Collection and processing of green waste, manual pile turning, aeration and moisture monitoring of hot compost windrows, and final organic humus screening.',
+          achievements: [
+            'Successfully produced high-grade organic fertilizer for local agroecological farms.',
+            'Demonstrated strong physical endurance in demanding outdoor weather conditions.'
+          ],
+          technologies: ['Composting', 'Circular Economy', 'Soil Stewardship', 'Physical Endurance', 'Environmental Management'],
+          isVerified: true
+        },
+        {
+          id: 'op-clases-en',
+          company: 'Independent Academic Tutoring',
+          role: 'Private Instructor in Physics, Mathematics & Sciences',
+          location: 'Santiago, Chile',
+          startDate: '2017',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Personalized mentoring in physics, algebra, and environmental science for high school and university students. Focused on foundational understanding, patience, and exam preparation.',
+          achievements: [
+            'Achieved over 90% exam pass rate through empathetic and structured pedagogical coaching.',
+            'Exceptional interpersonal communication and didactic clarity.'
+          ],
+          technologies: ['Pedagogy', 'Patience', 'Science Communication', 'Active Mentoring', 'Motivation'],
           isVerified: true
         }
       ],

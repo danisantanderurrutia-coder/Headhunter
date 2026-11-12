@@ -192,30 +192,30 @@ const CV_CSS = `
 @page { size: A4 portrait; margin: 0; }
 * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; background: #fff; font-size: 9.2pt; line-height: 1.38; }
-.page { width: 210mm; height: 297mm; padding: 10mm 12mm 9mm 12mm; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; background: #fff; }
+.page { width: 210mm; height: 297mm; padding: 8mm 11mm 7mm 11mm; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; background: #fff; }
 .page:last-child { page-break-after: avoid; }
 @media screen { html, body { background: #cbd5e1; } .page { margin: 0 auto 12px auto; box-shadow: 0 2px 12px rgba(15,23,42,.25); } }
-.hd { border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 7px; }
-.name { font-size: 19pt; font-weight: 800; letter-spacing: -.5px; color: #0f172a; line-height: 1; margin: 0; text-transform: uppercase; }
-.name.small { font-size: 14pt; }
-.headline { font-size: 9pt; font-weight: 600; color: #0369a1; margin: 3px 0 4px; }
-.contact { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 7.6pt; color: #475569; font-weight: 500; }
+.hd { border-bottom: 2px solid #0f172a; padding-bottom: 5px; margin-bottom: 6px; }
+.name { font-size: 18pt; font-weight: 800; letter-spacing: -.5px; color: #0f172a; line-height: 1; margin: 0; text-transform: uppercase; }
+.name.small { font-size: 13pt; }
+.headline { font-size: 8.8pt; font-weight: 600; color: #0369a1; margin: 2px 0 3px; }
+.contact { display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 7.5pt; color: #475569; font-weight: 500; }
 .contact b { color: #0f172a; font-weight: 600; }
-.summary { font-size: 8.1pt; line-height: 1.34; background: #f8fafc; padding: 4px 7px; border-left: 3px solid #0284c7; border-radius: 2px; margin-bottom: 2px; }
-.st { font-size: 8.8pt; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: #0f172a; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 2px; margin: 7px 0 4px; }
-.it { margin-bottom: 5px; }
-.row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 8.2pt; }
+.summary { font-size: 8pt; line-height: 1.32; background: #f8fafc; padding: 4px 6px; border-left: 3px solid #0284c7; border-radius: 2px; margin-bottom: 2px; }
+.st { font-size: 8.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #0f172a; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 2px; margin: 5px 0 3px; }
+.it { margin-bottom: 3.5px; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 8.1pt; }
 .t { font-weight: 700; color: #0f172a; }
 .o { font-weight: 600; color: #334155; }
-.m { font-size: 7.5pt; font-weight: 600; color: #64748b; white-space: nowrap; }
-.d { font-size: 8.1pt; color: #334155; margin-top: 1px; line-height: 1.3; }
-ul.b { margin: 1px 0 3px; padding-left: 14px; }
-ul.b li { font-size: 8.1pt; color: #334155; margin-bottom: 2px; line-height: 1.3; }
-.ft { border-top: 1px solid #cbd5e1; padding-top: 3px; margin-top: 4px; display: flex; justify-content: space-between; gap: 10px; font-size: 6.8pt; color: #64748b; }
+.m { font-size: 7.4pt; font-weight: 600; color: #64748b; white-space: nowrap; }
+.d { font-size: 8pt; color: #334155; margin-top: 1px; line-height: 1.28; }
+ul.b { margin: 1px 0 2px; padding-left: 14px; }
+ul.b li { font-size: 8pt; color: #334155; margin-bottom: 1.5px; line-height: 1.28; }
+.ft { border-top: 1px solid #cbd5e1; padding-top: 3px; margin-top: 3px; display: flex; justify-content: space-between; gap: 10px; font-size: 6.8pt; color: #64748b; }
 .ft b { color: #0f172a; }
 `;
 
-/** Ajusta la tipografía de forma uniforme para que el contenido llene la hoja A4. */
+/** Ajusta la tipografía de forma uniforme para que el contenido llene la hoja A4 sin cortar jamás el pie ni los idiomas. */
 const FIT_JS = `
 (function () {
   var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
@@ -224,14 +224,21 @@ const FIT_JS = `
       var content = pg.children[0], footer = pg.children[1];
       content.style.zoom = z;
       var cs = getComputedStyle(pg);
-      var avail = pg.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - footer.offsetHeight - 10;
+      var avail = pg.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - (footer ? footer.offsetHeight : 0) - 6;
       return content.getBoundingClientRect().height <= avail;
     });
   }
-  var lo = 0.8, hi = 1.4;
-  if (!fits(lo)) { document.body.setAttribute('data-overflow', '1'); return; }
-  for (var i = 0; i < 14; i++) { var mid = (lo + hi) / 2; if (fits(mid)) lo = mid; else hi = mid; }
+  var lo = 0.55, hi = 1.25;
+  for (var i = 0; i < 16; i++) {
+    var mid = (lo + hi) / 2;
+    if (fits(mid)) lo = mid; else hi = mid;
+  }
   fits(lo);
+  if (!fits(lo)) {
+    document.body.setAttribute('data-overflow', '1');
+  } else {
+    document.body.removeAttribute('data-overflow');
+  }
   document.body.setAttribute('data-fit-zoom', lo.toFixed(3));
 })();
 `;
