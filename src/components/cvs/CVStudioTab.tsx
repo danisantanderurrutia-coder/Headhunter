@@ -1587,8 +1587,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                           <span>🔬 Sector A · Científico & Ambiental</span>
                         </span>
                         <span className="text-[9px] font-mono font-bold text-sky-500 uppercase">
-                          3 Idiomas
+                          3 Muestras
                         </span>
+                      </div>
+                      <div className="text-[10px] text-[var(--text-muted)]">
+                        3 muestras oficiales precompiladas (en el Menú 1 puedes compilar cualquier combinación de ángulo e idioma).
                       </div>
                       <div className="grid grid-cols-3 gap-1.5">
                         {storedCompiledCVs
@@ -1603,7 +1606,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                             >
                               <span className="uppercase text-[11px] font-black">{cv.language}</span>
                               <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
-                                {cv.language === 'es' ? 'Gobernanza' : cv.language === 'en' ? 'Biophysics' : 'Umwelt'}
+                                {cv.language === 'es' ? 'ES · Gobernanza' : cv.language === 'en' ? 'EN · Biophysics' : 'DE · Umwelt'}
                               </span>
                             </button>
                           ))}
@@ -1618,8 +1621,11 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                             <span>🍽️ Sector B · Hostelería & Servicios</span>
                           </span>
                           <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/40 font-bold uppercase font-mono">
-                            Aislado
+                            Mismo contenido en 3 idiomas
                           </span>
+                        </div>
+                        <div className="text-[10px] text-[var(--text-muted)]">
+                          Enfoque: Servicio de mesa, barra y atención al cliente (El Huerto, Subterráneo, Nuria, Ferias).
                         </div>
                         <div className="grid grid-cols-3 gap-1.5">
                           {storedCompiledCVs
@@ -1634,7 +1640,7 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                               >
                                 <span className="uppercase text-[11px] font-black">{cv.language}</span>
                                 <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
-                                  {cv.language === 'es' ? 'Hostelería' : cv.language === 'de' ? 'Gastronomie' : 'Hospitality'}
+                                  {cv.language === 'es' ? 'Español' : cv.language === 'de' ? 'Deutsch' : 'English'}
                                 </span>
                               </button>
                             ))}
