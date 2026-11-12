@@ -255,7 +255,7 @@ export const initialProfile: MasterProfile = {
   ],
   languages: [
     { id: 'lang-1', language: 'Español', proficiency: 'Nativo', certificate: 'Nativo — Oratoria pública, vocería parlamentaria, redacción editorial y legislativa' },
-    { id: 'lang-2', language: 'Inglés', proficiency: 'C2', certificate: 'C2 — Competencia Profesional Completa (C1 IELTS + años de trabajo y residencia en el extranjero)' },
+    { id: 'lang-2', language: 'Inglés', proficiency: 'C2', certificate: 'C2 — Competencia Bilingüe y Profesional Completa (Nivel C2 Operativo y Académico)' },
     { id: 'lang-3', language: 'Alemán', proficiency: 'B1', certificate: 'B1 / B2 — M.Sc. en CAU Kiel, comunicación técnica y trabajo en Alemania' }
   ],
   achievementsBank: [
@@ -3998,7 +3998,7 @@ export const initialCVs: CVVersion[] = [
       skills: initialProfile.skills,
       languages: [
         { id: 'lang-es', language: 'Spanisch', proficiency: 'Nativo' },
-        { id: 'lang-en', language: 'Englisch', proficiency: 'C1' },
+        { id: 'lang-en', language: 'Englisch', proficiency: 'C2' },
         { id: 'lang-de', language: 'Deutsch', proficiency: 'B1' }
       ],
       achievements: [
@@ -4150,7 +4150,7 @@ export const initialCVs: CVVersion[] = [
       ],
       languages: [
         { id: 'lang-es', language: 'Español', proficiency: 'Nativo' },
-        { id: 'lang-en', language: 'Inglés', proficiency: 'C1' },
+        { id: 'lang-en', language: 'Inglés', proficiency: 'C2' },
         { id: 'lang-de', language: 'Alemán', proficiency: 'B1' }
       ],
       achievements: [
@@ -4191,7 +4191,7 @@ export const initialCVs: CVVersion[] = [
     selectedEducation: ['edu-geophysics-uchile', 'edu-msc-kiel-amu'],
     selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
     selectedAchievements: ['ach-gastro-1', 'ach-gastro-2'],
-    customSummary: 'Zuverlässige, dynamische und mehrsprachige Persönlichkeit (Spanisch Muttersprache, Englisch verhandlungssicher C1, Deutsch B1/B2) mit mehrjähriger praktischer Erfahrung in Gastronomie (à-la-carte Service & Barbetrieb), Kundenbetreuung und Allround-Tätigkeiten. Hohe Belastbarkeit in Stoßzeiten, teamorientiert und sofort einsatzbereit für Schicht- und Wochenendarbeit. Belehrung nach § 43 IfSG kurzfristig abrufbar.',
+    customSummary: 'Zuverlässige, dynamische und mehrsprachige Persönlichkeit (Spanisch Muttersprache, Englisch verhandlungssicher C2, Deutsch B1/B2) mit mehrjähriger praktischer Erfahrung in Gastronomie (à-la-carte Service & Barbetrieb), Kundenbetreuung und Allround-Tätigkeiten. Hohe Belastbarkeit in Stoßzeiten, teamorientiert und sofort einsatzbereit für Schicht- und Wochenendarbeit. Belehrung nach § 43 IfSG kurzfristig abrufbar.',
     compiledData: {
       fullName: initialProfile.fullName,
       contactInfo: {
@@ -4201,7 +4201,7 @@ export const initialCVs: CVVersion[] = [
         linkedin: initialProfile.linkedin,
         github: initialProfile.github
       },
-      summary: 'Zuverlässige, dynamische und mehrsprachige Persönlichkeit (Spanisch Muttersprache, Englisch verhandlungssicher C1, Deutsch B1/B2) mit mehrjähriger praktischer Erfahrung in Gastronomie (à-la-carte Service & Barbetrieb), Kundenbetreuung und Allround-Tätigkeiten. Hohe Belastbarkeit in Stoßzeiten, teamorientiert und sofort einsatzbereit für Schicht- und Wochenendarbeit. Belehrung nach § 43 IfSG kurzfristig abrufbar.',
+      summary: 'Zuverlässige, dynamische und mehrsprachige Persönlichkeit (Spanisch Muttersprache, Englisch verhandlungssicher C2, Deutsch B1/B2) mit mehrjähriger praktischer Erfahrung in Gastronomie (à-la-carte Service & Barbetrieb), Kundenbetreuung und Allround-Tätigkeiten. Hohe Belastbarkeit in Stoßzeiten, teamorientiert und sofort einsatzbereit für Schicht- und Wochenendarbeit. Belehrung nach § 43 IfSG kurzfristig abrufbar.',
       experiences: [
         {
           id: 'op-el-huerto-de',
@@ -4306,7 +4306,7 @@ export const initialCVs: CVVersion[] = [
       ],
       languages: [
         { id: 'lang-es-de', language: 'Spanisch', proficiency: 'Nativo' },
-        { id: 'lang-en-de', language: 'Englisch', proficiency: 'C1' },
+        { id: 'lang-en-de', language: 'Englisch', proficiency: 'C2' },
         { id: 'lang-de-de', language: 'Deutsch', proficiency: 'B1' }
       ],
       achievements: [
@@ -4347,7 +4347,7 @@ export const initialCVs: CVVersion[] = [
     selectedEducation: ['edu-univ-dan-en'],
     selectedSkills: ['sk-serv-1', 'sk-serv-2', 'sk-serv-3', 'sk-serv-4', 'sk-serv-5'],
     selectedAchievements: ['ach-gastro-en-1', 'ach-gastro-en-2'],
-    customSummary: 'Energetic, versatile, and multilingual hospitality professional (Native Spanish, Fluent English C1, German B1/B2) with proven hands-on experience in à-la-carte dining service, high-volume cocktail/bar operations, and retail customer care. Exceptional stamina during peak service rushes, calm under pressure, meticulous with hygiene and cash handling, and fully flexible for rotating, evening, and weekend shifts.',
+    customSummary: 'Energetic, versatile, and multilingual hospitality professional (Native Spanish, Fluent English C2, German B1/B2) with proven hands-on experience in à-la-carte dining service, high-volume cocktail/bar operations, and retail customer care. Exceptional stamina during peak service rushes, calm under pressure, meticulous with hygiene and cash handling, and fully flexible for rotating, evening, and weekend shifts.',
     compiledData: {
       fullName: initialProfile.fullName,
       contactInfo: {
@@ -4357,7 +4357,7 @@ export const initialCVs: CVVersion[] = [
         linkedin: initialProfile.linkedin,
         github: initialProfile.github
       },
-      summary: 'Energetic, versatile, and multilingual hospitality professional (Native Spanish, Fluent English C1, German B1/B2) with proven hands-on experience in à-la-carte dining service, high-volume cocktail/bar operations, and retail customer care. Exceptional stamina during peak service rushes, calm under pressure, meticulous with hygiene and cash handling, and fully flexible for rotating, evening, and weekend shifts.',
+      summary: 'Energetic, versatile, and multilingual hospitality professional (Native Spanish, Fluent English C2, German B1/B2) with proven hands-on experience in à-la-carte dining service, high-volume cocktail/bar operations, and retail customer care. Exceptional stamina during peak service rushes, calm under pressure, meticulous with hygiene and cash handling, and fully flexible for rotating, evening, and weekend shifts.',
       experiences: [
         {
           id: 'op-el-huerto-en',
@@ -4462,7 +4462,7 @@ export const initialCVs: CVVersion[] = [
       ],
       languages: [
         { id: 'lang-es-en', language: 'Spanish', proficiency: 'Nativo' },
-        { id: 'lang-en-en', language: 'English', proficiency: 'C1' },
+        { id: 'lang-en-en', language: 'English', proficiency: 'C2' },
         { id: 'lang-de-en', language: 'German', proficiency: 'B1' }
       ],
       achievements: [

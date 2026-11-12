@@ -569,6 +569,7 @@ export const VERIFIED_FACTS: CvFact[] = [
     tags: ['spanish', 'español', 'spanisch', 'english', 'inglés', 'englisch', 'german', 'alemán', 'deutsch'],
     source: 'Portafolio · Capacidades (idiomas)',
     es: { title: 'Idiomas', short: 'Español (nativo) · Inglés (C2) · Alemán (B1–B2)' },
-    en: { title: 'Languages', short: 'Spanish (native) · English (C2) · German (B1–B2)' }
+    en: { title: 'Languages', short: 'Spanish (native) · English (C2) · German (B1–B2)' },
+    de: { title: 'Sprachkenntnisse', short: 'Spanisch (Muttersprache) · Englisch (C2) · Deutsch (B1–B2)' }
   }
 ];

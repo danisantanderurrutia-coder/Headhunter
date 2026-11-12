@@ -377,9 +377,42 @@ export const getStoredCVs = (): CVVersion[] => {
     return initialCVs;
   }
   try {
-    const list: CVVersion[] = JSON.parse(data);
+    let list: CVVersion[] = JSON.parse(data);
+
+    // Auto-purga: asegurar que cualquier versión en caché tenga siempre Inglés en C2
+    let listModified = false;
+    list = list.map(cv => {
+      let cvModified = false;
+      let newCompiled = cv.compiledData;
+      if (cv.compiledData?.languages) {
+        const langs = cv.compiledData.languages.map((l: any) => {
+          if ((l.language?.toLowerCase().includes('ingl') || l.language?.toLowerCase().includes('engl')) && l.proficiency !== 'C2') {
+            cvModified = true;
+            return { ...l, proficiency: 'C2' as const };
+          }
+          return l;
+        });
+        if (cvModified) {
+          newCompiled = { ...cv.compiledData, languages: langs };
+        }
+      }
+      if (cv.customSummary && (cv.customSummary.includes('Englisch verhandlungssicher C1') || cv.customSummary.includes('Fluent English C1'))) {
+        cvModified = true;
+        const newSummary = cv.customSummary
+          .replace('Englisch verhandlungssicher C1', 'Englisch verhandlungssicher C2')
+          .replace('Fluent English C1', 'Fluent English C2');
+        newCompiled = newCompiled ? { ...newCompiled, summary: newSummary } : newCompiled;
+        return { ...cv, customSummary: newSummary, compiledData: newCompiled || cv.compiledData };
+      }
+      if (cvModified) {
+        listModified = true;
+        return { ...cv, compiledData: newCompiled || cv.compiledData };
+      }
+      return cv;
+    });
+
     const missingCanonical = initialCVs.filter(init => !list.some(l => l.id === init.id));
-    if (missingCanonical.length > 0) {
+    if (missingCanonical.length > 0 || listModified) {
       const merged = [...list, ...missingCanonical];
       saveStoredCVs(merged);
       return merged;

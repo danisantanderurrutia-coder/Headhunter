@@ -31,7 +31,7 @@ Die methodische Hauptherausforderung von TechWorms – die in-situ Validierung v
 
 Darüber hinaus habe ich in meinem Projekt AgriTwin einen digitalen Zwilling entwickelt, der kontinuierliche IoT-Bodenfeuchte-Sensorik mit Sentinel-2 Satellitendaten (NDVI/NDRE) koppelt. Auf der wiedervernässten Moorfläche Wallener Au quantifiziere ich Treibhausgasflüsse mittels Eddy Covariance und geschlossenen Hauben, gekoppelt mit bodenphysikalischen Retentionskurven über reproduzierbare R-Pipelines. Diese Feldpraxis schützt vor spekulativen Annahmen.
 
-Als Absolvent einer deutschen Hochschule verfüge ich über volle vertragliche Verfügbarkeit unter §20 AufenthG, verhandlungssicheres Englisch (C1) und praxiserprobtes Deutsch (B1-B2). Ich freue mich auf den fachlichen Austausch mit Ihnen.
+Als Absolvent einer deutschen Hochschule verfüge ich über volle vertragliche Verfügbarkeit unter §20 AufenthG, verhandlungssicheres Englisch (C2) und praxiserprobtes Deutsch (B1-B2). Ich freue mich auf den fachlichen Austausch mit Ihnen.
 
 Mit besten Grüßen,
 Daniel Santander Urrutia
@@ -62,7 +62,7 @@ Daniel Santander Urrutia
     const visaCheck = hhResult.complianceChecks.find(c => c.id === 'hh-work-auth');
     expect(visaCheck?.status).toBe('pass');
 
-    // Languages check (C1 English, B1-B2 German)
+    // Languages check (C2 English, B1-B2 German)
     const langCheck = hhResult.complianceChecks.find(c => c.id === 'hh-languages');
     expect(langCheck?.status).toBe('pass');
   });
@@ -112,7 +112,7 @@ ich bewerbe mich auf die Promotionsstelle im Projekt TechWorms am Thünen-Instit
 
 Mit besten Grüßen,
 Daniel Santander Urrutia
-§20 AufenthG | English C1 | Deutsch B1
+§20 AufenthG | English C2 | Deutsch B1
     `;
     const wmResult = auditWingmanLens(textWithoutWeapons, mockOffer as JobOffer, THUENEN_TECHWORMS_DOSSIER);
     

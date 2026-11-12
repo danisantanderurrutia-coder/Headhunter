@@ -150,7 +150,7 @@ export const ARCHETYPE_PROFILES: Record<ApplicationArchetype, ArchetypeProfile> 
       outlierLever:
         'Científico de datos y procesos biofísicos con código en producción: no solo entiende la permanencia del carbono en el suelo, sino que escribe pipelines reproducibles en R/Python y ha auditado biomasa a escala internacional.',
       priorityWeapons: ['wp-006-epn-carbon', 'wp-002-wetland-sentinel', 'wp-001-agritwin'],
-      keyComplianceChecks: ['Inglés C2 / C1 profesional', 'Habilitación contractual inmediata', 'Portafolio GitHub / Código']
+      keyComplianceChecks: ['Inglés C2 bilingüe / profesional', 'Habilitación contractual inmediata', 'Portafolio GitHub / Código']
     }
   },
 

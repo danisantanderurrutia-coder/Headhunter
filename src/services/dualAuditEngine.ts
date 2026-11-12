@@ -349,22 +349,22 @@ export const auditHeadhunterLens = (
       : undefined
   });
 
-  // C. Certificación de Idiomas (Inglés C1 / Alemán B1-B2)
-  const hasEnglish = lower.includes('c1') || lower.includes('c2') || lower.includes('fluent english') || lower.includes('inglés profesional') || lower.includes('verhandlungssicher') || lower.includes('englisch');
+  // C. Certificación de Idiomas (Inglés C2 / Alemán B1-B2)
+  const hasEnglish = lower.includes('c2') || lower.includes('c1') || lower.includes('fluent english') || lower.includes('inglés profesional') || lower.includes('verhandlungssicher') || lower.includes('englisch');
   const hasGerman = lower.includes('b1') || lower.includes('b2') || lower.includes('alemán') || lower.includes('german') || lower.includes('deutsch');
 
   complianceChecks.push({
     id: 'hh-languages',
     category: 'languages',
-    label: 'Acreditación de Idiomas de Trabajo (EN C1 / DE B1-B2)',
+    label: 'Acreditación de Idiomas de Trabajo (EN C2 / DE B1-B2)',
     status: hasEnglish && hasGerman ? 'pass' : hasEnglish ? 'warning' : 'fail',
     detail: hasEnglish && hasGerman 
-      ? 'Competencias en inglés profesional (C1) y alemán operativo (B1-B2) claramente especificadas.' 
+      ? 'Competencias en inglés profesional bilingüe (C2) y alemán operativo (B1-B2) claramente especificadas.' 
       : hasEnglish 
       ? 'Inglés detectado, pero falta declarar explícitamente el nivel de alemán para puestos en Alemania/DACH.' 
       : 'Falta declarar los niveles estandarizados del marco europeo (CEFR) para inglés y alemán.',
     fixRecommendation: !(hasEnglish && hasGerman) 
-      ? 'Especifica: "Inglés C1 (técnico-ejecutivo) | Alemán B1-B2 (operativo en inmersión)".' 
+      ? 'Especifica: "Inglés C2 (bilingüe / competencia profesional completa) | Alemán B1-B2 (operativo en inmersión)".' 
       : undefined
   });
 
