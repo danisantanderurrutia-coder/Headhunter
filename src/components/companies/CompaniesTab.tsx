@@ -16,7 +16,10 @@ import {
   Search, 
   TrendingUp, 
   Building2, 
-  SlidersHorizontal
+  SlidersHorizontal,
+  Star,
+  Sparkles,
+  ArrowUpDown
 } from 'lucide-react';
 import { getStoredCompanies, saveStoredCompanies } from '../../services/db';
 import type { CompanyDossier, QuadrantType, CompanyContact, CompanySectorCluster } from '../../types/companies';
@@ -26,6 +29,7 @@ import { WebsitePreviewModal } from '../common/WebsitePreviewModal';
 import { ClusterBenchmarkTable } from '../radar/ClusterBenchmarkTable';
 import { FUNDING_CATALOG } from '../../data/fundingCatalog';
 import { inferCompanyQuadrants, inferCompanySectorCluster } from '../../utils/quadrants';
+import { analyzeCompanyFit } from '../../utils/companyFit';
 
 interface CompaniesTabProps {
   onStartPipeline?: (companyId: string) => void;
@@ -33,35 +37,35 @@ interface CompaniesTabProps {
   initialSectorCluster?: CompanySectorCluster;
 }
 
-interface CompanyLogoProps {
-  website?: string;
-  name: string;
-}
+type QuickFilterType = 'ALL' | 'FAVORITES' | 'HIGH_MATCH' | 'WITH_CONTACTS';
+type SortByType = 'MATCH' | 'NAME' | 'CONTACTS' | 'QUADRANT';
 
 /**
- * Componente resiliente para extraer y mostrar el logo real de internet
- * utilizando Google Favicon Service (128px), con respaldo en DuckDuckGo
- * y monograma tipográfico personalizado si no hay conexión o logo disponible.
+ * Helper component to display high-resolution entity logo extracted from domain
+ * with Google Favicons service, DuckDuckGo fallback, and stylized monogram backup.
  */
-export const CompanyLogo: React.FC<CompanyLogoProps> = ({ website, name }) => {
+const CompanyLogo: React.FC<{ website?: string; name: string }> = ({ website, name }) => {
   const [imgError, setImgError] = useState(false);
   const [ddgError, setDdgError] = useState(false);
 
   const domain = useMemo(() => {
     if (!website) return '';
     try {
-      const u = new URL(website.startsWith('http') ? website : `https://${website}`);
-      return u.hostname.replace(/^www\./, '');
+      const url = website.startsWith('http') ? website : `https://${website}`;
+      return new URL(url).hostname.replace(/^www\./, '');
     } catch {
       return '';
     }
   }, [website]);
 
   const initials = useMemo(() => {
-    const clean = name.replace(/\([^)]*\)/g, '').trim();
-    const words = clean.split(/\s+/).filter(Boolean);
-    if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
-    return (words[0][0] + (words[1] ? words[1][0] : '')).toUpperCase();
+    return name
+      .replace(/^(the|el|la|los|las|de|von|der)\s+/i, '')
+      .split(/[\s-]+/)
+      .filter(w => w.length > 0)
+      .slice(0, 2)
+      .map(w => w[0].toUpperCase())
+      .join('');
   }, [name]);
 
   if (!domain || (imgError && ddgError)) {
@@ -94,7 +98,7 @@ export const CompanyLogo: React.FC<CompanyLogoProps> = ({ website, name }) => {
 };
 
 export const CompaniesTab: React.FC<CompaniesTabProps> = ({ 
-  onStartPipeline, 
+  onStartPipeline,
   initialQuadrant = 'ALL',
   initialSectorCluster = 'ALL'
 }) => {
@@ -107,6 +111,39 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
   const [selectedSectorCluster, setSelectedSectorCluster] = useState<CompanySectorCluster>(initialSectorCluster);
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Quick filters & Sorting
+  const [quickFilter, setQuickFilter] = useState<QuickFilterType>('ALL');
+  const [sortBy, setSortBy] = useState<SortByType>('MATCH');
+
+  // Favorites state persisted in localStorage
+  const [favorites, setFavorites] = useState<Set<string>>(() => {
+    try {
+      const raw = localStorage.getItem('job_search_os_fav_companies');
+      if (raw) return new Set(JSON.parse(raw));
+    } catch {
+      // ignore
+    }
+    return new Set();
+  });
+
+  const toggleFavorite = (companyId: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setFavorites(prev => {
+      const next = new Set(prev);
+      if (next.has(companyId)) {
+        next.delete(companyId);
+      } else {
+        next.add(companyId);
+      }
+      try {
+        localStorage.setItem('job_search_os_fav_companies', JSON.stringify(Array.from(next)));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
+
   // Selected company for detailed dossier modal ("Más información")
   const [dossierCompany, setDossierCompany] = useState<CompanyDossier | null>(null);
   const [isDossierModalOpen, setIsDossierModalOpen] = useState(false);
@@ -120,7 +157,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
   const [previewTitle, setPreviewTitle] = useState<string>('');
   const [isBenchmarkModalOpen, setIsBenchmarkModalOpen] = useState(false);
 
-  // Add Contact Form inline state (dentro del modal de Más Información)
+  // Add Contact Form inline state
   const [isAddingContact, setIsAddingContact] = useState(false);
   const [contactName, setContactName] = useState('');
   const [contactRole, setContactRole] = useState('');
@@ -199,17 +236,44 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
     });
   };
 
-  // Filter companies by quadrant, sector cluster, and search
+  // Pre-calculate profile fit for all companies for instant filtering & sorting
+  const scoredCompaniesMap = useMemo(() => {
+    const map = new Map<string, ReturnType<typeof analyzeCompanyFit>>();
+    companies.forEach(comp => {
+      map.set(comp.id, analyzeCompanyFit(comp));
+    });
+    return map;
+  }, [companies]);
+
+  // Filter and sort companies by quadrant, sector cluster, search, quick filter and sort
   const filteredCompanies = useMemo(() => {
-    return companies.filter(comp => {
+    const list = companies.filter(comp => {
+      const fit = scoredCompaniesMap.get(comp.id);
       const quads = inferCompanyQuadrants(comp);
+      
+      // Quadrant pole filter
       if (selectedQuadrant !== 'ALL' && !quads.includes(selectedQuadrant as QuadrantType)) {
         return false;
       }
+      
+      // Sector cluster filter
       const cluster = inferCompanySectorCluster(comp);
       if (selectedSectorCluster !== 'ALL' && cluster !== selectedSectorCluster) {
         return false;
       }
+
+      // Quick filter
+      if (quickFilter === 'FAVORITES' && !favorites.has(comp.id)) {
+        return false;
+      }
+      if (quickFilter === 'HIGH_MATCH' && (!fit || fit.score < 85)) {
+        return false;
+      }
+      if (quickFilter === 'WITH_CONTACTS' && (!comp.contacts || comp.contacts.length === 0)) {
+        return false;
+      }
+
+      // Search query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const inName = comp.name.toLowerCase().includes(q);
@@ -217,11 +281,34 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
         const inHQ = comp.headquarters.toLowerCase().includes(q);
         const inProjects = (comp.keyProjects || []).some(p => p.toLowerCase().includes(q));
         const inTech = (comp.techStack || []).some(t => t.toLowerCase().includes(q));
-        return inName || inSector || inHQ || inProjects || inTech;
+        const inPillars = fit ? fit.matchedPillars.some(p => p.pillar.toLowerCase().includes(q) || p.badge.toLowerCase().includes(q)) : false;
+        return inName || inSector || inHQ || inProjects || inTech || inPillars;
       }
       return true;
     });
-  }, [companies, selectedQuadrant, selectedSectorCluster, searchQuery]);
+
+    // Sort order
+    return list.sort((a, b) => {
+      const fitA = scoredCompaniesMap.get(a.id)?.score || 70;
+      const fitB = scoredCompaniesMap.get(b.id)?.score || 70;
+
+      if (sortBy === 'MATCH') {
+        return fitB - fitA;
+      }
+      if (sortBy === 'NAME') {
+        return a.name.localeCompare(b.name);
+      }
+      if (sortBy === 'CONTACTS') {
+        return (b.contacts?.length || 0) - (a.contacts?.length || 0);
+      }
+      if (sortBy === 'QUADRANT') {
+        const qA = (a.quadrants?.[0] || 'GLOBAL');
+        const qB = (b.quadrants?.[0] || 'GLOBAL');
+        return qA.localeCompare(qB);
+      }
+      return 0;
+    });
+  }, [companies, selectedQuadrant, selectedSectorCluster, searchQuery, quickFilter, sortBy, favorites, scoredCompaniesMap]);
 
   // Associated funding opportunities for the selected modal company
   const relatedFunding = useMemo(() => {
@@ -234,6 +321,12 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
       return false;
     }).slice(0, 3);
   }, [dossierCompany]);
+
+  // Fit analysis for the currently viewed dossier company
+  const dossierFit = useMemo(() => {
+    if (!dossierCompany) return null;
+    return scoredCompaniesMap.get(dossierCompany.id) || analyzeCompanyFit(dossierCompany);
+  }, [dossierCompany, scoredCompaniesMap]);
 
   const getQuadrantColor = (quad: QuadrantType) => {
     switch (quad) {
@@ -277,11 +370,19 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
   const QUADRANT_POLES: { id: string; label: string }[] = [
     { id: 'ALL', label: 'Todos los Polos' },
     { id: 'EUSKADI', label: 'Euskadi / España' },
-    { id: 'DACH', label: 'DACH (Alemania/Suiza)' },
+    { id: 'DACH', label: 'DACH (Alemania/Austria/Suiza)' },
     { id: 'UK_NL', label: 'UK & Países Bajos' },
-    { id: 'NORDICS', label: 'Nórdicos' },
-    { id: 'GLOBAL', label: 'Global / Remoto' }
+    { id: 'GLOBAL', label: 'Italia / Grecia / UE / Global' },
+    { id: 'NORDICS', label: 'Nórdicos' }
   ];
+
+  const highMatchCount = useMemo(() => {
+    return companies.filter(c => (scoredCompaniesMap.get(c.id)?.score || 70) >= 85).length;
+  }, [companies, scoredCompaniesMap]);
+
+  const withContactsCount = useMemo(() => {
+    return companies.filter(c => (c.contacts || []).length > 0).length;
+  }, [companies]);
 
   return (
     <div className="space-y-5 animate-fadeIn">
@@ -296,11 +397,15 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
               DIRECTORIO DE ENTIDADES // RED DE PROSPECCIÓN & INVESTIGACIÓN
             </h2>
             <span className="text-xs font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-bold">
-              {companies.length} Sitios Guardados
+              {companies.length} Entidades Guardadas
+            </span>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold flex items-center gap-1">
+              <Sparkles className="h-3 w-3" />
+              {highMatchCount} Alta Afinidad (+85%)
             </span>
           </div>
           <p className="text-xs text-slate-400 font-mono mt-1">
-            Exploración visual por categorías de centros de investigación, empresas de impacto y universidades verificadas.
+            Exploración visual interactiva personalizada con tu perfil de Geofísico, Máster en Gestión Ambiental y especialista en GEI/Cuencas.
           </p>
         </div>
 
@@ -406,17 +511,93 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar por nombre, tecnología, ciudad..."
+              placeholder="Buscar por nombre, tecnología, ciudad o skill..."
               className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono transition"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold cursor-pointer"
               >
                 ✕
               </button>
             )}
+          </div>
+        </div>
+
+        {/* Row 3: Filtros Rápidos & Ordenamiento Dinámico */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-800/60">
+          
+          {/* Quick Filter Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider shrink-0 mr-1 font-bold">
+              Filtro Rápido:
+            </span>
+            
+            <button
+              onClick={() => setQuickFilter('ALL')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border ${
+                quickFilter === 'ALL'
+                  ? 'bg-cyan-950 text-cyan-300 border-cyan-700'
+                  : 'bg-slate-900 text-slate-400 hover:text-slate-200 border-slate-800'
+              }`}
+            >
+              Todos ({companies.length})
+            </button>
+
+            <button
+              onClick={() => setQuickFilter('HIGH_MATCH')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1 ${
+                quickFilter === 'HIGH_MATCH'
+                  ? 'bg-emerald-950 text-emerald-300 border-emerald-700 shadow-sm'
+                  : 'bg-slate-900 text-slate-400 hover:text-emerald-300 border-slate-800'
+              }`}
+            >
+              <Sparkles className="h-3 w-3 text-emerald-400" />
+              <span>Alta Afinidad ({highMatchCount})</span>
+            </button>
+
+            <button
+              onClick={() => setQuickFilter('FAVORITES')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1 ${
+                quickFilter === 'FAVORITES'
+                  ? 'bg-amber-950 text-amber-300 border-amber-700 shadow-sm'
+                  : 'bg-slate-900 text-slate-400 hover:text-amber-300 border-slate-800'
+              }`}
+            >
+              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+              <span>Guardados ({favorites.size})</span>
+            </button>
+
+            <button
+              onClick={() => setQuickFilter('WITH_CONTACTS')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1 ${
+                quickFilter === 'WITH_CONTACTS'
+                  ? 'bg-cyan-950 text-cyan-300 border-cyan-700 shadow-sm'
+                  : 'bg-slate-900 text-slate-400 hover:text-cyan-300 border-slate-800'
+              }`}
+            >
+              <Users className="h-3 w-3 text-cyan-400" />
+              <span>Con Decisores ({withContactsCount})</span>
+            </button>
+          </div>
+
+          {/* Sort Selector */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold flex items-center gap-1">
+              <ArrowUpDown className="h-3 w-3 text-slate-400" />
+              Ordenar por:
+            </span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortByType)}
+              className="bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono font-bold rounded-lg px-2.5 py-1 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            >
+              <option value="MATCH">🎯 Mayor Afinidad con Daniel</option>
+              <option value="NAME">🔤 Nombre (A-Z)</option>
+              <option value="CONTACTS">👥 Nº de Contactos / Decisores</option>
+              <option value="QUADRANT">📍 Polo Geográfico</option>
+            </select>
           </div>
         </div>
       </div>
@@ -427,22 +608,23 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
       <div>
         <div className="flex items-center justify-between mb-3 px-1">
           <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
-            <span>Mostrando <strong className="text-cyan-400">{filteredCompanies.length}</strong> sitios</span>
-            {(selectedSectorCluster !== 'ALL' || selectedQuadrant !== 'ALL' || searchQuery) && (
+            <span>Mostrando <strong className="text-cyan-400">{filteredCompanies.length}</strong> entidades</span>
+            {(selectedSectorCluster !== 'ALL' || selectedQuadrant !== 'ALL' || searchQuery || quickFilter !== 'ALL') && (
               <button
                 onClick={() => {
                   setSelectedSectorCluster('ALL');
                   setSelectedQuadrant('ALL');
                   setSearchQuery('');
+                  setQuickFilter('ALL');
                 }}
-                className="text-cyan-400 hover:underline cursor-pointer text-[11px] ml-2"
+                className="text-cyan-400 hover:underline cursor-pointer text-[11px] ml-2 font-bold"
               >
                 Resetear filtros
               </button>
             )}
           </div>
           <span className="text-[11px] text-slate-500 font-mono hidden sm:inline">
-            Pasa el cursor sobre un sitio para ir a su web o ver su dossier
+            Haz click sobre una tarjeta para abrir su expediente de inteligencia o usa los botones directos
           </span>
         </div>
 
@@ -460,10 +642,11 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                 setSelectedSectorCluster('ALL');
                 setSelectedQuadrant('ALL');
                 setSearchQuery('');
+                setQuickFilter('ALL');
               }}
-              className="px-4 py-2 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 text-xs font-mono font-bold hover:bg-cyan-900 transition"
+              className="px-4 py-2 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 text-xs font-mono font-bold hover:bg-cyan-900 transition cursor-pointer"
             >
-              Mostrar todas las organizaciones ({companies.length})
+              Mostrar todas las entidades ({companies.length})
             </button>
           </div>
         ) : (
@@ -472,26 +655,47 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
               const quads = inferCompanyQuadrants(comp);
               const clusterBadge = getClusterBadge(inferCompanySectorCluster(comp));
               const contactCount = (comp.contacts || []).length;
+              const fit = scoredCompaniesMap.get(comp.id) || analyzeCompanyFit(comp);
+              const isFav = favorites.has(comp.id);
 
               return (
                 <div
                   key={comp.id}
-                  className="group relative rounded-2xl p-3.5 sm:p-4 bg-[#0c1220]/95 hover:bg-[#11192e] border border-slate-800/80 hover:border-cyan-500/80 shadow-md hover:shadow-[0_8px_30px_rgba(6,182,212,0.18)] transition-all duration-200 flex flex-col justify-between items-center text-center overflow-hidden min-h-[225px]"
+                  onClick={() => handleOpenDossier(comp)}
+                  className="group relative rounded-2xl p-3 sm:p-3.5 bg-[#0c1220]/95 hover:bg-[#11192e] border border-slate-800/80 hover:border-cyan-500/80 shadow-md hover:shadow-[0_8px_30px_rgba(6,182,212,0.18)] transition-all duration-200 flex flex-col justify-between items-center text-center overflow-hidden min-h-[235px] cursor-pointer"
                 >
-                  {/* Top mini badges */}
-                  <div className="w-full flex items-center justify-between gap-1 mb-1.5">
+                  {/* Top Header inside card: Quadrant + Fit Badge + Star Bookmark */}
+                  <div className="w-full flex items-center justify-between gap-1 mb-1.5" onClick={(e) => e.stopPropagation()}>
                     <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold border ${getQuadrantColor(quads[0] || 'GLOBAL')}`}>
                       {quads[0] || 'GLOBAL'}
                     </span>
-                    {contactCount > 0 && (
+
+                    <div className="flex items-center gap-1">
+                      {/* Match Score Badge */}
                       <span 
-                        className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-700/60 flex items-center gap-0.5" 
-                        title={`${contactCount} decisor(es) mapeados`}
+                        className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-black border flex items-center gap-0.5 shadow-sm ${
+                          fit.score >= 90
+                            ? 'bg-emerald-950/90 text-emerald-300 border-emerald-600/70'
+                            : fit.score >= 80
+                            ? 'bg-cyan-950/90 text-cyan-300 border-cyan-600/70'
+                            : 'bg-slate-800 text-slate-300 border-slate-700'
+                        }`}
+                        title={`${fit.score}% de afinidad con tu formación y áreas de dominio`}
                       >
-                        <Users className="h-2.5 w-2.5" />
-                        {contactCount}
+                        <Sparkles className="h-2.5 w-2.5 text-cyan-400" />
+                        <span>{fit.score}%</span>
                       </span>
-                    )}
+
+                      {/* Favorite Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => toggleFavorite(comp.id, e)}
+                        className="p-1 rounded-md hover:bg-slate-800 transition cursor-pointer text-slate-400 hover:text-amber-400"
+                        title={isFav ? 'Quitar de guardados' : 'Guardar en favoritos'}
+                      >
+                        <Star className={`h-3.5 w-3.5 ${isFav ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`} />
+                      </button>
+                    </div>
                   </div>
 
                   {/* Center Logo & Name */}
@@ -500,7 +704,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                       <CompanyLogo website={comp.website} name={comp.name} />
                     </div>
 
-                    <h4 className="font-bold text-xs sm:text-sm text-white font-sans line-clamp-2 mt-2.5 leading-snug group-hover:text-cyan-300 transition-colors">
+                    <h4 className="font-bold text-xs sm:text-sm text-white font-sans line-clamp-2 mt-2 leading-snug group-hover:text-cyan-300 transition-colors">
                       {comp.name}
                     </h4>
 
@@ -508,10 +712,19 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                       📍 {comp.headquarters}
                     </p>
 
-                    <div className="mt-1.5">
-                      <span className={`text-[9px] px-2 py-0.5 rounded-full font-mono font-bold border ${clusterBadge.color} inline-block truncate max-w-[130px]`}>
+                    <div className="mt-1 flex items-center gap-1 flex-wrap justify-center">
+                      <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold border ${clusterBadge.color} inline-block truncate max-w-[120px]`}>
                         {clusterBadge.label}
                       </span>
+                      {contactCount > 0 && (
+                        <span 
+                          className="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-700/60 flex items-center gap-0.5" 
+                          title={`${contactCount} decisor(es) mapeados`}
+                        >
+                          <Users className="h-2.5 w-2.5" />
+                          {contactCount}
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -519,12 +732,11 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                    * 4. LOS DOS BOTONES INFERIORES:
                    * IZQUIERDA: "Ir a la página" | DERECHA: "Más información"
                    * ========================================================= */}
-                  <div className="w-full grid grid-cols-2 gap-1.5 pt-2.5 mt-2 border-t border-slate-800/80">
+                  <div className="w-full grid grid-cols-2 gap-1.5 pt-2.5 mt-2 border-t border-slate-800/80" onClick={(e) => e.stopPropagation()}>
                     <a
                       href={comp.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
                       className="px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-500 text-[10px] sm:text-[11px] font-mono font-bold transition flex items-center justify-center gap-1 cursor-pointer truncate"
                       title={`Visitar web oficial de ${comp.name}`}
                     >
@@ -579,22 +791,28 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                       </a>
                     )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs">
-                    <span className="text-cyan-400 font-medium">{dossierCompany.sector}</span>
-                    <span className="text-slate-600">•</span>
-                    <span className="text-slate-300">📍 {dossierCompany.headquarters}</span>
-                    <span className="text-slate-600">•</span>
-                    <span className="text-slate-400">{dossierCompany.size}</span>
+
+                  <div className="flex items-center gap-2 flex-wrap text-xs text-slate-400 font-mono">
+                    <span>📍 {dossierCompany.headquarters}</span>
+                    <span>•</span>
+                    <span className="text-cyan-400 font-semibold">{dossierCompany.sector}</span>
+                    <span>•</span>
+                    <span>👥 {dossierCompany.size}</span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    {inferCompanyQuadrants(dossierCompany).map(q => (
-                      <span key={q} className={`text-[9px] px-2 py-0.5 rounded font-mono font-bold border ${getQuadrantColor(q)}`}>
-                        {q}
-                      </span>
-                    ))}
-                    <span className={`text-[9px] px-2 py-0.5 rounded-full font-mono font-bold border ${getClusterBadge(inferCompanySectorCluster(dossierCompany)).color}`}>
+
+                  <div className="flex items-center gap-2 pt-1">
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold border ${getQuadrantColor(inferCompanyQuadrants(dossierCompany)[0] || 'GLOBAL')}`}>
+                      Polo: {inferCompanyQuadrants(dossierCompany).join(', ')}
+                    </span>
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold border ${getClusterBadge(inferCompanySectorCluster(dossierCompany)).color}`}>
                       {getClusterBadge(inferCompanySectorCluster(dossierCompany)).label}
                     </span>
+                    {dossierFit && (
+                      <span className="text-[10px] px-2.5 py-0.5 rounded-full font-mono font-black bg-emerald-950 text-emerald-300 border border-emerald-600 flex items-center gap-1">
+                        <Sparkles className="h-3 w-3 text-emerald-400" />
+                        {dossierFit.score}% Afinidad con Daniel
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -611,7 +829,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                     title="Iniciar prospección directa y preparar CV/Carta"
                   >
                     <Send className="h-3.5 w-3.5" />
-                    <span>Iniciar Prospección</span>
+                    <span>Iniciar Prospección / Carta</span>
                   </button>
                 )}
 
@@ -642,6 +860,53 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* =========================================================================
+             * SECCIÓN ESPECIAL PERSONALIZADA: TU ÁNGULO DE ENTRADA RECOMENDADO
+             * ========================================================================= */}
+            {dossierFit && (
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-cyan-950/60 via-slate-900 to-emerald-950/60 border border-cyan-500/40 shadow-xl space-y-3">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300">
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-xs uppercase tracking-wider text-cyan-300 font-mono">
+                        🎯 TU PROPUESTA DE VALOR & ÁNGULO DE ENTRADA RECOMENDADO
+                      </h4>
+                      <p className="text-[11px] text-slate-400">
+                        Estrategia a medida basada en tu perfil de Geofísico, investigación en turberas (CAU Kiel) y peritaje en cuencas.
+                      </p>
+                    </div>
+                  </div>
+
+                  <span className="text-xs font-mono font-black px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    {dossierFit.score}% Afinidad
+                  </span>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-900/80 border border-cyan-500/20 text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">
+                  {dossierFit.winningAngle}
+                </div>
+
+                {dossierFit.matchedPillars.length > 0 && (
+                  <div className="space-y-2 pt-1">
+                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">
+                      Pilares de afinidad demostrada:
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {dossierFit.matchedPillars.map((p, idx) => (
+                        <div key={idx} className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-[11px] space-y-1">
+                          <span className="font-bold text-cyan-300 font-mono">{p.badge}</span>
+                          <p className="text-slate-400 leading-normal">{p.evidence}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Description */}
             <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -679,69 +944,69 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                 <form onSubmit={handleAddContactSubmit} className="p-3.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 space-y-3 animate-fadeIn">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[11px] font-mono text-slate-400 block mb-1">Nombre Completo *</label>
+                      <label className="block text-[10px] font-mono text-slate-400 mb-1">Nombre y Apellido *</label>
                       <input
                         type="text"
-                        required
                         value={contactName}
                         onChange={(e) => setContactName(e.target.value)}
-                        placeholder="Ej: Dr. Markus Weiler / Prof. Angela Meyer"
-                        className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500"
+                        placeholder="Ej: Dr. Markus Reichstein"
+                        required
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] font-mono text-slate-400 block mb-1">Cargo / Rol *</label>
+                      <label className="block text-[10px] font-mono text-slate-400 mb-1">Rol / Cargo *</label>
                       <input
                         type="text"
-                        required
                         value={contactRole}
                         onChange={(e) => setContactRole(e.target.value)}
-                        placeholder="Ej: Head of Research / Director Técnico"
-                        className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500"
+                        placeholder="Ej: Director Biogeochemical Integration / PI"
+                        required
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] font-mono text-slate-400 block mb-1">Perfil LinkedIn</label>
+                      <label className="block text-[10px] font-mono text-slate-400 mb-1">Email de contacto</label>
+                      <input
+                        type="email"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        placeholder="contacto@instituto.org"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-mono text-slate-400 mb-1">LinkedIn URL</label>
                       <input
                         type="url"
                         value={contactLinkedin}
                         onChange={(e) => setContactLinkedin(e.target.value)}
                         placeholder="https://linkedin.com/in/..."
-                        className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-mono text-slate-400 block mb-1">Correo Institucional</label>
-                      <input
-                        type="email"
-                        value={contactEmail}
-                        onChange={(e) => setContactEmail(e.target.value)}
-                        placeholder="nombre@instituto.de"
-                        className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-[11px] font-mono text-slate-400 block mb-1">Notas / Publicaciones de interés</label>
+                    <label className="block text-[10px] font-mono text-slate-400 mb-1">Notas / Publicaciones relevantes</label>
                     <input
                       type="text"
                       value={contactNotes}
                       onChange={(e) => setContactNotes(e.target.value)}
-                      placeholder="Ej: Lidera el proyecto de torres eddy covariance o modelos climáticos."
-                      className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-cyan-500"
+                      placeholder="Coordinador de la red Eddy Covariance ICOS..."
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
                     />
                   </div>
                   <div className="flex justify-end gap-2 pt-1">
                     <button
                       type="button"
                       onClick={() => setIsAddingContact(false)}
-                      className="px-3 py-1 text-xs text-slate-400 hover:text-white"
+                      className="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-mono hover:bg-slate-700 cursor-pointer"
                     >
                       Cancelar
                     </button>
                     <button
                       type="submit"
-                      className="px-3.5 py-1 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-lg transition"
+                      className="px-3.5 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-mono font-bold cursor-pointer"
                     >
                       Guardar Decisor
                     </button>
@@ -749,166 +1014,237 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                 </form>
               )}
 
-              {/* List of contacts */}
-              {dossierCompany.contacts && dossierCompany.contacts.length > 0 ? (
+              {/* Contact list */}
+              {(!dossierCompany.contacts || dossierCompany.contacts.length === 0) ? (
+                <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 text-center">
+                  <p className="text-xs text-slate-500 font-mono">
+                    Aún no has mapeado decisores específicos para esta organización. Haz click en "Agregar Decisor" para guardar el PI, líder de laboratorio o recruiter.
+                  </p>
+                </div>
+              ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {dossierCompany.contacts.map((cnt) => (
-                    <div key={cnt.id} className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1.5 relative group">
-                      <div className="flex items-start justify-between">
-                        <h5 className="font-bold text-sm text-white">{cnt.name}</h5>
-                        <button
-                          onClick={() => handleDeleteContact(cnt.id)}
-                          className="text-slate-500 hover:text-rose-400 text-xs opacity-0 group-hover:opacity-100 transition"
-                          title="Eliminar contacto"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                      <p className="text-xs text-cyan-400 font-medium">{cnt.role}</p>
+                  {dossierCompany.contacts.map((contact) => (
+                    <div 
+                      key={contact.id} 
+                      className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition space-y-1.5 relative group/contact"
+                    >
+                      <button
+                        onClick={() => handleDeleteContact(contact.id)}
+                        className="absolute top-2 right-2 p-1 text-slate-500 hover:text-rose-400 opacity-0 group-hover/contact:opacity-100 transition cursor-pointer"
+                        title="Eliminar contacto"
+                      >
+                        ✕
+                      </button>
 
-                      <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px]">
-                        {cnt.linkedinUrl && (
+                      <div className="font-bold text-xs text-white flex items-center gap-1.5">
+                        <span>{contact.name}</span>
+                      </div>
+
+                      <div className="text-[11px] text-cyan-400 font-mono">
+                        {contact.role}
+                      </div>
+
+                      {contact.notes && (
+                        <div className="text-[10px] text-slate-400 italic">
+                          "{contact.notes}"
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-2 pt-1">
+                        {contact.email && (
                           <a
-                            href={cnt.linkedinUrl}
+                            href={`mailto:${contact.email}`}
+                            className="text-[10px] font-mono text-slate-300 hover:text-cyan-300 flex items-center gap-1 bg-slate-800 px-2 py-0.5 rounded border border-slate-700"
+                          >
+                            <Mail className="h-3 w-3 text-cyan-400" />
+                            <span>{contact.email}</span>
+                          </a>
+                        )}
+                        {contact.linkedinUrl && (
+                          <a
+                            href={contact.linkedinUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sky-400 hover:underline flex items-center gap-1 font-mono"
+                            className="text-[10px] font-mono text-slate-300 hover:text-cyan-300 flex items-center gap-1 bg-slate-800 px-2 py-0.5 rounded border border-slate-700"
                           >
-                            <LinkIcon className="h-3 w-3" />
+                            <LinkIcon className="h-3 w-3 text-blue-400" />
                             <span>LinkedIn</span>
                           </a>
                         )}
-                        {cnt.email && (
-                          <a
-                            href={`mailto:${cnt.email}`}
-                            className="text-emerald-400 hover:underline flex items-center gap-1 font-mono"
-                          >
-                            <Mail className="h-3 w-3" />
-                            <span>{cnt.email}</span>
-                          </a>
-                        )}
                       </div>
-
-                      {cnt.notes && (
-                        <p className="text-[11px] text-slate-400 pt-1 border-t border-slate-800/60 italic">
-                          "{cnt.notes}"
-                        </p>
-                      )}
                     </div>
                   ))}
-                </div>
-              ) : (
-                <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center text-xs text-slate-400">
-                  No hay decisores registrados para esta organización. Haz clic en <strong className="text-cyan-400">"Agregar Decisor"</strong> para mapear al investigador principal o responsable de contratación.
                 </div>
               )}
             </div>
 
-            {/* SECCIÓN 2: CONVOCATORIAS ASOCIADAS / PALANCA DE FINANCIACIÓN */}
+            {/* SECCIÓN 2: CONVOCATORIAS & VÍNCULOS DE FINANCIACIÓN */}
             {relatedFunding.length > 0 && (
-              <div className="p-4 rounded-2xl bg-amber-950/30 border border-amber-500/30 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-amber-300 font-mono flex items-center gap-2">
-                    <Coins className="h-4 w-4 text-amber-400" />
-                    <span>CONVOCATORIAS & FONDOS PUENTE ASOCIADOS</span>
-                  </h4>
-                  <span className="text-[10px] text-amber-400/80 font-mono">
-                    Argumento de co-financiación
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {relatedFunding.map((fund) => (
-                    <div key={fund.id} className="p-2.5 rounded-xl bg-slate-900/90 border border-amber-900/40 text-xs space-y-1">
-                      <div className="font-bold text-white leading-snug">{fund.title}</div>
-                      <div className="text-[11px] text-amber-400 font-mono">{fund.organization} • {fund.amount}</div>
-                      <p className="text-[11px] text-slate-400 line-clamp-1">{fund.strategicFit}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* SECCIÓN 3: ARGUMENTOS RETÓRICOS PARA ENTREVISTAS & PITCH */}
-            <div className="p-4 sm:p-5 rounded-2xl border border-emerald-500/30 bg-emerald-950/30 space-y-3">
-              <h4 className="font-bold text-xs uppercase tracking-wider text-emerald-300 flex items-center space-x-2 font-mono">
-                <MessageSquare className="h-4 w-4 text-emerald-400" />
-                <span>ARGUMENTOS ESTRATÉGICOS // PRUEBA DE SOLVENCIA PARA ESTA ORGANIZACIÓN</span>
-              </h4>
-              <div className="space-y-2">
-                {dossierCompany.interviewArguments.map((arg, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-slate-900/80 border border-emerald-800/40 text-xs text-slate-200 flex items-start space-x-2">
-                    <span className="text-emerald-400 font-bold">•</span>
-                    <span>{arg}</span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#090e1a] border border-emerald-500/30 shadow-xl space-y-3">
+                <div className="flex items-center gap-2 border-b border-slate-800/80 pb-3">
+                  <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+                    <Coins className="h-4 w-4" />
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* SECCIÓN 4: PROYECTOS Y NOTICIAS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Proyectos Clave */}
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-                <h4 className="font-bold text-xs text-slate-200 flex items-center space-x-1.5 font-mono">
-                  <Briefcase className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>LÍNEAS DE INVESTIGACIÓN & PROYECTOS</span>
-                </h4>
-                <div className="space-y-1.5">
-                  {dossierCompany.keyProjects.map((proj, i) => (
-                    <div key={i} className="text-xs text-slate-300 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60">
-                      {proj}
-                    </div>
-                  ))}
+                  <div>
+                    <h4 className="font-bold text-xs uppercase tracking-wider text-emerald-300 font-mono">
+                      VÍNCULOS DE FINANCIACIÓN & CONVOCATORIAS ASOCIADAS
+                    </h4>
+                    <p className="text-[11px] text-slate-400">
+                      Instrumentos públicos y programas de I+D (Horizon Europe, DFG, Hazitek, Marie Curie) con los que esta entidad contrata.
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {/* Noticias Recientes */}
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-                <h4 className="font-bold text-xs text-slate-200 flex items-center space-x-1.5 font-mono">
-                  <Newspaper className="h-3.5 w-3.5 text-lime-400" />
-                  <span>SEÑALES RECIENTES // NOTICIAS</span>
-                </h4>
-                <div className="space-y-2">
-                  {dossierCompany.recentNews.map((news, i) => (
-                    <div key={i} className="text-xs space-y-0.5 p-2 rounded-lg bg-slate-800/60 border border-slate-700/60">
-                      <div className="font-semibold text-slate-200 flex items-center justify-between">
-                        <span>{news.title}</span>
-                        <span className="text-[10px] text-slate-400 font-mono">{news.date}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {relatedFunding.map((fund) => (
+                    <div key={fund.id} className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+                      <div className="font-bold text-xs text-white font-mono flex items-center gap-1">
+                        <span>💰</span>
+                        <span className="truncate">{fund.title}</span>
                       </div>
-                      <p className="text-[11px] text-slate-400">{news.snippet}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Red Flags / Risk Alert */}
-            {dossierCompany.redFlags.length > 0 && (
-              <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 space-y-2 text-xs">
-                <h4 className="font-bold flex items-center space-x-1.5 text-rose-200 font-mono">
-                  <ShieldAlert className="h-4 w-4 text-rose-400" />
-                  <span>CONSIDERACIONES & ALERTAS DE PROCESO</span>
-                </h4>
-                <div className="space-y-1">
-                  {dossierCompany.redFlags.map((flag, i) => (
-                    <div key={i} className="flex items-start space-x-1.5">
-                      <span>•</span>
-                      <span>{flag}</span>
+                      <div className="text-[10px] text-emerald-400 font-mono font-bold">
+                        {fund.amount} • {fund.category}
+                      </div>
+                      <p className="text-[10px] text-slate-400 line-clamp-2">
+                        {fund.description}
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Footer close button */}
-            <div className="pt-2 flex justify-end border-t border-slate-800">
-              <button
-                type="button"
-                onClick={() => setIsDossierModalOpen(false)}
-                className="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-mono font-bold text-xs transition cursor-pointer"
-              >
-                Cerrar Expediente
-              </button>
+            {/* SECCIÓN 3: ARGUMENTOS DE ENTREVISTA TÉCNICA */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#090e1a] border border-slate-800 shadow-xl space-y-3">
+              <div className="flex items-center gap-2 border-b border-slate-800/80 pb-3">
+                <div className="p-1.5 rounded-lg bg-teal-500/10 text-teal-400">
+                  <MessageSquare className="h-4 w-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-teal-300 font-mono">
+                    ARGUMENTOS DE ENTREVISTA & FIT TÉCNICO
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    Puntos fuertes preparados para fundamentar tu postulación o conversación con decisores.
+                  </p>
+                </div>
+              </div>
+
+              <ul className="space-y-2">
+                {dossierCompany.interviewArguments.map((arg, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                    <span className="text-teal-400 shrink-0 font-mono font-bold">✓</span>
+                    <span>{arg}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* SECCIÓN 4: PROYECTOS CLAVE & TECH STACK */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Proyectos clave */}
+              <div className="p-4 rounded-2xl bg-[#090e1a] border border-slate-800 space-y-2">
+                <div className="flex items-center gap-2 font-mono font-bold text-xs text-white">
+                  <Briefcase className="h-4 w-4 text-cyan-400" />
+                  <span>PROYECTOS ESTRATÉGICOS & LÍNEAS DE I+D</span>
+                </div>
+                <ul className="space-y-1.5">
+                  {dossierCompany.keyProjects.map((proj, idx) => (
+                    <li key={idx} className="text-xs text-slate-300 flex items-start gap-1.5">
+                      <span className="text-cyan-500 font-mono">•</span>
+                      <span>{proj}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Tech Stack */}
+              <div className="p-4 rounded-2xl bg-[#090e1a] border border-slate-800 space-y-2">
+                <div className="flex items-center gap-2 font-mono font-bold text-xs text-white">
+                  <span>⚙️</span>
+                  <span>TECNOLOGÍAS & METODOLOGÍAS DEL CENTRO</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {(dossierCompany.techStack || []).map((tech, idx) => (
+                    <span 
+                      key={idx}
+                      className="px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-xs font-mono text-cyan-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* SECCIÓN 5: NOTICIAS RECIENTES */}
+            {dossierCompany.recentNews.length > 0 && (
+              <div className="p-4 rounded-2xl bg-[#090e1a] border border-slate-800 space-y-3">
+                <div className="flex items-center gap-2 font-mono font-bold text-xs text-white">
+                  <Newspaper className="h-4 w-4 text-cyan-400" />
+                  <span>NOTICIAS RECIENTES & PUBLICACIONES</span>
+                </div>
+                <div className="space-y-2">
+                  {dossierCompany.recentNews.map((news, idx) => (
+                    <div key={idx} className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 text-xs space-y-1">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono">
+                        <span className="font-bold text-white">{news.title}</span>
+                        <span>{news.date}</span>
+                      </div>
+                      <p className="text-slate-400 text-[11px]">{news.snippet}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SECCIÓN 6: ALERTAS / RED FLAGS */}
+            {dossierCompany.redFlags.length > 0 && (
+              <div className="p-4 rounded-2xl bg-rose-950/20 border border-rose-900/40 space-y-2">
+                <div className="flex items-center gap-2 font-mono font-bold text-xs text-rose-300">
+                  <ShieldAlert className="h-4 w-4 text-rose-400" />
+                  <span>ALERTAS / CONDICIONES A TENER EN CUENTA</span>
+                </div>
+                <ul className="space-y-1">
+                  {dossierCompany.redFlags.map((flag, idx) => (
+                    <li key={idx} className="text-xs text-rose-200/80 flex items-start gap-1.5">
+                      <span className="text-rose-400 font-mono">⚠</span>
+                      <span>{flag}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Footer close button & Direct action */}
+            <div className="pt-2 flex items-center justify-between border-t border-slate-800 flex-wrap gap-2">
+              <span className="text-[11px] font-mono text-slate-500">
+                Última actualización de inteligencia: {dossierCompany.lastResearched}
+              </span>
+
+              <div className="flex items-center gap-2">
+                {onStartPipeline && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onStartPipeline(dossierCompany.id);
+                      setIsDossierModalOpen(false);
+                    }}
+                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-mono font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-lg"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                    <span>Redactar Carta para esta Organización</span>
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setIsDossierModalOpen(false)}
+                  className="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-mono font-bold text-xs transition cursor-pointer"
+                >
+                  Cerrar Expediente
+                </button>
+              </div>
             </div>
           </div>
         </div>

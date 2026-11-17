@@ -3581,6 +3581,955 @@ export const initialCompanies: CompanyDossier[] = [
     quadrants: ['EUSKADI', 'UK_NL', 'GLOBAL'],
     sectorCluster: 'CARBON_TECH_MRV',
     fundingTies: ['f-hazitek-elkartek', 'f-horizon-cluster6']
+  },
+  {
+    id: 'comp-kit-imk-ifu',
+    name: 'KIT - Institute of Meteorology and Climate Research (IMK-IFU)',
+    website: 'https://www.imk-ifu.kit.edu/',
+    sector: 'Investigación Meteorológica & Dinámica de GEI Terrestres (Helmholtz / KIT)',
+    size: '150-300 investigadores',
+    headquarters: 'Garmisch-Partenkirchen / Karlsruhe, Alemania',
+    description: 'El Campus Alpin del Karlsruhe Institute of Technology (KIT) es un centro de excelencia mundial en micrometeorología, flujos de gases de efecto invernadero (CO2, CH4, N2O) en ecosistemas terrestres mediante torres Eddy Covariance y cámaras automatizadas, y modelación de procesos biogeoquímicos de biosfera-atmósfera. Opera bajo la escala salarial federal alemana TV-L E13/E14.',
+    keyProjects: [
+      'TERENO (Terrestrial Environmental Observatories) - Red de observatorios biogeoquímicos alpinos y prealpinos',
+      'ICOS Ecosystem Station Garmisch & Graswang (Micrometeorological Eddy Covariance Towers)',
+      'MoBiLE (Modular Biosphere-Atmosphere Simulation Model) para balances de C y N'
+    ],
+    recentNews: [
+      {
+        title: 'Expansión de la red ICOS para cuantificación de metano en humedales templados y prealpinos',
+        date: '2026-03-12',
+        snippet: 'Monitoreo continuo de forzantes hidrometeorológicos y pulsos de emisión de metano y óxido nitroso en suelos saturados.'
+      }
+    ],
+    workCulture: [
+      'Rigor cuantitativo absoluto en control de calidad de datos de alta frecuencia (10-20 Hz) de Eddy Covariance',
+      'Contratos estables de investigador postdoctoral / científico de planta (100% TV-L E13/E14 con pagas extras)',
+      'Integración en la prestigiosa Asociación Helmholtz de Centros de Investigación de Alemania'
+    ],
+    redFlags: [
+      'Ubicación en Garmisch-Partenkirchen (Baviera alpina): coste de vida y vivienda elevado',
+      'Alta exigencia de publicaciones peer-reviewed en revistas de primer cuartil (Q1)'
+    ],
+    interviewArguments: [
+      'Experiencia directa de 2 años operando torres de covarianza de torbellinos (Eddy Covariance) y cámaras de flujo cerrado en la turbera templada Wallener Au (Alemania).',
+      'Dominio en Python y R para el procesamiento de series temporales micrometeorológicas, correcciones de densidad (WPL) y gap-filling (REddyProc).',
+      'Doble máster europeo en gestión ambiental (CAU Kiel) con conocimiento de la normativa ambiental alemana y europea.'
+    ],
+    techStack: [
+      'Eddy Covariance',
+      'Cámaras de Flujo',
+      'MoBiLE',
+      'R / REddyProc',
+      'Python',
+      'ICOS Standards',
+      'TERENO'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-kit-1',
+        name: 'Prof. Dr. Ralf Kiese',
+        role: 'Head of Division Ecosystem Matter Repeats / PI',
+        notes: 'Especialista en flujos de GEI y modelación de biosfera en TERENO'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-tum-surface',
+    name: 'Technical University of Munich (TUM) - Climate & Land Surface Lab',
+    website: 'https://www.tum.de/',
+    sector: 'Interacciones Superficie-Atmósfera & Gemelos Digitales (Universidad de Excelencia)',
+    size: '500+ investigadores (TUM School of Life Sciences)',
+    headquarters: 'Freising / Múnich, Baviera, Alemania',
+    description: 'Universidad de Excelencia de Baviera. Sus cátedras en Interacciones Superficie-Atmósfera y Teledetección de Superficies Terrestres lideran el desarrollo de gemelos digitales de cuencas, asimilación de datos satelitales en modelos biofísicos de suelo y monitoreo del estrés hídrico de la vegetación.',
+    keyProjects: [
+      'TUM Digital Twin Earth: Modelación biofísica de cuencas del Danubio',
+      'Bavarian Peatland Climate Protection (Moor-Klimaschutz Bayern)',
+      'Space-borne Multi-Sensor Soil Moisture and Evapotranspiration Dynamics'
+    ],
+    recentNews: [
+      {
+        title: 'Nueva iniciativa de biofísica computacional para la rehumidificación de turberas bávaras',
+        date: '2026-02-18',
+        snippet: 'Modelación de flujos de calor latente y sensible combinando cámaras de flujo y teledetección hiperespectral.'
+      }
+    ],
+    workCulture: [
+      'Entorno de máxima competitividad e innovación técnica con fuerte transferencia a startups deep-tech',
+      'Financiación generosa vía DFG y contratos TV-L E13/E14'
+    ],
+    redFlags: [
+      'Mercado inmobiliario en Múnich y alrededores extremadamente tensionado'
+    ],
+    interviewArguments: [
+      'Perfil híbrido único: geofísico cuantitativo con experiencia en gemelos digitales 3D (Wetland Monitor) y trabajo de campo experimental en suelos y turberas.',
+      'Capacidad demostrada para integrar física de suelos (curvas de retención hídrica) con sensores remotos y modelación numérica.'
+    ],
+    techStack: [
+      'Python',
+      'QGIS',
+      'Google Earth Engine',
+      'Gemelos Digitales',
+      'Física de Suelos',
+      'FLUXNET',
+      'Three.js'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-tum-1',
+        name: 'Prof. Dr. Anja Rammig',
+        role: 'Chair of Land Surface-Atmosphere Interactions',
+        notes: 'Especialista en resiliencia de ecosistemas y balances de carbono'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-dlr-eoc',
+    name: 'DLR - Earth Observation Center (EOC)',
+    website: 'https://www.dlr.de/eoc/',
+    sector: 'Teledetección Satelital, Riesgos Naturales & Observación de la Tierra',
+    size: '400+ investigadores e ingenieros',
+    headquarters: 'Oberpfaffenhofen (Múnich), Baviera, Alemania',
+    description: 'El centro líder de Alemania en teledetección espacial de la Agencia Aeroespacial Alemana (DLR). Desarrolla los algoritmos operativos para misiones Sentinel y EnMAP, centrándose en sequías, megaincendios forestales, humedad del suelo y respuestas biofísicas al cambio climático. Salarios públicos de primer nivel (TVöD Bund E13/E14).',
+    keyProjects: [
+      'Copernicus Emergency Management Service (EMS) Rapid Mapping & Early Warning',
+      'Global Fire & Drought Early Warning Engine (DLR FireBIRD)',
+      'Hydrological Subsurface Soil Moisture Retrieval from Multi-Frequency Radar'
+    ],
+    recentNews: [
+      {
+        title: 'DLR lanza nuevo producto de riesgo dinámico de combustible forestal con inteligencia artificial',
+        date: '2026-04-05',
+        snippet: 'Integración de series temporales de humedad edáfica y estrés de canopeo para predecir megaincendios.'
+      }
+    ],
+    workCulture: [
+      'Estándares rigurosos de ingeniería espacial e infraestructura computacional de clase mundial',
+      'Excelente conciliación familiar, horarios flexibles y escala TVöD Bund muy atractiva'
+    ],
+    redFlags: [
+      'Procesos de selección y contratación formal largos al ser una agencia federal de investigación'
+    ],
+    interviewArguments: [
+      'Experiencia contrastada en modelación biofísica de incendios forestales y testimonio parlamentario oficial sobre la causalidad territorial de megaincendios.',
+      'Sólida formación cuantitativa en geofísica e inversión numérica, ideal para el procesamiento de datos radar y térmicos satelitales.'
+    ],
+    techStack: [
+      'Sentinel-1/2',
+      'Python',
+      'QGIS',
+      'Radar SAR',
+      'Google Earth Engine',
+      'Teledetección Térmica',
+      'Copernicus'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-dlr-1',
+        name: 'Dr. Michael Schmitt',
+        role: 'Senior Research Group Leader / Earth Observation',
+        notes: 'Líder en IA para teledetección y monitoreo de desastres'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-mpic-jena',
+    name: 'Max Planck Institute for Biogeochemistry (MPI-BGC Jena)',
+    website: 'https://www.bgc-jena.mpg.de/',
+    sector: 'Ciclos Biogeoquímicos Globales, FLUXNET & Física del Clima Terrestre',
+    size: '250-400 investigadores de clase mundial',
+    headquarters: 'Jena, Alemania',
+    description: 'El instituto de investigación biogeoquímica más citado del planeta. Lidera el procesamiento y la síntesis mundial de la red FLUXNET, la iniciativa ICOS europea y la combinación de física de procesos con Machine Learning (Earth System Data Lab) bajo la dirección de Markus Reichstein. Salarios TVöD / Max Planck con 100% de dedicación investigadora.',
+    keyProjects: [
+      'FLUXNET Global Synthesis & Eddy Covariance Processing Pipelines',
+      'DeepExtremes: Machine Learning for Hydrological & Temperature Extremes',
+      'Soil Carbon Dynamics & Radiocarbon Dating of Organic Matter'
+    ],
+    recentNews: [
+      {
+        title: 'Nueva generación de modelos híbridos que combinan redes neuronales con balances biofísicos de agua y carbono',
+        date: '2026-03-29',
+        snippet: 'Publicación en Nature de los avances del grupo Biogeochemical Integration.'
+      }
+    ],
+    workCulture: [
+      'Cultura académica global de máximo nivel con investigadores de más de 40 nacionalidades',
+      'Autonomía investigadora absoluta y recursos de supercomputación sin restricciones'
+    ],
+    redFlags: [
+      'Jena es una ciudad universitaria mediana; requerirá traslado si el contrato exige presencia in situ'
+    ],
+    interviewArguments: [
+      'Mediciones directas de Eddy Covariance y cámaras de flujo en turberas alemanas (Wallener Au), con dominio empírico de las limitaciones y artefactos de los datos de campo.',
+      'Capacidad comprobada en desarrollo de software y gemelos digitales con Python, R y Three.js, uniendo código y biofísica empírica.'
+    ],
+    techStack: [
+      'Eddy Covariance',
+      'FLUXNET',
+      'Python',
+      'PyTorch',
+      'R',
+      'Física de Suelos',
+      'ICOS',
+      'Asimilación de Datos'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-mpic-1',
+        name: 'Prof. Dr. Markus Reichstein',
+        role: 'Director Biogeochemical Integration',
+        notes: 'Pionero mundial en unir IA y ciencias del sistema Tierra'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-iiasa',
+    name: 'IIASA - International Institute for Applied Systems Analysis',
+    website: 'https://iiasa.ac.at/',
+    sector: 'Análisis de Sistemas Complejos, Biosfera & Gobernanza Climática Global',
+    size: '300-500 científicos internacionales',
+    headquarters: 'Laxenburg (Viena), Austria',
+    description: 'Organismo científico internacional autónomo de primer orden. Asesora a Naciones Unidas, IPCC y la Comisión Europea en transiciones de uso de suelo, modelos integrados de biosfera (GLOBIOM), gestión de cuencas hidrográficas y mitigación del cambio climático. Salarios internacionales exentos de IRPF austríaco o con régimen fiscal preferente de alta escala.',
+    keyProjects: [
+      'Integrated Biosphere Futures (IBF) & GLOBIOM Land-Use Model',
+      'Water Security and Transboundary Basin Governance',
+      'Novel Carbon Removal (CDR) & Peatland Rewetting Policy Frameworks'
+    ],
+    recentNews: [
+      {
+        title: 'IIASA publica el informe global sobre contabilidad y verificación de remociones de carbono basadas en la naturaleza',
+        date: '2026-02-14',
+        snippet: 'Recomendaciones directas para la certificación CRCF de la Comisión Europea.'
+      }
+    ],
+    workCulture: [
+      'Ambiente diplomático y científico multidisciplinario de alto prestigio',
+      'Condiciones contractuales excelentes: paquetes de reubicación, seguros internacionales y conciliación'
+    ],
+    redFlags: [
+      'Procesos de postulación muy competitivos a nivel global (candidatos de Harvard, Cambridge, ETH)'
+    ],
+    interviewArguments: [
+      'Combinación singular de rigor geofísico/biofísico y experiencia en asesoría parlamentaria oficial e incidencia en políticas de cuencas.',
+      'Conocimiento directo de las directivas europeas de agua y biodiversidad y doble maestría europea en gestión ambiental.'
+    ],
+    techStack: [
+      'GLOBIOM',
+      'Python',
+      'QGIS',
+      'Análisis de Políticas',
+      'Gobernanza de Cuencas',
+      'Sistemas Complejos'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-iiasa-1',
+        name: 'Dr. Florian Kraxner',
+        role: 'Research Group Leader - Agriculture, Forestry and Ecosystem Services',
+        notes: 'Referente en bioeconomía y uso del suelo en Europa'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-boku',
+    name: 'BOKU University - Department of Forest and Soil Sciences',
+    website: 'https://boku.ac.at/',
+    sector: 'Física de Suelos, Hidrología & Balances de Carbono (Univ. de Suelos de Viena)',
+    size: '1.000+ personal académico y técnico',
+    headquarters: 'Viena, Austria',
+    description: 'La Universidad de Recursos Naturales y Ciencias de la Vida de Viena (BOKU) es el referente europeo por excelencia en ciencias edáficas, física de suelos, curvas de retención de agua, dinámica de materia orgánica y restauración de ecosistemas degradados. Contratos bajo el convenio colectivo universitario austríaco (Kollektivvertrag Postdoc B1/Senior Scientist, €60k+ brutos con 14 pagas).',
+    keyProjects: [
+      'Soil-Plant-Atmosphere Continuum (SPAC) Water and Solute Transport',
+      'Peatland and Organic Soil Rewetting Dynamics in Central Europe',
+      'Eddy Covariance and Lysimeter Field Network for Carbon and Water Budgets'
+    ],
+    recentNews: [
+      {
+        title: 'Inauguración de la nueva estación de lisímetros y covarianza de torbellinos para suelos agrícolas rehumidificados',
+        date: '2026-01-22',
+        snippet: 'Investigación sobre la reducción efectiva de emisiones de óxido nitroso y metano.'
+      }
+    ],
+    workCulture: [
+      'Comunidad universitaria muy orientada a la sostenibilidad ecológica real y la ciencia de campo',
+      'Alta calidad de vida en Viena (catalogada reiteradamente como la mejor ciudad del mundo para vivir)'
+    ],
+    redFlags: [
+      'La burocracia universitaria austríaca puede ser lenta para tramitaciones iniciales'
+    ],
+    interviewArguments: [
+      'Formación específica en caracterización hidrofísica y curvas de retención hídrica en suelos templados bajo legado de drenaje en Alemania (Wallener Au).',
+      'Capacidad técnica demostrada para instalar, calibrar y analizar datos micrometeorológicos y cámaras cerradas de flujo de gases.'
+    ],
+    techStack: [
+      'Física de Suelos',
+      'HYDRUS-1D/2D',
+      'Eddy Covariance',
+      'R',
+      'Python',
+      'QGIS',
+      'Curvas pF'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-boku-1',
+        name: 'Univ.-Prof. Dr. Sophie Zechmeister-Boltenstern',
+        role: 'Head of Institute of Soil Research',
+        notes: 'Líder en dinámica de gases de efecto invernadero y microbiología edáfica'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-geosphere-austria',
+    name: 'GeoSphere Austria (Geophysics & Climate Hazards)',
+    website: 'https://www.geosphere.at/',
+    sector: 'Geofísica Aplicada, Hidrogeología & Riesgos Climáticos',
+    size: '500+ especialistas',
+    headquarters: 'Viena, Austria',
+    description: 'El servicio federal nacional austríaco para geología, geofísica, meteorología y climatología (resultado de la unión de ZAMG y el Servicio Geológico). Realiza prospección geofísica profunda y somera (gravimetría, resistividad eléctrica), cartografía de acuíferos y modelos dinámicos de riesgo de avalanchas e incendios forestales. Salarios públicos austríacos muy consolidados.',
+    keyProjects: [
+      'Austrian Hydrogeophysical Subsurface Mapping (ERT, SEV & Gravimetry)',
+      'National Wildfire Danger & Extreme Drought Prediction Grid',
+      'Geothermal Exploration and Shallow Aquifer Thermal Storage'
+    ],
+    recentNews: [
+      {
+        title: 'GeoSphere implementa nuevo sistema de prospección hidrogeofísica para la resiliencia hídrica de cuencas alpinas',
+        date: '2026-03-04',
+        snippet: 'Mapeo 3D de la recarga de aguas subterráneas frente a anomalías de precipitación.'
+      }
+    ],
+    workCulture: [
+      'Entorno eminentemente técnico y de servicio público con instrumental geofísico de última generación',
+      'Estabilidad laboral pública excelente'
+    ],
+    redFlags: [
+      'Requisito frecuente de acreditación de nivel de alemán profesional (B2/C1)'
+    ],
+    interviewArguments: [
+      'Memoria de título aprobada Con Distinción en Geofísica en la Universidad de Chile centrada exactamente en Sondeos Eléctricos Verticales (SEV) y gravimetría para cuencas hidrográficas.',
+      'Doble máster europeo en gestión ambiental en Alemania (CAU Kiel) con acreditación de idioma y comprensión operativa del entorno DACH.'
+    ],
+    techStack: [
+      'Sondeos Eléctricos Verticales (SEV)',
+      'Gravimetría',
+      'Inversión Geofísica',
+      'Python',
+      'QGIS',
+      'Hidrología Subterránea'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-geo-1',
+        name: 'Dr. Robert Supper',
+        role: 'Head of Applied Geophysics Division',
+        notes: 'Especialista en geoeléctrica y monitoreo geofísico de deslizamientos'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-tu-wien-climers',
+    name: 'TU Wien - Climate & Environmental Remote Sensing (CLIMERS)',
+    website: 'https://www.geo.tuwien.ac.at/',
+    sector: 'Teledetección de Humedad de Suelo, Radar & Microondas Satelitales',
+    size: '80+ investigadores',
+    headquarters: 'Viena, Austria',
+    description: 'El grupo CLIMERS del Departamento de Geodesia y Geoinformación de la Universidad Técnica de Viena (liderado por Wolfgang Wagner) es el creador del algoritmo oficial de humedad de suelo de la ESA y Copernicus. Referente en el uso de datos radar activos y pasivos para cuantificar sequías edáficas a nivel continental.',
+    keyProjects: [
+      'Copernicus Global Land Service - Surface Soil Moisture (SSM)',
+      'CCI Soil Moisture (ESA Climate Change Initiative)',
+      'Global Drought and Wildfire Fuel Moisture Early Warning'
+    ],
+    recentNews: [
+      {
+        title: 'CLIMERS lanza la versión 9.0 del conjunto de datos histórico de humedad de suelo multi-sensor',
+        date: '2026-02-10',
+        snippet: 'Integración de observaciones Sentinel-1 y scatterómetros para monitoreo a escala de parcela.'
+      }
+    ],
+    workCulture: [
+      'Enfoque de física de sensores remotos de altísima precisión y pipelines de datos masivos',
+      'Contratos de postdoctorado e investigación muy bien remunerados vía proyectos de la ESA y UE'
+    ],
+    redFlags: [
+      'Perfil intensamente computacional y matemático en algoritmos de dispersión electromagnética'
+    ],
+    interviewArguments: [
+      'Conocimiento directo de la física del suelo y dinámica de agua en el perfil edáfico medido in situ en Alemania, lo que aporta validación terrena a los productos de satélite.',
+      'Capacidad en Python, análisis de series temporales espaciales y desarrollo de visualizadores interactivos (gemelos digitales).'
+    ],
+    techStack: [
+      'Radar Scatterometry',
+      'Sentinel-1',
+      'Python',
+      'Xarray',
+      'QGIS',
+      'Copernicus Data Space',
+      'Física de Suelos'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-tuw-1',
+        name: 'Prof. Dr. Wolfgang Wagner',
+        role: 'Head of Research Unit Remote Sensing / PI',
+        notes: 'Pionero mundial en teledetección de humedad edáfica'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-deltares',
+    name: 'Deltares - Water, Subsurface & Infrastructure Institute',
+    website: 'https://www.deltares.nl/',
+    sector: 'Hidrología de Humedales, Subsidencia de Suelos & Gemelos Digitales de Cuencas',
+    size: '800+ investigadores e ingenieros',
+    headquarters: 'Delft & Utrecht, Países Bajos',
+    description: 'El instituto de investigación aplicada independiente líder en el mundo en aguas y subsuelo. Asesora a gobiernos en la gestión del nivel freático de turberas para frenar la subsidencia y las emisiones de CO2, modelos de flujos subterráneos y gemelos digitales de resiliencia hídrica. Salarios de convenio neerlandés de primer nivel (€55k - €78k+ más 8% holiday pay y 8.3% bono anual de fin de año y facilidades fiscales del 30% ruling).',
+    keyProjects: [
+      'National Peatland Rewetting Strategy (Veenweidenbeheer Nederland)',
+      'iMOD / MODFLOW-6 Digital Subsurface Water Models',
+      'Subsidence and GHG Emission Mitigation in Lowland Catchments'
+    ],
+    recentNews: [
+      {
+        title: 'Deltares publica gemelo digital hidrológico para optimizar el nivel freático en cuencas de turberas',
+        date: '2026-03-15',
+        snippet: 'Simulación precisa del balance hídrico y reducción de emisiones de gases de efecto invernadero.'
+      }
+    ],
+    workCulture: [
+      'Cultura neerlandesa horizontal, transparente, colaborativa y con un altísimo balance vida-trabajo',
+      'Excelente nivel de inglés en toda la organización, facilidades para investigadores internacionales'
+    ],
+    redFlags: [
+      'Tensión habitacional en la región de Randstad (Delft, La Haya, Utrecht)'
+    ],
+    interviewArguments: [
+      'Experiencia directa en medición empírica de flujos de carbono en turberas templadas rehumidificadas (Wallener Au) y desarrollo del gemelo digital "Wetland Monitor".',
+      'Doble titulación europea MINT con formación en hidrogeofísica aplicada y física del suelo.'
+    ],
+    techStack: [
+      'MODFLOW',
+      'iMOD',
+      'Python',
+      'QGIS',
+      'Física de Suelos',
+      'Gemelos Digitales',
+      'Eddy Covariance'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['UK_NL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-deltares-1',
+        name: 'Dr. Gilles Erkens',
+        role: 'Senior Expert Subsidence & Peatland Hydrology',
+        notes: 'Líder en investigación de subsidencia de turberas en Europa'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-tudelft-grs',
+    name: 'TU Delft - Geoscience & Remote Sensing (GRS)',
+    website: 'https://www.tudelft.nl/',
+    sector: 'Física Atmosférica, Teledetección & IA del Clima (Facultad de Geociencias)',
+    size: '1.500+ personal investigador',
+    headquarters: 'Delft, Países Bajos',
+    description: 'El Departamento de Geociencias y Teledetección de la TU Delft es uno de los motores científicos más potentes de Europa en física de la atmósfera, radares meteorológicos y gemelos digitales del ciclo hidrológico (vinculado al Energy Weather & AI Lab). Contratos CAO Universiteiten con retribuciones anuales brutas de €52k - €72k más pagas extras y beneficios de reubicación.',
+    keyProjects: [
+      'Ruisdael Observatory: Observatorio nacional neerlandés de física atmosférica',
+      'AI-Driven Micro-Meteorological and Cloud Convection Modeling',
+      'Satellite Radar InSAR for Peatland Hydrology and Surface Motion'
+    ],
+    recentNews: [
+      {
+        title: 'TU Delft y el consorcio Ruisdael implementan red de sensores de alta densidad para flujos turbulentos',
+        date: '2026-02-28',
+        snippet: 'Captura en tiempo real de flujos de vapor de agua y gases a nivel micrometeorológico.'
+      }
+    ],
+    workCulture: [
+      'Entorno intensamente tecnológico, con foco en deep learning, simulación por ordenador e instrumentación avanzada',
+      'Cultura abierta y 100% anglófona en el campus'
+    ],
+    redFlags: [
+      'Fuerte competencia internacional en las convocatorias de postdoctorado'
+    ],
+    interviewArguments: [
+      'Geofísico con manejo comprobado de instrumental micrometeorológico (torres Eddy Covariance) y código en Python/Three.js para gemelos digitales interactivos.',
+      'Sintonía directa con el Energy Weather & AI Lab de la TU Delft y vocación de investigación aplicada en climatología cuantitativa.'
+    ],
+    techStack: [
+      'Python',
+      'InSAR',
+      'Radar Meteorológico',
+      'Three.js',
+      'Eddy Covariance',
+      'Modelación Atmosférica'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['UK_NL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-tudelft-1',
+        name: 'Prof. Dr. Herman Russchenberg',
+        role: 'Chair of Atmospheric Remote Sensing / Director Ruisdael',
+        notes: 'Pionero en observatorios atmosféricos integrados y teledetección'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-knmi',
+    name: 'KNMI - Royal Netherlands Meteorological Institute',
+    website: 'https://www.knmi.nl/',
+    sector: 'Meteorología, Climatología & Modelación Geofísica de Extremos',
+    size: '500+ científicos y meteorólogos',
+    headquarters: 'De Bilt (Utrecht), Países Bajos',
+    description: 'El instituto nacional del clima y la meteorología de Países Bajos, adscrito al Ministerio de Infraestructuras y Gestión del Agua. Desarrolla los modelos climáticos HARMONIE-AROME y RACMO, y lidera el análisis de atribución climática de eventos extremos (sequías, olas de calor e inundaciones) en Europa.',
+    keyProjects: [
+      'HARMONIE Climate Model: Simulaciones de alta resolución a escala de kilómetro',
+      'World Weather Attribution (WWA) Extreme Events Analysis',
+      'Copernicus Climate Change Service (C3S) Regional Projections'
+    ],
+    recentNews: [
+      {
+        title: 'KNMI publica nuevos escenarios climáticos 2026 para la resiliencia hídrica de cuencas fluviales',
+        date: '2026-01-18',
+        snippet: 'Modelación de caudales extremos y estrés térmico del suelo.'
+      }
+    ],
+    workCulture: [
+      'Institución pública de máximo prestigio con altísima conciliación y excelentes recursos computacionales',
+      'Equipos multidisciplinares de físicos, geofísicos y científicos de datos'
+    ],
+    redFlags: [
+      'Plazas fijas suelen requerir conocimiento progresivo del neerlandés, aunque los proyectos de I+D son en inglés'
+    ],
+    interviewArguments: [
+      'Capacidad para comunicar y fundamentar la atribución biofísica de eventos extremos, demostrada en comparecencias periciales y medios masivos (+700k audiencia).',
+      'Formación cuantitativa en física de la Tierra, geofísica y modelación hidrometeorológica.'
+    ],
+    techStack: [
+      'HARMONIE',
+      'Python',
+      'CDO / NCO',
+      'QGIS',
+      'Análisis de Extremos',
+      'Atribución Climática'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['UK_NL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-knmi-1',
+        name: 'Dr. Geert Jan van Oldenborgh Legacy Team',
+        role: 'Climate Scenarios & Extremes Group',
+        notes: 'Equipo líder en modelación de extremos climáticos europeos'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-vu-amsterdam',
+    name: 'Vrije Universiteit Amsterdam - Peatland & GHG Dynamics',
+    website: 'https://vu.nl/',
+    sector: 'Dinámica de Carbono en Turberas, Metano & Ecosistemas Terrestres',
+    size: '120+ investigadores en Biogeociencias',
+    headquarters: 'Ámsterdam, Países Bajos',
+    description: 'El Departamento de Ciencias Ecológicas de la VU Ámsterdam es un polo europeo en la investigación de flujos de metano y balances de carbono en turberas templadas y árticas, con una amplia red de torres Eddy Covariance y cámaras automáticas de flujo. Contratos de escala universitaria neerlandesa (CAO Universiteiten).',
+    keyProjects: [
+      'Dutch Peatland Greenhouse Gas Observation Network (NOBV)',
+      'Methane Hotspots and Ebullition in Restored Temperate Wetlands',
+      'Carbon Accounting Standards for Agricultural Peat Soils'
+    ],
+    recentNews: [
+      {
+        title: 'El consorcio NOBV confirma una reducción del 60% de emisiones de GEI mediante elevación controlada del nivel freático',
+        date: '2026-03-10',
+        snippet: 'Monitoreo micrometeorológico continuo en turberas holandesas.'
+      }
+    ],
+    workCulture: [
+      'Comunidad internacional, vibrante, con fuerte compromiso social y ecológico',
+      'Excelente dotación de instrumental de campo (Picarro, Li-Cor)'
+    ],
+    redFlags: [
+      'Crisis de vivienda aguda en la ciudad de Ámsterdam'
+    ],
+    interviewArguments: [
+      'Trabajo directo con analizadores de gases en tiempo real (Picarro/Li-Cor), cámaras cerradas y torres de covarianza en turberas de Schleswig-Holstein.',
+      'Comprensión acabada de la interacción entre porosidad edáfica, fluctuación freática y picos de emisión de CH4.'
+    ],
+    techStack: [
+      'Eddy Covariance',
+      'Cámaras de Flujo',
+      'Li-Cor / Picarro',
+      'R',
+      'Python',
+      'Física de Suelos'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['UK_NL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-vu-1',
+        name: 'Prof. Dr. Han Dolman (Affiliated)',
+        role: 'Ecohydrology and Global Carbon Cycle',
+        notes: 'Referente mundial en balances de carbono en turberas'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-jrc-ispra',
+    name: 'European Commission Joint Research Centre (JRC Ispra)',
+    website: 'https://joint-research-centre.ec.europa.eu/',
+    sector: 'Observatorio del Suelo de la UE (EUSO), Incendios EFFIS & Políticas Científicas',
+    size: '2.000+ investigadores de la Unión Europea',
+    headquarters: 'Ispra (Lago Maggiore, Varese), Italia',
+    description: 'El mayor centro científico de la Comisión Europea. Diseña y opera el Observatorio del Suelo de la Unión Europea (EUSO), el European Forest Fire Information System (EFFIS), el Drought Observatory (EDO) y los estándares de salud edáfica para la Directiva de Monitoreo del Suelo. Salarios de la función pública europea (Agentes Contractuales FG IV / Investigadores: €55k - €95k+ netos con desgravaciones fiscales de la UE y subsidios por expatriación).',
+    keyProjects: [
+      'EU Soil Observatory (EUSO) & LUCAS Soil Carbon Monitoring',
+      'EFFIS - European Forest Fire Information System (Copernicus EMS)',
+      'Implementation Guidelines for the EU Nature Restoration Law'
+    ],
+    recentNews: [
+      {
+        title: 'El JRC lanza el panel de indicadores de salud del suelo para apoyar la certificación de remoción de carbono',
+        date: '2026-03-25',
+        snippet: 'Estandarización de metodologías de medición in-situ y sensores remotos.'
+      }
+    ],
+    workCulture: [
+      'Entorno científico-político multilateral de máxima influencia regulatoria',
+      'Calidad de vida extraordinaria junto al Lago Maggiore con campus propio estilo internacional'
+    ],
+    redFlags: [
+      'Procesos de selección formal a través de convocatorias EPSO / CAST de la Comisión Europea'
+    ],
+    interviewArguments: [
+      'Perfil completo que une la ciencia de suelos empírica (curvas pF, carbono edáfico en Alemania) con la experiencia política en comisiones parlamentarias y directivas europeas.',
+      'Doble maestría europea en gestión y protección ambiental (CAU Kiel & AMU Poznań) con visión comunitaria.'
+    ],
+    techStack: [
+      'LUCAS Soil DB',
+      'EFFIS',
+      'Python',
+      'QGIS',
+      'Directiva Marco del Agua',
+      'Gobernanza UE',
+      'Copernicus'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-jrc-1',
+        name: 'Dr. Arwyn Jones',
+        role: 'Leader EU Soil Observatory (EUSO) Team',
+        notes: 'Coordinador del mapa europeo de carbono y salud del suelo'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-cmcc',
+    name: 'CMCC Foundation - Euro-Mediterranean Center on Climate Change',
+    website: 'https://www.cmcc.it/',
+    sector: 'Modelación Climática Numérica, Riesgo de Incendios & Cuencas Hidrográficas',
+    size: '300+ científicos de datos y climatólogos',
+    headquarters: 'Bologna / Lecce / Milán, Italia',
+    description: 'La principal fundación de investigación climática de Italia. Alberga el supercomputador "Cassandra" en el Technopole de Bolonia. Desarrolla modelos de propagación de megaincendios forestales, asimilación biofísica de datos de satélite y evaluación de riesgos hidrogeológicos bajo escenarios de cambio climático en el sur de Europa. Fuerte financiación por Horizon Europe y Copernicus.',
+    keyProjects: [
+      'Wildfire Risk & Fire Behavior Modeling in Southern Europe',
+      'High-Resolution Earth System Modeling at Bologna Technopole',
+      'Hydro-Meteorological Risk Assessment for Mediterranean Catchments'
+    ],
+    recentNews: [
+      {
+        title: 'CMCC presenta la plataforma de inteligencia artificial para la predicción de propagación de incendios forestales',
+        date: '2026-04-02',
+        snippet: 'Integración en tiempo real de velocidad de viento, humedad de biomasa y orografía.'
+      }
+    ],
+    workCulture: [
+      'Ambiente dinámico, científico y computacionalmente puntero',
+      'Bolonia es un polo tecnológico e intelectual de primera línea en Europa'
+    ],
+    redFlags: [
+      'Los contratos locales italianos convencionales pueden tener cargas impositivas elevadas; conviene negociar asignaciones bajo proyectos Horizon Europe'
+    ],
+    interviewArguments: [
+      'Investigación directa en la interacción entre déficit de humedad de cuencas, avance de plantaciones y propagación de megaincendios.',
+      'Formación cuantitativa en geofísica matemática y modelación numérica con Python y GIS.'
+    ],
+    techStack: [
+      'Python',
+      'WRF-Fire',
+      'QGIS',
+      'Supercomputing HPC',
+      'Copernicus EMS',
+      'Modelación Hidrológica'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-cmcc-1',
+        name: 'Prof. Antonio Navarra',
+        role: 'President CMCC Foundation',
+        notes: 'Líder en gobernanza de la ciencia del clima en el Mediterráneo'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-eurac',
+    name: 'Eurac Research - Earth Observation & Alpine Environment',
+    website: 'https://www.eurac.edu/',
+    sector: 'Teledetección de Suelo, Torres Eddy Covariance Alpinas & Climatología',
+    size: '500+ investigadores',
+    headquarters: 'Bolzano / Bozen (Tirol del Sur), Italia',
+    description: 'Centro de investigación privado-público de vanguardia en la provincia autónoma de Bolzano/Bozen. Financiado de forma muy generosa por el gobierno tirolés. Opera una densa red de torres Eddy Covariance y sensores de humedad edáfica en gradientes altitudinales, y procesa imágenes de radar Sentinel para el monitoreo biofísico de sequías. Salarios y condiciones significativamente superiores a la media italiana.',
+    keyProjects: [
+      'Matsch / Mazia Valley LTSER (Long-Term Socio-Ecological Research) Alpine Observatory',
+      'Copernicus Sentinel High-Resolution Soil Moisture and Snow-Water Equivalent',
+      'Climate Action South Tyrol: Peatland and Alpine Pasture Carbon Sinks'
+    ],
+    recentNews: [
+      {
+        title: 'Eurac Research publica balance decenal de carbono en praderas alpinas mediante covarianza de torbellinos',
+        date: '2026-02-20',
+        snippet: 'Análisis de la resiliencia edáfica frente a olas de calor extremas.'
+      }
+    ],
+    workCulture: [
+      'Entorno multilingüe (alemán e italiano), con estándares alpinos de calidad y tecnología puntera',
+      'Ubicación privilegiada en los Dolomitas con una calidad de vida excepcional'
+    ],
+    redFlags: [
+      'Cultura bilingüe alemán-italiano en el día a día institucional (aunque la ciencia es en inglés)'
+    ],
+    interviewArguments: [
+      'Doble máster cursado en Alemania (CAU Kiel) con manejo operativo del alemán y experiencia empírica directa en Eddy Covariance y sensores de suelo.',
+      'Capacidad técnica para el modelado biofísico de la retención hídrica y desarrollo de gemelos digitales interactivos.'
+    ],
+    techStack: [
+      'Eddy Covariance',
+      'Sentinel-1/2',
+      'Python',
+      'R',
+      'Física de Suelos',
+      'LTSER Network',
+      'QGIS'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['GLOBAL', 'DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-eurac-1',
+        name: 'Dr. Marc Zebisch',
+        role: 'Head of Institute for Earth Observation',
+        notes: 'Especialista en teledetección de riesgos climáticos en montaña'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-ingv',
+    name: 'INGV - Istituto Nazionale di Geofisica e Vulcanologia',
+    website: 'https://www.ingv.it/',
+    sector: 'Geofísica Somera y Profunda, Gravimetría & Hidrogeofísica',
+    size: '1.000+ investigadores',
+    headquarters: 'Roma / Pisa / Milán, Italia',
+    description: 'El principal ente nacional de geofísica de Italia. Cuenta con divisiones líderes en geofísica ambiental, prospección eléctrica (ERT, Sondeos Eléctricos Verticales), gravimetría de alta precisión y geotermia profunda en la provincia toscana y el arco mediterráneo.',
+    keyProjects: [
+      'Environmental Geophysics and Ground Water Characterization by Electrical Resistivity',
+      'Micro-Gravimetric Monitoring of Deep Aquifer Depletion and Fault Zones',
+      'Geothermal Exploration and Heat-Flow Geophysical Modeling'
+    ],
+    recentNews: [
+      {
+        title: 'INGV concluye campaña de tomografía de resistividad eléctrica en cuencas con estrés hídrico',
+        date: '2026-03-18',
+        snippet: 'Detección de salinización y retroceso del nivel freático.'
+      }
+    ],
+    workCulture: [
+      'Institución centenaria con una de las infraestructuras de prospección geofísica de terreno más completas de Europa',
+      'Posiciones investigadoras muy respetadas'
+    ],
+    redFlags: [
+      'Procesos de estabilización pública (concorsi) que requieren navegación burocrática'
+    ],
+    interviewArguments: [
+      'Geofísico titulado Con Distinción por la Universidad de Chile con experiencia de terreno en prospección eléctrica (SEV) y gravimétrica aplicada al nivel freático.',
+      'Dominio del software de inversión geofísica y modelado matemático en Python.'
+    ],
+    techStack: [
+      'Sondeos Eléctricos Verticales (SEV)',
+      'Gravimetría',
+      'ERT',
+      'Python',
+      'Inversión Numérica',
+      'Geotermia'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-ingv-1',
+        name: 'Dr. Massimo Chiappini',
+        role: 'Director Environment Department INGV',
+        notes: 'Líder en geofísica ambiental y prospección no invasiva'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-noa-beyond',
+    name: 'National Observatory of Athens (NOA - BEYOND Center of Earth Observation)',
+    website: 'https://www.noa.gr/',
+    sector: 'Teledetección Satelital de Megaincendios Forestales & Alerta Temprana (Copernicus)',
+    size: '200+ científicos de datos e investigadores',
+    headquarters: 'Atenas, Grecia',
+    description: 'El Centro de Excelencia BEYOND del Observatorio Nacional de Atenas opera el sistema oficial de monitoreo de incendios forestales en tiempo real de Grecia (FLAMES / FireHub). Procesa flujos de datos satelitales de Copernicus para evaluar la severidad del fuego, estrés de combustible y riesgo hidrogeológico post-incendio en toda la cuenca mediterránea. Financiado con múltiples millones de euros por Horizon Europe y la ESA, ofreciendo salarios y complementos de escala europea.',
+    keyProjects: [
+      'BEYOND FireHub: Monitoreo satelital y propagación de incendios en tiempo real',
+      'Copernicus Disaster Risk Reduction & Post-Fire Soil Erosion Modeling',
+      'Atmospheric Physics and Smoke Plume Dispersion in the Eastern Mediterranean'
+    ],
+    recentNews: [
+      {
+        title: 'El BEYOND Center despliega el modelo con IA para la predicción de comportamiento extremo de fuego',
+        date: '2026-04-10',
+        snippet: 'Integración de índices de sequía edáfica y vientos convectivos locales.'
+      }
+    ],
+    workCulture: [
+      'Polo de excelencia altamente dinámico, con mentalidad ágil y conexión directa con protección civil y la Comisión Europea',
+      'Gran ambiente multicultural y trabajo 100% en inglés'
+    ],
+    redFlags: [
+      'Veranos con alta carga de trabajo operativo por la temporada de incendios'
+    ],
+    interviewArguments: [
+      'Testimonio pericial técnico parlamentario sobre causalidad y dinámica de megaincendios forestales en cuencas, con base cuantitativa en geofísica de la Tierra.',
+      'Capacidad en Python, teledetección y modelación espacial para enriquecer los algoritmos predictivos de comportamiento de fuego.'
+    ],
+    techStack: [
+      'Sentinel-2/3',
+      'Python',
+      'QGIS',
+      'FireHub',
+      'Google Earth Engine',
+      'Modelación de Incendios'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-noa-1',
+        name: 'Dr. Haris Kontoes',
+        role: 'Research Director NOA / Lead of BEYOND Center',
+        notes: 'Coordinador del centro de excelencia en observación de desastres'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-forth',
+    name: 'FORTH - Foundation for Research and Technology Hellas',
+    website: 'https://www.forth.gr/',
+    sector: 'Física Atmosférica, Calidad del Aire & Modelos de Clima Regional (ERC Excellence)',
+    size: '1.000+ personal de investigación',
+    headquarters: 'Heraclión / Patras / Atenas, Grecia',
+    description: 'El centro de investigación científica más prestigioso y con mayor número de proyectos ERC de Grecia. Su Instituto de Ciencias de Ingeniería Química y Estudios del Clima lidera observatorios atmosféricos de referencia para aerosoles, gases de efecto invernadero y su impacto en el forzamiento radiactivo en el Mediterráneo. Contratos de excelencia con complementos europeos.',
+    keyProjects: [
+      'ACTRIS / ICOS European Atmospheric Research Infrastructure',
+      'Aerosol-Cloud-Radiation Interactions and Greenhouse Gas Budgets',
+      'Climate Change and Extreme Heat Stress in Coastal Ecosystems'
+    ],
+    recentNews: [
+      {
+        title: 'FORTH inaugura nueva estación de medición de gases traza y aerosoles en el Mediterráneo Oriental',
+        date: '2026-03-08',
+        snippet: 'Proyecto de infraestructura respaldado por la Comisión Europea.'
+      }
+    ],
+    workCulture: [
+      'Nivel científico equiparable a los mejores institutos Max Planck o CNRS',
+      'Atmósfera internacional orientada a proyectos Horizon Europe'
+    ],
+    redFlags: [
+      'Sedes distribuidas entre Creta (Heraclión) y Patras; requiere verificar la ubicación del grupo exacto'
+    ],
+    interviewArguments: [
+      'Experiencia directa en estaciones micrometeorológicas, adquisición continua de datos y calibración instrumental en Alemania.',
+      'Doble máster europeo enfocado en gestión y protección ambiental con base analítica cuantitativa.'
+    ],
+    techStack: [
+      'ACTRIS',
+      'ICOS',
+      'Python',
+      'R',
+      'Espectroscopía Láser',
+      'Física Atmosférica'
+    ],
+    lastResearched: '2026-11-17',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-forth-1',
+        name: 'Prof. Spyros Pandis',
+        role: 'Collaborating Faculty Member / ERC Advanced Grantee',
+        notes: 'Pionero mundial en física y química de la atmósfera'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
   }
 ];
 
