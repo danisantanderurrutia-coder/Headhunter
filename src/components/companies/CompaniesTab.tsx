@@ -19,7 +19,9 @@ import {
   SlidersHorizontal,
   Star,
   Sparkles,
-  ArrowUpDown
+  ArrowUpDown,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { getStoredCompanies, saveStoredCompanies } from '../../services/db';
 import type { CompanyDossier, QuadrantType, CompanyContact, CompanySectorCluster } from '../../types/companies';
@@ -97,6 +99,101 @@ const CompanyLogo: React.FC<{ website?: string; name: string }> = ({ website, na
   );
 };
 
+const SECTOR_CATEGORIES: { 
+  id: CompanySectorCluster; 
+  label: string; 
+  icon: string; 
+  subtitle: string;
+  accent: {
+    border: string;
+    bg: string;
+    glow: string;
+    badge: string;
+  };
+}[] = [
+  { 
+    id: 'ALL', 
+    label: 'Todas las Entidades', 
+    icon: '🌐',
+    subtitle: 'Red completa de prospección',
+    accent: {
+      border: 'border-cyan-500/80',
+      bg: 'from-cyan-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+      badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
+    }
+  },
+  { 
+    id: 'RD_PUBLIC', 
+    label: 'I+D Público & Universidades', 
+    icon: '🏛️',
+    subtitle: 'Helmholtz, Max Planck, TU Delft, BOKU',
+    accent: {
+      border: 'border-teal-500/80',
+      bg: 'from-teal-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(20,184,166,0.25)]',
+      badge: 'bg-teal-500/20 text-teal-300 border-teal-500/40'
+    }
+  },
+  { 
+    id: 'CARBON_TECH_MRV', 
+    label: 'Carbon-Tech & MRV', 
+    icon: '🌿',
+    subtitle: 'Sylvera, Supercritical, Turberas & Suelos',
+    accent: {
+      border: 'border-emerald-500/80',
+      bg: 'from-emerald-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+      badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+    }
+  },
+  { 
+    id: 'CAT_RISK_INSURANCE', 
+    label: 'Cat Risk & Seguros', 
+    icon: '⚡',
+    subtitle: 'Munich Re, Descartes, Mitiga, Incendios',
+    accent: {
+      border: 'border-amber-500/80',
+      bg: 'from-amber-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
+      badge: 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+    }
+  },
+  { 
+    id: 'MULTILATERAL_POLICY', 
+    label: 'Multilateral & Políticas', 
+    icon: '🌍',
+    subtitle: 'IIASA, JRC Ispra, Directivas UE, Cuencas',
+    accent: {
+      border: 'border-purple-500/80',
+      bg: 'from-purple-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(168,85,247,0.25)]',
+      badge: 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+    }
+  },
+  { 
+    id: 'GEOTHERMAL_ENERGY', 
+    label: 'Geotermia & Subsuelo', 
+    icon: '🌋',
+    subtitle: 'Fervo, Eavor, INGV, Hidrogeofísica',
+    accent: {
+      border: 'border-orange-500/80',
+      bg: 'from-orange-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(249,115,22,0.25)]',
+      badge: 'bg-orange-500/20 text-orange-300 border-orange-500/40'
+    }
+  }
+];
+
+const QUADRANT_POLES: { id: string; label: string }[] = [
+  { id: 'ALL', label: 'Todos los Polos' },
+  { id: 'EUSKADI', label: 'Euskadi / España' },
+  { id: 'DACH', label: 'DACH (Alemania/Austria/Suiza)' },
+  { id: 'UK_NL', label: 'UK & Países Bajos' },
+  { id: 'GLOBAL', label: 'Italia / Grecia / UE / Global' },
+  { id: 'NORDICS', label: 'Nórdicos' }
+];
+
 export const CompaniesTab: React.FC<CompaniesTabProps> = ({ 
   onStartPipeline,
   initialQuadrant = 'ALL',
@@ -110,6 +207,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
   );
   const [selectedSectorCluster, setSelectedSectorCluster] = useState<CompanySectorCluster>(initialSectorCluster);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
   
   // Quick filters & Sorting
   const [quickFilter, setQuickFilter] = useState<QuickFilterType>('ALL');
@@ -358,23 +456,9 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
     }
   };
 
-  const SECTOR_CATEGORIES: { id: CompanySectorCluster; label: string; icon: string }[] = [
-    { id: 'ALL', label: 'Todos los Sectores', icon: '🌐' },
-    { id: 'RD_PUBLIC', label: 'I+D Público & Centros', icon: '🏛️' },
-    { id: 'CARBON_TECH_MRV', label: 'Carbon-Tech & MRV', icon: '🌿' },
-    { id: 'CAT_RISK_INSURANCE', label: 'Cat Risk & Seguros', icon: '⚡' },
-    { id: 'MULTILATERAL_POLICY', label: 'Multilateral & Políticas', icon: '🌍' },
-    { id: 'GEOTHERMAL_ENERGY', label: 'Geotermia & Subsuelo', icon: '🌋' }
-  ];
-
-  const QUADRANT_POLES: { id: string; label: string }[] = [
-    { id: 'ALL', label: 'Todos los Polos' },
-    { id: 'EUSKADI', label: 'Euskadi / España' },
-    { id: 'DACH', label: 'DACH (Alemania/Austria/Suiza)' },
-    { id: 'UK_NL', label: 'UK & Países Bajos' },
-    { id: 'GLOBAL', label: 'Italia / Grecia / UE / Global' },
-    { id: 'NORDICS', label: 'Nórdicos' }
-  ];
+  const activeCategoryObj = useMemo(() => {
+    return SECTOR_CATEGORIES.find(c => c.id === selectedSectorCluster) || SECTOR_CATEGORIES[0];
+  }, [selectedSectorCluster]);
 
   const highMatchCount = useMemo(() => {
     return companies.filter(c => (scoredCompaniesMap.get(c.id)?.score || 70) >= 85).length;
@@ -430,177 +514,323 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
       </div>
 
       {/* =========================================================================
-       * 2. BARRAS DE EXPLORACIÓN POR CATEGORÍAS & BÚSQUEDA
+       * 2. BARRAS DE EXPLORACIÓN POR CATEGORÍAS & BÚSQUEDA (MODO COLAPSADO / EXPANDIDO)
        * ========================================================================= */}
-      <div className="p-4 rounded-2xl bg-[#090e1a]/95 border border-slate-800 shadow-xl space-y-3.5">
-        
-        {/* Row 1: Categorías de Sector */}
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 font-semibold px-0.5">
-            <span className="flex items-center gap-1.5 uppercase tracking-wider text-cyan-300">
-              <SlidersHorizontal className="h-3.5 w-3.5 text-cyan-400" />
-              1. Selecciona Categoría de Entidad:
-            </span>
-            <span className="text-slate-500">
-              {selectedSectorCluster === 'ALL' ? 'Todos los sectores' : getClusterBadge(selectedSectorCluster).label}
-            </span>
+      {isFiltersCollapsed ? (
+        /* ==================== MODO COLAPSADO: BARRA SLIM CON CHIPS ==================== */
+        <div className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-slate-900/95 via-[#0b1120] to-slate-900/95 border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-3 animate-fadeIn">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Chip de Categoría Activa */}
+            <button
+              onClick={() => setIsFiltersCollapsed(false)}
+              className="text-xs font-mono font-bold px-3 py-1.5 rounded-xl bg-cyan-950/90 text-cyan-300 border border-cyan-700/80 hover:bg-cyan-900 transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              title="Click para cambiar de categoría"
+            >
+              <span className="text-sm">{activeCategoryObj.icon}</span>
+              <span className="font-sans font-bold">{activeCategoryObj.label}</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-cyan-900/80 text-cyan-200 font-bold font-mono">
+                {filteredCompanies.length}
+              </span>
+            </button>
+
+            {/* Chip de Polo (si no es ALL) */}
+            {selectedQuadrant !== 'ALL' && (
+              <span className="text-xs font-mono font-semibold px-2.5 py-1.5 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 flex items-center gap-1">
+                <span>📍 {QUADRANT_POLES.find(p => p.id === selectedQuadrant)?.label}</span>
+                <button 
+                  onClick={() => setSelectedQuadrant('ALL')} 
+                  className="ml-1 text-slate-400 hover:text-white text-[10px]"
+                  title="Quitar filtro de polo"
+                >
+                  ✕
+                </button>
+              </span>
+            )}
+
+            {/* Chip de Filtro Rápido (si no es ALL) */}
+            {quickFilter !== 'ALL' && (
+              <span className="text-xs font-mono font-semibold px-2.5 py-1.5 rounded-xl bg-emerald-950 text-emerald-300 border border-emerald-700/80 flex items-center gap-1">
+                <span>⚡ {quickFilter === 'HIGH_MATCH' ? 'Alta Afinidad (+85%)' : quickFilter === 'FAVORITES' ? 'Guardados' : 'Con Decisores'}</span>
+                <button 
+                  onClick={() => setQuickFilter('ALL')} 
+                  className="ml-1 text-emerald-400 hover:text-white text-[10px]"
+                  title="Quitar filtro rápido"
+                >
+                  ✕
+                </button>
+              </span>
+            )}
+
+            {/* Chip de Búsqueda de Texto (si existe) */}
+            {searchQuery && (
+              <span className="text-xs font-mono px-2.5 py-1.5 rounded-xl bg-slate-800 text-cyan-300 border border-slate-700 flex items-center gap-1.5">
+                <span>🔍 "{searchQuery}"</span>
+                <button 
+                  onClick={() => setSearchQuery('')} 
+                  className="text-slate-400 hover:text-white text-xs"
+                  title="Limpiar búsqueda"
+                >
+                  ✕
+                </button>
+              </span>
+            )}
           </div>
 
-          <div className="flex items-center gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-800/90 overflow-x-auto max-w-full">
+          <div className="flex items-center gap-2.5 shrink-0 flex-wrap sm:flex-nowrap w-full sm:w-auto justify-end">
+            {/* Buscador Rápido Slim */}
+            <div className="relative min-w-[200px] sm:min-w-[240px] flex-1 sm:flex-initial">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar entidad..."
+                className="w-full pl-9 pr-7 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono transition"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Botón para Desplegar Categorías */}
+            <button
+              onClick={() => setIsFiltersCollapsed(false)}
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600/30 to-emerald-600/30 hover:from-cyan-600/50 hover:to-emerald-600/50 text-cyan-200 border border-cyan-500/50 text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm shrink-0"
+              title="Expandir el menú visual de categorías y filtros"
+            >
+              <SlidersHorizontal className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Expandir Categorías</span>
+              <ChevronDown className="h-3.5 w-3.5 text-cyan-400" />
+            </button>
+          </div>
+        </div>
+      ) : (
+        /* ==================== MODO EXPANDIDO: TARJETAS GRANDES & SLEEK ==================== */
+        <div className="p-4 sm:p-5 rounded-3xl bg-[#090e1a]/95 border border-slate-800 shadow-2xl space-y-4 animate-fadeIn">
+          
+          {/* Header del Menú con Título y Botón de Colapsar */}
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 flex-wrap gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 text-cyan-400 border border-cyan-500/30">
+                <SlidersHorizontal className="h-4 w-4" />
+              </div>
+              <div>
+                <h3 className="text-xs sm:text-sm font-black font-mono uppercase tracking-wider text-white flex items-center gap-2">
+                  <span>CATEGORÍAS DE EXPLORACIÓN ESTRATÉGICA</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800 font-bold font-mono">
+                    {companies.length} Entidades
+                  </span>
+                </h3>
+                <p className="text-[11px] text-slate-400 font-mono">
+                  Selecciona una categoría para revelar los centros de I+D, universidades, startups o aseguradoras de ese ámbito
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {(selectedSectorCluster !== 'ALL' || selectedQuadrant !== 'ALL' || searchQuery || quickFilter !== 'ALL') && (
+                <button
+                  onClick={() => {
+                    setSelectedSectorCluster('ALL');
+                    setSelectedQuadrant('ALL');
+                    setSearchQuery('');
+                    setQuickFilter('ALL');
+                  }}
+                  className="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-mono font-bold transition cursor-pointer border border-slate-700"
+                >
+                  Resetear Filtros
+                </button>
+              )}
+
+              <button
+                onClick={() => setIsFiltersCollapsed(true)}
+                className="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer border border-slate-700/80 shadow-sm"
+                title="Colapsar panel para ver más entidades en pantalla"
+              >
+                <span>Colapsar Menú</span>
+                <ChevronUp className="h-3.5 w-3.5 text-cyan-400" />
+              </button>
+            </div>
+          </div>
+
+          {/* CUADRÍCULA DE BOTONES GRANDES DE CATEGORÍAS */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
             {SECTOR_CATEGORIES.map(cat => {
               const isActive = selectedSectorCluster === cat.id;
               const count = cat.id === 'ALL' 
                 ? companies.length 
                 : companies.filter(c => inferCompanySectorCluster(c) === cat.id).length;
+
               return (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedSectorCluster(cat.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                  className={`group relative p-3 sm:p-3.5 rounded-2xl flex flex-col justify-between items-start text-left transition-all duration-200 cursor-pointer min-h-[102px] sm:min-h-[110px] border ${
                     isActive
-                      ? 'bg-cyan-600 text-white shadow-md'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      ? `${cat.accent.border} ${cat.accent.glow} bg-gradient-to-br ${cat.accent.bg} ring-2 ring-cyan-500/25`
+                      : 'bg-slate-900/70 hover:bg-[#101828] border-slate-800/90 hover:border-slate-700 hover:scale-[1.02] shadow-sm'
                   }`}
                 >
-                  <span>{cat.icon}</span>
-                  <span>{cat.label}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                    isActive ? 'bg-cyan-950 text-cyan-200' : 'bg-slate-800 text-slate-400'
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+                  {/* Fila superior: Emoji Grande + Contador */}
+                  <div className="w-full flex items-center justify-between gap-1">
+                    <span className="text-2xl sm:text-3xl filter drop-shadow group-hover:scale-110 transition-transform duration-200">
+                      {cat.icon}
+                    </span>
+                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                      isActive ? cat.accent.badge : 'bg-slate-800/80 text-slate-400 border-slate-700'
+                    }`}>
+                      {count}
+                    </span>
+                  </div>
 
-        {/* Row 2: Polos Geográficos & Buscador */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-1 border-t border-slate-800/60">
-          
-          {/* Polos geográficos */}
-          <div className="flex items-center gap-1.5 overflow-x-auto max-w-full py-0.5">
-            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider shrink-0 mr-1 font-bold">
-              Polo Geográfico:
-            </span>
-            {QUADRANT_POLES.map(pole => {
-              const isActive = selectedQuadrant === pole.id;
-              const count = pole.id === 'ALL'
-                ? companies.length
-                : companies.filter(c => inferCompanyQuadrants(c).includes(pole.id as QuadrantType)).length;
-              return (
-                <button
-                  key={pole.id}
-                  onClick={() => setSelectedQuadrant(pole.id)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-semibold transition cursor-pointer shrink-0 border ${
-                    isActive
-                      ? 'bg-slate-700 text-white border-slate-600 shadow'
-                      : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border-slate-800'
-                  }`}
-                >
-                  {pole.label} <span className="text-[9px] opacity-70">({count})</span>
+                  {/* Fila inferior: Título destacado + Subtítulo descriptivo */}
+                  <div className="mt-2 w-full">
+                    <h4 className={`text-xs sm:text-sm font-black font-sans leading-tight line-clamp-1 ${
+                      isActive ? 'text-white' : 'text-slate-200 group-hover:text-cyan-300'
+                    }`}>
+                      {cat.label}
+                    </h4>
+                    <p className="text-[10px] font-mono text-slate-400 mt-0.5 line-clamp-1 truncate opacity-85">
+                      {cat.subtitle}
+                    </p>
+                  </div>
                 </button>
               );
             })}
           </div>
 
-          {/* Buscador Rápido */}
-          <div className="relative min-w-[260px] sm:min-w-[320px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar por nombre, tecnología, ciudad o skill..."
-              className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono transition"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold cursor-pointer"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Row 3: Filtros Rápidos & Ordenamiento Dinámico */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-800/60">
-          
-          {/* Quick Filter Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
-            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider shrink-0 mr-1 font-bold">
-              Filtro Rápido:
-            </span>
+          {/* Fila: Polos Geográficos & Buscador */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-3 border-t border-slate-800/70">
             
-            <button
-              onClick={() => setQuickFilter('ALL')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border ${
-                quickFilter === 'ALL'
-                  ? 'bg-cyan-950 text-cyan-300 border-cyan-700'
-                  : 'bg-slate-900 text-slate-400 hover:text-slate-200 border-slate-800'
-              }`}
-            >
-              Todos ({companies.length})
-            </button>
+            {/* Polos geográficos estilizados */}
+            <div className="flex items-center gap-1.5 overflow-x-auto max-w-full py-0.5">
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider shrink-0 mr-1 font-bold">
+                Polo Geográfico:
+              </span>
+              {QUADRANT_POLES.map(pole => {
+                const isActive = selectedQuadrant === pole.id;
+                const count = pole.id === 'ALL'
+                  ? companies.length
+                  : companies.filter(c => inferCompanyQuadrants(c).includes(pole.id as QuadrantType)).length;
+                return (
+                  <button
+                    key={pole.id}
+                    onClick={() => setSelectedQuadrant(pole.id)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer shrink-0 border ${
+                      isActive
+                        ? 'bg-slate-700 text-white border-slate-500 shadow-md ring-1 ring-slate-400/20'
+                        : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 border-slate-800 hover:bg-slate-800'
+                    }`}
+                  >
+                    {pole.label} <span className="text-[10px] opacity-75 font-normal">({count})</span>
+                  </button>
+                );
+              })}
+            </div>
 
-            <button
-              onClick={() => setQuickFilter('HIGH_MATCH')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1 ${
-                quickFilter === 'HIGH_MATCH'
-                  ? 'bg-emerald-950 text-emerald-300 border-emerald-700 shadow-sm'
-                  : 'bg-slate-900 text-slate-400 hover:text-emerald-300 border-slate-800'
-              }`}
-            >
-              <Sparkles className="h-3 w-3 text-emerald-400" />
-              <span>Alta Afinidad ({highMatchCount})</span>
-            </button>
-
-            <button
-              onClick={() => setQuickFilter('FAVORITES')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1 ${
-                quickFilter === 'FAVORITES'
-                  ? 'bg-amber-950 text-amber-300 border-amber-700 shadow-sm'
-                  : 'bg-slate-900 text-slate-400 hover:text-amber-300 border-slate-800'
-              }`}
-            >
-              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
-              <span>Guardados ({favorites.size})</span>
-            </button>
-
-            <button
-              onClick={() => setQuickFilter('WITH_CONTACTS')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1 ${
-                quickFilter === 'WITH_CONTACTS'
-                  ? 'bg-cyan-950 text-cyan-300 border-cyan-700 shadow-sm'
-                  : 'bg-slate-900 text-slate-400 hover:text-cyan-300 border-slate-800'
-              }`}
-            >
-              <Users className="h-3 w-3 text-cyan-400" />
-              <span>Con Decisores ({withContactsCount})</span>
-            </button>
+            {/* Buscador Rápido con diseño moderno */}
+            <div className="relative min-w-[260px] sm:min-w-[320px]">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar por nombre, tecnología, ciudad o skill..."
+                className="w-full pl-9 pr-8 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono transition shadow-inner"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
 
-          {/* Sort Selector */}
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold flex items-center gap-1">
-              <ArrowUpDown className="h-3 w-3 text-slate-400" />
-              Ordenar por:
-            </span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortByType)}
-              className="bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono font-bold rounded-lg px-2.5 py-1 focus:outline-none focus:border-cyan-500 cursor-pointer"
-            >
-              <option value="MATCH">🎯 Mayor Afinidad con Daniel</option>
-              <option value="NAME">🔤 Nombre (A-Z)</option>
-              <option value="CONTACTS">👥 Nº de Contactos / Decisores</option>
-              <option value="QUADRANT">📍 Polo Geográfico</option>
-            </select>
+          {/* Fila: Filtros Rápidos & Ordenamiento Dinámico */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-slate-800/70">
+            
+            {/* Quick Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider shrink-0 mr-1 font-bold">
+                Filtro Rápido:
+              </span>
+              
+              <button
+                onClick={() => setQuickFilter('ALL')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer shrink-0 border ${
+                  quickFilter === 'ALL'
+                    ? 'bg-cyan-950 text-cyan-300 border-cyan-700 shadow-sm'
+                    : 'bg-slate-900 text-slate-400 hover:text-slate-200 border-slate-800'
+                }`}
+              >
+                Todos ({companies.length})
+              </button>
+
+              <button
+                onClick={() => setQuickFilter('HIGH_MATCH')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1.5 ${
+                  quickFilter === 'HIGH_MATCH'
+                    ? 'bg-emerald-950 text-emerald-300 border-emerald-700 shadow-sm'
+                    : 'bg-slate-900 text-slate-400 hover:text-emerald-300 border-slate-800'
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+                <span>Alta Afinidad ({highMatchCount})</span>
+              </button>
+
+              <button
+                onClick={() => setQuickFilter('FAVORITES')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1.5 ${
+                  quickFilter === 'FAVORITES'
+                    ? 'bg-amber-950 text-amber-300 border-amber-700 shadow-sm'
+                    : 'bg-slate-900 text-slate-400 hover:text-amber-300 border-slate-800'
+                }`}
+              >
+                <Star className="h-3.5 w-3.5 text-amber-400 fill-amber-400" />
+                <span>Guardados ({favorites.size})</span>
+              </button>
+
+              <button
+                onClick={() => setQuickFilter('WITH_CONTACTS')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer shrink-0 border flex items-center gap-1.5 ${
+                  quickFilter === 'WITH_CONTACTS'
+                    ? 'bg-cyan-950 text-cyan-300 border-cyan-700 shadow-sm'
+                    : 'bg-slate-900 text-slate-400 hover:text-cyan-300 border-slate-800'
+                }`}
+              >
+                <Users className="h-3.5 w-3.5 text-cyan-400" />
+                <span>Con Decisores ({withContactsCount})</span>
+              </button>
+            </div>
+
+            {/* Sort Selector */}
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold flex items-center gap-1">
+                <ArrowUpDown className="h-3.5 w-3.5 text-slate-400" />
+                Ordenar por:
+              </span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortByType)}
+                className="bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono font-bold rounded-xl px-3 py-1.5 focus:outline-none focus:border-cyan-500 cursor-pointer shadow-sm"
+              >
+                <option value="MATCH">🎯 Mayor Afinidad con Daniel</option>
+                <option value="NAME">🔤 Nombre (A-Z)</option>
+                <option value="CONTACTS">👥 Nº de Contactos / Decisores</option>
+                <option value="QUADRANT">📍 Polo Geográfico</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* =========================================================================
        * 3. ESPACIO DE EXPLORACIÓN // CUADRÍCULA DE ICONOS DE ORGANIZACIONES
