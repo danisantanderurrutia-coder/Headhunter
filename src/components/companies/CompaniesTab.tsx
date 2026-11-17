@@ -21,7 +21,9 @@ import {
   Sparkles,
   ArrowUpDown,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Globe,
+  LayoutGrid
 } from 'lucide-react';
 import { getStoredCompanies, saveStoredCompanies } from '../../services/db';
 import type { CompanyDossier, QuadrantType, CompanyContact, CompanySectorCluster } from '../../types/companies';
@@ -29,6 +31,7 @@ import { AddCompanyModal } from './AddCompanyModal';
 import { EditCompanyModal } from './EditCompanyModal';
 import { WebsitePreviewModal } from '../common/WebsitePreviewModal';
 import { ClusterBenchmarkTable } from '../radar/ClusterBenchmarkTable';
+import { CompaniesWorldMap } from './CompaniesWorldMap';
 import { FUNDING_CATALOG } from '../../data/fundingCatalog';
 import { inferCompanyQuadrants, inferCompanySectorCluster } from '../../utils/quadrants';
 import { analyzeCompanyFit } from '../../utils/companyFit';
@@ -208,6 +211,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
   const [selectedSectorCluster, setSelectedSectorCluster] = useState<CompanySectorCluster>(initialSectorCluster);
   const [searchQuery, setSearchQuery] = useState('');
   const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
+  const [viewMode, setViewMode] = useState<'GRID' | 'MAP'>('GRID');
   
   // Quick filters & Sorting
   const [quickFilter, setQuickFilter] = useState<QuickFilterType>('ALL');
@@ -836,7 +840,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
        * 3. ESPACIO DE EXPLORACIÓN // CUADRÍCULA DE ICONOS DE ORGANIZACIONES
        * ========================================================================= */}
       <div>
-        <div className="flex items-center justify-between mb-3 px-1">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 px-1">
           <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
             <span>Mostrando <strong className="text-cyan-400">{filteredCompanies.length}</strong> entidades</span>
             {(selectedSectorCluster !== 'ALL' || selectedQuadrant !== 'ALL' || searchQuery || quickFilter !== 'ALL') && (
@@ -853,12 +857,47 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
               </button>
             )}
           </div>
-          <span className="text-[11px] text-slate-500 font-mono hidden sm:inline">
-            Haz click sobre una tarjeta para abrir su expediente de inteligencia o usa los botones directos
-          </span>
+
+          {/* View Switcher: Cuadrícula vs Mapa Mundi Hombros */}
+          <div className="flex items-center gap-1.5 self-end sm:self-auto bg-slate-900/90 border border-slate-800 p-1 rounded-xl shadow-inner">
+            <button
+              type="button"
+              onClick={() => setViewMode('GRID')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                viewMode === 'GRID'
+                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-700/60 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              }`}
+              title="Vista de cuadrícula de tarjetas de organizaciones"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Cuadrícula</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setViewMode('MAP')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                viewMode === 'MAP'
+                  ? 'bg-gradient-to-r from-emerald-950 to-cyan-950 text-emerald-300 border border-emerald-600/70 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              }`}
+              title="Vista interactiva de Mapa Mundi Hombros con geolocalización y capas satelitales"
+            >
+              <Globe className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span>Mapa Mundi Hombros 🌍</span>
+            </button>
+          </div>
         </div>
 
-        {filteredCompanies.length === 0 ? (
+        {viewMode === 'MAP' ? (
+          <CompaniesWorldMap
+            companies={filteredCompanies}
+            onOpenDossier={handleOpenDossier}
+            favorites={favorites}
+            onToggleFavorite={toggleFavorite}
+          />
+        ) : filteredCompanies.length === 0 ? (
           <div className="p-12 rounded-3xl bg-slate-900/50 border border-slate-800 text-center space-y-3">
             <Building2 className="h-10 w-10 text-slate-600 mx-auto" />
             <h4 className="text-sm font-mono font-bold text-slate-300">

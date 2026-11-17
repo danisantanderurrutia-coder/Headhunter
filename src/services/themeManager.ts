@@ -24,4 +24,10 @@ export const applyThemeToDOM = (theme: AppTheme): void => {
   root.classList.remove('theme-luminous', 'theme-cyber', 'theme-dark', 'theme-arctic');
   root.classList.add(`theme-${theme}`);
   root.setAttribute('data-theme', theme);
+
+  if (theme === 'cyber' || theme === 'dark') {
+    root.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+  }
 };

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 /* -------------------------------------------------------------
  * 1. THEME VARIABLES & FOUNDATIONS (AAA TACTICAL & HIGH CONTRAST)
  * ------------------------------------------------------------- */

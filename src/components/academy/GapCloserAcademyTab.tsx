@@ -20,71 +20,78 @@ interface GapCloserAcademyTabProps {
   onNavigateToSkillTree?: () => void;
 }
 
-// 7 Disciplinas auténticas + Alemán C1
-const BRANCH_CONFIG: Record<AcademyBranch, { label: string; shortLabel: string; icon: string; color: string; bgBadge: string; borderBadge: string }> = {
+// 7 Disciplinas auténticas + Alemán C1 con diseño de alto contraste diurno y nocturno
+const BRANCH_CONFIG: Record<AcademyBranch, { 
+  label: string; 
+  shortLabel: string; 
+  icon: string; 
+  color: string; 
+  badgeClass: string;
+  activePillClass: string;
+}> = {
   geophysics: {
     label: 'Geofísica & Sensores Remotos',
     shortLabel: 'Geofísica',
     icon: '🛰️',
-    color: '#10b981',
-    bgBadge: 'bg-emerald-500/10 dark:bg-emerald-950/40',
-    borderBadge: 'border-emerald-500/30'
+    color: '#059669',
+    badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-500/30',
+    activePillClass: 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
   },
   biogeo: {
     label: 'Biogeoquímica, Suelos & Agua',
     shortLabel: 'Suelos & Agua',
     icon: '💧',
-    color: '#06b6d4',
-    bgBadge: 'bg-cyan-500/10 dark:bg-cyan-950/40',
-    borderBadge: 'border-cyan-500/30'
+    color: '#0891b2',
+    badgeClass: 'bg-cyan-50 text-cyan-800 border-cyan-300 dark:bg-cyan-950/40 dark:text-cyan-300 dark:border-cyan-500/30',
+    activePillClass: 'bg-cyan-700 dark:bg-cyan-600 text-white border-cyan-700 dark:border-cyan-600 shadow-sm'
   },
   software: {
     label: 'Product Owner, Software & IA',
     shortLabel: 'Software & IA',
     icon: '⚡',
-    color: '#3b82f6',
-    bgBadge: 'bg-blue-500/10 dark:bg-blue-950/40',
-    borderBadge: 'border-blue-500/30'
+    color: '#2563eb',
+    badgeClass: 'bg-blue-50 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-500/30',
+    activePillClass: 'bg-blue-600 text-white border-blue-600 shadow-sm'
   },
   pm: {
     label: 'Gestión de Proyectos, I+D & Consorcios',
     shortLabel: 'Gestión I+D',
     icon: '🧭',
-    color: '#f59e0b',
-    bgBadge: 'bg-amber-500/10 dark:bg-amber-950/40',
-    borderBadge: 'border-amber-500/30'
+    color: '#d97706',
+    badgeClass: 'bg-amber-50 text-amber-900 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-500/30',
+    activePillClass: 'bg-amber-600 text-white border-amber-600 shadow-sm'
   },
   grassroots: {
     label: 'Grassroots, Territorio & Regeneración',
     shortLabel: 'Grassroots',
     icon: '🌱',
-    color: '#84cc16',
-    bgBadge: 'bg-lime-500/10 dark:bg-lime-950/40',
-    borderBadge: 'border-lime-500/30'
+    color: '#65a30d',
+    badgeClass: 'bg-lime-50 text-lime-900 border-lime-300 dark:bg-lime-950/40 dark:text-lime-300 dark:border-lime-500/30',
+    activePillClass: 'bg-lime-700 dark:bg-lime-600 text-white border-lime-700 dark:border-lime-600 shadow-sm'
   },
   culture: {
     label: 'Cultura, Políticas & CSRD',
     shortLabel: 'Políticas & CSRD',
     icon: '🏛️',
-    color: '#a855f7',
-    bgBadge: 'bg-purple-500/10 dark:bg-purple-950/40',
-    borderBadge: 'border-purple-500/30'
+    color: '#9333ea',
+    badgeClass: 'bg-purple-50 text-purple-800 border-purple-300 dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-500/30',
+    activePillClass: 'bg-purple-600 text-white border-purple-600 shadow-sm'
   },
   comms: {
     label: 'Comunicaciones, Prensa & Campañas',
     shortLabel: 'Prensa & Campañas',
     icon: '📢',
-    color: '#f97316',
-    bgBadge: 'bg-orange-500/10 dark:bg-orange-950/40',
-    borderBadge: 'border-orange-500/30'
+    color: '#ea580c',
+    badgeClass: 'bg-orange-50 text-orange-900 border-orange-300 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-500/30',
+    activePillClass: 'bg-orange-600 text-white border-orange-600 shadow-sm'
   },
   languages: {
     label: 'Alemán C1 & Cooperación DACH',
     shortLabel: 'Alemán C1',
     icon: '🇩🇪',
     color: '#0284c7',
-    bgBadge: 'bg-sky-500/10 dark:bg-sky-950/40',
-    borderBadge: 'border-sky-500/30'
+    badgeClass: 'bg-sky-50 text-sky-800 border-sky-300 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-500/30',
+    activePillClass: 'bg-sky-600 text-white border-sky-600 shadow-sm'
   }
 };
 
@@ -217,22 +224,22 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
     switch (costType) {
       case 'FREE':
         return {
-          bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+          bg: 'bg-emerald-50 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-500/30',
           label: label || 'Gratuito'
         };
       case 'EU_SUBSIDIZED':
         return {
-          bg: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/30',
+          bg: 'bg-blue-50 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-500/30',
           label: label || 'Subvencionado UE'
         };
       case 'FREE_AUDIT':
         return {
-          bg: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
+          bg: 'bg-cyan-50 text-cyan-800 border-cyan-300 dark:bg-cyan-950/40 dark:text-cyan-300 dark:border-cyan-500/30',
           label: label || 'Auditoría Libre'
         };
       case 'OFFICIAL_EXAM':
         return {
-          bg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30',
+          bg: 'bg-amber-50 text-amber-900 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-500/30',
           label: label || 'Examen Oficial'
         };
     }
@@ -245,29 +252,25 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
        * UNIFIED ACADEMY CONSOLE (HUD HEADER + METRICS + RADAR FILTER BAR)
        * ========================================================================= */}
       <div 
-        className="p-4 sm:p-5 rounded-2xl border shadow-md relative overflow-hidden transition-colors space-y-4"
-        style={{ 
-          backgroundColor: 'var(--card-bg)', 
-          borderColor: 'var(--card-border)' 
-        }}
+        className="p-4 sm:p-5 rounded-2xl border shadow-sm relative overflow-hidden transition-colors space-y-4 bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800"
       >
         {/* Top Header Row with Title & Quick Metrics Bar */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-500/30 shrink-0">
+            <div className="h-10 w-10 rounded-xl bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 flex items-center justify-center border border-sky-200 dark:border-sky-500/30 shrink-0">
               <GraduationCap className="h-5 w-5" />
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-base sm:text-lg font-black tracking-tight text-[var(--text-primary)] uppercase">
+                <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase">
                   Academia Estratégica & Radar Formativo
                 </h1>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 font-bold hidden sm:inline-block">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-500/30 font-bold hidden sm:inline-block">
                   7 ÁREAS TRANSDISCIPLINARIAS
                 </span>
               </div>
-              <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
                 Catálogo curado de programas oficiales y abiertos para ampliar tu campo de especialización (Geofísica, Suelos & Carbono, Software IA, I+D, Grassroots, CSRD y Alemán).
               </p>
             </div>
@@ -275,51 +278,51 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
 
           {/* Quick Metrics Bar */}
           <div className="flex items-center gap-2 shrink-0 overflow-x-auto pb-1 lg:pb-0 text-xs font-mono">
-            <div className="px-3 py-1.5 rounded-xl border bg-black/5 dark:bg-black/30 border-slate-200 dark:border-white/10 text-center">
-              <span className="text-[10px] text-[var(--text-muted)] uppercase block">Programas</span>
-              <span className="text-sm font-black text-cyan-600 dark:text-cyan-400">{totalCourses}</span>
+            <div className="px-3 py-1.5 rounded-xl border bg-slate-50 dark:bg-slate-800/60 border-slate-200/90 dark:border-slate-700/60 text-center shadow-2xs">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Programas</span>
+              <span className="text-sm font-black text-sky-700 dark:text-sky-400">{totalCourses}</span>
             </div>
 
-            <div className="px-3 py-1.5 rounded-xl border bg-black/5 dark:bg-black/30 border-slate-200 dark:border-white/10 text-center">
-              <span className="text-[10px] text-[var(--text-muted)] uppercase block">En Estudio</span>
-              <span className="text-sm font-black text-amber-600 dark:text-amber-400">{inProgressCount}</span>
+            <div className="px-3 py-1.5 rounded-xl border bg-slate-50 dark:bg-slate-800/60 border-slate-200/90 dark:border-slate-700/60 text-center shadow-2xs">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">En Estudio</span>
+              <span className="text-sm font-black text-amber-700 dark:text-amber-400">{inProgressCount}</span>
             </div>
 
-            <div className="px-3 py-1.5 rounded-xl border bg-black/5 dark:bg-black/30 border-slate-200 dark:border-white/10 text-center">
-              <span className="text-[10px] text-[var(--text-muted)] uppercase block">Certificados</span>
-              <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">{completedCount}</span>
+            <div className="px-3 py-1.5 rounded-xl border bg-slate-50 dark:bg-slate-800/60 border-slate-200/90 dark:border-slate-700/60 text-center shadow-2xs">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Certificados</span>
+              <span className="text-sm font-black text-emerald-700 dark:text-emerald-400">{completedCount}</span>
             </div>
 
-            <div className="px-3 py-1.5 rounded-xl border bg-black/5 dark:bg-black/30 border-slate-200 dark:border-white/10 text-center">
-              <span className="text-[10px] text-[var(--text-muted)] uppercase block">Horas Respaldadas</span>
-              <span className="text-sm font-black text-sky-600 dark:text-sky-400">{totalHours}h</span>
+            <div className="px-3 py-1.5 rounded-xl border bg-slate-50 dark:bg-slate-800/60 border-slate-200/90 dark:border-slate-700/60 text-center shadow-2xs">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Horas Respaldadas</span>
+              <span className="text-sm font-black text-indigo-700 dark:text-indigo-400">{totalHours}h</span>
             </div>
 
-            <div className="px-3 py-1.5 rounded-xl border bg-black/5 dark:bg-black/30 border-slate-200 dark:border-white/10 text-center">
-              <span className="text-[10px] text-[var(--text-muted)] uppercase block">Carga Técnica</span>
-              <span className="text-sm font-black text-cyan-600 dark:text-cyan-400 font-mono">+{totalEarnedXP} XP</span>
+            <div className="px-3 py-1.5 rounded-xl border bg-slate-50 dark:bg-slate-800/60 border-slate-200/90 dark:border-slate-700/60 text-center shadow-2xs">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Carga Técnica</span>
+              <span className="text-sm font-black text-cyan-700 dark:text-cyan-400 font-mono">+{totalEarnedXP} XP</span>
             </div>
           </div>
         </div>
 
         {/* Global Progress Track */}
-        <div className="pt-2.5 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-xs font-mono">
-          <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-            <Sparkles className="h-3.5 w-3.5 text-cyan-500" />
-            <span>Capacitación en Curso: <strong className="text-[var(--text-primary)]">{inProgressCount} activas</strong> • <strong className="text-emerald-500">{completedCount} certificadas</strong></span>
+        <div className="pt-2.5 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+            <Sparkles className="h-3.5 w-3.5 text-sky-500" />
+            <span>Capacitación en Curso: <strong className="text-slate-900 dark:text-white">{inProgressCount} activas</strong> • <strong className="text-emerald-600 dark:text-emerald-400">{completedCount} certificadas</strong></span>
           </div>
-          <div className="text-[11px] text-[var(--text-muted)]">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400">
             {Math.round(((completedCount * 1.0 + inProgressCount * 0.4) / totalCourses) * 100)}% de avance formativo global
           </div>
         </div>
 
         {/* Discipline Pill Filter & Search (Integrated Section) */}
-        <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-3">
+        <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
           {/* Branch Pills Row */}
           <div>
-            <div className="text-[10.5px] font-mono uppercase font-bold text-[var(--text-muted)] mb-2 flex items-center justify-between">
+            <div className="text-[10.5px] font-mono uppercase font-bold text-slate-500 dark:text-slate-400 mb-2 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
-                <Filter className="h-3.5 w-3.5 text-cyan-500" />
+                <Filter className="h-3.5 w-3.5 text-sky-500" />
                 <span>SELECCIONA TU ÁREA DE ESPECIALIZACIÓN O ENFOQUE:</span>
               </span>
               {(selectedBranchFilter !== 'ALL' || selectedCostFilter !== 'ALL' || selectedStatusFilter !== 'ALL' || searchQuery || activeGapFilter) && (
@@ -331,7 +334,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                     setSearchQuery('');
                     setActiveGapFilter(undefined);
                   }}
-                  className="text-[10px] text-rose-500 hover:text-rose-400 font-bold flex items-center gap-1 cursor-pointer"
+                  className="text-[10px] text-rose-600 hover:text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1 cursor-pointer"
                 >
                   <X className="h-3 w-3" />
                   <span>Restablecer Filtros</span>
@@ -343,10 +346,10 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               {/* 1. All Button */}
               <button
                 onClick={() => { setSelectedBranchFilter('ALL'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
                   selectedBranchFilter === 'ALL' && !activeGapFilter
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-black'
-                    : 'bg-black/5 dark:bg-black/30 border border-slate-200 dark:border-white/10 text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    ? 'bg-slate-800 text-white dark:bg-white dark:text-slate-900 font-black border-slate-800 dark:border-white'
+                    : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/60'
                 }`}
               >
                 <span>🌐 Todas las Áreas</span>
@@ -356,10 +359,10 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               {/* 2. Only Gaps Button */}
               <button
                 onClick={() => { setSelectedBranchFilter('ONLY_GAPS'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
                   selectedBranchFilter === 'ONLY_GAPS'
-                    ? 'bg-rose-600 text-white font-black'
-                    : 'bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20'
+                    ? 'bg-rose-600 text-white font-black border-rose-600 shadow-sm'
+                    : 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-950/50'
                 }`}
               >
                 <span>⚡ Brechas Prioritarias</span>
@@ -371,8 +374,8 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 onClick={() => { setSelectedBranchFilter('ESA'); setActiveGapFilter(undefined); }}
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
                   selectedBranchFilter === 'ESA'
-                    ? 'bg-emerald-600 text-white font-black border-emerald-600 shadow-md'
-                    : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20'
+                    ? 'bg-emerald-600 text-white font-black border-emerald-600 shadow-sm'
+                    : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/50'
                 }`}
               >
                 <span>🛰️ EO College (ESA)</span>
@@ -384,8 +387,8 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 onClick={() => { setSelectedBranchFilter('EU'); setActiveGapFilter(undefined); }}
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
                   selectedBranchFilter === 'EU'
-                    ? 'bg-blue-600 text-white font-black border-blue-600 shadow-md'
-                    : 'bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20'
+                    ? 'bg-blue-600 text-white font-black border-blue-600 shadow-sm'
+                    : 'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-500/30 text-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-950/50'
                 }`}
               >
                 <span>🇪🇺 EU Academy (UE)</span>
@@ -397,8 +400,8 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 onClick={() => { setSelectedBranchFilter('FAO'); setActiveGapFilter(undefined); }}
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
                   selectedBranchFilter === 'FAO'
-                    ? 'bg-sky-600 text-white font-black border-sky-600 shadow-md'
-                    : 'bg-sky-500/10 border-sky-500/30 text-sky-600 dark:text-sky-400 hover:bg-sky-500/20'
+                    ? 'bg-sky-600 text-white font-black border-sky-600 shadow-sm'
+                    : 'bg-sky-50 dark:bg-sky-950/30 border-sky-200 dark:border-sky-500/30 text-sky-800 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-950/50'
                 }`}
               >
                 <span>🇺🇳 FAO Naciones Unidas</span>
@@ -417,13 +420,9 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                     onClick={() => { setSelectedBranchFilter(branchKey); setActiveGapFilter(undefined); }}
                     className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
                       isSelected
-                        ? 'text-white font-black shadow-md'
-                        : 'bg-black/5 dark:bg-black/30 text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                        ? conf.activePillClass
+                        : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/60'
                     }`}
-                    style={{
-                      backgroundColor: isSelected ? conf.color : undefined,
-                      borderColor: isSelected ? conf.color : 'var(--card-border)'
-                    }}
                   >
                     <span>{conf.icon}</span>
                     <span className="hidden sm:inline">{conf.shortLabel}</span>
@@ -436,22 +435,17 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
           </div>
 
           {/* Search & Sub-dropdowns row */}
-          <div className="flex flex-col sm:flex-row gap-2 pt-2 border-t border-slate-200 dark:border-white/10 items-center justify-between text-xs">
+          <div className="flex flex-col sm:flex-row gap-2 pt-2 border-t border-slate-200 dark:border-slate-800 items-center justify-between text-xs">
             
             {/* Search box */}
             <div className="relative w-full sm:w-80">
-              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-[var(--text-muted)]" />
+              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
               <input 
                 type="text"
                 placeholder="Buscar curso, temario, software o institución..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 rounded-xl border text-xs font-mono focus:outline-none focus:border-cyan-500 transition-colors"
-                style={{
-                  backgroundColor: 'var(--panel-bg)',
-                  borderColor: 'var(--card-border)',
-                  color: 'var(--text-primary)'
-                }}
+                className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-mono focus:outline-none focus:border-sky-500 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white transition-colors shadow-2xs"
               />
             </div>
 
@@ -460,12 +454,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               <select
                 value={selectedCostFilter}
                 onChange={(e) => setSelectedCostFilter(e.target.value)}
-                className="px-2.5 py-1.5 rounded-xl border text-xs cursor-pointer focus:outline-none focus:border-cyan-500"
-                style={{
-                  backgroundColor: 'var(--panel-bg)',
-                  borderColor: 'var(--card-border)',
-                  color: 'var(--text-primary)'
-                }}
+                className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs cursor-pointer focus:outline-none focus:border-sky-500 bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 shadow-2xs"
               >
                 <option value="ALL">Coste: Todos</option>
                 <option value="FREE">100% Gratuito</option>
@@ -476,12 +465,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               <select
                 value={selectedStatusFilter}
                 onChange={(e) => setSelectedStatusFilter(e.target.value)}
-                className="px-2.5 py-1.5 rounded-xl border text-xs cursor-pointer focus:outline-none focus:border-cyan-500"
-                style={{
-                  backgroundColor: 'var(--panel-bg)',
-                  borderColor: 'var(--card-border)',
-                  color: 'var(--text-primary)'
-                }}
+                className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs cursor-pointer focus:outline-none focus:border-sky-500 bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 shadow-2xs"
               >
                 <option value="ALL">Estado: Todos</option>
                 <option value="AVAILABLE">Disponible</option>
@@ -489,7 +473,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 <option value="COMPLETED">Certificado</option>
               </select>
 
-              <span className="text-[11px] text-[var(--text-muted)] hidden md:inline ml-1">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden md:inline ml-1 font-semibold">
                 <strong>{filteredCourses.length}</strong> cursos
               </span>
             </div>
@@ -769,7 +753,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
                     <span 
-                      className={`text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 truncate max-w-[55%] ${branchStyle.bgBadge} ${branchStyle.borderBadge}`}
+                      className={`text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 truncate max-w-[55%] ${branchStyle.badgeClass}`}
                       style={{ color: branchStyle.color }}
                       title={course.branchName}
                     >
