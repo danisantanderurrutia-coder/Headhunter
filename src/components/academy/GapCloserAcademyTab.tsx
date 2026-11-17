@@ -488,33 +488,32 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
         
         {/* Hub 1: EO College (European Space Agency / ESA) */}
         <div 
-          className="p-4 rounded-2xl border relative overflow-hidden transition-all bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent border-emerald-500/30 shadow-xs flex flex-col justify-between"
-          style={{ backgroundColor: 'var(--card-bg)' }}
+          className="p-4 sm:p-5 rounded-2xl border relative overflow-hidden transition-all bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/40 dark:from-emerald-950/40 dark:via-slate-900 dark:to-slate-900 border-emerald-200 dark:border-emerald-500/30 shadow-xs flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🛰️</span>
                 <div>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 uppercase tracking-wider block sm:inline">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30 uppercase tracking-wider block sm:inline">
                     Agencia Espacial Europea (ESA)
                   </span>
                 </div>
               </div>
-              <span className="text-[10.5px] font-mono text-[var(--text-muted)] font-bold hidden sm:inline">
+              <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 font-bold hidden sm:inline">
                 eo-college.org
               </span>
             </div>
 
-            <h2 className="text-sm sm:text-base font-black text-[var(--text-primary)]">
+            <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
               EO College · European Space Agency (ESA)
             </h2>
-            <p className="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
-              Plataforma abierta oficial de la ESA para observación de la Tierra y geofísica radar. Clave para tu perfil en: <strong className="text-emerald-600 dark:text-emerald-400">Radar SAR (Sentinel-1)</strong>, <strong className="text-teal-600 dark:text-teal-400">Interferometría DInSAR</strong> (subsidencia y deformación), <strong className="text-lime-600 dark:text-lime-400">Humedad del Suelo</strong>, polarimetría y biomasa forestal con SNAP y Python.
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+              Plataforma abierta oficial de la ESA para observación de la Tierra y geofísica radar. Clave para tu perfil en: <strong className="text-emerald-700 dark:text-emerald-400">Radar SAR (Sentinel-1)</strong>, <strong className="text-teal-700 dark:text-teal-400">Interferometría DInSAR</strong> (subsidencia y deformación), <strong className="text-lime-700 dark:text-lime-400">Humedad del Suelo</strong>, polarimetría y biomasa forestal con SNAP y Python.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 pt-3 mt-3 border-t border-slate-200 dark:border-white/10 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-2 pt-3 mt-3 border-t border-slate-200 dark:border-slate-800 font-mono text-xs">
             <button
               onClick={() => {
                 setSelectedBranchFilter('ESA');
@@ -522,8 +521,8 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               }}
               className={`flex-1 sm:flex-none px-3 py-1.5 rounded-xl font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs border ${
                 selectedBranchFilter === 'ESA'
-                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
-                  : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-white dark:bg-slate-800/80 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30'
               }`}
             >
               <span>Ver Cursos ESA</span>
@@ -536,7 +535,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               href="https://eo-college.org/courses/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-bold transition flex items-center justify-center gap-1 shadow-xs cursor-pointer"
+              className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold transition flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
             >
               <span>Catálogo SAR</span>
               <ExternalLink className="h-3 w-3" />
@@ -546,7 +545,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               href="https://eo-college.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-black transition flex items-center justify-center gap-1 shadow-sm hover:opacity-90 cursor-pointer"
+              className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition flex items-center justify-center gap-1 shadow-xs cursor-pointer"
             >
               <span>eo-college.org</span>
               <ExternalLink className="h-3 w-3" />
@@ -556,33 +555,32 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
 
         {/* Hub 2: EU Academy (Comisión Europea) */}
         <div 
-          className="p-4 rounded-2xl border relative overflow-hidden transition-all bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent border-blue-500/30 shadow-xs flex flex-col justify-between"
-          style={{ backgroundColor: 'var(--card-bg)' }}
+          className="p-4 rounded-2xl border relative overflow-hidden transition-all bg-gradient-to-br from-blue-50/90 via-white to-indigo-50/40 dark:from-blue-950/40 dark:via-slate-900 dark:to-slate-900 border-blue-200 dark:border-blue-500/30 shadow-xs flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🇪🇺</span>
                 <div>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30 uppercase tracking-wider block sm:inline">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-500/15 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 uppercase tracking-wider block sm:inline">
                     Comisión Europea · Portal Oficial
                   </span>
                 </div>
               </div>
-              <span className="text-[10.5px] font-mono text-[var(--text-muted)] font-bold hidden sm:inline">
+              <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 font-bold hidden sm:inline">
                 academy.europa.eu
               </span>
             </div>
 
-            <h2 className="text-sm sm:text-base font-black text-[var(--text-primary)]">
+            <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
               EU Academy · Unión Europea (Comisión Europea)
             </h2>
-            <p className="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
-              Formación oficial y libre de la UE: <strong className="text-blue-600 dark:text-blue-400">Directiva de Suelos</strong>, <strong className="text-amber-600 dark:text-amber-400">Metodología PM²</strong>, <strong className="text-purple-600 dark:text-purple-400">Normas CSRD/ESRS</strong> y track <strong className="text-cyan-600 dark:text-cyan-400">Data & Digital Technology</strong> (<a href="https://academy.europa.eu/topics/data-digital-technology/" target="_blank" rel="noopener noreferrer" className="underline hover:text-cyan-500">EU AI Act</a>, Espacios de Datos Green Deal, INSPIRE y Destination Earth).
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+              Formación oficial y libre de la UE: <strong className="text-blue-700 dark:text-blue-400">Directiva de Suelos</strong>, <strong className="text-amber-700 dark:text-amber-400">Metodología PM²</strong>, <strong className="text-purple-700 dark:text-purple-400">Normas CSRD/ESRS</strong> y track <strong className="text-cyan-700 dark:text-cyan-400">Data & Digital Technology</strong> (<a href="https://academy.europa.eu/topics/data-digital-technology/" target="_blank" rel="noopener noreferrer" className="underline hover:text-cyan-600">EU AI Act</a>, Espacios de Datos Green Deal, INSPIRE y Destination Earth).
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 pt-3 mt-3 border-t border-slate-200 dark:border-white/10 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-2 pt-3 mt-3 border-t border-slate-200 dark:border-slate-800 font-mono text-xs">
             <button
               onClick={() => {
                 setSelectedBranchFilter('EU');
@@ -591,11 +589,11 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               className={`flex-1 sm:flex-none px-3 py-1.5 rounded-xl font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs border ${
                 selectedBranchFilter === 'EU'
                   ? 'bg-blue-600 text-white border-blue-600 shadow-md'
-                  : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/20'
+                  : 'bg-white dark:bg-slate-800/80 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-slate-700'
               }`}
             >
               <span>Ver Cursos UE</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/10 dark:bg-white/10 font-bold">
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-blue-100 dark:bg-white/10 font-bold">
                 {branchCounts.EU}
               </span>
             </button>
@@ -604,7 +602,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               href="https://academy.europa.eu/topics/data-digital-technology/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl bg-blue-600/15 hover:bg-blue-600/25 text-blue-600 dark:text-blue-400 border border-blue-500/30 font-bold transition flex items-center justify-center gap-1 shadow-xs cursor-pointer"
+              className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold transition flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
             >
               <span>Data & Digital Tech</span>
               <ExternalLink className="h-3 w-3" />
@@ -614,7 +612,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               href="https://academy.europa.eu/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-black transition flex items-center justify-center gap-1 shadow-sm hover:opacity-90 cursor-pointer"
+              className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition flex items-center justify-center gap-1 shadow-xs cursor-pointer"
             >
               <span>academy.europa.eu</span>
               <ExternalLink className="h-3 w-3" />
@@ -624,33 +622,32 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
 
         {/* Hub 3: FAO E-learning Academy (Naciones Unidas) */}
         <div 
-          className="p-4 rounded-2xl border relative overflow-hidden transition-all bg-gradient-to-br from-sky-500/10 via-cyan-500/5 to-transparent border-sky-500/30 shadow-xs flex flex-col justify-between"
-          style={{ backgroundColor: 'var(--card-bg)' }}
+          className="p-4 rounded-2xl border relative overflow-hidden transition-all bg-gradient-to-br from-sky-50/90 via-white to-cyan-50/40 dark:from-sky-950/40 dark:via-slate-900 dark:to-slate-900 border-sky-200 dark:border-sky-500/30 shadow-xs flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🇺🇳</span>
                 <div>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30 uppercase tracking-wider block sm:inline">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/15 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-500/30 uppercase tracking-wider block sm:inline">
                     Naciones Unidas · Portal Multilateral
                   </span>
                 </div>
               </div>
-              <span className="text-[10.5px] font-mono text-[var(--text-muted)] font-bold hidden sm:inline">
+              <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 font-bold hidden sm:inline">
                 elearning.fao.org
               </span>
             </div>
 
-            <h2 className="text-sm sm:text-base font-black text-[var(--text-primary)]">
+            <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
               FAO E-learning Academy · FAO (ONU)
             </h2>
-            <p className="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
-              Formación oficial abierta y certificada de la ONU en: <strong className="text-sky-600 dark:text-sky-400">FAO WaPOR</strong> (balances hídricos y teledetección de cuencas), <strong className="text-cyan-600 dark:text-cyan-400">GSOCmrV & RothC</strong> (carbono del suelo), <strong className="text-emerald-600 dark:text-emerald-400">Cartografía de Turberas</strong> (IPCC) y <strong className="text-amber-600 dark:text-amber-400">Degradación de Tierras</strong> (ODS 15.3.1).
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+              Formación oficial abierta y certificada de la ONU en: <strong className="text-sky-700 dark:text-sky-400">FAO WaPOR</strong> (balances hídricos y teledetección de cuencas), <strong className="text-cyan-700 dark:text-cyan-400">GSOCmrV & RothC</strong> (carbono del suelo), <strong className="text-emerald-700 dark:text-emerald-400">Cartografía de Turberas</strong> (IPCC) y <strong className="text-amber-700 dark:text-amber-400">Degradación de Tierras</strong> (ODS 15.3.1).
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 pt-3 mt-3 border-t border-slate-200 dark:border-white/10 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-2 pt-3 mt-3 border-t border-slate-200 dark:border-slate-800 font-mono text-xs">
             <button
               onClick={() => {
                 setSelectedBranchFilter('FAO');
@@ -659,11 +656,11 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               className={`flex-1 sm:flex-none px-3 py-1.5 rounded-xl font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs border ${
                 selectedBranchFilter === 'FAO'
                   ? 'bg-sky-600 text-white border-sky-600 shadow-md'
-                  : 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/30 hover:bg-sky-500/20'
+                  : 'bg-white dark:bg-slate-800/80 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-500/30 hover:bg-sky-50 dark:hover:bg-slate-700'
               }`}
             >
               <span>Ver Cursos FAO</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black/10 dark:bg-white/10 font-bold">
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-100 dark:bg-white/10 font-bold">
                 {branchCounts.FAO}
               </span>
             </button>
@@ -672,7 +669,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               href="https://elearning.fao.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-black transition flex items-center justify-center gap-1 shadow-sm hover:opacity-90 cursor-pointer"
+              className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition flex items-center justify-center gap-1 shadow-xs cursor-pointer"
             >
               <span>elearning.fao.org</span>
               <ExternalLink className="h-3 w-3" />
@@ -687,17 +684,17 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
        * ========================================================================= */}
       {filteredCourses.length === 0 ? (
         <div 
-          className="p-10 rounded-2xl border text-center space-y-3"
+          className="p-10 rounded-2xl border text-center space-y-3 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800"
           style={{ 
             backgroundColor: 'var(--card-bg)', 
             borderColor: 'var(--card-border)' 
           }}
         >
-          <BookOpen className="h-10 w-10 text-[var(--text-muted)] mx-auto opacity-50" />
-          <h3 className="text-sm font-bold text-[var(--text-primary)]">
+          <BookOpen className="h-10 w-10 text-slate-400 dark:text-slate-500 mx-auto opacity-50" />
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             No hay formaciones con los filtros seleccionados
           </h3>
-          <p className="text-xs text-[var(--text-secondary)] max-w-sm mx-auto">
+          <p className="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
             Prueba a seleccionar «Todas las Áreas» o restablecer los filtros de búsqueda para explorar todo el catálogo formativo.
           </p>
           <button
@@ -708,7 +705,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
               setSearchQuery('');
               setActiveGapFilter(undefined);
             }}
-            className="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-bold transition cursor-pointer"
+            className="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-bold transition cursor-pointer shadow-xs"
           >
             Ver Todos los Cursos
           </button>
@@ -731,22 +728,21 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
             return (
               <div
                 key={course.id}
-                className={`rounded-2xl p-4 border flex flex-col justify-between transition-all duration-200 hover:shadow-lg relative overflow-hidden group ${
+                className={`rounded-2xl p-4 border flex flex-col justify-between transition-all duration-200 hover:shadow-lg relative overflow-hidden group bg-white dark:bg-slate-900 ${
                   currentStatus === 'COMPLETED'
-                    ? 'border-emerald-500/50 bg-emerald-500/[0.04]'
+                    ? 'border-emerald-500/80 ring-1 ring-emerald-500/30 bg-emerald-50/40 dark:bg-emerald-950/20'
                     : currentStatus === 'IN_PROGRESS'
-                    ? 'border-amber-500/50 bg-amber-500/[0.04]'
+                    ? 'border-amber-500/80 ring-1 ring-amber-500/30 bg-amber-50/40 dark:bg-amber-950/20'
                     : isEsa
-                    ? 'border-emerald-500/40 hover:border-emerald-500'
+                    ? 'border-emerald-300 dark:border-emerald-500/40 hover:border-emerald-500'
                     : isEu
-                    ? 'border-blue-500/40 hover:border-blue-500'
+                    ? 'border-blue-300 dark:border-blue-500/40 hover:border-blue-500'
                     : isFao
-                    ? 'border-sky-500/40 hover:border-sky-500'
-                    : 'hover:border-cyan-500/50'
+                    ? 'border-sky-300 dark:border-sky-500/40 hover:border-sky-500'
+                    : 'border-slate-200 dark:border-slate-800 hover:border-cyan-500/50'
                 }`}
                 style={{
-                  backgroundColor: currentStatus === 'AVAILABLE' ? 'var(--card-bg)' : undefined,
-                  borderColor: currentStatus === 'AVAILABLE' && !isEsa && !isEu && !isFao ? 'var(--card-border)' : undefined
+                  backgroundColor: currentStatus === 'AVAILABLE' ? 'var(--card-bg)' : undefined
                 }}
               >
                 {/* Accent top edge pill */}
@@ -754,7 +750,6 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                   <div className="flex items-center justify-between gap-1 mb-2">
                     <span 
                       className={`text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 truncate max-w-[55%] ${branchStyle.badgeClass}`}
-                      style={{ color: branchStyle.color }}
                       title={course.branchName}
                     >
                       <span>{branchStyle.icon}</span>
@@ -763,19 +758,19 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
 
                     <div className="flex items-center gap-1 shrink-0">
                       {isEsa && (
-                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 flex items-center gap-0.5">
+                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-500/30 flex items-center gap-0.5">
                           <span>🛰️</span>
                           <span>ESA</span>
                         </span>
                       )}
                       {isEu && (
-                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30 flex items-center gap-0.5">
+                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-500/30 flex items-center gap-0.5">
                           <span>🇪🇺</span>
                           <span>EU</span>
                         </span>
                       )}
                       {isFao && (
-                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/30 flex items-center gap-0.5">
+                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border bg-sky-50 text-sky-800 border-sky-200 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-500/30 flex items-center gap-0.5">
                           <span>🇺🇳</span>
                           <span>FAO</span>
                         </span>
@@ -787,19 +782,19 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                   </div>
 
                   {/* Institution / Provider */}
-                  <div className="text-[10px] font-mono text-[var(--text-muted)] truncate mb-1">
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate mb-1">
                     {course.provider}
                   </div>
 
                   {/* Course Title */}
-                  <h3 className="text-xs sm:text-[13px] font-black text-[var(--text-primary)] leading-snug line-clamp-2 min-h-[36px] group-hover:text-cyan-500 transition-colors">
+                  <h3 className="text-xs sm:text-[13px] font-black text-slate-900 dark:text-white leading-snug line-clamp-2 min-h-[36px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                     {course.title}
                   </h3>
 
                   {/* Market Gap Flag (if applicable) */}
                   {course.isMarketGap && (
                     <div className="mt-1.5 mb-1.5">
-                      <span className="text-[9px] font-mono font-bold text-rose-500 bg-rose-500/10 border border-rose-500/25 px-1.5 py-0.5 rounded flex items-center gap-1 truncate">
+                      <span className="text-[9px] font-mono font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/30 px-1.5 py-0.5 rounded flex items-center gap-1 truncate">
                         <span>⚡</span>
                         <span className="truncate">Brecha: {course.gapName || 'Detectada en Mercado'}</span>
                       </span>
@@ -807,9 +802,9 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                   )}
 
                   {/* Duration & Difficulty */}
-                  <div className="flex items-center gap-2 text-[10px] font-mono text-[var(--text-muted)] mt-1.5 mb-2">
+                  <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1.5 mb-2">
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3 text-slate-400" />
+                      <Clock className="h-3 w-3 text-slate-400 dark:text-slate-500" />
                       <span>{course.durationHours}h</span>
                     </span>
                     <span>•</span>
@@ -821,7 +816,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                   </div>
 
                   {/* Syllabus concise description */}
-                  <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed line-clamp-3 min-h-[48px] mb-2.5">
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3 min-h-[48px] mb-2.5">
                     {course.syllabusSummary}
                   </p>
 
@@ -830,7 +825,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                     {course.skillsLearned.slice(0, 3).map((s, i) => (
                       <span 
                         key={i} 
-                        className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/5 dark:bg-black/30 border border-slate-200 dark:border-white/10 text-[var(--text-secondary)]"
+                        className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
                       >
                         #{s}
                       </span>
@@ -839,16 +834,16 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 </div>
 
                 {/* Bottom Action Strip: Segmented Status Buttons + Direct Link */}
-                <div className="pt-2.5 border-t border-slate-200 dark:border-white/10 space-y-2">
+                <div className="pt-2.5 border-t border-slate-200 dark:border-slate-800 space-y-2">
                   
                   {/* Status Toggle Segmented Bar */}
-                  <div className="flex items-center p-0.5 rounded-lg bg-black/5 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-[9.5px] font-mono">
+                  <div className="flex items-center p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-[9.5px] font-mono">
                     <button
                       onClick={() => handleUpdateStatus(course.id, 'AVAILABLE', 0)}
                       className={`flex-1 py-1 px-1 rounded text-center transition cursor-pointer font-bold ${
                         currentStatus === 'AVAILABLE'
-                          ? 'bg-white dark:bg-slate-800 text-[var(--text-primary)] shadow-xs'
-                          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                          ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-2xs'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                       }`}
                       title="Marcar como pendiente/disponible"
                     >
@@ -859,8 +854,8 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                       onClick={() => handleUpdateStatus(course.id, 'IN_PROGRESS', userProg.progressPercent || 35)}
                       className={`flex-1 py-1 px-1 rounded text-center transition cursor-pointer font-bold ${
                         currentStatus === 'IN_PROGRESS'
-                          ? 'bg-amber-500 text-white shadow-xs'
-                          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                          ? 'bg-amber-500 text-white shadow-2xs'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                       }`}
                       title="Marcar como en curso"
                     >
@@ -871,8 +866,8 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                       onClick={() => handleUpdateStatus(course.id, 'COMPLETED', 100)}
                       className={`flex-1 py-1 px-1 rounded text-center transition cursor-pointer font-bold flex items-center justify-center gap-0.5 ${
                         currentStatus === 'COMPLETED'
-                          ? 'bg-emerald-600 text-white shadow-xs'
-                          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                          ? 'bg-emerald-600 text-white shadow-2xs'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                       }`}
                       title="Marcar como completado/certificado"
                     >
@@ -884,7 +879,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                   {/* Progress slider if IN_PROGRESS */}
                   {currentStatus === 'IN_PROGRESS' && (
                     <div className="px-1 py-0.5">
-                      <div className="flex items-center justify-between text-[9px] font-mono text-amber-500 font-bold mb-1">
+                      <div className="flex items-center justify-between text-[9px] font-mono text-amber-600 dark:text-amber-400 font-bold mb-1">
                         <span>Avance:</span>
                         <span>{userProg.progressPercent || 35}%</span>
                       </div>
@@ -895,14 +890,14 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                         step="5"
                         value={userProg.progressPercent || 35}
                         onChange={(e) => handleUpdateStatus(course.id, 'IN_PROGRESS', parseInt(e.target.value, 10))}
-                        className="w-full accent-amber-500 cursor-pointer h-1 bg-black/10 dark:bg-white/10 rounded-lg"
+                        className="w-full accent-amber-500 cursor-pointer h-1 bg-slate-200 dark:bg-slate-700 rounded-lg"
                       />
                     </div>
                   )}
 
                   {/* Direct Link button */}
                   <div className="flex items-center justify-between gap-1 pt-0.5">
-                    <span className="text-[9.5px] font-mono text-cyan-600 dark:text-cyan-400 font-bold flex items-center gap-1">
+                    <span className="text-[9.5px] font-mono text-cyan-700 dark:text-cyan-400 font-bold flex items-center gap-1">
                       <Zap className="h-3 w-3" />
                       <span>+{course.xpValue} XP</span>
                     </span>
