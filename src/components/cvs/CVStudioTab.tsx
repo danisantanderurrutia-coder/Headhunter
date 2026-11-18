@@ -476,9 +476,10 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
     const lines = [
       `================================================================================`,
       `DIAGNÓSTICO EDITORIAL Y CHECKLIST DE POSTULACIÓN (SCORE: ${audit.overallScore}/100)`,
-      `Oferta: ${offer?.title || 'General'} — ${offer?.company || 'Organización'}`,
+      `Oferta: ${offer?.title || 'General'} | ${offer?.company || 'Organización'}`,
       `================================================================================`,
       `• Clichés de IA detectados: ${audit.clicheCount === 0 ? 'Ninguno (0)' : audit.detectedCliches.join(', ')}`,
+      `• Puntuación sintética de IA: ${audit.syntheticPunctuation && audit.syntheticPunctuation.length > 0 ? audit.syntheticPunctuation.map((v) => v.description).join('; ') : 'Limpia (0 guiones largos ni slashes)'}`,
       `• Rellenos burocráticos: ${audit.bureaucraticFillers.length === 0 ? 'Ninguno (0)' : audit.bureaucraticFillers.join(', ')}`,
       `• Palabras mecánicas repetidas: ${audit.mechanicalRepetitions.length === 0 ? 'Ninguna' : audit.mechanicalRepetitions.map((r) => `${r.word} (${r.count}×)`).join(', ')}`,
       `• Iniciadores monótonos: ${audit.sentenceStarterRepetitions.length === 0 ? 'Ninguno' : audit.sentenceStarterRepetitions.map((s) => `${s.starter} (${s.count}×)`).join(', ')}`,

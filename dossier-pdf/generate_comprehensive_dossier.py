@@ -287,6 +287,10 @@ def build_pdf(filename):
         [
             Paragraph("<b>7. Estudio Obligatorio del Interlocutor / PI<br/>(Inteligencia Wingman)</b>", rule_bold),
             Paragraph("Antes de redactar la carta o preparar la entrevista, es <b>REQUISITO OBLIGATORIO investigar y mapear quién es la persona a cargo (PI, Catedrático o Responsable)</b>:<br/>• <b>Filiación & Alma Máter:</b> Mapear su origen académico (ej. Cambridge, ETH Zúrich, Max Planck, TU Delft) para calibrar la altura conceptual.<br/>• <b>Publicaciones Recientes:</b> Citar con respeto sus investigaciones del último trienio (ej. <i>Lanzilao & Meyer 2026 en Energy and AI</i>).<br/>• <b>Dolores del Laboratorio:</b> Enfocar la postulación en resolver cuellos de botella de terreno, sensores ruidosos o calibración multiescala.<br/>• <b>Regla de Oro:</b> NUNCA dar clases teóricas de su propia especialidad al PI; tratarlo de par científico a par científico.", rule_body)
+        ],
+        [
+            Paragraph("<b>8. Puntuación Humana:<br/>Cero Em-Dashes ('—') ni Slashes ('/')</b>", rule_bold),
+            Paragraph("<b>Queda terminantemente prohibido usar em-dashes ('—'), doble guión ('--') o guiones como incisos parentéticos</b> (ej. <i>'My research — which spans...'</i>). Igualmente se prohíben los slashes ('/') como conectores perezosos (ej. <i>'sensor/satélite', 'física/datos'</i>). Emplea puntuación clásica y fluida: comas, dos puntos, punto y coma o puntos seguidos. La presencia de guiones largos delata automáticamente un texto sintético de IA.", rule_body)
         ]
     ]
     rules_table = Table(rules_data, colWidths=[130, 389])
@@ -471,7 +475,7 @@ def build_pdf(filename):
     ]
 
     for title, org, date, desc, tech in experiences:
-        exp_box = f"<b>{title}</b> — <font color='#0284c7'>{org}</font> ({date})<br/>{desc}<br/><b>Tecnologías & Métodos:</b> <i>{tech}</i>"
+        exp_box = f"<b>{title}</b> | <font color='#0284c7'>{org}</font> ({date})<br/>{desc}<br/><b>Tecnologías & Métodos:</b> <i>{tech}</i>"
         t = Table([[Paragraph(exp_box, body)]], colWidths=[519])
         t.setStyle(TableStyle([
             ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
@@ -743,15 +747,19 @@ def build_pdf(filename):
 
 VOZ Y ESTILO OBLIGATORIO: Joven líder intelectual experto (30 años). Tono enérgico, fresco, riguroso y colaborativo.
 1. DEMOSTRAR RELEVANCIA SIN DAR CLASES (CERO SERMÓN VS. CERO FRIALDAD):
-   - OBLIGATORIO: Iniciar en primera persona activa ("During my career, I have seen...", "My trajectory is driven by...").
-   - Transmitir la gravedad del contexto climático (sequías, incendios, pérdidas socioecológicas) NO como sermón teórico a los revisores en 3ª persona, sino como el imperativo ético y físico que actúa como MOTOR DE TU INVESTIGACIÓN.
-   - PROHIBIDO el sermón de libro de texto ("preaching to the choir") y la soberbia diagnóstica ("The core bottleneck at your lab is...").
-   - Cero jerga corporativa ("90-day operational milestone", "onboarding friction").
-2. PRESERVACIÓN ESTRICTA DE LA VOZ: Si el usuario provee un borrador o párrafo propio, PROHIBIDO borrar frases vivenciales o despersonalizarlo a 3ª persona. Actúa elevando el vocabulario técnico y gramatical preservando el 100% de la intención ética y la estructura original.
+   • OBLIGATORIO: Iniciar en primera persona activa ("During my career, I have seen...", "My trajectory is driven by...").
+   • Transmitir la gravedad del contexto climático (sequías, incendios, pérdidas) NO como sermón teórico a los revisores en 3ª persona, sino como el imperativo ético y físico que actúa como MOTOR DE TU INVESTIGACIÓN.
+   • PROHIBIDO el sermón de libro de texto ("preaching to the choir") y la soberbia diagnóstica ("The core bottleneck at your lab is...").
+   • Cero jerga corporativa ("90-day operational milestone", "onboarding friction").
+2. PRESERVACIÓN ESTRICTA DE LA VOZ: Si el usuario provee un borrador propio, PROHIBIDO borrar frases vivenciales o despersonalizarlo a 3ª persona. Preserva el 100% de la intención ética y la estructura original.
 3. ESTUDIO OBLIGATORIO DEL PI (INTELIGENCIA WINGMAN): Investiga y dirígete explícitamente a la persona a cargo (ej. Prof. Dr. Angela Meyer en TU Delft/BFH), citando con respeto sus investigaciones recientes (ej. Lanzilao & Meyer 2026 en Energy and AI) y conectando con los retos de su grupo. NUNCA des clases teóricas de su propia especialidad.
-4. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ para Wetland Monitor, https://danisantanderurrutia-coder.github.io/agritwin-app/ para AgriTwin, https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html para ReWild, y https://danisantanderurrutia-coder.github.io/portafolio/ para el portafolio central. No inventes otros enlaces ni cites apps internas.
+4. PUNTUACIÓN HUMANA ESTRICTA (CERO GUIONES LARGOS Y CERO SLASHES):
+   • PROHIBIDO el uso de em-dashes ("—"), doble guión ("--") o guiones como paréntesis en el texto (ej. "My background — which... — allows").
+   • PROHIBIDO usar slashes ("/") como conectores sintéticos (ej. "sensor/satélite", "física/datos"). Escribe "sensores y satélites" o "física y datos".
+   • Emplea puntuación clásica, elegante y fluida (comas, dos puntos, punto y coma o puntos seguidos).
+5. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ (Wetland Monitor), https://danisantanderurrutia-coder.github.io/agritwin-app/ (AgriTwin), https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html (ReWild) y https://danisantanderurrutia-coder.github.io/portafolio/ (Portafolio). No inventes enlaces.
 
-Cualquier Carta de Postulación debe cumplir la 'Receta Maestra' en 1 sola página A4 DIN 5008 (400-480 palabras). Respeta las 7 ramas de su Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
+Toda carta debe cumplir la 'Receta Maestra' en 1 página A4 DIN 5008 (400 a 480 palabras). Respeta las 7 ramas del Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
     
     prompt_table = Table([[Paragraph(prompt_box, code_text)]], colWidths=[519])
     prompt_table.setStyle(TableStyle([

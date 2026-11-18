@@ -32,6 +32,11 @@ export interface WordRepetition {
   count: number;
 }
 
+export interface SyntheticPunctuationViolation {
+  kind: 'em-dash' | 'double-dash' | 'isolated-hyphen' | 'slash-connector';
+  description: string;
+}
+
 export interface SentenceStarterRepetition {
   starter: string;
   count: number;
@@ -46,6 +51,7 @@ export interface AntiAiAuditResult {
   hasMethodology: boolean;
   hasMassBalancePerspective: boolean;
   // Auditoría avanzada & checklist
+  syntheticPunctuation: SyntheticPunctuationViolation[];
   mechanicalRepetitions: WordRepetition[];
   sentenceStarterRepetitions: SentenceStarterRepetition[];
   bureaucraticFillers: string[];
@@ -307,6 +313,64 @@ export const detectBureaucraticFillers = (text: string): string[] => {
   return fillers.filter((f) => lower.includes(f));
 };
 
+const ALLOWED_SLASH_PATTERNS = new Set([
+  'ndvi/ndre',
+  'fpic/clpi',
+  'co2/ch4',
+  'co₂/ch₄',
+  'km/h',
+  'hours/week',
+  'h/week',
+  'h/sem',
+  'w/m2',
+  'w/m²'
+]);
+
+export const detectSyntheticPunctuation = (text: string): SyntheticPunctuationViolation[] => {
+  const violations: SyntheticPunctuationViolation[] = [];
+
+  // Em-dashes (—)
+  const emDashes = text.match(/—/g);
+  if (emDashes) {
+    violations.push({
+      kind: 'em-dash',
+      description: `Guión largo em-dash ("—") detectado (${emDashes.length}×). Reemplázalo por coma, dos puntos o punto.`
+    });
+  }
+
+  // Doble guión (--)
+  const doubleDashes = text.match(/--/g);
+  if (doubleDashes) {
+    violations.push({
+      kind: 'double-dash',
+      description: `Doble guión ("--") detectado (${doubleDashes.length}×). Usa puntuación estándar.`
+    });
+  }
+
+  // Guiones aislados usados como cláusulas (" - ")
+  const isolatedHyphens = text.match(/\s+-\s+/g);
+  if (isolatedHyphens) {
+    violations.push({
+      kind: 'isolated-hyphen',
+      description: `Guión aislado (" - ") usado como inciso parentético (${isolatedHyphens.length}×). Usa comas o reestructura la oración.`
+    });
+  }
+
+  // Slashes conectores perezosos (ej. sensor/satélite, física/datos, and/or, y/o)
+  const cleanUrls = text.replace(/https?:\/\/[^\s)]+/g, '');
+  // Solo palabras alfabéticas de 3+ letras (ignora números de leyes o expedientes como 14/2013 o 8/LB/26)
+  const slashMatches = cleanUrls.match(/[a-záéíóúüñÁÉÍÓÚÜÑ]{3,}\/[a-záéíóúüñÁÉÍÓÚÜÑ]{3,}/gi) || [];
+  const badSlashes = slashMatches.filter((s) => !ALLOWED_SLASH_PATTERNS.has(s.toLowerCase()));
+  if (badSlashes.length > 0) {
+    violations.push({
+      kind: 'slash-connector',
+      description: `Slashes usados como conectores sintéticos (${badSlashes.slice(0, 3).join(', ')}${badSlashes.length > 3 ? '...' : ''}). Escribe "y", "o" o redacta la frase completa.`
+    });
+  }
+
+  return violations;
+};
+
 export const auditTextForAiCliches = (text: string): AntiAiAuditResult => {
   const lower = text.toLowerCase();
   const detectedCliches = FORBIDDEN_AI_CLICHES.filter((c) => lower.includes(c));
@@ -318,6 +382,7 @@ export const auditTextForAiCliches = (text: string): AntiAiAuditResult => {
   const mechanicalRepetitions = detectMechanicalRepetitions(text);
   const sentenceStarterRepetitions = detectSentenceStarterRepetitions(text);
   const bureaucraticFillers = detectBureaucraticFillers(text);
+  const syntheticPunctuation = detectSyntheticPunctuation(text);
 
   // Apertura débil
   const firstSentence = text.trim().split(/(?<=[.?!])\s+/)[0]?.toLowerCase() || '';
@@ -360,6 +425,20 @@ export const auditTextForAiCliches = (text: string): AntiAiAuditResult => {
       summary: detectedCliches.length === 0 ? '0 fórmulas de IA detectadas.' : `${detectedCliches.length} cliché(s) de IA detectado(s).`,
       details: detectedCliches,
       suggestion: detectedCliches.length > 0 ? `Reemplaza clichés como "${detectedCliches.join('", "')}" por afirmaciones empíricas directas.` : undefined
+    },
+    {
+      id: 'chk-punctuation',
+      category: 'anti_ai',
+      categoryLabel: 'Filtro Anti-IA y Clichés',
+      label: 'Puntuación humana natural (sin em-dashes ni slashes)',
+      status: syntheticPunctuation.length === 0 ? 'pass' : 'fail',
+      summary: syntheticPunctuation.length === 0
+        ? 'Puntuación natural sin guiones largos ni slashes de IA.'
+        : `${syntheticPunctuation.length} vicio(s) de puntuación de IA detectado(s).`,
+      details: syntheticPunctuation.map((v) => v.description),
+      suggestion: syntheticPunctuation.length > 0
+        ? 'Reemplaza guiones largos ("—"), dobles guiones ("--") o slashes ("/") por comas, conjunciones ("y", "o") o puntos seguidos.'
+        : undefined
     },
     {
       id: 'chk-fillers',
@@ -441,6 +520,7 @@ export const auditTextForAiCliches = (text: string): AntiAiAuditResult => {
   // Cálculo de score ponderado
   let score = 100;
   score -= detectedCliches.length * 15;
+  score -= syntheticPunctuation.length * 12;
   score -= bureaucraticFillers.length * 6;
   score -= mechanicalRepetitions.length * 5;
   score -= sentenceStarterRepetitions.length * 8;
@@ -452,12 +532,13 @@ export const auditTextForAiCliches = (text: string): AntiAiAuditResult => {
   const overallScore = Math.max(10, Math.min(100, score));
 
   return {
-    passed: detectedCliches.length === 0 && scientificTermsFound.length >= 3 && overallScore >= 70,
+    passed: detectedCliches.length === 0 && syntheticPunctuation.length === 0 && scientificTermsFound.length >= 3 && overallScore >= 70,
     clicheCount: detectedCliches.length,
     detectedCliches,
     scientificTermsFound,
     hasMethodology,
     hasMassBalancePerspective,
+    syntheticPunctuation,
     mechanicalRepetitions,
     sentenceStarterRepetitions,
     bureaucraticFillers,
@@ -521,7 +602,7 @@ export const buildDefaultScientificDraft = (lang: CoverLetterLang, offer?: Cover
   if (lang === 'en') {
     if (isUba) {
       return [
-        `I am submitting my application for the position of AI Project Management Specialist and AI Product Owner within the AI Application Laboratory (KI-Lab) at the German Environment Agency (Umweltbundesamt - UBA, Reference 8/LB/26, Interamt ID 1499096). As an Environmental Geophysicist and dual European M.Sc. in Environmental Management (CAU Kiel) and Environmental Protection (AMU Poznań), I combine rigorous quantitative STEM training with hands-on Product Ownership experience across three self-architected environmental software systems. My operational focus is bridging complex biophysical and Earth-observation data with agile sprint backlogs (Scrum) and reproducible MLOps architectures for environmental public administration.`,
+        `I am submitting my application for the position of AI Project Management Specialist and AI Product Owner within the AI Application Laboratory (KI-Lab) at the German Environment Agency (Umweltbundesamt (UBA), Reference 8/LB/26, Interamt ID 1499096). As an Environmental Geophysicist and dual European M.Sc. in Environmental Management (CAU Kiel) and Environmental Protection (AMU Poznań), I combine rigorous quantitative STEM training with hands-on Product Ownership experience across three self-architected environmental software systems. My operational focus is bridging complex biophysical and Earth-observation data with agile sprint backlogs (Scrum) and reproducible MLOps architectures for environmental public administration.`,
 
         `My methodology is grounded in physical mass balances and verifiable data integrity: At Universidad de Chile (graduated with distinction), I analyzed subsurface electrical resistivity anomalies and groundwater drawdown under forestry monocultures in the Maule Basin via Schlumberger vertical electrical soundings (VES). At CAU Kiel, I quantify greenhouse gas fluxes (CO₂, CH₄) on the rewetted peatland Wallener Au using closed chambers, high-frequency Eddy Covariance towers, and soil hydro-physical characterization processed through reproducible R scripts. This continuous field sensor instrumentation prevents naive assumptions regarding sensor noise, data drift, or calibration limits.`,
 
@@ -552,7 +633,7 @@ export const buildDefaultScientificDraft = (lang: CoverLetterLang, offer?: Cover
   // Español (predeterminado)
   if (isUba) {
     return [
-      `Presento mi postulación a la posición de Especialista en Gestión de Proyectos de IA y Product Owner de IA en el Laboratorio de Aplicación de Inteligencia Artificial y Big Data (KI-Lab) de la Agencia Federal de Medio Ambiente de Alemania (Umweltbundesamt - UBA, Kennziffer 8/LB/26, Interamt-ID 1499096). Como Geofísico Ambiental y doble Máster en Ciencias europeo en Manejo Ambiental (CAU Kiel) y Protección Ambiental (AMU Poznań), integro una formación cuantitativa rigurosa con experiencia contrastada de Product Ownership en la concepción y desarrollo autónomo de tres aplicaciones de software ambiental. Mi enfoque radica en traducir requerimientos biogeoquímicos complejos en backlogs ágiles (Scrum) y arquitecturas de datos verificables para la administración ambiental pública.`,
+      `Presento mi postulación a la posición de Especialista en Gestión de Proyectos de IA y Product Owner de IA en el Laboratorio de Aplicación de Inteligencia Artificial y Big Data (KI-Lab) de la Agencia Federal de Medio Ambiente de Alemania (Umweltbundesamt (UBA), Kennziffer 8/LB/26, Interamt-ID 1499096). Como Geofísico Ambiental y doble Máster en Ciencias europeo en Manejo Ambiental (CAU Kiel) y Protección Ambiental (AMU Poznań), integro una formación cuantitativa rigurosa con experiencia contrastada de Product Ownership en la concepción y desarrollo autónomo de tres aplicaciones de software ambiental. Mi enfoque radica en traducir requerimientos biogeoquímicos complejos en backlogs ágiles (Scrum) y arquitecturas de datos verificables para la administración ambiental pública.`,
 
       `Mi metodología parte de balances de masa biofísicos y rigor empírico: En la Universidad de Chile (con distinción) analicé, mediante sondeos eléctricos verticales (SEV, Schlumberger), las alteraciones de resistividad eléctrica del subsuelo y la depresión freática bajo monocultivos forestales en el Maule. En la CAU Kiel cuantifico los flujos de gases de efecto invernadero (CO₂, CH₄) en la turbera rehumedecida Wallener Au mediante cámaras cerradas y torres micrometeorológicas de Eddy Covariance, evaluando curvas de retención hídrica y dinámica edáfica con pipelines reproducibles en R. Esta experiencia de instrumentación continua en terreno evita supuestos desconectados de la calidad real de los datos.`,
 
@@ -563,7 +644,7 @@ export const buildDefaultScientificDraft = (lang: CoverLetterLang, offer?: Cover
 
       `En los tres productos ejercí el rol de Product Owner: desde el levantamiento de especificaciones y arquitectura de datos hasta la priorización de historias de usuario y la validación con equipos de terreno. Esta solvencia técnica se complementa con capacidad probada de interlocución pública: perito invitado ante la Cámara de Diputadas y Diputados de Chile para la modelación de riesgo de incendios y autor principal de informes internacionales sobre balances de carbono y biomasa (EPN y Global Forest Coalition, 2023).`,
 
-      `Como graduado de una universidad alemana, dispongo de plena habilitación contractual (§20 AufenthG), inglés profesional (C2), alemán operativo (B1–B2) y total disposición para trabajar en Leipzig y en modalidad híbrida/remota. Quedo a su disposición para cualquier requerimiento técnico o formal.`
+      `Como graduado de una universidad alemana, dispongo de plena habilitación contractual (§20 AufenthG), inglés profesional (C2), alemán operativo (B1–B2) y total disposición para trabajar en Leipzig y en modalidad híbrida o remota. Quedo a su disposición para cualquier requerimiento técnico o formal.`
     ];
   }
 
@@ -576,7 +657,7 @@ export const buildDefaultScientificDraft = (lang: CoverLetterLang, offer?: Cover
 
     `En el marco de mi doble maestría en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia), desarrollo investigación cuantitativa directa en la turbera rehumedecida Wallener Au (Schleswig-Holstein). Cuantifico flujos de gases de efecto invernadero (CO₂, CH₄) mediante cámaras cerradas y registros de Eddy Covariance, evaluando las propiedades hidrofísicas del suelo orgánico, la paludicultura y gemelos digitales en R (aplicación Wetland Monitor).`,
 
-    `Esta integración de inversión geofísica, micro-meteorología de flujos y programación científica encaja de forma directa con las demandas analíticas de ${company}. Aporto resiliencia comprobada para campañas prolongadas de terreno, dominio lingüístico (español nativo, inglés C2 técnico-ejecutivo y alemán B1–B2) y disponibilidad contractual inmediata bajo el marco legal de graduado universitario europeo (§20 AufenthG / Ley 14/2013).`
+    `Esta integración de inversión geofísica, micro-meteorología de flujos y programación científica encaja de forma directa con las demandas analíticas de ${company}. Aporto resiliencia comprobada para campañas prolongadas de terreno, dominio lingüístico (español nativo, inglés C2 técnico-ejecutivo y alemán B1–B2) y disponibilidad contractual inmediata bajo el marco legal de graduado universitario europeo (§20 AufenthG y Ley 14/2013).`
   ];
 };
 
@@ -606,17 +687,17 @@ export const buildCoverLetter = (config: CoverLetterConfig): BuiltCoverLetter =>
   const resolvedAddress = recipientAddress || (isUba ? 'Anwendungslabor für Künstliche Intelligenz und Big Data (KI-Lab), Dienstsitz Leipzig / Wörlitzer Platz 1, 06844 Dessau-Roßlau' : undefined);
 
   let refSubject = lang === 'en'
-    ? `Application: ${offer?.title || 'Environmental Scientist / Geophysicist'}${offer?.company ? ` — ${offer.company}` : ''}`
+    ? `Application: ${offer?.title || 'Environmental Scientist and Geophysicist'}${offer?.company ? ` | ${offer.company}` : ''}`
     : lang === 'de'
-    ? `Bewerbung als ${offer?.title || 'Umweltwissenschaftler / Geophysiker'}${offer?.company ? ` — ${offer.company}` : ''}`
-    : `Candidatura: ${offer?.title || 'Geofísico Ambiental / Investigador'}${offer?.company ? ` — ${offer.company}` : ''}`;
+    ? `Bewerbung als ${offer?.title || 'Umweltwissenschaftler / Geophysiker'}${offer?.company ? ` | ${offer.company}` : ''}`
+    : `Candidatura: ${offer?.title || 'Geofísico Ambiental / Investigador'}${offer?.company ? ` | ${offer.company}` : ''}`;
 
   if (isUba) {
     refSubject = lang === 'de'
-      ? 'Bewerbung als Spezialist*in im Bereich KI-Projektmanagement und KI Product Owner (KI-Lab) — Kennziffer 8/LB/26 (Interamt ID 1499096)'
+      ? 'Bewerbung als Spezialist*in im Bereich KI-Projektmanagement und KI Product Owner (KI-Lab) | Kennziffer 8/LB/26 (Interamt ID 1499096)'
       : lang === 'en'
-      ? 'Application: AI Project Management Specialist and AI Product Owner (KI-Lab) — Ref. 8/LB/26 (Interamt ID 1499096)'
-      : 'Candidatura: Especialista en Gestión de Proyectos de IA y Product Owner de IA (KI-Lab) — Kennziffer 8/LB/26 (Interamt ID 1499096)';
+      ? 'Application: AI Project Management Specialist and AI Product Owner (KI-Lab) | Ref. 8/LB/26 (Interamt ID 1499096)'
+      : 'Candidatura: Especialista en Gestión de Proyectos de IA y Product Owner de IA (KI-Lab) | Kennziffer 8/LB/26 (Interamt ID 1499096)';
   }
 
   const salutation = recipientName?.trim()
@@ -723,7 +804,7 @@ export const renderCoverLetterHtml = (built: BuiltCoverLetter): string => {
 <html lang="${lang}">
 <head>
   <meta charset="utf-8">
-  <title>${esc(referenceSubject)} — Daniel Santander Urrutia</title>
+  <title>${esc(referenceSubject)} | Daniel Santander Urrutia</title>
   <style>${COVER_LETTER_CSS}</style>
 </head>
 <body>
@@ -852,7 +933,7 @@ C. EL HILO CONDUCTOR ("THE GOLDEN THREAD") Y ARQUITECTURA NARRATIVA (1 PÁGINA D
      * Portafolio: https://danisantanderurrutia-coder.github.io/portafolio/
      (Prohibido inventar URLs o enlazar a herramientas internas).
    - Párrafo 4 (Propuesta de Trabajo Colaborativo Inmediato): Plantea cómo comenzarías a contrastar hipótesis, integrar datos o calibrar modelos numéricos frente a observaciones de superficie desde el primer mes, con actitud de equipo (sin jerga corporativa vacía como "90-day operational milestone").
-   - Cierre formal (ToR Compliance): Declara explícitamente dedicación (40h/sem, disponibilidad para terreno), encuadre salarial o de contratación y habilitación legal inmediata (§ 20 AufenthG / Directiva UE 2016/801).
+   - Cierre formal (ToR Compliance): Declara explícitamente dedicación (40h/sem, disponibilidad para terreno), encuadre salarial o de contratación y habilitación legal inmediata (§ 20 AufenthG y Directiva UE 2016/801).
 
 D. IDENTIDAD, EDAD Y TONO (JOVEN LÍDER INTELECTUAL - 30 AÑOS):
    - Tono enérgico, lúcido, riguroso y pragmático: Alguien que combina el rigor matemático con el barro de las botas en terreno y el desarrollo de software moderno.
@@ -866,6 +947,11 @@ D. IDENTIDAD, EDAD Y TONO (JOVEN LÍDER INTELECTUAL - 30 AÑOS):
      * El LLM debe actuar como pulidor gramatical y elevador de vocabulario técnico, preservando el 100% de la intención, los matices éticos y la estructura original del usuario.
    - PROHIBIDO el tono pedante de "catedrático de 55 años / sacowea" que pontifica sobre obviedades. Horizontalidad, respeto y pasión empírica.
    - Regla "Zero-Defensiveness": Jamás justificar ni disculpar cambios de área; presentarlos como activos acumulativos de valor único.
+
+E. PUNTUACIÓN HUMANA ESTRICTA (CERO GUIONES LARGOS Y CERO SLASHES):
+   - Queda terminantemente prohibido usar em-dashes ("—"), doble guión ("--") o guiones como paréntesis en la redacción de la carta (ej. "My background — which... — allows").
+   - Prohibido usar slashes ("/") como atajos o conectores sintéticos (ej. "sensor/satélite", "física/datos", "and/or", "y/o"). Escribe "sensores y satélites" o "física y datos empíricos".
+   - La redacción debe estructurarse en 4 a 5 párrafos narrativos continuos y fluidos, empleando comas, puntos y coma o puntos seguidos. La presencia de guiones largos delata automáticamente un texto sintético de IA.
 
 ================================================================================
 4. MI BORRADOR BASE ACTUAL (A REVISAR O PULIR)

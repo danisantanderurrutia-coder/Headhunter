@@ -27,10 +27,22 @@ describe('coverLetterStudio · Anti-AI Audit & Clichés', () => {
       const audit = auditTextForAiCliches(draft);
       expect(audit.clicheCount).toBe(0);
       expect(audit.detectedCliches).toEqual([]);
+      expect(audit.syntheticPunctuation.length).toBe(0);
       expect(audit.hasMethodology).toBe(true);
       expect(audit.hasMassBalancePerspective).toBe(true);
       expect(audit.passed).toBe(true);
     });
+  });
+
+  it('detecta puntuación sintética de IA (em-dashes, dobles guiones y slashes conectores)', () => {
+    const textWithAiPunctuation = 'My trajectory — which spans geophysics and data — addresses the physical/empirical gap in weather--energy modeling.';
+    const audit = auditTextForAiCliches(textWithAiPunctuation);
+    expect(audit.syntheticPunctuation.length).toBeGreaterThanOrEqual(3);
+    const kinds = audit.syntheticPunctuation.map((v) => v.kind);
+    expect(kinds).toContain('em-dash');
+    expect(kinds).toContain('double-dash');
+    expect(kinds).toContain('slash-connector');
+    expect(audit.passed).toBe(false);
   });
 
   it('los borradores incluyen las metodologías verificadas (SEV, Eddy Covariance, R)', () => {
