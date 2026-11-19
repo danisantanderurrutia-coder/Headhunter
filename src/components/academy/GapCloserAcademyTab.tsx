@@ -9,7 +9,10 @@ import {
   Zap, 
   X,
   BookOpen,
-  Filter
+  RefreshCw,
+  SlidersHorizontal,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { ACADEMY_COURSES } from '../../data/academyCourses';
 import { getStoredCourseProgress, setCourseStatus } from '../../services/db';
@@ -95,6 +98,178 @@ const BRANCH_CONFIG: Record<AcademyBranch, {
   }
 };
 
+interface AcademySpecializationCard {
+  id: string;
+  label: string;
+  icon: string;
+  subtitle: string;
+  accent: {
+    border: string;
+    bg: string;
+    glow: string;
+    badge: string;
+  };
+}
+
+const ACADEMY_SPECIALIZATION_CAROUSEL: AcademySpecializationCard[] = [
+  {
+    id: 'ALL',
+    label: 'Todas las Áreas',
+    icon: '🌐',
+    subtitle: 'Catálogo de especialización global',
+    accent: {
+      border: 'border-cyan-500/80',
+      bg: 'from-cyan-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+      badge: 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/40'
+    }
+  },
+  {
+    id: 'geophysics',
+    label: 'Geofísica & Sensores',
+    icon: '🛰️',
+    subtitle: 'Radar SAR Sentinel-1, DInSAR, SNAP & GEE',
+    accent: {
+      border: 'border-emerald-500/80',
+      bg: 'from-emerald-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+      badge: 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/40'
+    }
+  },
+  {
+    id: 'biogeo',
+    label: 'Biogeoquímica & Suelos',
+    icon: '💧',
+    subtitle: 'Suelos, Cuencas, WaPOR, Turberas & RothC',
+    accent: {
+      border: 'border-cyan-500/80',
+      bg: 'from-cyan-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(8,145,178,0.25)]',
+      badge: 'bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border-cyan-500/40'
+    }
+  },
+  {
+    id: 'software',
+    label: 'Software, PO & IA',
+    icon: '⚡',
+    subtitle: 'Agile PM, LLMs, Python & GenAI pipelines',
+    accent: {
+      border: 'border-blue-500/80',
+      bg: 'from-blue-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(37,99,235,0.25)]',
+      badge: 'bg-blue-500/20 text-blue-800 dark:text-blue-300 border-blue-500/40'
+    }
+  },
+  {
+    id: 'pm',
+    label: 'Gestión I+D & Consorcios',
+    icon: '🧭',
+    subtitle: 'Horizonte Europa, PM² UE, Life & Presupuestos',
+    accent: {
+      border: 'border-amber-500/80',
+      bg: 'from-amber-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(217,119,6,0.25)]',
+      badge: 'bg-amber-500/20 text-amber-800 dark:text-amber-300 border-amber-500/40'
+    }
+  },
+  {
+    id: 'grassroots',
+    label: 'Grassroots & Territorio',
+    icon: '🌱',
+    subtitle: 'Alianzas comunitarias, rewilding & cuencas',
+    accent: {
+      border: 'border-lime-500/80',
+      bg: 'from-lime-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(101,163,13,0.25)]',
+      badge: 'bg-lime-500/20 text-lime-900 dark:text-lime-300 border-lime-500/40'
+    }
+  },
+  {
+    id: 'culture',
+    label: 'Políticas & CSRD',
+    icon: '🏛️',
+    subtitle: 'EU Soil Directive, ESRS, IA Act & Compliance',
+    accent: {
+      border: 'border-purple-500/80',
+      bg: 'from-purple-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(147,51,234,0.25)]',
+      badge: 'bg-purple-500/20 text-purple-800 dark:text-purple-300 border-purple-500/40'
+    }
+  },
+  {
+    id: 'comms',
+    label: 'Prensa & Vocería',
+    icon: '📢',
+    subtitle: 'Testimonio parlamentario, advocacy & medios',
+    accent: {
+      border: 'border-orange-500/80',
+      bg: 'from-orange-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(234,88,12,0.25)]',
+      badge: 'bg-orange-500/20 text-orange-900 dark:text-orange-300 border-orange-500/40'
+    }
+  },
+  {
+    id: 'languages',
+    label: 'Alemán C1 & DACH',
+    icon: '🇩🇪',
+    subtitle: 'Goethe C1, comunicación científica y técnica',
+    accent: {
+      border: 'border-sky-500/80',
+      bg: 'from-sky-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(2,132,199,0.25)]',
+      badge: 'bg-sky-500/20 text-sky-800 dark:text-sky-300 border-sky-500/40'
+    }
+  },
+  {
+    id: 'ONLY_GAPS',
+    label: 'Brechas de Mercado',
+    icon: '⚡',
+    subtitle: '8 habilidades urgentes detectadas en mercado',
+    accent: {
+      border: 'border-rose-500/80',
+      bg: 'from-rose-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(244,63,94,0.25)]',
+      badge: 'bg-rose-500/20 text-rose-800 dark:text-rose-300 border-rose-500/40'
+    }
+  },
+  {
+    id: 'ESA',
+    label: 'EO College (ESA)',
+    icon: '🛰️',
+    subtitle: 'Agencia Espacial Europea · Cursos SAR abiertos',
+    accent: {
+      border: 'border-emerald-500/80',
+      bg: 'from-emerald-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+      badge: 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/40'
+    }
+  },
+  {
+    id: 'EU',
+    label: 'EU Academy (UE)',
+    icon: '🇪🇺',
+    subtitle: 'Comisión Europea · Digital, Suelos & PM²',
+    accent: {
+      border: 'border-blue-500/80',
+      bg: 'from-blue-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(37,99,235,0.25)]',
+      badge: 'bg-blue-500/20 text-blue-800 dark:text-blue-300 border-blue-500/40'
+    }
+  },
+  {
+    id: 'FAO',
+    label: 'FAO Academy (ONU)',
+    icon: '🇺🇳',
+    subtitle: 'Naciones Unidas · WaPOR, Turberas & GSOC',
+    accent: {
+      border: 'border-sky-500/80',
+      bg: 'from-sky-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(2,132,199,0.25)]',
+      badge: 'bg-sky-500/20 text-sky-800 dark:text-sky-300 border-sky-500/40'
+    }
+  }
+];
+
 export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
   initialGapId,
   onNavigateToSkillTree: _onNavigateToSkillTree
@@ -107,8 +282,17 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeGapFilter, setActiveGapFilter] = useState<string | undefined>(initialGapId);
+  const [isFiltersCollapsed, setIsFiltersCollapsed] = useState<boolean>(false);
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
   // Synchronize state and storage
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setCourseProgressState({ ...getStoredCourseProgress() });
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 400);
+  };
   const handleUpdateStatus = (
     courseId: string, 
     newStatus: CourseStatus, 
@@ -316,15 +500,39 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
           </div>
         </div>
 
-        {/* Discipline Pill Filter & Search (Integrated Section) */}
+        {/* Discipline Selection Carousel / Grid & Search Strip */}
         <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
-          {/* Branch Pills Row */}
-          <div>
-            <div className="text-[10.5px] font-mono uppercase font-bold text-slate-500 dark:text-slate-400 mb-2 flex items-center justify-between">
-              <span className="flex items-center gap-1.5">
-                <Filter className="h-3.5 w-3.5 text-sky-500" />
-                <span>SELECCIONA TU ÁREA DE ESPECIALIZACIÓN O ENFOQUE:</span>
-              </span>
+          
+          {/* Header of Filter Carousel with Reset, Refresh, and Collapse Controls */}
+          <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-2.5 flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-300 border border-sky-200 dark:border-sky-500/30">
+                <SlidersHorizontal className="h-3.5 w-3.5" />
+              </div>
+              <div>
+                <span className="text-[11px] font-black font-mono uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>ÁREAS DE ESPECIALIZACIÓN & ENFOQUE</span>
+                  <span className="text-[9.5px] px-2 py-0.2 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-300 dark:border-sky-800 font-bold font-mono">
+                    {filteredCourses.length} de {totalCourses}
+                  </span>
+                </span>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                  Selecciona una disciplina o plataforma para desplegar las formaciones certificadas de tu perfil
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Botón de Recargar / Actualizar */}
+              <button
+                onClick={handleRefresh}
+                className="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer border border-slate-200 dark:border-slate-700 shadow-2xs"
+                title="Recargar catálogo y progreso formativo"
+              >
+                <RefreshCw className={`h-3 w-3 text-sky-600 dark:text-sky-400 ${isRefreshing ? 'animate-spin' : ''}`} />
+                <span className="hidden sm:inline">Recargar</span>
+              </button>
+
               {(selectedBranchFilter !== 'ALL' || selectedCostFilter !== 'ALL' || selectedStatusFilter !== 'ALL' || searchQuery || activeGapFilter) && (
                 <button
                   onClick={() => {
@@ -334,110 +542,86 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                     setSearchQuery('');
                     setActiveGapFilter(undefined);
                   }}
-                  className="text-[10px] text-rose-600 hover:text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1 cursor-pointer"
+                  className="px-2.5 py-1 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900 text-rose-700 dark:text-rose-300 text-xs font-mono font-bold transition cursor-pointer border border-rose-200 dark:border-rose-800 shadow-2xs flex items-center gap-1"
                 >
                   <X className="h-3 w-3" />
-                  <span>Restablecer Filtros</span>
+                  <span>Resetear</span>
                 </button>
               )}
+
+              {/* Botón para Alternar Modo Colapsado / Expandido */}
+              <button
+                onClick={() => setIsFiltersCollapsed(!isFiltersCollapsed)}
+                className="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-mono font-bold transition flex items-center gap-1 cursor-pointer border border-slate-200 dark:border-slate-700 shadow-2xs"
+                title={isFiltersCollapsed ? 'Expandir carrusel de áreas' : 'Colapsar para mayor espacio'}
+              >
+                <span>{isFiltersCollapsed ? 'Ver Áreas' : 'Colapsar'}</span>
+                {isFiltersCollapsed ? (
+                  <ChevronDown className="h-3 w-3 text-sky-500" />
+                ) : (
+                  <ChevronUp className="h-3 w-3 text-sky-500" />
+                )}
+              </button>
             </div>
+          </div>
 
-            <div className="flex flex-wrap items-center gap-1.5">
-              {/* 1. All Button */}
-              <button
-                onClick={() => { setSelectedBranchFilter('ALL'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
-                  selectedBranchFilter === 'ALL' && !activeGapFilter
-                    ? 'bg-slate-800 text-white dark:bg-white dark:text-slate-900 font-black border-slate-800 dark:border-white'
-                    : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/60'
-                }`}
-              >
-                <span>🌐 Todas las Áreas</span>
-                <span className="text-[10px] opacity-75 font-normal">({branchCounts.ALL})</span>
-              </button>
-
-              {/* 2. Only Gaps Button */}
-              <button
-                onClick={() => { setSelectedBranchFilter('ONLY_GAPS'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
-                  selectedBranchFilter === 'ONLY_GAPS'
-                    ? 'bg-rose-600 text-white font-black border-rose-600 shadow-sm'
-                    : 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-950/50'
-                }`}
-              >
-                <span>⚡ Brechas Prioritarias</span>
-                <span className="text-[10px] opacity-75 font-normal">({branchCounts.ONLY_GAPS})</span>
-              </button>
-
-              {/* 3. EO College / ESA Filter Button */}
-              <button
-                onClick={() => { setSelectedBranchFilter('ESA'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
-                  selectedBranchFilter === 'ESA'
-                    ? 'bg-emerald-600 text-white font-black border-emerald-600 shadow-sm'
-                    : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/50'
-                }`}
-              >
-                <span>🛰️ EO College (ESA)</span>
-                <span className="text-[10px] opacity-80 font-normal">({branchCounts.ESA})</span>
-              </button>
-
-              {/* 4. EU Academy (Comisión Europea) Filter Button */}
-              <button
-                onClick={() => { setSelectedBranchFilter('EU'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
-                  selectedBranchFilter === 'EU'
-                    ? 'bg-blue-600 text-white font-black border-blue-600 shadow-sm'
-                    : 'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-500/30 text-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-950/50'
-                }`}
-              >
-                <span>🇪🇺 EU Academy (UE)</span>
-                <span className="text-[10px] opacity-80 font-normal">({branchCounts.EU})</span>
-              </button>
-
-              {/* 5. FAO E-learning Academy Filter Button */}
-              <button
-                onClick={() => { setSelectedBranchFilter('FAO'); setActiveGapFilter(undefined); }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
-                  selectedBranchFilter === 'FAO'
-                    ? 'bg-sky-600 text-white font-black border-sky-600 shadow-sm'
-                    : 'bg-sky-50 dark:bg-sky-950/30 border-sky-200 dark:border-sky-500/30 text-sky-800 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-950/50'
-                }`}
-              >
-                <span>🇺🇳 FAO Naciones Unidas</span>
-                <span className="text-[10px] opacity-80 font-normal">({branchCounts.FAO})</span>
-              </button>
-
-              {/* 6. The 7 Authentic Disciplines + Languages */}
-              {(Object.keys(BRANCH_CONFIG) as AcademyBranch[]).map(branchKey => {
-                const conf = BRANCH_CONFIG[branchKey];
-                const isSelected = selectedBranchFilter === branchKey;
-                const count = branchCounts[branchKey] || 0;
+          {/* Carrusel Visual de Tarjetas de Especialización */}
+          {!isFiltersCollapsed && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-2 animate-fadeIn">
+              {ACADEMY_SPECIALIZATION_CAROUSEL.map(item => {
+                const isSelected = selectedBranchFilter === item.id;
+                const count = branchCounts[item.id] !== undefined ? branchCounts[item.id] : 0;
 
                 return (
                   <button
-                    key={branchKey}
-                    onClick={() => { setSelectedBranchFilter(branchKey); setActiveGapFilter(undefined); }}
-                    className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs border ${
+                    key={item.id}
+                    onClick={() => {
+                      setSelectedBranchFilter(item.id);
+                      setActiveGapFilter(undefined);
+                    }}
+                    className={`group relative p-2.5 rounded-xl flex flex-col justify-between items-start text-left transition-all duration-200 cursor-pointer min-h-[88px] border shadow-2xs ${
                       isSelected
-                        ? conf.activePillClass
-                        : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/60'
+                        ? `${item.accent.border} ${item.accent.glow} bg-gradient-to-br ${item.accent.bg} ring-2 ring-sky-500/30 text-white`
+                        : 'bg-slate-50/80 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 border-slate-200/90 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 hover:scale-[1.01]'
                     }`}
                   >
-                    <span>{conf.icon}</span>
-                    <span className="hidden sm:inline">{conf.shortLabel}</span>
-                    <span className="sm:hidden">{conf.shortLabel.slice(0, 10)}</span>
-                    <span className="text-[10px] opacity-75 font-normal">({count})</span>
+                    {/* Top Row: Emoji Icon + Badge Count */}
+                    <div className="w-full flex items-center justify-between gap-1">
+                      <span className="text-xl sm:text-2xl filter drop-shadow group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </span>
+                      <span className={`text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full border ${
+                        isSelected 
+                          ? 'bg-white/20 text-white border-white/30' 
+                          : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600'
+                      }`}>
+                        {count}
+                      </span>
+                    </div>
+
+                    {/* Bottom Row: Label & Subtitle */}
+                    <div className="mt-1 w-full">
+                      <h4 className={`text-[11.5px] font-black leading-tight line-clamp-1 ${
+                        isSelected ? 'text-white' : 'text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400'
+                      }`}>
+                        {item.label}
+                      </h4>
+                      <p className={`text-[9.5px] font-mono mt-0.5 line-clamp-1 truncate ${
+                        isSelected ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'
+                      }`}>
+                        {item.subtitle}
+                      </p>
+                    </div>
                   </button>
                 );
               })}
             </div>
-          </div>
+          )}
 
-          {/* Search & Sub-dropdowns row */}
+          {/* Search, Sub-dropdowns & Active Pill Strip */}
           <div className="flex flex-col sm:flex-row gap-2 pt-2 border-t border-slate-200 dark:border-slate-800 items-center justify-between text-xs">
             
-            {/* Search box */}
+            {/* Search box with active reset button */}
             <div className="relative w-full sm:w-80">
               <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
               <input 
@@ -445,11 +629,20 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
                 placeholder="Buscar curso, temario, software o institución..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-mono focus:outline-none focus:border-sky-500 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white transition-colors shadow-2xs"
+                className="w-full pl-8 pr-7 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-mono focus:outline-none focus:border-sky-500 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white transition-colors shadow-2xs"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white text-xs font-bold cursor-pointer"
+                  title="Limpiar búsqueda"
+                >
+                  ✕
+                </button>
+              )}
             </div>
 
-            {/* Quick Filters: Cost & Status */}
+            {/* Quick Filters: Cost, Status & Count */}
             <div className="flex items-center gap-2 w-full sm:w-auto font-mono text-xs">
               <select
                 value={selectedCostFilter}
@@ -711,7 +904,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5">
           {filteredCourses.map(course => {
             const userProg = courseProgress[course.id] || {
               courseId: course.id,
