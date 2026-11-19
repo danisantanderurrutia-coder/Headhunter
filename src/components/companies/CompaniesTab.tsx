@@ -174,15 +174,15 @@ const SECTOR_CATEGORIES: {
     }
   },
   { 
-    id: 'GEOTHERMAL_ENERGY', 
-    label: 'Geotermia & Subsuelo', 
-    icon: '🌋',
-    subtitle: 'Fervo, Eavor, INGV, Hidrogeofísica',
+    id: 'EARTH_OBSERVATION_AGROTECH', 
+    label: 'Observación de la Tierra & Agrotech', 
+    icon: '🛰️',
+    subtitle: 'ConstellR, OroraTech, Planet, Gemelos Digitales',
     accent: {
-      border: 'border-orange-500/80',
-      bg: 'from-orange-950/70 via-slate-900 to-slate-900',
-      glow: 'shadow-[0_0_25px_rgba(249,115,22,0.25)]',
-      badge: 'bg-orange-500/20 text-orange-300 border-orange-500/40'
+      border: 'border-cyan-500/80',
+      bg: 'from-cyan-950/70 via-slate-900 to-slate-900',
+      glow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+      badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
     }
   }
 ];
@@ -451,8 +451,8 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
         return { label: 'I+D Público & Centros', color: 'bg-teal-950/80 text-teal-300 border-teal-700/60' };
       case 'MULTILATERAL_POLICY':
         return { label: 'Multilateral & Políticas', color: 'bg-purple-950/80 text-purple-300 border-purple-700/60' };
-      case 'GEOTHERMAL_ENERGY':
-        return { label: 'Geotermia & Subsuelo', color: 'bg-orange-950/80 text-orange-300 border-orange-700/60' };
+      case 'EARTH_OBSERVATION_AGROTECH':
+        return { label: 'Observación de la Tierra & Agrotech', color: 'bg-cyan-950/80 text-cyan-300 border-cyan-700/60' };
       default:
         return { label: 'Sector Estratégico', color: 'bg-slate-800 text-slate-300 border-slate-700' };
     }

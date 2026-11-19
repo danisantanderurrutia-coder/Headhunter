@@ -373,7 +373,7 @@ export function App() {
               />
             )}
 
-            {(activeTab === 'funding' || activeTab === 'convocatorias') && (
+            {(activeTab === 'funding' || activeTab === 'convocatorias' || activeTab === 'fondos') && (
               <FundingTab
                 onStartApplication={handleStartApplicationFromFunding}
               />

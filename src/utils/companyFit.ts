@@ -42,7 +42,7 @@ export const analyzeCompanyFit = (comp: CompanyDossier): CompanyFitAnalysis => {
     'geofísica', 'geofisica', 'geophysics', 'gravimetr', 'sondeos eléctricos', 'sev', 
     'resistividad', 'ert', 'inversión', 'cuenca', 'cuencas', 'catchment', 'incendio', 
     'incendios', 'wildfire', 'fire', 'sequía', 'sequia', 'drought', 'freático', 'freatico', 
-    'geotermia', 'geothermal', 'hidrogeolog', 'acuífero'
+    'hidrogeolog', 'acuífero', 'salinidad'
   ];
   const p2Matched = p2Keywords.filter(k => corpus.includes(k));
   if (p2Matched.length > 0) {

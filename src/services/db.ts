@@ -43,7 +43,7 @@ const defaultSettings: AppSettings = {
 const KEYS = {
   PROFILE: 'job_search_os_profile_v20',
   OFFERS: 'job_search_os_offers_v21',
-  COMPANIES: 'job_search_os_companies_v19',
+  COMPANIES: 'job_search_os_companies_v20',
   APPLICATIONS: 'job_search_os_applications_v19',
   SOURCES: 'job_search_os_sources_v19',
   CVS: 'job_search_os_cvs_v19',
@@ -222,6 +222,7 @@ export const getStoredCompanies = (): CompanyDossier[] => {
   // Fallback to older keys if empty
   if (list.length === 0) {
     const historicalKeys = [
+      'job_search_os_companies_v19',
       'job_search_os_companies_v18',
       'job_search_os_companies_v17',
       'job_search_os_companies_v16',
@@ -245,9 +246,14 @@ export const getStoredCompanies = (): CompanyDossier[] => {
     }
   }
 
+  // Purga estricta de entidades heredadas de geotermia profunda (desconectadas del perfil del candidato)
+  const LEGACY_GEOTHERMAL_IDS = new Set(['comp-telur', 'comp-dmt', 'comp-eavor', 'comp-storengy', 'comp-deep-earth', 'comp-fervo']);
+  const initialLen = list.length;
+  list = list.filter(c => !LEGACY_GEOTHERMAL_IDS.has(c.id) && (c as any).sectorCluster !== 'GEOTHERMAL_ENERGY' && !c.name?.toLowerCase().includes('geoterm'));
+  let migrated = list.length !== initialLen;
+
   // Migración: eliminar contactos sembrados que no estaban verificados y corregir un id de convocatoria
   const UNVERIFIED_CONTACT_IDS = new Set(['cnt-gfz-1', 'cnt-gmc-1', 'cnt-iker-1']);
-  let migrated = false;
   list = list.map(c => {
     const hasBad = (c.contacts || []).some(ct => UNVERIFIED_CONTACT_IDS.has(ct.id));
     const hasOldFundingId = (c.fundingTies || []).includes('f-ikerbasque-fellow');

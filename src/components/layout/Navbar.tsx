@@ -18,7 +18,7 @@ const NAV_TABS: NavTabItem[] = [
   { id: 'market_radar', label: 'MERCADO', matches: ['market_radar', 'offers', 'sources', 'companies'] },
   { id: 'crafting', label: 'CRAFTING', matches: ['crafting', 'studio', 'cvs', 'cartas', 'cv-studio', 'carta-studio', 'plantillas'] },
   { id: 'agent_dossier', label: 'PERFIL', matches: ['agent_dossier', 'profile', 'expediente', 'showcase', 'skills', 'settings'] },
-  { id: 'funding', label: 'CONVOCATORIAS', matches: ['funding', 'convocatorias'] },
+  { id: 'funding', label: 'FONDOS', matches: ['funding', 'convocatorias', 'fondos'] },
   { id: 'academy', label: 'ACADEMIA', matches: ['academy', 'courses', 'cursos'] }
 ];
 

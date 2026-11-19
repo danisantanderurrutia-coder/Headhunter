@@ -121,7 +121,7 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
             <Award className="h-4 w-4 text-amber-500" />
           </div>
           <div className="text-2xl font-black text-slate-900 dark:text-white font-sans tracking-tight">
-            {totalFundingCount} Convocatorias
+            {totalFundingCount} Fondos I+D
           </div>
           <div className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold mt-1 flex items-center gap-1">
             <span>{europeFunding} Horizon • {germanyFunding} DFG/DAAD • {euskadiFunding} Hazitek</span>
@@ -221,7 +221,7 @@ export const WarRoomTab: React.FC<WarRoomTabProps> = ({ onSelectStation, onLaunc
                 </div>
                 <div className="text-[10px] font-mono font-bold text-slate-300 flex items-center justify-between">
                   <span>HORIZON • DFG • HAZITEK</span>
-                  <span className="text-amber-400 font-mono group-hover:translate-x-0.5 transition-transform">VER CONVOCATORIAS »</span>
+                  <span className="text-amber-400 font-mono group-hover:translate-x-0.5 transition-transform">VER FONDOS »</span>
                 </div>
               </div>
             </div>

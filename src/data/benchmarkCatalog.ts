@@ -99,20 +99,20 @@ export const BENCHMARK_DATA: BenchmarkClusterRow[] = [
     keyTargets: ['Munich Re', 'Swiss Re', 'Moody\'s RMS', 'Descartes Underwriting', 'Mitiga Solutions', 'Guy Carpenter']
   },
   {
-    id: 'bench-geothermal',
-    cluster: 'GEOTHERMAL_ENERGY',
-    clusterName: 'Geotermia & Geofísica Subsuelo',
+    id: 'bench-earth-observation',
+    cluster: 'EARTH_OBSERVATION_AGROTECH',
+    clusterName: 'Observación de la Tierra, Gemelos Digitales & Agrotech',
     quadrant: 'DACH',
-    quadrantName: 'Alemania (Essen/Baviera) / Euskadi / Canadá',
-    prob3m: 42,
-    prob6m: 69,
+    quadrantName: 'Alemania (Múnich/Friburgo) / Remoto Europa',
+    prob3m: 65,
+    prob6m: 88,
     visaFriction: 'Baja',
-    hiringSpeed: 'Media (6-10 sem)',
-    languageFit: 'B1 Alemán (OK)',
-    tier: 'TIER 3 · Outbound de Nicho',
+    hiringSpeed: 'Rápida (4-6 sem)',
+    languageFit: 'C2 Inglés',
+    tier: 'TIER 1 · Máxima Prioridad',
     strategicReturn: 'Graduado DE § 20',
-    whyScore: 'Valida directamente tu título de Geofísico de 5 años de la Universidad de Chile (métodos electromagnéticos, sismología, resistividad). En Alemania (Essen, Baviera) y Canadá hay auge de geotermia profunda, pero son puestos de nicho que exigen prospección outbound.',
-    keyTargets: ['DMT Group', 'Telur Geotermia', 'Eavor Technologies', 'Storengy', 'DEEP Earth Energy']
+    whyScore: 'Encaje directo con tu desarrollo de gemelos digitales 3D (Wetland Monitor, AgriTwin, ReWild) y el procesamiento de series temporales de satélites Copernicus Sentinel-2 e IoT de suelo. La industria europea busca con urgencia científicos con base físico-matemática que conecten datos de teledetección con terreno sin abstracciones vacías.',
+    keyTargets: ['ConstellR', 'OroraTech', 'Planet Labs', 'Agreena', 'Amphos 21']
   },
   {
     id: 'bench-multilateral',

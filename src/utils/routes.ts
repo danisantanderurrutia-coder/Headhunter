@@ -305,8 +305,8 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
     return { station: 'mission_control', subTab: 'applications' };
   }
 
-  // 6. Convocatorias I+D
-  if (clean.startsWith('/convocatorias') || clean.startsWith('/funding')) {
+  // 6. Convocatorias I+D & Fondos
+  if (clean.startsWith('/convocatorias') || clean.startsWith('/funding') || clean.startsWith('/fondos')) {
     return { station: 'funding' };
   }
 

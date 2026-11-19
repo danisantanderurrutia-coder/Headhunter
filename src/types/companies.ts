@@ -9,11 +9,11 @@ export type QuadrantType =
 
 export type CompanySectorCluster = 
   | 'ALL'
-  | 'RD_PUBLIC'           // I+D Público & Centros
-  | 'CARBON_TECH_MRV'     // Carbon-Tech & Calificación MRV
-  | 'CAT_RISK_INSURANCE'  // Cat Risk & Seguros Climáticos
-  | 'MULTILATERAL_POLICY' // Organismos Multilaterales & Políticas
-  | 'GEOTHERMAL_ENERGY';  // Geotermia & Geofísica del Subsuelo
+  | 'RD_PUBLIC'                 // I+D Público & Centros
+  | 'CARBON_TECH_MRV'           // Carbon-Tech & Calificación MRV
+  | 'CAT_RISK_INSURANCE'        // Cat Risk & Seguros Climáticos
+  | 'MULTILATERAL_POLICY'       // Organismos Multilaterales & Políticas
+  | 'EARTH_OBSERVATION_AGROTECH'; // Observación de la Tierra, Gemelos Digitales & Agrotech
 
 export interface CompanyContact {
   id: string;

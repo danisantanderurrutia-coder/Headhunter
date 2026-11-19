@@ -243,8 +243,10 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
+  const bordersLayerRef = useRef<L.GeoJSON | null>(null);
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyDossier | null>(null);
+  const [showRedBorders, setShowRedBorders] = useState(true);
 
   // Initialize Leaflet Map with OpenStreetMap
   useEffect(() => {
@@ -311,9 +313,50 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
         mapInstanceRef.current = null;
         markersLayerRef.current = null;
         tileLayerRef.current = null;
+        bordersLayerRef.current = null;
       }
     };
   }, []);
+
+  // Dynamically load & toggle Red Country Borders GeoJSON layer
+  useEffect(() => {
+    if (!mapInstanceRef.current) return;
+
+    if (showRedBorders) {
+      if (!bordersLayerRef.current) {
+        import('../../data/worldBorders.json').then((module) => {
+          if (!mapInstanceRef.current) return;
+          const bordersGeoJson = module.default as unknown as Parameters<typeof L.geoJSON>[0];
+          const geoLayer = L.geoJSON(bordersGeoJson, {
+            style: {
+              color: '#ef4444', // Red border line
+              weight: 1.8,
+              opacity: 0.85,
+              fillColor: '#ef4444',
+              fillOpacity: 0.02
+            },
+            onEachFeature: (feature, layer) => {
+              if (feature.properties?.name) {
+                layer.bindTooltip(feature.properties.name, {
+                  sticky: true,
+                  direction: 'top',
+                  className: 'custom-country-tooltip'
+                });
+              }
+            }
+          });
+          bordersLayerRef.current = geoLayer;
+          geoLayer.addTo(mapInstanceRef.current);
+        });
+      } else {
+        bordersLayerRef.current.addTo(mapInstanceRef.current);
+      }
+    } else {
+      if (bordersLayerRef.current && mapInstanceRef.current) {
+        mapInstanceRef.current.removeLayer(bordersLayerRef.current);
+      }
+    }
+  }, [showRedBorders]);
 
   // Update Markers when companies change
   useEffect(() => {
@@ -436,12 +479,21 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
           ))}
         </div>
 
-        {/* Top Right Controls: OpenStreetMap pill & Zoom */}
+        {/* Top Right Controls: Red Borders Toggle & Zoom */}
         <div className="flex items-center gap-2 pointer-events-auto">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-950/90 text-slate-300 border border-slate-800 text-xs font-mono font-bold flex items-center gap-1.5 backdrop-blur-md shadow-xl select-none">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>OpenStreetMap</span>
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowRedBorders(!showRedBorders)}
+            className={`px-3 py-1.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-1.5 backdrop-blur-md shadow-xl transition cursor-pointer ${
+              showRedBorders 
+                ? 'bg-red-950/90 text-red-300 border-red-700/80 shadow-red-950/40' 
+                : 'bg-slate-950/90 text-slate-400 border-slate-800 hover:text-slate-200'
+            }`}
+            title="Alternar resaltado de fronteras internacionales en color rojo"
+          >
+            <span className={`w-2 h-2 rounded-full ${showRedBorders ? 'bg-red-500 animate-pulse' : 'bg-slate-500'}`}></span>
+            <span>Fronteras Rojas</span>
+          </button>
 
           {/* Zoom Buttons */}
           <div className="flex items-center bg-slate-950/90 border border-slate-800 rounded-xl overflow-hidden backdrop-blur-md shadow-xl">
@@ -586,8 +638,8 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
           <span>Políticas</span>
         </span>
         <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
-          <span>Geotermia</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
+          <span>Observación de la Tierra & Agrotech</span>
         </span>
       </div>
     </div>

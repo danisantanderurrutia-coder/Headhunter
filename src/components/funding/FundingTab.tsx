@@ -43,7 +43,7 @@ interface FundingCategoryCluster {
 const FUNDING_SPECIALIZATION_CAROUSEL: FundingCategoryCluster[] = [
   {
     id: 'ALL',
-    label: 'Todas las Convocatorias',
+    label: 'Todos los Fondos',
     icon: '🌐',
     subtitle: 'Catálogo global de fondos, becas y premios',
     accent: {
@@ -273,7 +273,7 @@ export const FundingTab: React.FC<FundingTabProps> = ({
     <div className="space-y-6 text-[var(--text-primary)] font-sans animate-fadeIn select-none">
       
       {/* =========================================================================
-       * 1. HEADER: CONVOCATORIAS & FONDOS I+D (OPERATIONAL STAGING)
+       * 1. HEADER: FONDOS I+D & BECAS (OPERATIONAL STAGING)
        * ========================================================================= */}
       <div 
         className="p-5 rounded-2xl border shadow-xl relative overflow-hidden transition-colors"
@@ -287,15 +287,15 @@ export const FundingTab: React.FC<FundingTabProps> = ({
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5">
                 <Award className="h-3.5 w-3.5 text-amber-500" />
-                <span>RADAR DE CONVOCATORIAS // BECAS, FONDOS I+D & PREMIOS</span>
+                <span>RADAR DE FONDOS // BECAS, PROYECTOS I+D & PREMIOS</span>
               </span>
               <span className="text-[11px] text-[var(--text-muted)] font-mono">
-                {totalPrograms} CONVOCATORIAS OFICIALES REGISTRADAS
+                {totalPrograms} FONDOS Y PROGRAMAS REGISTRADOS
               </span>
             </div>
 
             <h1 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] uppercase tracking-tight">
-              Convocatorias, Becas Postdoctorales & Fondos I+D
+              Fondos I+D, Becas Postdoctorales & Subvenciones
             </h1>
             <p className="text-xs text-[var(--text-secondary)] max-w-2xl leading-relaxed">
               Monitoreo activo de programas de financiamiento en Alemania (DAAD, DFG, Humboldt), la Unión Europea (Horizonte Europa, LIFE) y Euskadi (Ikerbasque, Hazitek). Mantente postulando a fondos de investigación y premios que potencian tu trayectoria.
@@ -358,7 +358,7 @@ export const FundingTab: React.FC<FundingTabProps> = ({
                   </span>
                 </span>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                  Filtra convocatorias por categoría temática, becas individuales o programas de consorcio
+                  Filtra fondos y convocatorias por categoría temática, becas individuales o programas de consorcio
                 </p>
               </div>
             </div>
@@ -368,7 +368,7 @@ export const FundingTab: React.FC<FundingTabProps> = ({
               <button
                 onClick={handleRefresh}
                 className="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer border border-slate-200 dark:border-slate-700 shadow-2xs"
-                title="Recargar convocatorias guardadas y estado"
+                title="Recargar fondos guardados y estado"
               >
                 <RefreshCw className={`h-3 w-3 text-amber-600 dark:text-amber-400 ${isRefreshing ? 'animate-spin' : ''}`} />
                 <span className="hidden sm:inline">Recargar</span>
@@ -574,7 +574,7 @@ export const FundingTab: React.FC<FundingTabProps> = ({
                 <select
                   value={sortBy}
                   onChange={e => setSortBy(e.target.value as any)}
-                  aria-label="Criterio de ordenación de convocatorias"
+                  aria-label="Criterio de ordenación de fondos"
                   className="bg-transparent border-none text-[var(--text-primary)] font-bold focus:outline-none cursor-pointer text-xs"
                 >
                   <option value="deadline">Próximo Cierre</option>
@@ -601,10 +601,10 @@ export const FundingTab: React.FC<FundingTabProps> = ({
             <Search className="h-6 w-6" />
           </div>
           <h3 className="text-base font-bold text-[var(--text-primary)]">
-            No se encontraron convocatorias con los filtros actuales
+            No se encontraron fondos con los filtros actuales
           </h3>
           <p className="text-xs text-[var(--text-muted)] max-w-md mx-auto">
-            Prueba a cambiar el ámbito territorial o borra el término de búsqueda para ver el catálogo completo.
+            Prueba a cambiar el ámbito territorial o borra el término de búsqueda para ver el catálogo de fondos completo.
           </p>
           <button
             onClick={() => {
@@ -653,7 +653,7 @@ export const FundingTab: React.FC<FundingTabProps> = ({
                           ? 'bg-amber-500/15 border-amber-500/40 text-amber-500'
                           : 'bg-[var(--panel-bg)] border-[var(--panel-border)] text-[var(--text-muted)] hover:text-amber-500'
                       }`}
-                      title={isBookmarked ? 'Quitar del radar' : 'Guardar en radar de convocatorias'}
+                      title={isBookmarked ? 'Quitar del radar' : 'Guardar en radar de fondos'}
                     >
                       <Star className={`h-3.5 w-3.5 ${isBookmarked ? 'fill-amber-400' : ''}`} />
                     </button>

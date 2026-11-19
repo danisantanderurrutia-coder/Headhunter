@@ -1261,7 +1261,7 @@ export const initialCompanies: CompanyDossier[] = [
     techStack: ['HEC-RAS', 'Iber', 'QGIS', 'Python', 'AutoCAD Civil 3D'],
     lastResearched: '2026-10-14',
     quadrants: ['EUSKADI', 'GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    sectorCluster: 'MULTILATERAL_POLICY'
   },
   {
     id: 'comp-azti',
@@ -1729,7 +1729,7 @@ export const initialCompanies: CompanyDossier[] = [
     techStack: ['GIS', 'Python', 'Modelos Meteorológicos', 'ESG Reporting', 'Estudios de Impacto'],
     lastResearched: '2026-10-14',
     quadrants: ['EUSKADI', 'GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
     id: 'comp-siemens-gamesa',
@@ -1765,7 +1765,7 @@ export const initialCompanies: CompanyDossier[] = [
     techStack: ['Python', 'WAsP / WindPRO', 'QGIS', 'Análisis Micrometeorológico', 'LCA'],
     lastResearched: '2026-10-14',
     quadrants: ['EUSKADI', 'DACH', 'GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
     id: 'comp-gfz',
@@ -3257,235 +3257,235 @@ export const initialCompanies: CompanyDossier[] = [
     sectorCluster: 'MULTILATERAL_POLICY'
   },
   {
-    id: 'comp-telur',
-    name: "Telur Geotermia y Agua S.A.",
-    website: 'https://www.telur.es/',
-    sector: "Consultoría Especializada en Geotermia, Hidrogeología y Geofísica del Subsuelo",
-    size: "30-50 hidrogeólogos, geofísicos y perforadores técnicos",
-    headquarters: "Elorrio / Bilbao (Bizkaia, Euskadi)",
-    description: "Empresa consultora pionera y referente absoluto en Euskadi y el norte de España en el diseño, prospección geofísica, simulación térmica y ejecución de instalaciones geotérmicas de baja y media entalpía para climatización urbana e industrial.",
+        id: 'comp-constellr',
+    name: "ConstellR GmbH",
+    website: 'https://constellr.com/',
+    sector: "Teledetección Infrarroja Térmica Satelital, Evapotranspiración y Estrés Hídrico de Cultivos",
+    size: "60-100 científicos de datos espaciales e ingenieros satelitales",
+    headquarters: "Friburgo de Brisgovia / Múnich (Alemania) & Bruselas",
+    description: "Scale-up alemana pionera en teledetección térmica de alta resolución orbital (microsatélites con sensores infrarrojos térmicos). Cuantifica la temperatura de superficie, la evapotranspiración real y la dinámica del agua en el suelo a escala submétrica para agricultura de precisión y resiliencia climática.",
     keyProjects: [
-          "Prospección hidrogeofísica y sondeos geotérmicos en el País Vasco y norte de España",
-          "Modelos de respuesta térmica del terreno (TRT) y simulación por elementos finitos de campos de captación",
-          "Aprovechamiento hidrogeotérmico en minas inundadas y acuíferos profundos de Bizkaia y Gipuzkoa"
+      "Misión HiVE (High-Resolution Thermal Imaging for Crop Water Stress): Monitoreo diario de evapotranspiración",
+      "Modelación física de flujos de calor latente y sensible de superficie combinando balance de energía y telemetría",
+      "Integración de datos de teledetección con gemelos digitales agrícolas y plataformas de gestión del riego"
     ],
     recentNews: [
       {
-        title: "Desarrollo de proyectos de redes de calor geotérmico para distritos urbanos en consorcio con el EVE (Ente Vasco de la Energía)",
-        date: "2026-10-09",
-        snippet: "Ejecución de sondeos profundos y ensayos de respuesta térmica con monitorización geofísica continua."
+        title: "ConstellR despliega su primer sensor infrarrojo térmico comercial en órbita para monitorización del estrés hídrico",
+        date: "2026-09-20",
+        snippet: "Resolución sin precedentes en balances hídricos agrícolas para anticipar sequías y optimizar la irrigación."
       }
     ],
     workCulture: [
-          "Empresa arraigada en Bizkaia con un ambiente cercano, técnico y de alta solvencia en ingeniería del subsuelo",
-          "Combinación directa de trabajo de gabinete con instrumentación y supervisión en terreno",
-          "Excelente integración en el clúster energético y ambiental vasco (Aclima / Clúster de Energía)"
+      "Entorno de trabajo interdisciplinar de élite espacial y climate-tech con sedes en Friburgo y Múnich",
+      "Cultura de validación física rigurosa que conecta mediciones en superficie con productos orbitales",
+      "Contratación directa con visa de graduado en Alemania (§ 20 AufenthG) e inglés como idioma de trabajo"
     ],
     redFlags: [
-          "Estructura de tamaño mediano que requiere autonomía técnica polivalente"
+      "Ritmo acelerado de scale-up espacial que exige entrega rápida y autonomía en análisis de datos espaciales"
     ],
     interviewArguments: [
-          "Geofísico de la Universidad de Chile con base rigurosa en métodos potenciales, resistividad eléctrica y termodinámica.",
-          "Residencia en Bilbao con total disponibilidad y alineación con la vía de regularización vasca.",
-          "Capacidad para realizar ensayos de respuesta térmica, modelado hidrogeológico y supervisión de sondeos."
+      "Base rigurosa en física de la atmósfera y continuum mechanics (Universidad de Chile, Licenciatura en Geofísica con Distinción).",
+      "Experiencia directa con micro-meteorología de flujos de calor sensible y latente (Eddy Covariance) e hidrofísica de suelos en CAU Kiel.",
+      "Desarrollador del gemelo digital agrícola AgriTwin, fusionando sensores IoT y series de satélite Sentinel-2."
     ],
-    techStack: ["TRT (Thermal Response Test)","EED (Earth Energy Designer)","Hydrogeophysics","FEFLOW","GIS"],
-    lastResearched: '2026-10-29',
-    quadrants: ['EUSKADI'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    techStack: ["Thermal Remote Sensing", "Python", "Sentinel-2", "Copernicus", "Energy Balance Modeling", "GIS"],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-dmt',
-    name: "DMT GmbH & Co. KG",
-    website: 'https://www.dmt-group.com/',
-    sector: "Servicios Geofísicos Globales, Sismología de Exploración y Reservorios Geotérmicos",
-    size: "1.100+ geofísicos, geólogos e ingenieros de minas y subsuelo",
-    headquarters: "Essen (Renania del Norte-Westfalia, Alemania)",
-    description: "Grupo global de servicios de ingeniería y geofísica perteneciente al TÜV NORD GROUP. Líder europeo en campañas sísmicas 2D/3D, caracterización geofísica de reservorios geotérmicos profundos, gravimetría, magnetotelúrica y monitoreo micro-sísmico inducido.",
+    id: 'comp-ororatech',
+    name: "OroraTech GmbH",
+    website: 'https://ororatech.com/',
+    sector: "Inteligencia Térmica Espacial, Modelación Física y Detección Temprana de Incendios Forestales",
+    size: "100-150 ingenieros aeroespaciales, geofísicos y científicos de datos",
+    headquarters: "Múnich (Baviera, Alemania)",
+    description: "Compañía alemana líder mundial en teledetección térmica orbital para la detección temprana, modelado físico de propagación y monitoreo en tiempo real de incendios forestales extremos mediante su propia constelación de nanosatélites térmicos.",
     keyProjects: [
-          "Campañas de sísmica de reflexión urbana para exploración de proyectos de geotermia profunda en Alemania",
-          "Monitoreo micro-sísmico en tiempo real de operaciones de inyección hidráulica y geotermia en Europa",
-          "Caracterización estructural del subsuelo para almacenamiento geológico de energía y CO2"
+      "Constelación Wildfire Intelligence: Alertas globales de focos térmicos en menos de 3 minutos",
+      "Modelación del comportamiento del fuego integrando biomasa, humedad de combustible y variables micrometeorológicas",
+      "Plataforma de visualización y gemelo digital de propagación de incendios para agencias forestales y de protección civil"
     ],
     recentNews: [
       {
-        title: "Finalización de la mayor campaña sísmica 3D de exploración geotérmica urbana en el área metropolitana de Múnich",
-        date: "2026-08-30",
-        snippet: "Mapeo de fallas profundas en la formación Malm con resolución milimétrica para evitar sismicidad inducida."
+        title: "OroraTech firma acuerdo con la Agencia Espacial Europea (ESA) para expandir su constelación de sensores térmicos",
+        date: "2026-10-12",
+        snippet: "Aceleración del despliegue de nanosatélites térmicos para mitigación de catástrofes climáticas."
       }
     ],
     workCulture: [
-          "Tradición técnica alemana de ingeniería del subsuelo con sede en el histórico polo minero y energético de Essen",
-          "Cultura corporativa sólida con estándares de seguridad industrial alemanes (TÜV NORD)",
-          "Equipos de campo e interpretación geofísica que trabajan en proyectos de toda Europa y América"
+      "Polo tecnológico espacial de primer nivel en Múnich con fuerte respaldo científico e industrial",
+      "Ambiente dinámico con equipos multinacionales e inglés de trabajo (C2)",
+      "Conexión directa entre física aplicada, teledetección y algoritmos de predicción rápida"
     ],
     redFlags: [
-          "Campañas de campo que pueden requerir desplazamientos temporales para supervisión de adquisiciones sísmicas"
+      "Operaciones 24/7 en temporadas de incendios que demandan máxima resiliencia analítica"
     ],
     interviewArguments: [
-          "Título universitario superior de Geofísico (Universidad de Chile, 5 años) con base en sismología y prospección geofísica.",
-          "Doble maestría en Alemania (CAU Kiel) con conocimiento de normativas y cultura técnica alemana.",
-          "Bilingüe español-inglés con capacidad operativa en alemán B1-B2 para proyectos del grupo en el DACH."
+      "Experiencia pericial formal ante la Comisión Especial de Incendios de la Cámara de Diputados de Chile.",
+      "Autor del informe internacional sobre biomasa forestal, riesgo de incendios y salvaguardas (EPN & Global Forest Coalition).",
+      "Formación en geofísica matemática y física de medios continuos por la Universidad de Chile."
     ],
-    techStack: ["Seismic Processing (ProMAX/Omega)","Python","Gravity/Magnetics","SeisSpace","GIS","Microseismic Monitoring"],
-    lastResearched: '2026-10-29',
-    quadrants: ['DACH','GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    techStack: ["Thermal Infrared", "Python", "Wildfire Modeling", "Cloud GIS", "Copernicus", "Satellite Telemetry"],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-eavor',
-    name: "Eavor Technologies Inc.",
-    website: 'https://eavor.com/',
-    sector: "Geotermia Profunda de Circuito Cerrado (Advanced Geothermal Systems - Eavor-Loop™)",
-    size: "140+ geofísicos de reservorios, ingenieros de perforación y modeladores térmicos",
-    headquarters: "Calgary (Alberta, Canadá) / Subsidiaria europea en Düsseldorf (Alemania)",
-    description: "Scale-up canadiense pionera mundial en sistemas geotérmicos avanzados (AGS). Su tecnología patentada Eavor-Loop™ crea un radiador subterráneo de circuito cerrado de varios kilómetros de profundidad que extrae calor por conducción pura sin necesidad de fracturación ni agua del subsuelo.",
+    id: 'comp-agreena',
+    name: "Agreena",
+    website: 'https://agreena.com/',
+    sector: "Soil Carbon MRV, Agricultura Regenerativa y Teledetección Satelital",
+    size: "200+ científicos de suelos, desarrolladores de software y expertos agronómicos",
+    headquarters: "Copenhague (Dinamarca) / Presencia en Alemania y Remoto Europa",
+    description: "Plataforma líder europea de cuantificación y certificación de carbono edáfico (Soil Carbon MRV). Combina modelos biogeoquímicos de suelo con teledetección multiespectral de alta resolución (Copernicus Sentinel-2) para incentivar la transición de agricultores hacia prácticas regenerativas.",
     keyProjects: [
-          "Proyecto Eavor-Loop™ Geretsried (Baviera, Alemania): El mayor proyecto de geotermia profunda de circuito cerrado del mundo",
-          "Modelación termohidráulica de transporte de calor en formaciones cristalinas y sedimentarias profundas",
-          "Expansión de proyectos de calefacción urbana limpia en Alemania, Austria y Norteamérica"
+      "Cuantificación de carbono orgánico en suelo (SOC) y reducción de emisiones de N2O a escala de millones de hectáreas",
+      "Calibración de modelos biofísicos de suelo con series temporales satelitales (NDVI, NDRE) y muestreos de terreno",
+      "Certificación verificada bajo los más exigentes estándares internacionales de contabilidad de carbono"
     ],
     recentNews: [
       {
-        title: "Completado con éxito el primer circuito lateral profundo a más de 4.500 metros en su planta de Geretsried en Baviera",
-        date: "2026-09-15",
-        snippet: "Inyección de fondos de innovación de la Unión Europea para acelerar el despliegue del sistema Eavor-Loop."
+        title: "Agreena supera los 3 millones de hectáreas bajo monitoreo de agricultura regenerativa en Europa",
+        date: "2026-08-25",
+        snippet: "Fusión de teledetección Sentinel y protocolos de verificación in situ para créditos de carbono de alta integridad."
       }
     ],
     workCulture: [
-          "Cultura innovadora canadiense de Calgary que combina la destreza de perforación del petróleo con la transición limpia",
-          "Operaciones activas en Alemania (Düsseldorf y Baviera) con ambiente de trabajo anglófono y germano",
-          "Acceso a visados de trabajo Canadá-Chile (IEC) y permisos de investigación europeos"
+      "Cultura nórdica horizontal, innovadora y orientada a la integridad científica de los datos de carbono",
+      "Posibilidad de trabajo remoto en Europa y sinergia con centros agronómicos alemanes",
+      "Inglés C2 como idioma operativo"
     ],
     redFlags: [
-          "Alto nivel de escrutinio técnico e inversión de capital intensivo en sus primeros proyectos comerciales"
+      "Exigencia de rigor metodológico estricto para evitar riesgos de reputación en créditos de carbono"
     ],
     interviewArguments: [
-          "Geofísico cuantitativo chileno con acceso al tratado bilateral IEC Canadá-Chile (hasta 35 años).",
-          "Formación europea en Alemania (CAU Kiel) y comprensión directa del contexto energético y geológico bávaro.",
-          "Conocimiento de modelado geofísico de transferencia térmica y física de medios porosos."
+      "Investigación cuantitativa en física de suelos, curvas de retención hídrica y flujos de GEI (CAU Kiel).",
+      "Arquitecto del gemelo digital AgriTwin acoplando IoT de suelo y Copernicus Sentinel-2.",
+      "Autor principal de auditorías críticas de contabilidad de carbono y biomasa para redes internacionales."
     ],
-    techStack: ["Thermal Modeling","Python","Reservoir Simulation","Well Logging","Subsurface Mapping"],
-    lastResearched: '2026-10-29',
-    quadrants: ['CANADA_GLOBAL','DACH'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    techStack: ["Python", "Sentinel-2", "Soil Carbon Modeling", "QGIS", "Google Earth Engine", "Biogeochemistry"],
+    lastResearched: '2026-11-20',
+    quadrants: ['NORDICS', 'DACH', 'GLOBAL'],
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-storengy',
-    name: "Storengy (Grupo ENGIE)",
-    website: 'https://www.storengy.de/',
-    sector: "Almacenamiento Térmico Subterráneo (ATES) y Geotermia Profunda para Calefacción",
-    size: "900+ especialistas en subsuelo y transición térmica",
-    headquarters: "Berlín (Alemania) / Oficinas en París",
-    description: "Filial del gigante energético ENGIE especializada en el desarrollo del subsuelo: almacenamiento subterráneo de energía térmica (Aquifer Thermal Energy Storage - ATES), geotermia hidrotermal y almacenamiento geológico de hidrógeno en Alemania y Francia.",
+    id: 'comp-planet',
+    name: "Planet Labs PBC (Planet)",
+    website: 'https://www.planet.com/',
+    sector: "Constelaciones Satelitales de Alta Frecuencia, Teledetección y Planetary Variables",
+    size: "1.000+ científicos y desarrolladores",
+    headquarters: "Berlín (Alemania) / San Francisco (EE.UU.)",
+    description: "Empresa líder global en observación diaria de la superficie terrestre con su flota de más de 200 satélites Dove y Pelican. Genera 'Planetary Variables' cuantitativas: humedad de suelo superficial, temperatura de dosel y contenido de agua en biomasa.",
     keyProjects: [
-          "Desarrollo de proyectos de geotermia profunda para inyección en redes de calefacción urbana de Berlín y Brandeburgo",
-          "Sistemas ATES para almacenamiento estacional de calor y frío en acuíferos someros y medios",
-          "Estudios geológicos y geofísicos de viabilidad de cavernas salinas para almacenamiento de gases renovables"
+      "Planetary Variables: Datos continuos de humedad de suelo y estrés vegetal calibrados física y empíricamente",
+      "Monitoreo de humedales y turberas globales para preservación de sumideros de carbono",
+      "Integración de flujos de imágenes diarias en pipelines de analítica ambiental y gemelos digitales"
     ],
     recentNews: [
       {
-        title: "Inicio de la perforación de pozos de exploración geotérmica en la cuenca de Berlín para descarbonización urbana",
-        date: "2026-10-18",
-        snippet: "Acuerdo con el Senado de Berlín para suministrar energía térmica renovable a más de 20.000 hogares."
+        title: "Planet expande su portafolio de variables biofísicas de suelo para monitorización de sequías agrícolas",
+        date: "2026-09-05",
+        snippet: "Integración de microondas y bandas térmicas para seguimiento continuo de la humedad edáfica."
       }
     ],
     workCulture: [
-          "Gran corporación energética europea con sólidos convenios colectivos y estabilidad laboral en Alemania",
-          "Oficinas en Berlín y proyectos en todo el territorio alemán con fuerte compromiso de descarbonización",
-          "Excelente integración entre geólogos de exploración, ingenieros de reservorios y analistas regulatorios"
+      "Centro de excelencia de ingeniería y ciencia de datos en Berlín con mentalidad global",
+      "Enfoque en métricas biofísicas rigurosas para impacto climático demostrable",
+      "Equipos multidisciplinares con científicos de la Tierra, desarrolladores y especialistas en producto"
     ],
     redFlags: [
-          "Procesos de toma de decisiones corporativos que requieren aprobaciones multicapa"
+      "Gran escala corporativa con procesos de selección altamente competitivos"
     ],
     interviewArguments: [
-          "Geofísico con sólida formación en termodinámica del subsuelo, hidrogeología y caracterización física.",
-          "Máster europeo en Gestión Ambiental (CAU Kiel) con conocimiento de la transición térmica alemana (Wärmewende).",
-          "Competencia en análisis de datos espaciales y modelación de transporte de calor en acuíferos."
+      "Geofísico con sólida base matemática y física de sensores para interpretación rigurosa de señales espectrales.",
+      "Experiencia práctica con series temporales satelitales en Python y R aplicadas a turberas y cuencas agrícolas.",
+      "Plena habilitación laboral en Alemania (§ 20 AufenthG) e inglés C2 bilingüe."
     ],
-    techStack: ["Python","Subsurface Modeling","GIS","Hydrogeology Software","Eclipse/Petrel"],
-    lastResearched: '2026-10-29',
-    quadrants: ['DACH','GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    techStack: ["Planetary Variables", "Python", "Sentinel-2", "PlanetScope", "Earth Observation API", "GIS"],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-deep-earth',
-    name: "DEEP Earth Energy Production",
-    website: 'https://deepcorp.ca/',
-    sector: "Desarrollo de Energía Geotérmica Profunda en Cuencas Sedimentarias",
-    size: "35+ ingenieros de yacimientos, geólogos y geofísicos",
-    headquarters: "Calgary / Saskatoon (Saskatchewan, Canadá)",
-    description: "Empresa canadiense pionera en el desarrollo de la primera instalación de energía geotérmica a escala comercial de Canadá, aprovechando los acuíferos de salmuera caliente de la cuenca sedimentaria de Williston a más de 3.000 metros de profundidad.",
+    id: 'comp-amphos21',
+    name: "Amphos 21 (RSK Group)",
+    website: 'https://www.amphos21.com/',
+    sector: "Consultoría Científica en Hidrogeología Cuantitativa, Hidrogeofísica y Modelación de Cuencas",
+    size: "150-200 consultores científicos, hidrogeólogos y modeladores numéricos",
+    headquarters: "Bilbao (Bizkaia, Euskadi) / Barcelona / Internacional",
+    description: "Consultora científica internacional referente en modelación numérica avanzada de flujo subsuperficial, hidrogeoquímica, transporte de solutos y prospección hidrogeofísica para gestión sostenible de recursos hídricos, remediación ambiental y resiliencia de cuencas.",
     keyProjects: [
-          "Proyecto Geotérmico Williston Basin: Perforación de pozos horizontales profundos para producción de 25 MW de potencia base limpia",
-          "Modelado de dinámica de fluidos y respuesta de permeabilidad en acuíferos sedimentarios profundos",
-          "Aprovechamiento del calor residual para complejos agrícolas de invernaderos de alta eficiencia"
+      "Modelación hidrológica e hidrogeofísica 3D de acuíferos sometidos a estrés hídrico y sequía prolongada",
+      "Estudios de intrusión marina y caracterización de conductividad hidráulica mediante sondeos eléctricos",
+      "Gestión integrada de cuencas hidrográficas y modelado predictivo bajo escenarios de cambio climático"
     ],
     recentNews: [
       {
-        title: "Completado con éxito el primer tramo de pozos horizontales geotérmicos en Saskatchewan con temperaturas de fondo superiores a 120°C",
-        date: "2026-07-19",
-        snippet: "Validación del flujo continuo de salmuera para generación de electricidad de carga base continua."
+        title: "Amphos 21 lidera proyectos de gestión de acuíferos estratégicos y modelación hidrogeológica en el norte de España",
+        date: "2026-10-02",
+        snippet: "Aplicación de modelos de transporte de solutos y física de medios porosos para resiliencia hídrica."
       }
     ],
     workCulture: [
-          "Pioneros de la transición geotérmica canadiense en las provincias de las praderas (Alberta y Saskatchewan)",
-          "Equipo compacto y altamente especializado donde cada geocientífico tiene un impacto directo y visible",
-          "Cultura de innovación técnica, flexibilidad laboral y espíritu emprendedor de los recursos del subsuelo"
+      "Perfil científico de alto nivel técnico fundado por investigadores de universidades de prestigio",
+      "Sede en Bilbao con integración en el ecosistema vasco y proyectos internacionales",
+      "Cultura basada en física de medios continuos, balances de masa e hidrogeoquímica cuantitativa"
     ],
     redFlags: [
-          "Foco geográfico centrado en el oeste de Canadá"
+      "Exigencia de rigor físico-matemático en informes periciales y modelos computacionales"
     ],
     interviewArguments: [
-          "Geofísico chileno elegible para el programa de movilidad juvenil Working Holiday / Young Professionals de Canadá (IEC).",
-          "Formación analítica rigurosa en estratigrafía, métodos potenciales e hidrogeología profunda.",
-          "Interés probado en descarbonización de carga base mediante energía geotérmica de ciclo binario."
+      "Geofísico de la Universidad de Chile (Distinción Máxima) con tesis en sondeos eléctricos verticales (SEV) y gravimetría en cuenca hídrica.",
+      "Doble M.Sc. europeo en Manejo y Protección Ambiental (Kiel y Poznań) con foco en hidrofísica y cuencas.",
+      "Residencia en Bilbao con disponibilidad inmediata bajo el marco PAC / Ley 14/2013."
     ],
-    techStack: ["Geothermal Reservoir Modeling","Well Logs","Python","Petrel","GIS"],
-    lastResearched: '2026-10-29',
-    quadrants: ['CANADA_GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    techStack: ["MODFLOW", "FEFLOW", "Python", "SEV / ERT", "Hydrogeology", "GIS", "R"],
+    lastResearched: '2026-11-20',
+    quadrants: ['EUSKADI', 'GLOBAL'],
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-fervo',
-    name: "Fervo Energy",
-    website: 'https://fervoenergy.com/',
-    sector: "Geotermia Avanzada de Próxima Generación (EGS) y Monitoreo Sísmico de Yacimientos",
-    size: "100+ ingenieros de subsuelo, sismólogos y geocientíficos",
-    headquarters: "Houston (Texas, EE.UU.) / Proyectos en Nevada y Utah",
-    description: "La empresa líder mundial en sistemas geotérmicos mejorados de nueva generación (Next-Gen EGS). Aplica técnicas de perforación horizontal multietapa y estimulación de yacimientos del sector energético para desbloquear calor geotérmico continuo en formaciones de roca impermeable.",
+    id: 'comp-kimitec',
+    name: "Kimitec / MAAVi Innovation Center",
+    website: 'https://kimitec.com/',
+    sector: "Agrotech Biotecnológica, Salud del Suelo e IA Aplicada al Microbioma Edáfico",
+    size: "250-400 investigadores y tecnólogos",
+    headquarters: "Vícar / Almería / Madrid (España)",
+    description: "El mayor centro de biotecnología aplicada a la agricultura de Europa (MAAVi Innovation Center). Desarrolla soluciones biológicas para sustituir agroquímicos sintéticos, regenerar la microbiota y física del suelo y optimizar la retención hídrica en cultivos sometidos a estrés térmico.",
     keyProjects: [
-          "Proyecto Cape Station (Utah): Desarrollo de una planta geotérmica de 400 MW de potencia base limpia",
-          "Monitoreo micro-sísmico en tiempo real con sensores de fibra óptica y geófonos distribuidos",
-          "Alianza con empresas tecnológicas globales (Google) para alimentar centros de datos con energía geotérmica 24/7"
+      "Plataforma LINNA de inteligencia artificial para modelar interacciones del microbioma del suelo",
+      "Ensayos de retención de agua y conductividad hídrica edáfica en suelos semiáridos degradados",
+      "Desarrollo de bioinsumos para resiliencia frente a sequías extremas y olas de calor"
     ],
     recentNews: [
       {
-        title: "Firma de contratos históricos de compra de energía limpia (PPA) con utilities y empresas de tecnología en EE.UU.",
-        date: "2026-09-10",
-        snippet: "Demostración de una reducción del 70% en los tiempos de perforación geotérmica profunda."
+        title: "Kimitec y Santander sellan alianza para impulsar la digitalización y regeneración de suelos agrícolas",
+        date: "2026-09-14",
+        snippet: "Expansión de programas de investigación aplicada en salud del suelo y eficiencia hídrica."
       }
     ],
     workCulture: [
-          "Líder indiscutible de la nueva ola de climate-tech geotérmica con respaldo de los principales fondos mundiales (Breakthrough Energy)",
-          "Fuerte cultura científica, computacional y de modelado cuantitativo de fracturas y sismicidad inducida",
-          "Ritmo ágil y posibilidades de colaboración remota en análisis geofísico y de datos de reservorio"
+      "Hub de innovación disruptivo de referencia en el sur de Europa con alianzas globales",
+      "Fuerte inversión en I+D de laboratorio y ensayos en parcelas experimentales",
+      "Español nativo con proyección internacional"
     ],
     redFlags: [
-          "Exigencia técnica de élite y competencia con las mejores empresas de NewSpace y energía limpia"
+      "Ubicación principal en el sureste español con proyectos distribuidos"
     ],
     interviewArguments: [
-          "Geofísico con rigurosa base físico-matemática en mecánica de medios continuos, sismología y métodos potenciales.",
-          "Capacidad para procesar datos sísmicos continuos, correlación de eventos y monitoreo de micro-sismicidad inducida.",
-          "Perfil ideal para los equipos de caracterización de reservorios y analítica de datos geofísicos."
+      "Especialista en física de suelos, curvas de retención de humedad y balances hídricos (CAU Kiel).",
+      "Creador del gemelo digital AgriTwin para monitoreo continuo de estrés hídrico de cultivos.",
+      "Español nativo, bilingüe inglés C2 y capacidad de liderar interlocución técnica y científica."
     ],
-    techStack: ["Distributed Acoustic Sensing (DAS)","Microseismic Monitoring","Python","Reservoir Geomechanics","Cloud HPC"],
-    lastResearched: '2026-10-29',
-    quadrants: ['GLOBAL'],
-    sectorCluster: 'GEOTHERMAL_ENERGY'
+    techStack: ["Soil Physics", "R", "Python", "Agrotech", "Moisture Retention", "AI/ML Edaphic"],
+    lastResearched: '2026-11-20',
+    quadrants: ['GLOBAL', 'EUSKADI'],
+    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-climate-kic',
+id: 'comp-climate-kic',
     name: 'EIT Climate-KIC',
     website: 'https://www.climate-kic.org/',
     sector: 'Agencia de Innovación Climática de la UE, Transición Sistémica & Soluciones Basadas en la Naturaleza',
@@ -3914,7 +3914,7 @@ export const initialCompanies: CompanyDossier[] = [
     keyProjects: [
       'Austrian Hydrogeophysical Subsurface Mapping (ERT, SEV & Gravimetry)',
       'National Wildfire Danger & Extreme Drought Prediction Grid',
-      'Geothermal Exploration and Shallow Aquifer Thermal Storage'
+      'Hydrogeophysical Aquifer Mapping and Groundwater Depletion Monitoring'
     ],
     recentNews: [
       {
@@ -4382,11 +4382,11 @@ export const initialCompanies: CompanyDossier[] = [
     sector: 'Geofísica Somera y Profunda, Gravimetría & Hidrogeofísica',
     size: '1.000+ investigadores',
     headquarters: 'Roma / Pisa / Milán, Italia',
-    description: 'El principal ente nacional de geofísica de Italia. Cuenta con divisiones líderes en geofísica ambiental, prospección eléctrica (ERT, Sondeos Eléctricos Verticales), gravimetría de alta precisión y geotermia profunda en la provincia toscana y el arco mediterráneo.',
+    description: 'El principal ente nacional de geofísica de Italia. Cuenta con divisiones líderes en geofísica ambiental, prospección eléctrica (ERT, Sondeos Eléctricos Verticales), gravimetría de alta precisión y monitoreo de riesgos hidrogeológicos en el arco mediterráneo.',
     keyProjects: [
       'Environmental Geophysics and Ground Water Characterization by Electrical Resistivity',
       'Micro-Gravimetric Monitoring of Deep Aquifer Depletion and Fault Zones',
-      'Geothermal Exploration and Heat-Flow Geophysical Modeling'
+      'Near-Surface Hydrogeological Modeling and Saline Intrusion Mapping'
     ],
     recentNews: [
       {
@@ -4412,7 +4412,7 @@ export const initialCompanies: CompanyDossier[] = [
       'ERT',
       'Python',
       'Inversión Numérica',
-      'Geotermia'
+      'Hidrogeofísica'
     ],
     lastResearched: '2026-11-17',
     quadrants: ['GLOBAL'],

@@ -125,19 +125,24 @@ export const inferCompanySectorCluster = (comp: CompanyDossier): CompanySectorCl
   if (comp.sectorCluster && comp.sectorCluster !== 'ALL') return comp.sectorCluster;
   const text = `${comp.name} ${comp.sector} ${comp.description} ${(comp.keyProjects || []).join(' ')}`.toLowerCase();
 
-  // 1. Geotermia & Geofísica del Subsuelo
+  // 1. Observación de la Tierra, Gemelos Digitales & Agrotech
   if (
-    text.includes('geotermia') || 
-    text.includes('geotérmic') || 
-    text.includes('subsuelo profundo') || 
-    text.includes('almacenamiento térmico') || 
-    text.includes('geofísica aplicada') || 
-    text.includes('eavor') || 
-    text.includes('telur') || 
-    text.includes('dmt') || 
-    text.includes('fervo')
+    text.includes('teledetección') || 
+    text.includes('teledeteccion') || 
+    text.includes('remote sensing') || 
+    text.includes('earth observation') || 
+    text.includes('sentinel') || 
+    text.includes('copernicus') || 
+    text.includes('constellr') || 
+    text.includes('ororatech') || 
+    text.includes('planet labs') || 
+    text.includes('agreena') || 
+    text.includes('gemelo digital') || 
+    text.includes('digital twin') || 
+    text.includes('agrotech') || 
+    text.includes('three.js')
   ) {
-    return 'GEOTHERMAL_ENERGY';
+    return 'EARTH_OBSERVATION_AGROTECH';
   }
 
   // 2. Carbon-Tech & Calificación MRV
