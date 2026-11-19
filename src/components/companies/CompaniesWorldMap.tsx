@@ -521,7 +521,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
        * ========================================================================= */}
       <div 
         ref={mapContainerRef} 
-        className="w-full h-[520px] lg:h-[calc(100vh-220px)] min-h-[480px] max-h-[820px] z-10 select-none bg-slate-950"
+        className="w-full h-[780px] sm:h-[860px] lg:h-[950px] min-h-[750px] z-10 select-none bg-slate-950"
       />
 
       {/* =========================================================================
