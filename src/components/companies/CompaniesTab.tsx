@@ -74,7 +74,7 @@ const CompanyLogo: React.FC<{ website?: string; name: string }> = ({ website, na
 
   if (!domain || (imgError && ddgError)) {
     return (
-      <div className="w-full h-full rounded-xl bg-gradient-to-br from-cyan-900/70 via-slate-900 to-emerald-900/70 border border-cyan-500/30 flex items-center justify-center text-cyan-300 font-mono font-black text-sm tracking-wider shadow-inner select-none">
+      <div className="w-full h-full rounded-xl bg-black border border-slate-800 flex items-center justify-center text-slate-300 font-mono font-black text-sm tracking-wider select-none">
         {initials}
       </div>
     );
@@ -835,14 +835,14 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
       )}
 
       {/* =========================================================================
-       * 3. ESPACIO DE EXPLORACIÓN INTEGRADO: CUADRÍCULA (IZQ) Y MAPA MUNDIAL (DER)
-       * Ambos componentes están siempre activos y se sincronizan en tiempo real
-       * con las Categorías de Exploración Estratégica, polos y buscador.
+       * 3. ESPACIO DE EXPLORACIÓN INTEGRADO: CUADRÍCULA (50%) Y MAPA MUNDIAL (50%)
+       * Ambos componentes están balanceados al 50% del ancho de la página en desktop
+       * y sincronizados en tiempo real con las Categorías de Exploración Estratégica.
        * ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
         
-        {/* COLUMNA IZQUIERDA: Cuadrícula de Organizaciones (lg:col-span-6 xl:col-span-7) */}
-        <div className="lg:col-span-6 xl:col-span-7 space-y-3">
+        {/* COLUMNA IZQUIERDA: Cuadrícula de Organizaciones (50% de ancho) */}
+        <div className="w-full space-y-3">
           <div className="flex items-center justify-between mb-1 px-1">
             <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
               <span>Mostrando <strong className="text-cyan-400">{filteredCompanies.length}</strong> entidades</span>
@@ -887,7 +887,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-3.5">
               {filteredCompanies.map((comp) => {
                 const quads = inferCompanyQuadrants(comp);
                 const clusterBadge = getClusterBadge(inferCompanySectorCluster(comp));
@@ -899,7 +899,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                   <div
                     key={comp.id}
                     onClick={() => handleOpenDossier(comp)}
-                    className="group relative rounded-2xl p-3 sm:p-3.5 bg-[#0c1220]/95 hover:bg-[#11192e] border border-slate-800/80 hover:border-cyan-500/80 shadow-md hover:shadow-[0_8px_30px_rgba(6,182,212,0.18)] transition-all duration-200 flex flex-col justify-between items-center text-center overflow-hidden min-h-[235px] cursor-pointer"
+                    className="group relative rounded-2xl p-3 sm:p-3.5 bg-[#0c1220]/95 hover:bg-[#11192e] border border-slate-800 hover:border-slate-700 shadow-md transition-colors duration-150 flex flex-col justify-between items-center text-center overflow-hidden min-h-[235px] cursor-pointer"
                   >
                     {/* Top Header inside card: Quadrant + Fit Badge + Star Bookmark */}
                     <div className="w-full flex items-center justify-between gap-1 mb-1.5" onClick={(e) => e.stopPropagation()}>
@@ -935,9 +935,9 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                       </div>
                     </div>
 
-                    {/* Center Logo & Name */}
+                    {/* Center Logo & Name (Fondo negro limpio, sin resplandores) */}
                     <div className="flex-1 flex flex-col items-center justify-center w-full my-1">
-                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-700/80 p-2.5 flex items-center justify-center shadow-inner group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-200 shrink-0">
+                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-black border border-slate-800 p-2.5 flex items-center justify-center shrink-0">
                         <CompanyLogo website={comp.website} name={comp.name} />
                       </div>
 
@@ -998,8 +998,8 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
           )}
         </div>
 
-        {/* COLUMNA DERECHA: Mapa Mundial Interactivo (lg:col-span-6 xl:col-span-5 lg:sticky lg:top-4) */}
-        <div className="lg:col-span-6 xl:col-span-5 lg:sticky lg:top-4 space-y-2">
+        {/* COLUMNA DERECHA: Mapa Mundial Interactivo (50% de ancho) */}
+        <div className="w-full lg:sticky lg:top-4 space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5 font-bold">
               <Globe className="h-3.5 w-3.5 text-cyan-400" />
@@ -1030,7 +1030,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
             {/* Modal Top Header Bar */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-800 pb-4">
               <div className="flex items-start gap-3.5">
-                <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 border border-slate-700 p-2.5 flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-16 h-16 rounded-2xl bg-black border border-slate-800 p-2.5 flex items-center justify-center shrink-0">
                   <CompanyLogo website={dossierCompany.website} name={dossierCompany.name} />
                 </div>
                 <div className="space-y-1">

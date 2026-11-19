@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { 
-  Layers, 
   ExternalLink, 
   Eye, 
   Sparkles, 
@@ -10,9 +9,8 @@ import {
   ZoomOut, 
   Star
 } from 'lucide-react';
-import type { CompanyDossier, CompanySectorCluster } from '../../types/companies';
+import type { CompanyDossier } from '../../types/companies';
 import { analyzeCompanyFit } from '../../utils/companyFit';
-import { inferCompanySectorCluster } from '../../utils/quadrants';
 
 interface CompaniesWorldMapProps {
   companies: CompanyDossier[];
@@ -21,40 +19,9 @@ interface CompaniesWorldMapProps {
   onToggleFavorite: (companyId: string, e?: React.MouseEvent) => void;
 }
 
-// Basemap Tile Providers: Esri World Imagery (Satellite HD), Esri Dark Canvas, Esri Relief & OpenStreetMap
-// All layers are 100% free, high-performance, and require NO API key.
-const TILE_LAYERS = {
-  satellite: {
-    id: 'satellite',
-    name: '🛰️ Satélite HD Fotográfico',
-    tag: 'Esri World Imagery (Orbital)',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    attribution: 'Tiles &copy; Esri &mdash; Earthstar Geographics'
-  },
-  dark: {
-    id: 'dark',
-    name: '🌌 Dark Canvas Cartográfico',
-    tag: 'Esri Canvas Dark',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-    attribution: 'Tiles &copy; Esri &mdash; DeLorme, NAVTEQ'
-  },
-  relief: {
-    id: 'relief',
-    name: '🏔️ Relieve & Cuencas',
-    tag: 'Esri Shaded Relief',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}',
-    attribution: 'Tiles &copy; Esri &mdash; USGS, NOAA'
-  },
-  osm: {
-    id: 'osm',
-    name: '🗺️ Callejero OpenStreetMap',
-    tag: 'OpenStreetMap Standard',
-    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-    attribution: '&copy; OpenStreetMap contributors'
-  }
-};
-
-type TileKey = keyof typeof TILE_LAYERS;
+// OpenStreetMap standard tile layer (100% free, reliable, no API key required)
+const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const OSM_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>';
 
 // Strategic Geographic Regions for quick map jumps
 const MAP_REGIONS = [
@@ -266,17 +233,6 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   return [50.0 + dLat, 8.5 + dLng];
 };
 
-const getHaloColorForCluster = (cluster: CompanySectorCluster): string => {
-  switch (cluster) {
-    case 'CARBON_TECH_MRV': return '#10b981'; // Emerald
-    case 'RD_PUBLIC': return '#14b8a6';       // Teal
-    case 'CAT_RISK_INSURANCE': return '#f59e0b'; // Amber
-    case 'MULTILATERAL_POLICY': return '#a855f7'; // Purple
-    case 'GEOTHERMAL_ENERGY': return '#f97316';   // Orange
-    default: return '#06b6d4';                 // Cyan
-  }
-};
-
 export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
   companies,
   onOpenDossier,
@@ -288,11 +244,9 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
 
-  const [activeTileKey, setActiveTileKey] = useState<TileKey>('satellite');
   const [selectedCompany, setSelectedCompany] = useState<CompanyDossier | null>(null);
-  const [isLayerSelectorOpen, setIsLayerSelectorOpen] = useState(false);
 
-  // Initialize Leaflet Map
+  // Initialize Leaflet Map with OpenStreetMap
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
@@ -309,7 +263,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       center: [50.0, 10.0],
       zoom: 4.5,
       minZoom: 2.2,
-      maxZoom: 16,
+      maxZoom: 19,
       worldCopyJump: true,
       zoomControl: false,
       attributionControl: false
@@ -317,11 +271,10 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
 
     mapInstanceRef.current = map;
 
-    // Add base tile layer (Satellite HD default - 100% free, no API key required)
-    const baseLayer = L.tileLayer(TILE_LAYERS.satellite.url, {
-      maxZoom: 18,
-      subdomains: 'abcd',
-      noWrap: false
+    // Add pure OpenStreetMap tile layer (100% free, reliable, no API key required)
+    const baseLayer = L.tileLayer(OSM_TILE_URL, {
+      maxZoom: 19,
+      attribution: OSM_ATTRIBUTION
     }).addTo(map);
     tileLayerRef.current = baseLayer;
 
@@ -329,7 +282,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
     const markersGroup = L.layerGroup().addTo(map);
     markersLayerRef.current = markersGroup;
 
-    // Auto-adjust size on container resize (critical for split-screen / side-by-side)
+    // Auto-adjust size on container resize (critical for split-screen 50/50)
     const resizeObserver = new ResizeObserver(() => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.invalidateSize();
@@ -362,20 +315,6 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
     };
   }, []);
 
-  // Update Tile Layer when user toggles
-  useEffect(() => {
-    if (!mapInstanceRef.current || !tileLayerRef.current) return;
-    mapInstanceRef.current.removeLayer(tileLayerRef.current);
-
-    const newLayer = L.tileLayer(TILE_LAYERS[activeTileKey].url, {
-      maxZoom: 18,
-      subdomains: 'abcd',
-      noWrap: false
-    }).addTo(mapInstanceRef.current);
-
-    tileLayerRef.current = newLayer;
-  }, [activeTileKey]);
-
   // Update Markers when companies change
   useEffect(() => {
     if (!mapInstanceRef.current || !markersLayerRef.current) return;
@@ -383,8 +322,6 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
 
     companies.forEach(comp => {
       const coords = resolveCoordinates(comp.headquarters, comp.id);
-      const cluster = inferCompanySectorCluster(comp);
-      const haloColor = getHaloColorForCluster(cluster);
       const fit = analyzeCompanyFit(comp);
       const isSelected = selectedCompany?.id === comp.id;
 
@@ -413,23 +350,18 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
         : '';
 
       const iconHtml = `
-        <div class="relative flex items-center justify-center cursor-pointer group" style="width: 38px; height: 38px;">
-          <!-- Outer Pulsing Glow Ring -->
-          <div class="absolute -inset-2.5 rounded-full ${isSelected ? 'animate-pulse' : 'group-hover:scale-125'} transition-all duration-300" 
-               style="background-color: ${haloColor}; opacity: ${isSelected ? 0.7 : 0.25}; filter: blur(4px);"></div>
-          
-          <!-- Mid Cybernetic Selection Border Ring -->
-          <div class="w-9 h-9 rounded-2xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shadow-2xl border-2 overflow-hidden bg-slate-900" 
-               style="border-color: ${haloColor}; box-shadow: 0 0 14px ${haloColor}60;">
+        <div class="relative flex items-center justify-center cursor-pointer" style="width: 36px; height: 36px;">
+          <!-- Solid Black Box with neat border for logo (no glow or blur) -->
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center border ${isSelected ? 'border-cyan-400 scale-105' : 'border-slate-700'} overflow-hidden bg-black shadow-md">
             ${faviconUrl 
-              ? `<img src="${faviconUrl}" alt="${comp.name}" class="w-5 h-5 object-contain rounded-md" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-                 <span style="display:none; color:${haloColor}; font-family:monospace; font-weight:900; font-size:10px;">${initials}</span>`
-              : `<span style="color:${haloColor}; font-family:monospace; font-weight:900; font-size:10px;">${initials}</span>`
+              ? `<img src="${faviconUrl}" alt="${comp.name}" class="w-5 h-5 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                 <span style="display:none; color:#cbd5e1; font-family:monospace; font-weight:700; font-size:10px;">${initials}</span>`
+              : `<span style="color:#cbd5e1; font-family:monospace; font-weight:700; font-size:10px;">${initials}</span>`
             }
           </div>
 
-          <!-- Pinned HUD Match Badge -->
-          <div class="absolute -top-3.5 right-[-8px] px-1.5 py-0.2 rounded-full text-[9px] font-black font-mono shadow-lg border border-slate-700 bg-slate-950 text-emerald-300">
+          <!-- Discrete HUD Match Badge -->
+          <div class="absolute -top-2.5 -right-2 px-1.5 py-0.2 rounded-full text-[8.5px] font-black font-mono border border-slate-700 bg-black text-cyan-300">
             ${fit.score}%
           </div>
         </div>
@@ -504,39 +436,11 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
           ))}
         </div>
 
-        {/* Top Right Controls: Tile selector & Zoom */}
+        {/* Top Right Controls: OpenStreetMap pill & Zoom */}
         <div className="flex items-center gap-2 pointer-events-auto">
-          {/* Tile Layer Selector */}
-          <div className="relative">
-            <button
-              onClick={() => setIsLayerSelectorOpen(!isLayerSelectorOpen)}
-              className="px-3 py-1.5 rounded-xl bg-slate-950/90 hover:bg-slate-900 text-slate-200 border border-slate-800 text-xs font-mono font-bold flex items-center gap-1.5 backdrop-blur-md shadow-xl transition cursor-pointer"
-            >
-              <Layers className="h-3.5 w-3.5 text-cyan-400" />
-              <span className="hidden sm:inline">{TILE_LAYERS[activeTileKey].name}</span>
-            </button>
-
-            {isLayerSelectorOpen && (
-              <div className="absolute right-0 mt-1.5 w-56 rounded-2xl bg-slate-950/95 border border-slate-800 p-2 shadow-2xl backdrop-blur-xl space-y-1 z-50">
-                {(Object.keys(TILE_LAYERS) as TileKey[]).map(key => (
-                  <button
-                    key={key}
-                    onClick={() => {
-                      setActiveTileKey(key);
-                      setIsLayerSelectorOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center justify-between cursor-pointer ${
-                      activeTileKey === key 
-                        ? 'bg-cyan-950 text-cyan-300 border border-cyan-700' 
-                        : 'text-slate-300 hover:bg-slate-900'
-                    }`}
-                  >
-                    <span>{TILE_LAYERS[key].name}</span>
-                    <span className="text-[10px] opacity-70">{TILE_LAYERS[key].tag.split(' ')[0]}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+          <div className="px-3 py-1.5 rounded-xl bg-slate-950/90 text-slate-300 border border-slate-800 text-xs font-mono font-bold flex items-center gap-1.5 backdrop-blur-md shadow-xl select-none">
+            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>OpenStreetMap</span>
           </div>
 
           {/* Zoom Buttons */}
@@ -577,7 +481,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
           {/* Card Top: Logo + Name + Close */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-700 p-2 flex items-center justify-center shrink-0 shadow-inner">
+              <div className="w-12 h-12 rounded-xl bg-black border border-slate-800 p-2 flex items-center justify-center shrink-0">
                 <img
                   src={`https://www.google.com/s2/favicons?domain=${new URL(selectedCompany.website.startsWith('http') ? selectedCompany.website : `https://${selectedCompany.website}`).hostname}&sz=128`}
                   alt={selectedCompany.name}
