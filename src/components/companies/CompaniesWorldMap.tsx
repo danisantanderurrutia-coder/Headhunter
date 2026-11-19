@@ -21,28 +21,36 @@ interface CompaniesWorldMapProps {
   onToggleFavorite: (companyId: string, e?: React.MouseEvent) => void;
 }
 
-// Basemap Tile Providers (from Hombros project: Satellite HD, Bio-Digital Dark, and Topo Relief)
+// Basemap Tile Providers: Esri World Imagery (Satellite HD), Esri Dark Canvas, Esri Relief & OpenStreetMap
+// All layers are 100% free, high-performance, and require NO API key.
 const TILE_LAYERS = {
-  dark: {
-    id: 'dark',
-    name: '🌌 Bio-Digital Nocturno',
-    tag: 'Carto Dark Matter',
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; CartoDB &copy; OpenStreetMap'
-  },
   satellite: {
     id: 'satellite',
     name: '🛰️ Satélite HD Fotográfico',
-    tag: 'Esri World Imagery',
+    tag: 'Esri World Imagery (Orbital)',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: 'Tiles &copy; Esri &mdash; Earthstar Geographics'
+  },
+  dark: {
+    id: 'dark',
+    name: '🌌 Dark Canvas Cartográfico',
+    tag: 'Esri Canvas Dark',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    attribution: 'Tiles &copy; Esri &mdash; DeLorme, NAVTEQ'
   },
   relief: {
     id: 'relief',
     name: '🏔️ Relieve & Cuencas',
-    tag: 'Esri World Shaded Relief',
+    tag: 'Esri Shaded Relief',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}',
     attribution: 'Tiles &copy; Esri &mdash; USGS, NOAA'
+  },
+  osm: {
+    id: 'osm',
+    name: '🗺️ Callejero OpenStreetMap',
+    tag: 'OpenStreetMap Standard',
+    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; OpenStreetMap contributors'
   }
 };
 
@@ -280,7 +288,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
 
-  const [activeTileKey, setActiveTileKey] = useState<TileKey>('dark');
+  const [activeTileKey, setActiveTileKey] = useState<TileKey>('satellite');
   const [selectedCompany, setSelectedCompany] = useState<CompanyDossier | null>(null);
   const [isLayerSelectorOpen, setIsLayerSelectorOpen] = useState(false);
 
@@ -309,8 +317,8 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
 
     mapInstanceRef.current = map;
 
-    // Add base tile layer
-    const baseLayer = L.tileLayer(TILE_LAYERS.dark.url, {
+    // Add base tile layer (Satellite HD default - 100% free, no API key required)
+    const baseLayer = L.tileLayer(TILE_LAYERS.satellite.url, {
       maxZoom: 18,
       subdomains: 'abcd',
       noWrap: false
@@ -321,6 +329,16 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
     const markersGroup = L.layerGroup().addTo(map);
     markersLayerRef.current = markersGroup;
 
+    // Auto-adjust size on container resize (critical for split-screen / side-by-side)
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    });
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
+    }
+
     // Fix possible layout sizing lag
     const timer = setTimeout(() => {
       if (mapInstanceRef.current) {
@@ -330,6 +348,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
 
     return () => {
       clearTimeout(timer);
+      resizeObserver.disconnect();
       if (mapInstanceRef.current) {
         try {
           mapInstanceRef.current.remove();
@@ -417,7 +436,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       `;
 
       const customIcon = L.divIcon({
-        className: 'custom-hombros-company-pin',
+        className: 'custom-company-pin',
         html: iconHtml,
         iconSize: [38, 38],
         iconAnchor: [19, 19],
@@ -546,7 +565,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
        * ========================================================================= */}
       <div 
         ref={mapContainerRef} 
-        className="w-full h-[580px] sm:h-[650px] z-10 select-none bg-slate-950"
+        className="w-full h-[520px] lg:h-[calc(100vh-220px)] min-h-[480px] max-h-[820px] z-10 select-none bg-slate-950"
       />
 
       {/* =========================================================================

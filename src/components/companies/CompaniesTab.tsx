@@ -22,8 +22,7 @@ import {
   ArrowUpDown,
   ChevronDown,
   ChevronUp,
-  Globe,
-  LayoutGrid
+  Globe
 } from 'lucide-react';
 import { getStoredCompanies, saveStoredCompanies } from '../../services/db';
 import type { CompanyDossier, QuadrantType, CompanyContact, CompanySectorCluster } from '../../types/companies';
@@ -211,7 +210,6 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
   const [selectedSectorCluster, setSelectedSectorCluster] = useState<CompanySectorCluster>(initialSectorCluster);
   const [searchQuery, setSearchQuery] = useState('');
   const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
-  const [viewMode, setViewMode] = useState<'GRID' | 'MAP'>('GRID');
   
   // Quick filters & Sorting
   const [quickFilter, setQuickFilter] = useState<QuickFilterType>('ALL');
@@ -837,13 +835,45 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
       )}
 
       {/* =========================================================================
-       * 3. ESPACIO DE EXPLORACIÓN // CUADRÍCULA DE ICONOS DE ORGANIZACIONES
+       * 3. ESPACIO DE EXPLORACIÓN INTEGRADO: CUADRÍCULA (IZQ) Y MAPA MUNDIAL (DER)
+       * Ambos componentes están siempre activos y se sincronizan en tiempo real
+       * con las Categorías de Exploración Estratégica, polos y buscador.
        * ========================================================================= */}
-      <div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 px-1">
-          <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
-            <span>Mostrando <strong className="text-cyan-400">{filteredCompanies.length}</strong> entidades</span>
-            {(selectedSectorCluster !== 'ALL' || selectedQuadrant !== 'ALL' || searchQuery || quickFilter !== 'ALL') && (
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        {/* COLUMNA IZQUIERDA: Cuadrícula de Organizaciones (lg:col-span-6 xl:col-span-7) */}
+        <div className="lg:col-span-6 xl:col-span-7 space-y-3">
+          <div className="flex items-center justify-between mb-1 px-1">
+            <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
+              <span>Mostrando <strong className="text-cyan-400">{filteredCompanies.length}</strong> entidades</span>
+              {(selectedSectorCluster !== 'ALL' || selectedQuadrant !== 'ALL' || searchQuery || quickFilter !== 'ALL') && (
+                <button
+                  onClick={() => {
+                    setSelectedSectorCluster('ALL');
+                    setSelectedQuadrant('ALL');
+                    setSearchQuery('');
+                    setQuickFilter('ALL');
+                  }}
+                  className="text-cyan-400 hover:underline cursor-pointer text-[11px] ml-2 font-bold"
+                >
+                  Resetear filtros
+                </button>
+              )}
+            </div>
+            <span className="text-[11px] text-slate-500 font-mono hidden sm:inline">
+              Haz click sobre una tarjeta o usa los botones directos
+            </span>
+          </div>
+
+          {filteredCompanies.length === 0 ? (
+            <div className="p-12 rounded-3xl bg-slate-900/50 border border-slate-800 text-center space-y-3">
+              <Building2 className="h-10 w-10 text-slate-600 mx-auto" />
+              <h4 className="text-sm font-mono font-bold text-slate-300">
+                No se encontraron organizaciones con los filtros seleccionados
+              </h4>
+              <p className="text-xs text-slate-500 max-w-md mx-auto">
+                Prueba cambiando la categoría de sector, el polo geográfico o limpiando el texto del buscador.
+              </p>
               <button
                 onClick={() => {
                   setSelectedSectorCluster('ALL');
@@ -851,183 +881,143 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                   setSearchQuery('');
                   setQuickFilter('ALL');
                 }}
-                className="text-cyan-400 hover:underline cursor-pointer text-[11px] ml-2 font-bold"
+                className="px-4 py-2 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 text-xs font-mono font-bold hover:bg-cyan-900 transition cursor-pointer"
               >
-                Resetear filtros
+                Mostrar todas las entidades ({companies.length})
               </button>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3.5">
+              {filteredCompanies.map((comp) => {
+                const quads = inferCompanyQuadrants(comp);
+                const clusterBadge = getClusterBadge(inferCompanySectorCluster(comp));
+                const contactCount = (comp.contacts || []).length;
+                const fit = scoredCompaniesMap.get(comp.id) || analyzeCompanyFit(comp);
+                const isFav = favorites.has(comp.id);
 
-          {/* View Switcher: Cuadrícula vs Mapa Mundi Hombros */}
-          <div className="flex items-center gap-1.5 self-end sm:self-auto bg-slate-900/90 border border-slate-800 p-1 rounded-xl shadow-inner">
-            <button
-              type="button"
-              onClick={() => setViewMode('GRID')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-                viewMode === 'GRID'
-                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-700/60 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
-              title="Vista de cuadrícula de tarjetas de organizaciones"
-            >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Cuadrícula</span>
-            </button>
+                return (
+                  <div
+                    key={comp.id}
+                    onClick={() => handleOpenDossier(comp)}
+                    className="group relative rounded-2xl p-3 sm:p-3.5 bg-[#0c1220]/95 hover:bg-[#11192e] border border-slate-800/80 hover:border-cyan-500/80 shadow-md hover:shadow-[0_8px_30px_rgba(6,182,212,0.18)] transition-all duration-200 flex flex-col justify-between items-center text-center overflow-hidden min-h-[235px] cursor-pointer"
+                  >
+                    {/* Top Header inside card: Quadrant + Fit Badge + Star Bookmark */}
+                    <div className="w-full flex items-center justify-between gap-1 mb-1.5" onClick={(e) => e.stopPropagation()}>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold border ${getQuadrantColor(quads[0] || 'GLOBAL')}`}>
+                        {quads[0] || 'GLOBAL'}
+                      </span>
 
-            <button
-              type="button"
-              onClick={() => setViewMode('MAP')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-                viewMode === 'MAP'
-                  ? 'bg-gradient-to-r from-emerald-950 to-cyan-950 text-emerald-300 border border-emerald-600/70 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
-              title="Vista interactiva de Mapa Mundi Hombros con geolocalización y capas satelitales"
-            >
-              <Globe className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span>Mapa Mundi Hombros 🌍</span>
-            </button>
-          </div>
+                      <div className="flex items-center gap-1">
+                        {/* Match Score Badge */}
+                        <span 
+                          className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-black border flex items-center gap-0.5 shadow-sm ${
+                            fit.score >= 90
+                              ? 'bg-emerald-950/90 text-emerald-300 border-emerald-600/70'
+                              : fit.score >= 80
+                              ? 'bg-cyan-950/90 text-cyan-300 border-cyan-600/70'
+                              : 'bg-slate-800 text-slate-300 border-slate-700'
+                          }`}
+                          title={`${fit.score}% de afinidad con tu formación y áreas de dominio`}
+                        >
+                          <Sparkles className="h-2.5 w-2.5 text-cyan-400" />
+                          <span>{fit.score}%</span>
+                        </span>
+
+                        {/* Favorite Button */}
+                        <button
+                          type="button"
+                          onClick={(e) => toggleFavorite(comp.id, e)}
+                          className="p-1 rounded-md hover:bg-slate-800 transition cursor-pointer text-slate-400 hover:text-amber-400"
+                          title={isFav ? 'Quitar de guardados' : 'Guardar en favoritos'}
+                        >
+                          <Star className={`h-3.5 w-3.5 ${isFav ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Center Logo & Name */}
+                    <div className="flex-1 flex flex-col items-center justify-center w-full my-1">
+                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-700/80 p-2.5 flex items-center justify-center shadow-inner group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-200 shrink-0">
+                        <CompanyLogo website={comp.website} name={comp.name} />
+                      </div>
+
+                      <h4 className="font-bold text-xs sm:text-sm text-white font-sans line-clamp-2 mt-2 leading-snug group-hover:text-cyan-300 transition-colors">
+                        {comp.name}
+                      </h4>
+
+                      <p className="text-[10px] text-slate-400 font-mono line-clamp-1 mt-1 truncate max-w-full">
+                        📍 {comp.headquarters}
+                      </p>
+
+                      <div className="mt-1 flex items-center gap-1 flex-wrap justify-center">
+                        <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold border ${clusterBadge.color} inline-block truncate max-w-[120px]`}>
+                          {clusterBadge.label}
+                        </span>
+                        {contactCount > 0 && (
+                          <span 
+                            className="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-700/60 flex items-center gap-0.5" 
+                            title={`${contactCount} decisor(es) mapeados`}
+                          >
+                            <Users className="h-2.5 w-2.5" />
+                            {contactCount}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* =========================================================
+                     * 4. LOS DOS BOTONES INFERIORES:
+                     * IZQUIERDA: "Ir a la página" | DERECHA: "Más información"
+                     * ========================================================= */}
+                    <div className="w-full grid grid-cols-2 gap-1.5 pt-2.5 mt-2 border-t border-slate-800/80" onClick={(e) => e.stopPropagation()}>
+                      <a
+                        href={comp.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-500 text-[10px] sm:text-[11px] font-mono font-bold transition flex items-center justify-center gap-1 cursor-pointer truncate"
+                        title={`Visitar web oficial de ${comp.name}`}
+                      >
+                        <ExternalLink className="h-3 w-3 shrink-0" />
+                        <span className="truncate">Ir a la página</span>
+                      </a>
+
+                      <button
+                        type="button"
+                        onClick={() => handleOpenDossier(comp)}
+                        className="px-2 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-mono font-bold text-[10px] sm:text-[11px] shadow-sm transition flex items-center justify-center gap-1 cursor-pointer truncate"
+                        title={`Ver expediente completo de ${comp.name}`}
+                      >
+                        <Eye className="h-3 w-3 shrink-0" />
+                        <span className="truncate">Más información</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {viewMode === 'MAP' ? (
+        {/* COLUMNA DERECHA: Mapa Mundial Interactivo (lg:col-span-6 xl:col-span-5 lg:sticky lg:top-4) */}
+        <div className="lg:col-span-6 xl:col-span-5 lg:sticky lg:top-4 space-y-2">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5 font-bold">
+              <Globe className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Mapa Mundial Geoestratégico</span>
+            </span>
+            <span className="text-[11px] font-mono text-cyan-400/80">
+              {filteredCompanies.length} nodos activos
+            </span>
+          </div>
+
           <CompaniesWorldMap
             companies={filteredCompanies}
             onOpenDossier={handleOpenDossier}
             favorites={favorites}
             onToggleFavorite={toggleFavorite}
           />
-        ) : filteredCompanies.length === 0 ? (
-          <div className="p-12 rounded-3xl bg-slate-900/50 border border-slate-800 text-center space-y-3">
-            <Building2 className="h-10 w-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-mono font-bold text-slate-300">
-              No se encontraron organizaciones con los filtros seleccionados
-            </h4>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Prueba cambiando la categoría de sector, el polo geográfico o limpiando el texto del buscador.
-            </p>
-            <button
-              onClick={() => {
-                setSelectedSectorCluster('ALL');
-                setSelectedQuadrant('ALL');
-                setSearchQuery('');
-                setQuickFilter('ALL');
-              }}
-              className="px-4 py-2 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 text-xs font-mono font-bold hover:bg-cyan-900 transition cursor-pointer"
-            >
-              Mostrar todas las entidades ({companies.length})
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3.5 sm:gap-4">
-            {filteredCompanies.map((comp) => {
-              const quads = inferCompanyQuadrants(comp);
-              const clusterBadge = getClusterBadge(inferCompanySectorCluster(comp));
-              const contactCount = (comp.contacts || []).length;
-              const fit = scoredCompaniesMap.get(comp.id) || analyzeCompanyFit(comp);
-              const isFav = favorites.has(comp.id);
+        </div>
 
-              return (
-                <div
-                  key={comp.id}
-                  onClick={() => handleOpenDossier(comp)}
-                  className="group relative rounded-2xl p-3 sm:p-3.5 bg-[#0c1220]/95 hover:bg-[#11192e] border border-slate-800/80 hover:border-cyan-500/80 shadow-md hover:shadow-[0_8px_30px_rgba(6,182,212,0.18)] transition-all duration-200 flex flex-col justify-between items-center text-center overflow-hidden min-h-[235px] cursor-pointer"
-                >
-                  {/* Top Header inside card: Quadrant + Fit Badge + Star Bookmark */}
-                  <div className="w-full flex items-center justify-between gap-1 mb-1.5" onClick={(e) => e.stopPropagation()}>
-                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold border ${getQuadrantColor(quads[0] || 'GLOBAL')}`}>
-                      {quads[0] || 'GLOBAL'}
-                    </span>
-
-                    <div className="flex items-center gap-1">
-                      {/* Match Score Badge */}
-                      <span 
-                        className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-black border flex items-center gap-0.5 shadow-sm ${
-                          fit.score >= 90
-                            ? 'bg-emerald-950/90 text-emerald-300 border-emerald-600/70'
-                            : fit.score >= 80
-                            ? 'bg-cyan-950/90 text-cyan-300 border-cyan-600/70'
-                            : 'bg-slate-800 text-slate-300 border-slate-700'
-                        }`}
-                        title={`${fit.score}% de afinidad con tu formación y áreas de dominio`}
-                      >
-                        <Sparkles className="h-2.5 w-2.5 text-cyan-400" />
-                        <span>{fit.score}%</span>
-                      </span>
-
-                      {/* Favorite Button */}
-                      <button
-                        type="button"
-                        onClick={(e) => toggleFavorite(comp.id, e)}
-                        className="p-1 rounded-md hover:bg-slate-800 transition cursor-pointer text-slate-400 hover:text-amber-400"
-                        title={isFav ? 'Quitar de guardados' : 'Guardar en favoritos'}
-                      >
-                        <Star className={`h-3.5 w-3.5 ${isFav ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`} />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Center Logo & Name */}
-                  <div className="flex-1 flex flex-col items-center justify-center w-full my-1">
-                    <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-700/80 p-2.5 flex items-center justify-center shadow-inner group-hover:scale-105 group-hover:border-cyan-400 transition-all duration-200 shrink-0">
-                      <CompanyLogo website={comp.website} name={comp.name} />
-                    </div>
-
-                    <h4 className="font-bold text-xs sm:text-sm text-white font-sans line-clamp-2 mt-2 leading-snug group-hover:text-cyan-300 transition-colors">
-                      {comp.name}
-                    </h4>
-
-                    <p className="text-[10px] text-slate-400 font-mono line-clamp-1 mt-1 truncate max-w-full">
-                      📍 {comp.headquarters}
-                    </p>
-
-                    <div className="mt-1 flex items-center gap-1 flex-wrap justify-center">
-                      <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold border ${clusterBadge.color} inline-block truncate max-w-[120px]`}>
-                        {clusterBadge.label}
-                      </span>
-                      {contactCount > 0 && (
-                        <span 
-                          className="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-700/60 flex items-center gap-0.5" 
-                          title={`${contactCount} decisor(es) mapeados`}
-                        >
-                          <Users className="h-2.5 w-2.5" />
-                          {contactCount}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* =========================================================
-                   * 4. LOS DOS BOTONES INFERIORES:
-                   * IZQUIERDA: "Ir a la página" | DERECHA: "Más información"
-                   * ========================================================= */}
-                  <div className="w-full grid grid-cols-2 gap-1.5 pt-2.5 mt-2 border-t border-slate-800/80" onClick={(e) => e.stopPropagation()}>
-                    <a
-                      href={comp.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-500 text-[10px] sm:text-[11px] font-mono font-bold transition flex items-center justify-center gap-1 cursor-pointer truncate"
-                      title={`Visitar web oficial de ${comp.name}`}
-                    >
-                      <ExternalLink className="h-3 w-3 shrink-0" />
-                      <span className="truncate">Ir a la página</span>
-                    </a>
-
-                    <button
-                      type="button"
-                      onClick={() => handleOpenDossier(comp)}
-                      className="px-2 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-mono font-bold text-[10px] sm:text-[11px] shadow-sm transition flex items-center justify-center gap-1 cursor-pointer truncate"
-                      title={`Ver expediente completo de ${comp.name}`}
-                    >
-                      <Eye className="h-3 w-3 shrink-0" />
-                      <span className="truncate">Más información</span>
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
       </div>
 
       {/* =========================================================================
