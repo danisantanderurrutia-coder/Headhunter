@@ -12,6 +12,7 @@ import {
 import type { CompanyDossier } from '../../types/companies';
 import { analyzeCompanyFit } from '../../utils/companyFit';
 import { resolveCompanyLogoDetails } from '../../utils/companyLogos';
+import { resolveScrapingTierMeta } from '../../utils/scrapingTiers';
 
 interface CompaniesWorldMapProps {
   companies: CompanyDossier[];
@@ -389,16 +390,21 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       const coords = resolveCoordinates(comp.headquarters, comp.id);
       const fit = analyzeCompanyFit(comp);
       const isSelected = selectedCompany?.id === comp.id;
+      const tierMeta = resolveScrapingTierMeta(comp);
 
       // Resolve official curated logo or domain favicons
       const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, firstLetter } = resolveCompanyLogoDetails(comp);
       const initialLogoUrl = primaryUrl || fallbackFaviconUrl || fallbackDdgUrl;
       const safeName = comp.name.replace(/["'\\]/g, '');
 
+      // Combine category color border/glow with active selection ring
+      const boxBorderClass = `${tierMeta.borderClass} ${isSelected ? 'ring-2 ring-cyan-400 scale-110' : ''}`;
+      const boxStyle = `border: 2px solid ${tierMeta.borderColor}; box-shadow: 0 0 8px ${tierMeta.boxShadowColor};`;
+
       const iconHtml = `
-        <div class="relative flex items-center justify-center cursor-pointer" style="width: 36px; height: 36px;">
-          <!-- High-Contrast Clean White Box for Logo (no glow, crisp visibility) -->
-          <div class="w-8 h-8 rounded-xl flex items-center justify-center border ${isSelected ? 'border-cyan-400 ring-2 ring-cyan-400/50 scale-110' : 'border-slate-600'} overflow-hidden bg-white shadow-md p-0.5">
+        <div class="relative flex items-center justify-center cursor-pointer" style="width: 38px; height: 38px;">
+          <!-- High-Contrast Clean White Box with Category-Specific Scraping Glow & Border -->
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center overflow-hidden bg-white shadow-md p-0.5 transition-all duration-150 ${boxBorderClass}" style="${boxStyle}">
             ${initialLogoUrl 
               ? `<img 
                   src="${initialLogoUrl}" 
@@ -440,14 +446,20 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
         });
       });
 
-      // Hover Tooltip
+      // Hover Tooltip with Scraping Status Indicator Badge
       marker.bindTooltip(`
-        <div class="p-2.5 font-mono text-xs space-y-1.5 max-w-[240px] bg-slate-950/95 text-white border border-slate-700 rounded-xl shadow-2xl">
+        <div class="p-2.5 font-mono text-xs space-y-1.5 max-w-[260px] bg-slate-950/95 text-white border border-slate-700 rounded-xl shadow-2xl">
+          <div class="flex items-center justify-between gap-1 pb-1 border-b border-slate-800">
+            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${tierMeta.tooltipBadgeClass}">
+              ${tierMeta.badgeText}
+            </span>
+            <span class="font-bold font-mono text-emerald-400 text-[10px] shrink-0">${fit.score}% Fit</span>
+          </div>
           <div class="font-bold text-sm text-cyan-300 font-sans leading-tight line-clamp-2">${comp.name}</div>
           <div class="text-[10px] text-slate-400">📍 ${comp.headquarters}</div>
           <div class="flex items-center justify-between pt-1 border-t border-slate-800 text-[11px]">
-            <span class="text-slate-400">${comp.sector.slice(0, 24)}...</span>
-            <span class="font-bold font-mono text-emerald-400">${fit.score}% Fit</span>
+            <span class="text-slate-400 truncate max-w-[150px]">${comp.sector.slice(0, 24)}...</span>
+            <span class="text-[10px] font-semibold text-slate-300 shrink-0">${tierMeta.shortLabel}</span>
           </div>
         </div>
       `, {
@@ -538,148 +550,155 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       {/* =========================================================================
        * 3. BOTTOM FLOATING DOSSIER CARD (WHEN A PIN IS CLICKED)
        * ========================================================================= */}
-      {selectedCompany && (
-        <div className="absolute bottom-4 left-3 right-3 sm:left-6 sm:right-auto sm:max-w-md z-[1000] p-4 rounded-3xl bg-[#0b101e]/95 border border-cyan-500/50 shadow-[0_12px_40px_rgba(0,0,0,0.85)] backdrop-blur-xl animate-fadeIn space-y-3">
-          
-          {/* Card Top: Logo + Name + Close */}
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-start gap-3">
-              <div className="w-12 h-12 rounded-xl bg-white border border-slate-300 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
-                {(() => {
-                  const cardLogo = resolveCompanyLogoDetails(selectedCompany);
-                  const cardSrc = cardLogo.primaryUrl || cardLogo.fallbackFaviconUrl || cardLogo.fallbackDdgUrl;
-                  if (!cardSrc) {
+      {selectedCompany && (() => {
+        const selectedTierMeta = resolveScrapingTierMeta(selectedCompany);
+        return (
+          <div className="absolute bottom-4 left-3 right-3 sm:left-6 sm:right-auto sm:max-w-md z-[1000] p-4 rounded-3xl bg-[#0b101e]/95 border border-cyan-500/50 shadow-[0_12px_40px_rgba(0,0,0,0.85)] backdrop-blur-xl animate-fadeIn space-y-3">
+            
+            {/* Card Top: Logo + Name + Close */}
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <div 
+                  className={`w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm ${selectedTierMeta.borderClass}`}
+                  style={{ border: `2px solid ${selectedTierMeta.borderColor}`, boxShadow: `0 0 10px ${selectedTierMeta.boxShadowColor}` }}
+                >
+                  {(() => {
+                    const cardLogo = resolveCompanyLogoDetails(selectedCompany);
+                    const cardSrc = cardLogo.primaryUrl || cardLogo.fallbackFaviconUrl || cardLogo.fallbackDdgUrl;
+                    if (!cardSrc) {
+                      return (
+                        <span className="text-black font-sans font-black text-xl uppercase select-none">
+                          {cardLogo.firstLetter}
+                        </span>
+                      );
+                    }
                     return (
-                      <span className="text-black font-sans font-black text-xl uppercase select-none">
-                        {cardLogo.firstLetter}
-                      </span>
-                    );
-                  }
-                  return (
-                    <>
-                      <img
-                        src={cardSrc}
-                        alt={selectedCompany.name}
-                        className="max-h-full max-w-full object-contain"
-                        onError={(e) => {
-                          const img = e.currentTarget;
-                          if (img.src !== cardLogo.fallbackFaviconUrl && cardLogo.fallbackFaviconUrl) {
-                            img.src = cardLogo.fallbackFaviconUrl;
-                          } else if (img.src !== cardLogo.fallbackDdgUrl && cardLogo.fallbackDdgUrl) {
-                            img.src = cardLogo.fallbackDdgUrl;
-                          } else {
-                            img.style.display = 'none';
-                            if (img.nextElementSibling) {
-                              (img.nextElementSibling as HTMLElement).style.display = 'flex';
+                      <>
+                        <img
+                          src={cardSrc}
+                          alt={selectedCompany.name}
+                          className="max-h-full max-w-full object-contain"
+                          onError={(e) => {
+                            const img = e.currentTarget;
+                            if (img.src !== cardLogo.fallbackFaviconUrl && cardLogo.fallbackFaviconUrl) {
+                              img.src = cardLogo.fallbackFaviconUrl;
+                            } else if (img.src !== cardLogo.fallbackDdgUrl && cardLogo.fallbackDdgUrl) {
+                              img.src = cardLogo.fallbackDdgUrl;
+                            } else {
+                              img.style.display = 'none';
+                              if (img.nextElementSibling) {
+                                (img.nextElementSibling as HTMLElement).style.display = 'flex';
+                              }
                             }
-                          }
-                        }}
-                      />
-                      <span style={{ display: 'none' }} className="w-full h-full items-center justify-center text-black font-sans font-black text-xl uppercase select-none">
-                        {cardLogo.firstLetter}
-                      </span>
-                    </>
-                  );
-                })()}
-              </div>
+                          }}
+                        />
+                        <span style={{ display: 'none' }} className="w-full h-full items-center justify-center text-black font-sans font-black text-xl uppercase select-none">
+                          {cardLogo.firstLetter}
+                        </span>
+                      </>
+                    );
+                  })()}
+                </div>
 
-              <div>
-                <h4 className="font-bold text-sm text-white font-sans line-clamp-1">
-                  {selectedCompany.name}
-                </h4>
-                <p className="text-[11px] text-slate-400 font-mono">
-                  📍 {selectedCompany.headquarters}
-                </p>
-                <div className="flex items-center gap-1.5 pt-0.5">
-                  <span className="text-[10px] px-2 py-0.2 rounded-full font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">
-                    {selectedCompany.sector.slice(0, 26)}
-                  </span>
-                  {selectedFit && (
-                    <span className="text-[10px] px-2 py-0.2 rounded-full font-mono font-black bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-0.5">
-                      <Sparkles className="h-2.5 w-2.5 text-emerald-400" />
-                      {selectedFit.score}% Fit
+                <div>
+                  <h4 className="font-bold text-sm text-white font-sans line-clamp-1">
+                    {selectedCompany.name}
+                  </h4>
+                  <p className="text-[11px] text-slate-400 font-mono">
+                    📍 {selectedCompany.headquarters}
+                  </p>
+                  <div className="flex items-center gap-1.5 pt-1 flex-wrap">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">
+                      {selectedCompany.sector.slice(0, 24)}
                     </span>
-                  )}
+                    {selectedFit && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-black bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-0.5">
+                        <Sparkles className="h-2.5 w-2.5 text-emerald-400" />
+                        {selectedFit.score}% Fit
+                      </span>
+                    )}
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border ${selectedTierMeta.pillBg} ${selectedTierMeta.pillText} ${selectedTierMeta.pillBorder}`}>
+                      {selectedTierMeta.badgeText}
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              <div className="flex items-center gap-1 shrink-0">
+                <button
+                  type="button"
+                  onClick={(e) => onToggleFavorite(selectedCompany.id, e)}
+                  className="p-1 rounded-lg hover:bg-slate-800 transition cursor-pointer text-slate-400 hover:text-amber-400"
+                  title={favorites.has(selectedCompany.id) ? 'Quitar de guardados' : 'Guardar en favoritos'}
+                >
+                  <Star className={`h-4 w-4 ${favorites.has(selectedCompany.id) ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`} />
+                </button>
+
+                <button
+                  onClick={() => setSelectedCompany(null)}
+                  className="p-1 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition cursor-pointer text-xs font-bold"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1 shrink-0">
-              <button
-                type="button"
-                onClick={(e) => onToggleFavorite(selectedCompany.id, e)}
-                className="p-1 rounded-lg hover:bg-slate-800 transition cursor-pointer text-slate-400 hover:text-amber-400"
-                title={favorites.has(selectedCompany.id) ? 'Quitar de guardados' : 'Guardar en favoritos'}
+            {/* Description snippet */}
+            <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+              {selectedCompany.description}
+            </p>
+
+            {/* Winning Angle Snippet */}
+            {selectedFit && (
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-[11px] text-cyan-200/90 font-mono line-clamp-2">
+                💡 {selectedFit.winningAngle}
+              </div>
+            )}
+
+            {/* Dual Action Buttons */}
+            <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800">
+              <a
+                href={selectedCompany.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white border border-slate-700 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer truncate"
               >
-                <Star className={`h-4 w-4 ${favorites.has(selectedCompany.id) ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`} />
-              </button>
+                <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                <span>Ir a la página</span>
+              </a>
 
               <button
-                onClick={() => setSelectedCompany(null)}
-                className="p-1 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition cursor-pointer text-xs font-bold"
+                onClick={() => onOpenDossier(selectedCompany)}
+                className="px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-mono font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer truncate"
               >
-                ✕
+                <Eye className="h-3.5 w-3.5 shrink-0" />
+                <span>Más información</span>
               </button>
             </div>
           </div>
-
-          {/* Description snippet */}
-          <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
-            {selectedCompany.description}
-          </p>
-
-          {/* Winning Angle Snippet */}
-          {selectedFit && (
-            <div className="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-[11px] text-cyan-200/90 font-mono line-clamp-2">
-              💡 {selectedFit.winningAngle}
-            </div>
-          )}
-
-          {/* Dual Action Buttons */}
-          <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800">
-            <a
-              href={selectedCompany.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white border border-slate-700 text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 cursor-pointer truncate"
-            >
-              <ExternalLink className="h-3.5 w-3.5 shrink-0" />
-              <span>Ir a la página</span>
-            </a>
-
-            <button
-              onClick={() => onOpenDossier(selectedCompany)}
-              className="px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-mono font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer truncate"
-            >
-              <Eye className="h-3.5 w-3.5 shrink-0" />
-              <span>Más información</span>
-            </button>
-          </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Map Legend Overlay (Bottom Right) */}
-      <div className="absolute bottom-3 right-3 z-[1000] p-2.5 rounded-2xl bg-slate-950/90 border border-slate-800 backdrop-blur-md shadow-xl text-[10px] font-mono text-slate-400 hidden sm:flex items-center gap-3">
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-          <span>Carbon-Tech / MRV</span>
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
-          <span>I+D Público</span>
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-          <span>Cat Risk</span>
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
-          <span>Políticas</span>
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
-          <span>Observación de la Tierra & Agrotech</span>
-        </span>
+      <div className="absolute bottom-3 right-3 z-[1000] p-3 rounded-2xl bg-slate-950/95 border border-slate-800 backdrop-blur-md shadow-2xl text-[10px] font-mono text-slate-300 hidden sm:flex flex-col gap-2">
+        <div className="text-[9px] uppercase tracking-wider text-slate-400 font-bold border-b border-slate-800 pb-1 flex items-center justify-between gap-3">
+          <span>Accesibilidad de Scraping</span>
+          <span className="text-[8.5px] text-cyan-400 font-semibold">{companies.length} Entidades</span>
+        </div>
+        <div className="flex items-center gap-3.5 pt-0.5 flex-wrap">
+          <span className="flex items-center gap-1.5 text-emerald-300">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-emerald-300 shadow-[0_0_8px_rgba(16,185,129,0.7)] shrink-0"></span>
+            <span className="font-semibold text-slate-200">🟢 Monitoreo automático</span>
+          </span>
+          <span className="flex items-center gap-1.5 text-amber-300">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 border border-amber-200 shadow-[0_0_8px_rgba(251,191,36,0.7)] shrink-0"></span>
+            <span className="font-semibold text-slate-200">🟡 API / ATS</span>
+          </span>
+          <span className="flex items-center gap-1.5 text-rose-300">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500 border border-rose-300 shadow-[0_0_8px_rgba(244,63,94,0.7)] shrink-0"></span>
+            <span className="font-semibold text-slate-200">🔴 Requiere inspección manual</span>
+          </span>
+        </div>
       </div>
     </div>
   );
