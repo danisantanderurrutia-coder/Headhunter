@@ -132,6 +132,7 @@ export interface ResolvedLogoDetails {
   fallbackFaviconUrl: string;
   fallbackDdgUrl: string;
   initials: string;
+  firstLetter: string;
 }
 
 export const resolveCompanyLogoDetails = (company: {
@@ -140,6 +141,9 @@ export const resolveCompanyLogoDetails = (company: {
   name: string;
   logoUrl?: string;
 }): ResolvedLogoDetails => {
+  const cleanName = company.name.replace(/^[^a-zA-Z0-9À-ÿ]+/i, '').trim();
+  const firstLetter = (cleanName[0] || company.name[0] || 'A').toUpperCase();
+
   const initials = company.name
     .replace(/^(the|el|la|los|las|de|von|der)\s+/i, '')
     .split(/[\s-]+/)
@@ -176,6 +180,7 @@ export const resolveCompanyLogoDetails = (company: {
     primaryUrl,
     fallbackFaviconUrl,
     fallbackDdgUrl,
-    initials
+    initials,
+    firstLetter
   };
 };

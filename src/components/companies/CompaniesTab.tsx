@@ -56,7 +56,7 @@ const CompanyLogo: React.FC<{ id?: string; website?: string; name: string; logoU
   const [useFallbackDdg, setUseFallbackDdg] = useState(false);
   const [allFailed, setAllFailed] = useState(false);
 
-  const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, initials } = useMemo(
+  const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, firstLetter } = useMemo(
     () => resolveCompanyLogoDetails({ id, website, name, logoUrl }),
     [id, website, name, logoUrl]
   );
@@ -70,8 +70,8 @@ const CompanyLogo: React.FC<{ id?: string; website?: string; name: string; logoU
 
   if (!currentSrc || allFailed) {
     return (
-      <div className="w-full h-full rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-cyan-400 font-mono font-black text-xs sm:text-sm tracking-wider select-none shadow-inner">
-        {initials}
+      <div className="w-full h-full rounded-xl bg-white border border-slate-300 flex items-center justify-center text-black font-sans font-black text-sm uppercase select-none shadow-sm">
+        {firstLetter}
       </div>
     );
   }

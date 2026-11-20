@@ -391,7 +391,7 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       const isSelected = selectedCompany?.id === comp.id;
 
       // Resolve official curated logo or domain favicons
-      const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, initials } = resolveCompanyLogoDetails(comp);
+      const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, firstLetter } = resolveCompanyLogoDetails(comp);
       const initialLogoUrl = primaryUrl || fallbackFaviconUrl || fallbackDdgUrl;
       const safeName = comp.name.replace(/["'\\]/g, '');
 
@@ -406,8 +406,8 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
                   class="w-6 h-6 object-contain" 
                   onerror="if (this.src !== '${fallbackFaviconUrl}' && '${fallbackFaviconUrl}') { this.src = '${fallbackFaviconUrl}'; } else if (this.src !== '${fallbackDdgUrl}' && '${fallbackDdgUrl}') { this.src = '${fallbackDdgUrl}'; } else { this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex'; }" 
                  />
-                 <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center; background-color:#020617; color:#38bdf8; font-family:monospace; font-weight:800; font-size:10px;">${initials}</span>`
-              : `<span class="w-full h-full flex items-center justify-center bg-slate-950 text-cyan-400 font-mono font-bold text-[10px]">${initials}</span>`
+                 <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center; background-color:#ffffff; color:#000000; font-family:sans-serif; font-weight:900; font-size:13px; text-transform:uppercase;">${firstLetter}</span>`
+              : `<span style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background-color:#ffffff; color:#000000; font-family:sans-serif; font-weight:900; font-size:13px; text-transform:uppercase;">${firstLetter}</span>`
             }
           </div>
 
@@ -428,9 +428,12 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
 
       const marker = L.marker(coords, { icon: customIcon });
 
-      // Click: fly to center and select company
+      // Click: fly to center, select company and open external link in new tab
       marker.on('click', () => {
         setSelectedCompany(comp);
+        if (comp.website) {
+          window.open(comp.website, '_blank', 'noopener,noreferrer');
+        }
         mapInstanceRef.current?.flyTo(coords, Math.max(mapInstanceRef.current.getZoom(), 7.5), {
           duration: 1.1,
           easeLinearity: 0.25
@@ -541,33 +544,41 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
           {/* Card Top: Logo + Name + Close */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
-              <div className="w-12 h-12 rounded-xl bg-black border border-slate-800 p-2 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-white border border-slate-300 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
                 {(() => {
                   const cardLogo = resolveCompanyLogoDetails(selectedCompany);
                   const cardSrc = cardLogo.primaryUrl || cardLogo.fallbackFaviconUrl || cardLogo.fallbackDdgUrl;
                   if (!cardSrc) {
                     return (
-                      <span className="text-slate-300 font-mono font-bold text-xs">
-                        {cardLogo.initials}
+                      <span className="text-black font-sans font-black text-xl uppercase select-none">
+                        {cardLogo.firstLetter}
                       </span>
                     );
                   }
                   return (
-                    <img
-                      src={cardSrc}
-                      alt={selectedCompany.name}
-                      className="max-h-full max-w-full object-contain"
-                      onError={(e) => {
-                        const img = e.currentTarget;
-                        if (img.src !== cardLogo.fallbackFaviconUrl && cardLogo.fallbackFaviconUrl) {
-                          img.src = cardLogo.fallbackFaviconUrl;
-                        } else if (img.src !== cardLogo.fallbackDdgUrl && cardLogo.fallbackDdgUrl) {
-                          img.src = cardLogo.fallbackDdgUrl;
-                        } else {
-                          img.style.display = 'none';
-                        }
-                      }}
-                    />
+                    <>
+                      <img
+                        src={cardSrc}
+                        alt={selectedCompany.name}
+                        className="max-h-full max-w-full object-contain"
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          if (img.src !== cardLogo.fallbackFaviconUrl && cardLogo.fallbackFaviconUrl) {
+                            img.src = cardLogo.fallbackFaviconUrl;
+                          } else if (img.src !== cardLogo.fallbackDdgUrl && cardLogo.fallbackDdgUrl) {
+                            img.src = cardLogo.fallbackDdgUrl;
+                          } else {
+                            img.style.display = 'none';
+                            if (img.nextElementSibling) {
+                              (img.nextElementSibling as HTMLElement).style.display = 'flex';
+                            }
+                          }
+                        }}
+                      />
+                      <span style={{ display: 'none' }} className="w-full h-full items-center justify-center text-black font-sans font-black text-xl uppercase select-none">
+                        {cardLogo.firstLetter}
+                      </span>
+                    </>
                   );
                 })()}
               </div>
