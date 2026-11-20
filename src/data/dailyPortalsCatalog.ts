@@ -65,14 +65,14 @@ export const DAILY_PORTALS: DailyPortal[] = [
   },
   {
     id: 'portal-boku',
-    name: 'BOKU University - Doctoral Studies (Viena)',
+    name: 'BOKU University - Jobbörse / Vacancies (Viena)',
     quadrant: 'DACH',
     quadrantLabel: 'Austria / DACH',
     category: 'Científico / I+D',
-    directUrl: 'https://boku.ac.at/en/doctoral-studies',
+    directUrl: 'https://boku.ac.at/en/pers/interne-jobboerse',
     recommendedFrequency: 'Diario',
-    suggestedKeywords: ['Soil Physics', 'Forest Sciences', 'Doctoral Studies', 'Hydrology', 'Carbon', 'Doktorat'],
-    description: 'Portal oficial de estudios doctorales e investigación de la BOKU en Viena. Referente europeo en física de suelos, balances de carbono y ciencias de recursos naturales.',
+    suggestedKeywords: ['Jobbörse', 'Soil Physics', 'Forest Sciences', 'Hydrology', 'Carbon', 'Stellenangebote', 'Postdoc'],
+    description: 'Bolsa de trabajo oficial (Jobbörse) de la Universidad de Recursos Naturales y Ciencias de la Vida de Viena (BOKU). Plazas científicas y de investigación en física de suelos, balances de carbono y ciencias ambientales.',
     iconName: 'GraduationCap'
   },
   {
