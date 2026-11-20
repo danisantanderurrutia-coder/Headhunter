@@ -28,7 +28,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from connectors.base import is_deadline_expired, parse_deadline
+from connectors.base import is_deadline_expired, parse_deadline, EXCLUDED_ROLE_PATTERNS
 
 DEFAULT_RECIPIENT = "danisantander.urrutia@gmail.com"
 DEFAULT_KEYWORDS = [
@@ -46,33 +46,26 @@ HIGH_PRIORITY_EMPLOYERS = [
 BUND_RSS_URL = "https://www.service.bund.de/Content/Globals/Functions/RSSFeed/RSSGenerator_Stellen.xml"
 JOBS_DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "public", "data", "jobs.json")
 
-# Direct monitored offers for pinpoint verification in Germany
-CURATED_GERMAN_OFFERS = [
-    {
-        "title": "Wissenschaftliche*r Mitarbeiter*in / Doktorand*in Agrar-/Bodenwissenschaften (w/m/d)",
-        "company": "Johann Heinrich von Thünen-Institut (Institut für Agrarklimaschutz)",
-        "location": "Braunschweig, Niedersachsen, Alemania",
-        "url": "https://www.karriere-thuenen.de/index.php?ac=jobad&id=369&language=2",
-        "deadline": "22.10.2026",
-        "salary": "TVöD Bund E13 (70% - ca. 43.742 € - 62.705 €)",
-        "project": "TechWorms (Kohlenstoffsequestrierung im Unterboden durch Makroporen)",
-        "score": 92,
-        "urgent": True,
-        "snippet": "Investigación predoctoral en secuestro de carbono orgánico en horizontes profundos del suelo, penetración radicular con RootBox, análisis isotópico y modelación en R."
-    },
-    {
-        "title": "Spezialist*in im Bereich KI-Projektmanagement und KI Product Owner (KI-Lab)",
-        "company": "Umweltbundesamt (UBA) - Anwendungslabor für KI & Big Data",
-        "location": "Leipzig, Berlin oder Dessau-Roßlau, Alemania",
-        "url": "https://interamt.de/koop/app/stelle?0&id=1499096",
-        "deadline": "28.10.2026",
-        "salary": "TVöD Bund E13 (100% - ca. 62.489 € - 89.579 €)",
-        "project": "Agenda Digital de Política Ambiental (KI-Lab Verwaltungsvollzug)",
-        "score": 88,
-        "urgent": False,
-        "snippet": "Product ownership y dirección de proyectos ágiles/híbridos para el desarrollo de herramientas de Inteligencia Artificial aplicadas a la gestión y supervisión ambiental federal."
+
+def is_url_live(url: str, timeout: int = 4) -> bool:
+    """Pre-flight check: ensure the offer URL is genuinely reachable and not a dead link."""
+    if not url or not url.startswith("http"):
+        return False
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)"
     }
-]
+    try:
+        req = urllib.request.Request(url, headers=headers, method="HEAD")
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.status < 400
+    except Exception:
+        # Fallback to GET for servers disallowing HEAD
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.status < 400
+        except Exception:
+            return False
 
 
 def clean_html(raw_html: str) -> str:
@@ -214,6 +207,11 @@ def fetch_bund_rss_jobs(keywords: list):
                 if deadline and is_deadline_expired(deadline):
                     continue
 
+                # 2. Exclusión de roles no científicos ni alineados con el perfil (educación infantil, ventas, etc.)
+                title_lower = title.lower()
+                if any(re.search(exc, title_lower) for exc in EXCLUDED_ROLE_PATTERNS):
+                    continue
+
                 full_text = f"{title} {desc} {employer} {location}".lower()
 
                 match_count = sum(1 for kw in keywords if kw.lower() in full_text)
@@ -248,9 +246,28 @@ def fetch_bund_rss_jobs(keywords: list):
     return matched
 
 
-def build_html_digest(recipient: str, german_curated: list, academic_dach: list, climate_tech: list, basque_offers: list, bund_rss_offers: list, intl_offers: list, run_date: str) -> str:
-    """Generate a multi-theater, responsive HTML email digest."""
-    total_offers = len(german_curated) + len(academic_dach[:6]) + len(climate_tech[:6]) + len(basque_offers) + len(bund_rss_offers[:5]) + len(intl_offers[:3])
+def get_verified_live_slice(offers: list, limit: int = 6) -> list:
+    """Select up to `limit` offers ensuring each link is active, stopping early to avoid delays."""
+    verified = []
+    for o in offers:
+        url = o.get("url")
+        if url and is_url_live(url, timeout=3):
+            verified.append(o)
+            if len(verified) >= limit:
+                break
+    return verified
+
+
+def build_html_digest(recipient: str, academic_dach: list, climate_tech: list, basque_offers: list, bund_rss_offers: list, intl_offers: list, run_date: str) -> str:
+    """Generate a multi-theater, responsive HTML email digest with 100% verified live URLs."""
+    # Pre-flight verify URLs lazily with early exit
+    live_academic = get_verified_live_slice(academic_dach, limit=6)
+    live_climate = get_verified_live_slice(climate_tech, limit=6)
+    live_bund = get_verified_live_slice(bund_rss_offers, limit=6)
+    live_basque = get_verified_live_slice(basque_offers, limit=4)
+    live_intl = get_verified_live_slice(intl_offers, limit=3)
+
+    total_offers = len(live_academic) + len(live_climate) + len(live_basque) + len(live_bund) + len(live_intl)
 
     def render_card(off, border_color="#10b981", badge_text=None):
         badge = badge_text or f"MATCH {off.get('score', 85)}%"
@@ -287,12 +304,11 @@ def build_html_digest(recipient: str, german_curated: list, academic_dach: list,
         </div>
         """
 
-    german_cards = "".join(render_card(o, border_color="#ef4444" if o.get("urgent") else "#38bdf8") for o in german_curated)
-    academic_cards = "".join(render_card(o, border_color="#0284c7") for o in academic_dach[:6])
-    climate_tech_cards = "".join(render_card(o, border_color="#10b981") for o in climate_tech[:6])
-    basque_cards = "".join(render_card(o, border_color="#14b8a6") for o in basque_offers)
-    bund_cards = "".join(render_card(o, border_color="#8b5cf6") for o in bund_rss_offers[:5])
-    intl_cards = "".join(render_card(o, border_color="#06b6d4") for o in intl_offers[:3])
+    academic_cards = "".join(render_card(o, border_color="#0284c7") for o in live_academic)
+    climate_tech_cards = "".join(render_card(o, border_color="#10b981") for o in live_climate)
+    bund_cards = "".join(render_card(o, border_color="#8b5cf6") for o in live_bund)
+    basque_cards = "".join(render_card(o, border_color="#14b8a6") for o in live_basque)
+    intl_cards = "".join(render_card(o, border_color="#06b6d4") for o in live_intl)
 
     html = f"""
     <!DOCTYPE html>
@@ -309,7 +325,7 @@ def build_html_digest(recipient: str, german_curated: list, academic_dach: list,
                     Job Search OS (Empleo) • Alerta Diaria Multifuente
                 </div>
                 <h1 style="color: #ffffff; margin: 8px 0 4px 0; font-size: 22px;">
-                    {total_offers} Convocatorias Seleccionadas Hoy
+                    {total_offers} Convocatorias 100% Verificadas Hoy
                 </h1>
                 <p style="color: #e0f2fe; margin: 0; font-size: 13px;">
                     Informe matutino para <strong>{recipient}</strong> • {run_date}
@@ -319,36 +335,38 @@ def build_html_digest(recipient: str, german_curated: list, academic_dach: list,
             <!-- Content Container -->
             <div style="padding: 24px;">
                 <p style="color: #94a3b8; font-size: 13px; margin-top: 0; line-height: 1.5;">
-                    Rastreo automático consolidado por APIs de ATS, RSS oficiales y web scraping directo en centros de investigación y scale-ups climáticas:
+                    Rastreo automático en tiempo real: 100% de enlaces accesibles y vigentes en universidades DACH, startups climáticas y sector público federal:
                 </p>
 
-                <!-- Section 1: Alemania Prioritaria -->
-                <div style="margin-top: 20px;">
-                    <div style="font-size: 12px; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🎯 1. Convocatorias Prioritarias en Alemania (Thünen & UBA)
-                    </div>
-                    {german_cards}
-                </div>
-
-                <!-- Section 2: Centros Académicos DACH (Cat. 1) -->
+                <!-- Section 1: Centros Académicos DACH (Cat. 1) -->
                 {f'''
-                <div style="margin-top: 26px;">
+                <div style="margin-top: 20px;">
                     <div style="font-size: 12px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🎓 2. Universidades y Centros DACH (ETH Zürich, Eawag, Freiburg, UniVie, BOKU)
+                        🎓 1. Universidades y Centros DACH (ETH Zürich, Eawag, Freiburg, UniVie)
                     </div>
                     {academic_cards}
                 </div>
                 ''' if academic_cards else ''}
 
-                <!-- Section 3: Startups & MRV Satelital (Cat. 2 ATS APIs) -->
+                <!-- Section 2: Startups & MRV Satelital (Cat. 2 ATS APIs) -->
                 {f'''
                 <div style="margin-top: 26px;">
                     <div style="font-size: 12px; font-weight: 700; color: #10b981; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🛰️ 3. Startups Climáticas, Satelitales y MRV (Planet Labs, ConstellR, Sylvera)
+                        🛰️ 2. Startups Climáticas, Satelitales y MRV (Planet Labs, ConstellR, Sylvera)
                     </div>
                     {climate_tech_cards}
                 </div>
                 ''' if climate_tech_cards else ''}
+
+                <!-- Section 3: Sector Público Federal Alemán -->
+                {f'''
+                <div style="margin-top: 26px;">
+                    <div style="font-size: 12px; font-weight: 700; color: #a855f7; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
+                        🏛️ 3. Convocatorias Oficiales en Alemania (service.bund.de / Thünen / UBA / BfN)
+                    </div>
+                    {bund_cards}
+                </div>
+                ''' if bund_cards else ''}
 
                 <!-- Section 4: Euskadi & España -->
                 {f'''
@@ -360,21 +378,11 @@ def build_html_digest(recipient: str, german_curated: list, academic_dach: list,
                 </div>
                 ''' if basque_cards else ''}
 
-                <!-- Section 5: Sector Público Federal Alemán -->
-                {f'''
-                <div style="margin-top: 26px;">
-                    <div style="font-size: 12px; font-weight: 700; color: #a855f7; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🏛️ 5. Convocatorias Federales en Alemania (service.bund.de)
-                    </div>
-                    {bund_cards}
-                </div>
-                ''' if bund_cards else ''}
-
-                <!-- Section 6: Remoto & Global -->
+                <!-- Section 5: Remoto & Global -->
                 {f'''
                 <div style="margin-top: 26px;">
                     <div style="font-size: 12px; font-weight: 700; color: #06b6d4; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🌍 6. Oportunidades Remotas & Internacionales (Arbeitnow, Remotive)
+                        🌍 5. Oportunidades Remotas & Internacionales (Arbeitnow, Remotive)
                     </div>
                     {intl_cards}
                 </div>
@@ -503,10 +511,9 @@ def main():
     rss_matches = fetch_bund_rss_jobs(DEFAULT_KEYWORDS)
     print(f"[*] Encontradas {len(rss_matches)} ofertas coincidentes en service.bund.de")
 
-    # 3. Build Multi-theater HTML Digest
-    total_count = len(CURATED_GERMAN_OFFERS) + len(academic_dach[:6]) + len(climate_tech[:6]) + len(basque_offers) + len(rss_matches[:5]) + len(intl_offers[:3])
-    subject = f"🎯 [Empleo 9:00 AM] {total_count} Convocatorias: DACH, Climate-Tech, Euskadi & Remoto"
-    html_content = build_html_digest(recipient, CURATED_GERMAN_OFFERS, academic_dach, climate_tech, basque_offers, rss_matches, intl_offers, now_str)
+    # 3. Build Multi-theater HTML Digest (100% verified live links)
+    html_content = build_html_digest(recipient, academic_dach, climate_tech, basque_offers, rss_matches, intl_offers, now_str)
+    subject = f"🎯 [Empleo 9:00 AM] Convocatorias Verificadas: DACH, Climate-Tech & Alemania"
 
     # 4. Save local preview
     preview_path = os.path.join(os.path.dirname(__file__), "latest_job_digest.html")
