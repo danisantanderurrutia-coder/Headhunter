@@ -29,28 +29,49 @@ GENERIC_PATHS = {
 
 # 1. Mandatory Core Domain Anchors: at least one MUST be present
 CORE_DOMAIN_TERMS = [
+    # A. Clima, Suelos, Carbono, Turberas y Edafología
     r"\bclimate\b", r"\bclima\b", r"\bklima\b", r"\bklimaschutz\b", r"\bklimawandel\b",
     r"\bsoil\b", r"\bsuelos?\b", r"\bboden\b", r"\bbodenkunde\b", r"\bbodenschutz\b",
     r"\bcarbon\b", r"\bcarbono\b", r"\bkohlenstoff\b",
     r"\bghg\b", r"\bgei\b", r"\btreibhausgas\b",
-    r"\beddy\s+covariance\b", r"\bpeatlands?\b", r"\bturberas?\b", r"\bmoore?\b",
+    r"\beddy\s+covariance\b", r"\bpeatlands?\b", r"\bturberas?\b", r"\bmoore?\b", r"\bmoorschutz\b",
     r"\bwatershed\b", r"\bcuencas?\b", r"\bhydrolog\w*\b", r"\bhidrolog\w*\b",
-    r"\bremote\s+sensing\b", r"\bteledetecci\w*\b", r"\bfernerkundung\b",
-    r"\bgeophysic\w*\b", r"\bgeofisic\w*\b", r"\bgeophysik\w*\b",
     r"\bedafolog\w*\b", r"\bland\s+use\b", r"\buso\s+del\s+suelo\b",
     r"\becosystem\s+services\b", r"\bservicios\s+ecosist[eé]micos\b",
-    r"\benvironmental\s+governance\b", r"\bgobernanza\s+ambiental\b",
+    r"\benvironmental\s+(data|policy|governance|science|management|risk|monitoring|research|assessment|protection|modelling|modeling|studies)\b",
+    r"\bmedio\s+ambiente\b", r"\bmedioambiental\w*\b",
     r"\bumwelt\w*\b", r"\becolog\w*\b", r"\bforest\w*\b", r"\bwald\w*\b",
     r"\bagro\w*\b", r"\bagrar\w*\b",
-    # Earth System AI, Digital Twins & Ecological Restoration Focuses
+    
+    # B. Soluciones Basadas en la Naturaleza & Restauración de Cuencas
+    r"\bblue[‑\-\s]*green\b", r"\bblau[‑\-\s]*grün\w*\b", r"\binfraestructura\s+verde\b",
+    r"\becological\s+restoration\b", r"\brestauraci[oó]n\s+ecol[oó]gica\b", r"\brenaturierung\b",
+    r"\bwetted\b", r"\brewetted\b",
+    r"\bnature[‑\-\s]*based\s+solutions?\b", r"\bsoluciones\s+basadas\s+en\s+la\s+naturaleza\b", r"\bnbs\b",
+
+    # C. Geospatial Data Science & Remote Sensing ML (Climate-Tech & MRV)
+    r"\bremote\s+sensing\b", r"\bteledetecci\w*\b", r"\bfernerkundung\b",
+    r"\bgeospatial\b", r"\bgeodaten\b", r"\bgeodata\b",
+    r"\bearth\s+observation\b", r"\bmrv\b",
+    r"\bcarbon\s+accounting\b", r"\bcarbon\s+audit\w*\b", r"\bauditoría\s+de\s+carbono\b",
+
+    # D. Gemelos Digitales (Digital Twins) & Earth System AI (Centros Tecnológicos)
     r"\bearth\s+system\b", r"\berdsystem\b",
     r"\bdigital\s+twins?\b", r"\bgemelos?\s+digital\w*\b", r"\bdigitale[nr]?\s+zwilling\w*\b",
     r"\bdestination\s+earth\b", r"\bdestine\b",
     r"\bpinns?\b", r"\bphysics[‑\-\s]*informed\b",
-    r"\bblue[‑\-\s]*green\b", r"\bblau[‑\-\s]*grün\w*\b", r"\binfraestructura\s+verde\b",
-    r"\becological\s+restoration\b", r"\brestauraci[oó]n\s+ecol[oó]gica\b", r"\brenaturierung\b",
-    r"\bwetted\b", r"\brewetted\b",
-    r"\bnature[‑\-\s]*based\s+solutions?\b", r"\bsoluciones\s+basadas\s+en\s+la\s+naturaleza\b", r"\bnbs\b"
+
+    # E. Catastrophe Risk & Physical Climate Risk (Finanzas, Seguros & Resiliencia)
+    r"\bcatastrophe\s+risk\b", r"\bcat\s+model\w*\b", r"\bclimate\s+risk\b",
+    r"\bphysical\s+(climate\s+)?risk\b", r"\briesgo\s+clim[aá]tico\b", r"\bnatural\s+hazards?\b",
+
+    # F. Incidencia Legislativa, Think Tanks, Ecología Política & Decrecimiento
+    r"\benvironmental\s+policy\b", r"\bpolítica\s+ambiental\b", r"\benvironmental\s+governance\b",
+    r"\bgobernanza\s+ambiental\b", r"\bpolitical\s+ecology\b", r"\becología\s+política\b",
+    r"\bdegrowth\b", r"\bdecrecimiento\b", r"\becological\s+economics\b", r"\beconomía\s+ecológica\b",
+    r"\bjust\s+transition\b", r"\btransición\s+justa\b", r"\bpost[‑\-\s]*extractivis\w*\b",
+    r"\b(environmental|climate|policy)\s+advocacy\b", r"\bincidencia\s+(legislativa|ambiental|política)\b",
+    r"\bthink\s+tank\b", r"\bdirectivas?\s+europeas?\b", r"\beu\s+directives?\b", r"\bred\s+iii\b"
 ]
 
 # 2. Secondary Skills / Contextual Terms (require either a core term or at least 2 secondary terms)
@@ -82,21 +103,30 @@ EXCLUDED_ROLE_PATTERNS = [
     r"\bprocurement\b", r"\beinkauf\b", r"\bexport\s+control\b", r"\bgovernment\s+relations\b",
     r"\blegal\b", r"\bjurist\w*\b", r"\bcompliance\b", r"\btrade\s+compliance\b",
     r"\bhuman\s+resources\b", r"\bpeople\s+partner\b", r"\brecruiter\b", r"\brecruiting\b",
-    # PR, Social Media, Communications & Design
+    # PR, Social Media, Communications, Copywriting & Design
     r"\bsocial\s+media\b", r"\bpressesprecher\w*\b", r"\bpr\s+manager\b",
     r"\bdesigner\b", r"\bcontent\s+designer\b", r"\bux\b", r"\bui[‑\-\s]*ux\b",
+    r"\bcopy\b", r"\bcopywriter\b",
+    # Healthcare & Clinical Roles
+    r"\bpatient\b", r"\bclinical\b",
     # Sales, Account Exec, Business Development, Product & Finance
     r"\baccount\s+executive\b", r"\bsales\b", r"\bventas\b", r"\bvertrieb\b",
     r"\bcustomer\s+success\b", r"\bbusiness\s+development\b", r"\baccount\s+manager\b",
     r"\bpartnerships?\s+lead\b", r"\bmarketing\b", r"\btax\b", r"\bpresales\b", r"\bpre-sales\b",
     r"\bcorporate\s+finance\b", r"\bfinancial\b", r"\bfinance\b", r"\bcompensation\b",
-    r"\bcustomer\s+support\b", r"\bcall\s+center\b", r"\bproduct\s+manager\b",
-    r"\bactuary\b", r"\baktuar\b", r"\bunderwriter\b", r"\binsurance\b",
+    r"\bcustomer\s+support\b", r"\bcall\s+center\b",
+    # Exclude standard insurance sales / underwriting while preserving Catastrophe Risk Modeling
+    r"\bactuary\b", r"\baktuar\b", r"\bunderwriter\b",
+    r"\binsurance\s+(sales|agent|broker|adjuster|clerk)\b",
+    r"\bversicherungs\s*(kaufmann|kauffrau|makler|vertreter)\b",
     # Hardware, Avionics, Industrial Trades & Facilities
+    r"\belectrical\s+engineer\b", r"\bmanufacturing\b", r"\binventory\b", r"\bfacilities\b",
+    r"\bpcb\b", r"\bharness\b", r"\brevenue\b", r"\binternal\s+audit\b",
     r"\bopto[‑\-\s]*mechanical\b", r"\bcamera\s+systems\b", r"\bspacecraft\b",
     r"\bpayload\s+flight\b", r"\bsatellite\s+platform\b", r"\bground\s+segment\b",
     r"\bmechatronik\w*\b", r"\belektriker\w*\b", r"\bmechanik\w*\b", r"\btechniker\b",
     r"\bautomatisierungstechniker\w*\b", r"\bhandwerklich\w*\b",
+    r"\bsps[‑\-\s]*entwickler\w*\b", r"\bmaschinensteuerung\b",
     # IT Infrastructure & DevOps (outside Environmental / GIS modeling)
     r"\bsre\b", r"\bsite\s+reliability\b", r"\bdevops\b", r"\bfrontend\b", r"\bfullstack\b",
     r"\bbackend\b", r"\b\.net\b", r"\bstorage\s+infrastructure\b",

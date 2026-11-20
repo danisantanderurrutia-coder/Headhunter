@@ -29,16 +29,35 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from connectors.base import is_deadline_expired, parse_deadline, EXCLUDED_ROLE_PATTERNS
+from connectors.base import is_deadline_expired, parse_deadline, EXCLUDED_ROLE_PATTERNS, matches_profile_strictly
 
 DEFAULT_RECIPIENT = "danisantander.urrutia@gmail.com"
 DEFAULT_KEYWORDS = [
+    # 1. Edafología, Carbono, Turberas e Hidrología
     "boden", "bodenkunde", "klima", "klimaschutz", "agrar", "wald",
     "umwelt", "umweltbundesamt", "thünen", "thuenen", "ki", "künstliche intelligenz",
     "machine learning", "geophysik", "eddy", "turbera", "moorschutz", "hydrolog",
-    "remote sensing", "gis", "datenanalyse", "carbon", "soil",
+    "carbon", "soil", "renaturierung", "restauration", "blue-green", "blau-grün",
+    
+    # 2. Geospatial Data Scientist & Remote Sensing ML (Climate-Tech & MRV)
+    "remote sensing", "gis", "datenanalyse", "geospatial", "earth observation", "mrv",
+    
+    # 3. Gemelos Digitales (Digital Twins) & Earth System AI
     "earth system", "digital twin", "pinns", "destination earth", "destine",
-    "renaturierung", "restauration", "blue-green", "blau-grün"
+    
+    # 4. Catastrophe Risk & Physical Climate Risk (Finanzas & Seguros)
+    "catastrophe risk", "cat model", "climate risk", "physical climate risk", "natural hazards",
+    
+    # 5. Incidencia Legislativa, Políticas Públicas & Auditoría de Carbono (Think Tanks / ONGs)
+    "environmental policy", "política ambiental", "advocacy", "incidencia", "think tank",
+    "carbon audit", "carbon accounting", "directiva", "red iii",
+    
+    # 6. Ecología Política, Decrecimiento y Economía Ecológica
+    "political ecology", "ecología política", "degrowth", "decrecimiento",
+    "just transition", "transición justa", "ecological economics", "economía ecológica",
+    
+    # 7. AI Product Owner / Technical Lead en Administración Ambiental
+    "product owner", "technical lead", "lead data scientist"
 ]
 
 HIGH_PRIORITY_EMPLOYERS = [
@@ -232,37 +251,33 @@ def fetch_bund_rss_jobs(keywords: list):
                 if deadline and is_deadline_expired(deadline):
                     continue
 
-                # 2. Exclusión de roles no científicos ni alineados con el perfil (educación infantil, ventas, etc.)
-                title_lower = title.lower()
-                if any(re.search(exc, title_lower) for exc in EXCLUDED_ROLE_PATTERNS):
+                full_text = f"{title} {desc} {employer} {location}"
+                is_match, matched_kws = matches_profile_strictly(title, full_text)
+                if not is_match:
                     continue
 
-                full_text = f"{title} {desc} {employer} {location}".lower()
+                is_high_priority = any(emp in full_text.lower() for emp in HIGH_PRIORITY_EMPLOYERS)
 
-                match_count = sum(1 for kw in keywords if kw.lower() in full_text)
-                is_high_priority = any(emp in full_text for emp in HIGH_PRIORITY_EMPLOYERS)
+                # Detectar si el cierre es inminente (plazo en <= 7 días)
+                parsed_dl = parse_deadline(deadline)
+                is_urgent = False
+                if parsed_dl:
+                    days_left = (parsed_dl - datetime.utcnow().date()).days
+                    is_urgent = 0 <= days_left <= 7
 
-                if match_count > 0 or is_high_priority:
-                    # Detectar si el cierre es inminente (plazo en <= 7 días)
-                    parsed_dl = parse_deadline(deadline)
-                    is_urgent = False
-                    if parsed_dl:
-                        days_left = (parsed_dl - datetime.utcnow().date()).days
-                        is_urgent = 0 <= days_left <= 7
-
-                    score = min(95, 60 + (match_count * 8) + (15 if is_high_priority else 0))
-                    matched.append({
-                        "title": title,
-                        "company": employer or "Administración Pública Federal",
-                        "location": location or "Alemania",
-                        "url": link,
-                        "deadline": deadline or "Consultar convocatoria",
-                        "salary": "TVöD Bund / TV-L (según convocatoria)",
-                        "pub_date": pub_date,
-                        "score": score,
-                        "urgent": is_urgent,
-                        "snippet": clean_html(desc)[:220] + "..."
-                    })
+                score = min(95, 60 + (len(matched_kws) * 8) + (15 if is_high_priority else 0))
+                matched.append({
+                    "title": title,
+                    "company": employer or "Administración Pública Federal",
+                    "location": location or "Alemania",
+                    "url": link,
+                    "deadline": deadline or "Consultar convocatoria",
+                    "salary": "TVöD Bund / TV-L (según convocatoria)",
+                    "pub_date": pub_date,
+                    "score": score,
+                    "urgent": is_urgent,
+                    "snippet": clean_html(desc)[:220] + "..."
+                })
 
     except Exception as e:
         print(f"[!] Aviso al consultar RSS de bund.de: {e}")
