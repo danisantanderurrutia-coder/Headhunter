@@ -18,7 +18,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -46,7 +46,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -74,7 +74,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -102,7 +102,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -130,7 +130,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -158,7 +158,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -186,7 +186,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -214,7 +214,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -242,7 +242,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -270,7 +270,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -298,7 +298,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -308,7 +308,37 @@
     "salary": "ETH Domain Salary Scale (80.000 - 110.000 CHF según grado)"
   },
   {
-    "id": "bund--8216914880774187465",
+    "id": "bund-781202462196732935",
+    "title": "Referentin/Referent (m/w/d) Klimafolgen und Anpassung an den Klimawandel",
+    "company": "Landesamt für Umwelt Landwirtschaft und Geologie",
+    "location": "01326 Dresden",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/editor/Saechsisches-Staatsministerium-fuer-Energie-Klimaschutz-Umwelt-und-Landwirtschaft/2026/11/6720440.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Fri, 20 Nov 2026",
+    "rawDescription": "Arbeitgeber: Landesamt für Umwelt Landwirtschaft und Geologie Ort: 01326 Dresden Bewerbungsfrist: 10.12.2026 23:59 Veröffentlichungsende: 10.12.2026 23:59",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-20 13:25",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klimawandel",
+      "umwelt",
+      "r"
+    ],
+    "deadline": "10.12.2026 23:59",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund-3579730759992141658",
     "title": "Sachbearbeiter / Sachbearbeiterin (w/m/d)  für den Bereich Nachweisprüfung und Abrechnung",
     "company": "Bayerisches Landesamt für Umwelt",
     "location": "95030 Hof",
@@ -326,7 +356,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -337,7 +367,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-4603478287885180629",
+    "id": "bund-3115115128497784642",
     "title": "Mitarbeiterin/Mitarbeiter im Dezernat Integrierte Stationen (m/w/d)",
     "company": "Landesamt für Umwelt des Landes Schleswig-Holstein",
     "location": "25836 Garding",
@@ -355,7 +385,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -366,7 +396,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--2746979215733996646",
+    "id": "bund-7790740045631714400",
     "title": "Master (w/m/d) zur Weiterentwicklung des Anforderungsmanagements und Multiprojektmanagements in der IT",
     "company": "Landesanstalt für Umwelt Baden-Württemberg",
     "location": "76185 Karlsruhe",
@@ -384,7 +414,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -395,7 +425,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-1787032479987169243",
+    "id": "bund-5600699783754399280",
     "title": "Sachbearbeiter/in (w/m/d) Gewässergüte",
     "company": "Staatliches Amt für Landwirtschaft und Umwelt Westmecklenburg",
     "location": "19053 Schwerin",
@@ -413,7 +443,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -424,7 +454,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--3249415733619941860",
+    "id": "bund--5591682734788502627",
     "title": "Senior Scientist position on Earth System Resilience and Tipping Points (m/f/d)",
     "company": "PIK",
     "location": "14473 Potsdam",
@@ -442,7 +472,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -452,7 +482,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--2302632912443020946",
+    "id": "bund-6752072408065023148",
     "title": "Mitarbeiter/in Wissenschaftskommunikation & Transfer (m/w/d)",
     "company": "Leibniz-Zentrum für Agrarlandschaftsforschung (ZALF) e. V.",
     "location": "15374 Müncheberg",
@@ -470,7 +500,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -481,7 +511,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--6824034777840906037",
+    "id": "bund-6587963231855010655",
     "title": "Sachbearbeitung (m/w/d) im Referat 36 „Schutz der Oberflächengewässer, Gewässerentwicklung, Fischerei, Umweltbildung“ der Abteilung „Wasserwirtschaft“.",
     "company": "Ministerium für Landwirtschaft, Weinbau, Umwelt und Forsten",
     "location": "55116 Mainz",
@@ -499,7 +529,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -510,7 +540,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--5614216539911703386",
+    "id": "bund-7610152763827151588",
     "title": "Laborantin/ Laborant (w/m/d) für die Allgemeine Wasseranalytik, Anorganische Spurenanalytik",
     "company": "Landesamt für Umwelt Rheinland-Pfalz",
     "location": "55116 Mainz",
@@ -528,7 +558,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -539,7 +569,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--5233628718895818697",
+    "id": "bund-6707326575364992549",
     "title": "Leitung der Abteilung Agrarwirtschaft (m/w/d)",
     "company": "Aufsichts- und Dienstleistungsdirektion",
     "location": "54634 Bitburg",
@@ -557,7 +587,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -567,7 +597,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--2711582769668607271",
+    "id": "bund--6323754964704985362",
     "title": "Tierärztin/Tierarzt oder Agrarwissenschaftler/in Schwerpunkt Tierwissenschaften oder Master of Science / Diplom als Fachgebietsleitung \"Immunologie\"  (m/w/d)",
     "company": "Chemisches und Veterinäruntersuchungsamt Rhein-Ruhr-Wupper (CVUA-RRW)",
     "location": "47798 Krefeld",
@@ -585,7 +615,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -595,7 +625,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-408422190144657630",
+    "id": "bund-3667928611981684318",
     "title": "Umweltoberinspektoranwärter*in",
     "company": "Stadt Essen",
     "location": "45121 Essen",
@@ -613,7 +643,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -623,7 +653,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-7162060171267432012",
+    "id": "bund-1262950480640681371",
     "title": "Sachbearbeiter/in (w/m/d) für Wasserrahmenrichtlinie, Gewässerkunde, Moorschutz",
     "company": "Staatliches Amt für Landwirtschaft und Umwelt Mecklenburgische Seenplatte",
     "location": "17033 Neubrandenburg",
@@ -641,7 +671,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -653,7 +683,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--2128536096809951939",
+    "id": "bund--3868762825335469731",
     "title": "eine Dezernentin / einen Dezernenten (w/m/d) für das Insektenmonitoring NRW",
     "company": "Landesamt für Natur, Umwelt und Klima NRW",
     "location": "45659 Recklinghausen",
@@ -671,7 +701,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -700,7 +730,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -728,7 +758,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -754,7 +784,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -780,7 +810,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -806,7 +836,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -832,7 +862,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -859,7 +889,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -886,7 +916,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -912,7 +942,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -938,7 +968,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -964,7 +994,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -990,7 +1020,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1016,7 +1046,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1044,7 +1074,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1069,7 +1099,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1094,7 +1124,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1120,7 +1150,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1146,7 +1176,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1173,7 +1203,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1198,7 +1228,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1223,7 +1253,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1246,7 +1276,7 @@
     "requirements": [],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1274,7 +1304,7 @@
     "requirements": [],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1302,7 +1332,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1330,7 +1360,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1356,7 +1386,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1381,7 +1411,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1407,7 +1437,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1433,7 +1463,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1459,7 +1489,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1484,7 +1514,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1510,7 +1540,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1535,7 +1565,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1560,7 +1590,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1586,7 +1616,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1611,7 +1641,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1636,7 +1666,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1662,7 +1692,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-20 13:24",
+    "extractedAt": "2026-11-20 13:25",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
