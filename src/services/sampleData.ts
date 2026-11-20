@@ -866,6 +866,20 @@ export const initialSources: JobSource[] = [
     notes: 'Vacantes predoctorales y científicas de la Universidad de Viena bajo convenio TV-UG / FWF. Grupos de alta prioridad: TiCCA4Danu, PEGIS/GEIST (cooperación activa Kiel), VISESS Earth System, ENGAGE y STRENGTH.'
   },
   {
+    id: 'src-boku',
+    name: 'BOKU University - Doctoral Studies & Forest/Soil Sciences',
+    type: 'research_center',
+    url: 'https://boku.ac.at/en/doctoral-studies',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Austria (DACH)',
+    notes: 'Programas de doctorado y vacantes de investigación en física de suelos, curvas de retención, hidrología y ciencias forestales en Viena (BOKU).'
+  },
+  {
     id: 'src-uni-freiburg',
     name: 'University of Freiburg - Future Forests & Forest Policy',
     type: 'research_center',
@@ -4050,7 +4064,7 @@ id: 'comp-climate-kic',
   {
     id: 'comp-boku',
     name: 'BOKU University - Department of Forest and Soil Sciences',
-    website: 'https://boku.ac.at/',
+    website: 'https://boku.ac.at/en/doctoral-studies',
     logoUrl: 'https://boku.ac.at/_assets/5fee3b26762914ebc9177571484054fc/Images/logo-2024-web.svg',
     sector: 'Física de Suelos, Hidrología & Balances de Carbono (Univ. de Suelos de Viena)',
     size: '1.000+ personal académico y técnico',

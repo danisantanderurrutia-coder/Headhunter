@@ -64,6 +64,18 @@ export const DAILY_PORTALS: DailyPortal[] = [
     iconName: 'GraduationCap'
   },
   {
+    id: 'portal-boku',
+    name: 'BOKU University - Doctoral Studies (Viena)',
+    quadrant: 'DACH',
+    quadrantLabel: 'Austria / DACH',
+    category: 'Científico / I+D',
+    directUrl: 'https://boku.ac.at/en/doctoral-studies',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Soil Physics', 'Forest Sciences', 'Doctoral Studies', 'Hydrology', 'Carbon', 'Doktorat'],
+    description: 'Portal oficial de estudios doctorales e investigación de la BOKU en Viena. Referente europeo en física de suelos, balances de carbono y ciencias de recursos naturales.',
+    iconName: 'GraduationCap'
+  },
+  {
     id: 'portal-uni-freiburg',
     name: 'University of Freiburg - Future Forests & Environmental Governance',
     quadrant: 'DACH',
