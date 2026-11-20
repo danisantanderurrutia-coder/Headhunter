@@ -41,7 +41,16 @@ CORE_DOMAIN_TERMS = [
     r"\becosystem\s+services\b", r"\bservicios\s+ecosist[eé]micos\b",
     r"\benvironmental\s+governance\b", r"\bgobernanza\s+ambiental\b",
     r"\bumwelt\w*\b", r"\becolog\w*\b", r"\bforest\w*\b", r"\bwald\w*\b",
-    r"\bagro\w*\b", r"\bagrar\w*\b"
+    r"\bagro\w*\b", r"\bagrar\w*\b",
+    # Earth System AI, Digital Twins & Ecological Restoration Focuses
+    r"\bearth\s+system\b", r"\berdsystem\b",
+    r"\bdigital\s+twins?\b", r"\bgemelos?\s+digital\w*\b", r"\bdigitale[nr]?\s+zwilling\w*\b",
+    r"\bdestination\s+earth\b", r"\bdestine\b",
+    r"\bpinns?\b", r"\bphysics[‑\-\s]*informed\b",
+    r"\bblue[‑\-\s]*green\b", r"\bblau[‑\-\s]*grün\w*\b", r"\binfraestructura\s+verde\b",
+    r"\becological\s+restoration\b", r"\brestauraci[oó]n\s+ecol[oó]gica\b", r"\brenaturierung\b",
+    r"\bwetted\b", r"\brewetted\b",
+    r"\bnature[‑\-\s]*based\s+solutions?\b", r"\bsoluciones\s+basadas\s+en\s+la\s+naturaleza\b", r"\bnbs\b"
 ]
 
 # 2. Secondary Skills / Contextual Terms (require either a core term or at least 2 secondary terms)
@@ -49,7 +58,8 @@ SECONDARY_TERMS = [
     r"\bsustainability\b", r"\bnachhaltig\w*\b",
     r"\bqgis\b", r"\barcgis\b", r"\bgis\b", r"\bsig\b", r"\bgoogle\s+earth\s+engine\b",
     r"\bpython\b", r"\br\b", r"\bmodeling\b", r"\bmodelaci[oó]n\b", r"\bmodellierung\b",
-    r"\bgeodata\b", r"\bgeodaten\b", r"\bearth\s+observation\b"
+    r"\bgeodata\b", r"\bgeodaten\b", r"\bearth\s+observation\b",
+    r"\bearth\s+ai\b", r"\bgeocomputation\b", r"\bgeocomputaci[oó]n\b"
 ]
 
 # 3. Roles completely excluded from profile

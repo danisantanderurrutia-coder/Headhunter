@@ -13,6 +13,7 @@ Filters by environmental, soil, climate, AI and geophysical keywords tailored to
 Generates an HTML email digest and dispatches it via Resend API or SMTP (Gmail).
 """
 
+import html
 import os
 import sys
 import argparse
@@ -34,13 +35,17 @@ DEFAULT_RECIPIENT = "danisantander.urrutia@gmail.com"
 DEFAULT_KEYWORDS = [
     "boden", "bodenkunde", "klima", "klimaschutz", "agrar", "wald",
     "umwelt", "umweltbundesamt", "thünen", "thuenen", "ki", "künstliche intelligenz",
-    "machine learning", "geophysik", "eddy", "turbera", "hydrolog",
-    "remote sensing", "gis", "datenanalyse", "carbon", "soil"
+    "machine learning", "geophysik", "eddy", "turbera", "moorschutz", "hydrolog",
+    "remote sensing", "gis", "datenanalyse", "carbon", "soil",
+    "earth system", "digital twin", "pinns", "destination earth", "destine",
+    "renaturierung", "restauration", "blue-green", "blau-grün"
 ]
 
 HIGH_PRIORITY_EMPLOYERS = [
     "thünen", "thuenen", "umweltbundesamt", "uba", "bundesamt für naturschutz", "bfn",
-    "julius kühn", "institut für agrarklimaschutz", "helmholtz", "leibniz", "geoforschungszentrum"
+    "julius kühn", "institut für agrarklimaschutz", "helmholtz", "leibniz", "geoforschungszentrum",
+    "wsl", "empa", "geomar", "ecmwf", "dtu", "lund", "aarhus", "tno", "niva", "list",
+    "icta", "rifs", "ioer", "zalf", "pik"
 ]
 
 BUND_RSS_URL = "https://www.service.bund.de/Content/Globals/Functions/RSSFeed/RSSGenerator_Stellen.xml"
@@ -141,12 +146,16 @@ def load_all_scraped_sources():
                     "snippet": desc[:240] + "..."
                 })
 
-            # 2. Category 1: DACH Academic & Research Centers
-            elif any(k in src for k in ["ethz", "eawag", "freiburg", "univie", "boku", "juelich"]):
+            # 2. Category 1: European & DACH Academic & Public Research Centers
+            elif any(k in src for k in [
+                "ethz", "eawag", "freiburg", "univie", "boku", "juelich",
+                "wsl", "empa", "geomar", "ecmwf", "dtu", "lund", "aarhus",
+                "tno", "niva", "list", "icta", "rifs", "ioer", "zalf", "pik", "bund"
+            ]):
                 academic_dach_offers.append({
                     "title": title,
                     "company": company,
-                    "location": j.get("location", "Suiza / Alemania / Austria"),
+                    "location": j.get("location", "Europa / DACH"),
                     "url": j.get("url", ""),
                     "deadline": deadline,
                     "salary": salary or "Escala Académica Oficial (TV-L / TVöD / ETH)",
@@ -210,13 +219,13 @@ def fetch_bund_rss_jobs(keywords: list):
             print(f"[*] Analizando {len(items)} ofertas publicadas en service.bund.de...")
 
             for item in items:
-                title = (item.find("title").text or "").strip()
-                desc = (item.find("description").text or "").strip()
+                title = html.unescape((item.find("title").text or "").strip())
+                desc = html.unescape((item.find("description").text or "").strip())
                 link = (item.find("link").text or "").strip()
                 pub_date = (item.find("pubDate").text or "").strip()
 
-                employer = extract_field_from_desc(desc, "Arbeitgeber")
-                location = extract_field_from_desc(desc, "Ort")
+                employer = html.unescape(extract_field_from_desc(desc, "Arbeitgeber"))
+                location = html.unescape(extract_field_from_desc(desc, "Ort"))
                 deadline = extract_field_from_desc(desc, "Bewerbungsfrist")
 
                 # 1. Filtro estricto de caducidad: descartar ofertas cuyo plazo ya venció
