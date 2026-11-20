@@ -51,24 +51,29 @@ export const CANONICAL_CONTACT = {
 } as const;
 
 export const CV_HEADLINE = {
-  es: 'Geofísico Ambiental • Doble M.Sc. Europeo',
-  en: 'Environmental Geophysicist • Dual European M.Sc.',
-  de: 'Umweltgeophysiker • Doppel-M.Sc. Europa'
+  es: 'Geofísico Ambiental & Digital Twins Specialist • Doble M.Sc. Europeo',
+  en: 'Environmental Geophysicist & Earth System Data Scientist • Dual European M.Sc.',
+  de: 'Umweltgeophysiker & Earth System Data Scientist • Doppel-M.Sc. Europa'
 } as const;
 
 export const CV_SUMMARY = {
-  es: 'Geofísico (Universidad de Chile, con distinción) y doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Combina trabajo cuantitativo de terreno en hidrogeofísica y flujos de gases de efecto invernadero en turberas con análisis de datos, desarrollo de aplicaciones científicas, testimonio ante el Congreso Nacional de Chile y comunicación pública de gran alcance.',
-  en: "Geophysicist (Universidad de Chile, with distinction) and dual M.Sc. in Environmental Management (CAU Kiel, Germany) and Environmental Protection (AMU Poznań, Poland). Combines quantitative fieldwork in hydrogeophysics and peatland greenhouse-gas fluxes with data analysis, scientific application development, testimony before Chile's National Congress, and large-scale public communication.",
-  de: 'Geophysiker (Universidad de Chile, mit Auszeichnung) und doppelter Master of Science in Umweltmanagement (CAU Kiel, Deutschland) und Umweltschutz (AMU Posen, Polen). Verbindet quantitative Feldarbeit in Hydrogeophysik und Treibhausgasflüssen in Mooren mit Datenanalyse, wissenschaftlicher Softwareentwicklung, Gutachten vor dem chilenischen Nationalkongress und wirksamer Fachkommunikation.'
+  es: 'Geofísico (Universidad de Chile, con distinción) y doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Integra investigación cuantitativa de terreno en hidrogeofísica y flujos de gases de efecto invernadero (Eddy Covariance) con el desarrollo de gemelos digitales y software científico (Wetland Monitor, AgriTwin, Rewilding Field Suite), testimonio pericial ante el Congreso Nacional de Chile y dirección de campañas de impacto público.',
+  en: "Geophysicist (Universidad de Chile, with distinction) and dual M.Sc. in Environmental Management (CAU Kiel, Germany) and Environmental Protection (AMU Poznań, Poland). Integrates quantitative field research in hydrogeophysics and peatland greenhouse-gas fluxes (Eddy Covariance) with digital twins and scientific software development (Wetland Monitor, AgriTwin, Rewilding Field Suite), parliamentary expert testimony before Chile's National Congress, and large-scale public communication.",
+  de: 'Geophysiker (Universidad de Chile, mit Auszeichnung) und doppelter Master of Science in Umweltmanagement (CAU Kiel, Deutschland) und Umweltschutz (AMU Posen, Polen). Verbindet quantitative Feldarbeit in Hydrogeophysik und Treibhausgasflüssen (Eddy-Kovarianz) mit der Entwicklung digitaler Zwillinge (Wetland Monitor, AgriTwin, Rewilding Field Suite), Gutachten vor dem chilenischen Nationalkongress und wirksamer Fachkommunikation.'
 } as const;
 
-export type TacticalAngle = 'general' | 'biofisica' | 'mrv_carbon' | 'cat_risk' | 'politicas';
+export type TacticalAngle = 'general' | 'ai_earth' | 'biofisica' | 'mrv_carbon' | 'cat_risk' | 'politicas';
 
 export const TACTICAL_HEADLINES: Record<TacticalAngle, { es: string; en: string; de: string }> = {
   general: {
     es: 'Geofísico Ambiental • Doble M.Sc. Europeo',
     en: 'Environmental Geophysicist • Dual European M.Sc.',
     de: 'Umweltgeophysiker • Doppel-M.Sc. Europa'
+  },
+  ai_earth: {
+    es: 'Geofísico Ambiental & Digital Twins Specialist • Doble M.Sc. Europeo',
+    en: 'Environmental Geophysicist & Earth System Data Scientist • Dual European M.Sc.',
+    de: 'Umweltgeophysiker & Earth System Data Scientist • Doppel-M.Sc. Europa'
   },
   biofisica: {
     es: 'Geofísico Ambiental • Especialista en Flujos de GEI & Eddy Covariance',
@@ -97,6 +102,11 @@ export const TACTICAL_SUMMARIES: Record<TacticalAngle, { es: string; en: string;
     es: 'Geofísico (Universidad de Chile, con distinción) y doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Combina trabajo cuantitativo de terreno en hidrogeofísica y flujos de gases de efecto invernadero en turberas con análisis de datos, desarrollo de aplicaciones científicas, testimonio ante el Congreso Nacional de Chile y comunicación pública de gran alcance.',
     en: "Geophysicist (Universidad de Chile, with distinction) and dual M.Sc. in Environmental Management (CAU Kiel, Germany) and Environmental Protection (AMU Poznań, Poland). Combines quantitative fieldwork in hydrogeophysics and peatland greenhouse-gas fluxes with data analysis, scientific application development, testimony before Chile's National Congress, and large-scale public communication.",
     de: 'Geophysiker (Universidad de Chile, mit Auszeichnung) und doppelter M.Sc. in Umweltmanagement (CAU Kiel, Deutschland) und Umweltschutz (AMU Posen, Polen). Verbindet quantitative Feldarbeit in Hydrogeophysik und Treibhausgasflüssen in Mooren mit Datenanalyse, wissenschaftlicher Softwareentwicklung und politischer Fachberatung.'
+  },
+  ai_earth: {
+    es: 'Geofísico (U. de Chile, con distinción) y doble M.Sc. europeo especializado en gemelos digitales, asimilación de datos biofísicos y Earth System Data Science. Arquitecto de tres plataformas ambientales funcionales (Wetland Monitor, AgriTwin, Rewilding Field Suite), combinando instrumentación continua de terreno (Eddy Covariance, IoT), teledetección satelital multimodal (Copernicus Sentinel-2, GEE) y modelación computacional en R/Python para la toma de decisiones ambientales de alta integridad.',
+    en: 'Geophysicist (U. de Chile, with distinction) and dual European M.Sc. specializing in digital twins, biophysical data assimilation, and Earth System Data Science. Architect of three functional environmental software platforms (Wetland Monitor, AgriTwin, Rewilding Field Suite), coupling in-situ field sensor networks (Eddy Covariance, IoT) with multimodal satellite remote sensing (Copernicus Sentinel-2, GEE) and computational modeling in R/Python for high-integrity environmental intelligence.',
+    de: 'Geophysiker (U. de Chile, mit Auszeichnung) und doppelter europäischer M.Sc., spezialisiert auf digitale Zwillinge, biophysikalische Datenassimilation und Earth System Data Science. Konzeptionist und Entwickler dreier funktionierender Umweltanwendungen (Wetland Monitor, AgriTwin, Rewilding Field Suite), die In-situ-Sensorik (Eddy-Kovarianz, IoT) mit Copernicus-Satellitenfernerkundung (Sentinel-2) und reproduzierbaren R/Python-Pipelines für wissenschaftliche Entscheidungsmodelle verbinden.'
   },
   biofisica: {
     es: 'Geofísico (U. de Chile) y doble M.Sc. europeo (CAU Kiel / AMU Poznań) especializado en balance de GEI (CO₂, CH₄) mediante Eddy Covariance y cámaras cerradas en turberas templadas. Experiencia directa en instrumentación micrometeorológica, caracterización hidrofísica edáfica y análisis de series temporales continuas en R y Python para centros de investigación y redes de monitoreo de flujos.',

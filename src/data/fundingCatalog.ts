@@ -271,5 +271,37 @@ export const FUNDING_CATALOG: FundingOpportunity[] = [
     officialUrl: 'https://www.egu.eu/awards-medals/division-outstanding-ecs-award/',
     description: 'La máxima distinción de la comunidad europea de geociencias para investigadores noveles destacados.',
     strategicFit: 'Complemento curricular de alto prestigio para postulaciones a institutos de investigación DACH.'
+  },
+  {
+    id: 'f-helmholtz-ai-grant',
+    title: 'Helmholtz AI Projects Call & HIDA Trainee Network (Earth & Environment)',
+    organization: 'Helmholtz Association / HIDA',
+    category: 'grant',
+    region: 'germany',
+    amount: 'Financiación completa de proyecto (hasta 250.000 € / 2-3 años TVöD E13)',
+    deadline: '2026-12-01',
+    deadlineDays: 60,
+    status: 'open',
+    eligibility: ['Investigadores M.Sc. o Postdoc en centros Helmholtz o universidades colaboradoras', 'Proyectos interdisciplinarios aplicando IA a datos geofísicos o ambientales'],
+    targetDisciplines: ['Earth System AI', 'Physics-Informed ML', 'Gemelos Digitales', 'Geociencias', 'Teledetección'],
+    officialUrl: 'https://www.helmholtz.ai/funding/',
+    description: 'Convocatoria de proyectos competitivos para desarrollar métodos de aprendizaje automático e inteligencia artificial aplicados a las ciencias de la Tierra y el medio ambiente.',
+    strategicFit: 'Permite liderar como científico de datos el desarrollo de modelos surrogados y asimilación satelital en red con UFZ, DLR o GEOMAR.'
+  },
+  {
+    id: 'f-destine-innovation-grant',
+    title: 'Destination Earth (DestinE) Innovation Hub & Digital Twin Use Cases',
+    organization: 'European Space Agency (ESA) & ECMWF',
+    category: 'grant',
+    region: 'europe',
+    amount: 'Contratos de consorcio y becas de investigación (50.000 € - 180.000 €)',
+    deadline: '2026-12-15',
+    deadlineDays: 75,
+    status: 'open',
+    eligibility: ['Equipos e investigadores individuales europeos trabajando en gemelos digitales de la Tierra', 'Integración de datos Copernicus y simulación climática'],
+    targetDisciplines: ['Digital Twins', 'Copernicus Sentinel', 'Extremos Climáticos', 'Modelación Hidrogeofísica', 'Cloud Earth Computing'],
+    officialUrl: 'https://destination-earth.eu/',
+    description: 'Financiación de casos de uso y pilotos de gemelos digitales para la adaptación climática y la gestión de recursos hídricos en el marco de DestinE.',
+    strategicFit: 'Vehículo idóneo para escalar soluciones como AgriTwin y Wetland Monitor a la infraestructura europea DestinE Data Lake.'
   }
 ];

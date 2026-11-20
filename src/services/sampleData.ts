@@ -89,14 +89,16 @@ export const initialProfile: MasterProfile = {
     { city: 'Europa (Remoto / Institutos de Investigación)', country: 'Europa / UE', isPreferredHome: false, scoreMultiplier: 0.95, openToRemote: true, openToRelocation: false }
   ],
   targetRoles: [
-    { id: 'tr-1', title: 'Científico Ambiental / Investigador Biofísico (Suelos & GEI)', minSalaryExpected: 42000, desiredSalary: 55000, seniorityLevel: 'Senior', keywords: ['Suelos', 'GEI', 'Eddy Covariance', 'R', 'GIS'] },
-    { id: 'tr-2', title: 'Asesor en Políticas Ambientales y Gobernanza del Territorio', minSalaryExpected: 42000, desiredSalary: 52000, seniorityLevel: 'Senior', keywords: ['Gobernanza', 'Incidencia', 'Políticas Clima', 'Cuencas'] },
-    { id: 'tr-3', title: 'Especialista en Teledetección y Modelación Espacial', minSalaryExpected: 40000, desiredSalary: 50000, seniorityLevel: 'Mid-Senior', keywords: ['QGIS', 'Python', 'Google Earth Engine', 'SWAT'] },
+    { id: 'tr-0', title: 'Especialista en Gemelos Digitales & IA para Ciencias de la Tierra', minSalaryExpected: 55000, desiredSalary: 75000, seniorityLevel: 'Senior', keywords: ['Gemelos Digitales', 'Earth Observation', 'Python', 'Asimilación de Datos', 'PINNs', 'Destination Earth'] },
+    { id: 'tr-01', title: 'AI Product Owner / Technical Lead en Transición Ecológica', minSalaryExpected: 58000, desiredSalary: 82000, seniorityLevel: 'Lead / Director', keywords: ['AI Product Owner', 'Scrum', 'MLOps', 'TVöD E13', 'Sistemas Ambientales'] },
+    { id: 'tr-1', title: 'Científico Ambiental / Investigador Biofísico (Suelos & GEI)', minSalaryExpected: 45000, desiredSalary: 60000, seniorityLevel: 'Senior', keywords: ['Suelos', 'GEI', 'Eddy Covariance', 'R', 'GIS'] },
+    { id: 'tr-2', title: 'Asesor en Políticas Ambientales y Gobernanza del Territorio', minSalaryExpected: 42000, desiredSalary: 55000, seniorityLevel: 'Senior', keywords: ['Gobernanza', 'Incidencia', 'Políticas Clima', 'Cuencas'] },
+    { id: 'tr-3', title: 'Especialista en Teledetección y Modelación Espacial', minSalaryExpected: 45000, desiredSalary: 60000, seniorityLevel: 'Mid-Senior', keywords: ['QGIS', 'Python', 'Google Earth Engine', 'Sentinel-2'] },
     { id: 'tr-4', title: 'Director de Campañas & Estratega de Comunicación Científica', minSalaryExpected: 40000, desiredSalary: 52000, seniorityLevel: 'Lead / Director', keywords: ['Comunicaciones', 'Campañas', 'Incidencia', 'Territorio'] }
   ],
-  minSalary: 40000,
-  desiredSalary: 52000,
-  summary: 'Geofísico (Universidad de Chile, Licenciatura aprobada Con Distinción) y doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia). Integra investigación cuantitativa y mediciones de terreno en hidrogeofísica y flujos de gases de efecto invernadero (Eddy Covariance y cámaras cerradas en turberas templadas de Wallener Au) con modelación computacional, desarrollo de gemelos digitales (Wetland Monitor, AgriTwin, Rewilding Field Suite), testimonio pericial ante la Cámara de Diputadas y Diputados de Chile en prevención de megaincendios y ordenamiento de cuencas, y dirección de campañas de comunicación masiva y periodismo de investigación (+700k audiencia).',
+  minSalary: 45000,
+  desiredSalary: 65000,
+  summary: 'Geofísico (Universidad de Chile, Licenciatura aprobada Con Distinción) y doble Máster en Ciencias en Manejo Ambiental (CAU Kiel, Alemania) y Protección Ambiental (AMU Poznań, Polonia) especializado en gemelos digitales, asimilación de datos biofísicos y Earth System Data Science. Integra mediciones empíricas de terreno e instrumentación continua (Eddy Covariance y cámaras cerradas en turberas de Wallener Au, prospección eléctrica SEV) con el desarrollo autónomo de software y gemelos digitales (Wetland Monitor, AgriTwin, Rewilding Field Suite), comparecencia pericial ante el Congreso Nacional de Chile y dirección de campañas de impacto público.',
   experiences: [
     {
       id: 'exp-cau-kiel',
@@ -251,7 +253,10 @@ export const initialProfile: MasterProfile = {
     { id: 'sk-12', name: 'Unity 3D (Simulación Ciberfísica & UN Citiverse)', category: 'Tech', level: 'Avanzado', yearsOfExperience: 3 },
     { id: 'sk-13', name: 'LaTeX / Typst (Tipografía Científica y Tesis)', category: 'Tools', level: 'Experto', yearsOfExperience: 5 },
     { id: 'sk-14', name: 'Incidencia Legislativa & Políticas de Cuencas', category: 'Soft', level: 'Experto', yearsOfExperience: 6 },
-    { id: 'sk-15', name: 'Dirección de Campañas Masivas & Medios (+700k)', category: 'Soft', level: 'Experto', yearsOfExperience: 5 }
+    { id: 'sk-15', name: 'Dirección de Campañas Masivas & Medios (+700k)', category: 'Soft', level: 'Experto', yearsOfExperience: 5 },
+    { id: 'sk-16', name: 'Earth System Data Science & Machine Learning', category: 'Tech', level: 'Avanzado', yearsOfExperience: 4 },
+    { id: 'sk-17', name: 'Asimilación de Datos & Telemetría IoT-Satélite', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 },
+    { id: 'sk-18', name: 'Product Ownership & MLOps en Software Científico', category: 'Domain', level: 'Avanzado', yearsOfExperience: 3 }
   ],
   languages: [
     { id: 'lang-1', language: 'Español', proficiency: 'Nativo', certificate: 'Nativo — Oratoria pública, vocería parlamentaria, redacción editorial y legislativa' },
@@ -329,6 +334,15 @@ export const initialProfile: MasterProfile = {
       metrics: '14 Regiones // 80+ Asambleas // 500K+ Kits',
       tags: ['Apruebo Rural', 'Gobernanza del Agua', 'Movilización'],
       date: '2022-09-01',
+      isVerified: true
+    },
+    {
+      id: 'ach-9',
+      title: 'Arquitectura y Entrega de 3 Gemelos Digitales y Plataformas Ambientales',
+      description: 'Diseño, modelación computacional y despliegue autónomo en producción de Wetland Monitor (3D peatland twin), AgriTwin (fusión IoT-satélite) y Rewilding Field Suite (PWA offline-first).',
+      metrics: '3 Gemelos Digitales en Producción',
+      tags: ['Gemelos Digitales', 'Environmental AI', 'Full-Stack', 'IoT', 'Copernicus'],
+      date: '2024-10-01',
       isVerified: true
     }
   ],
@@ -1366,6 +1380,146 @@ export const initialSources: JobSource[] = [
     region: 'Europa / Global',
     countryFocus: 'Alemania (Bonn) / Italia (Bolonia) / UK',
     notes: 'Organismo intergubernamental operador de Copernicus C3S y CAMS con salarios internacionales libres de impuestos (6.000 - 9.500 € netos/mes).'
+  },
+  {
+    id: 'src-icta-uab',
+    name: 'ICTA-UAB - Institut de Ciència i Tecnologia Ambientals',
+    type: 'university',
+    url: 'https://www.uab.cat/icta/',
+    priority: 'Alta',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'España',
+    countryFocus: 'España (Barcelona / Bellaterra)',
+    notes: 'Epicentro mundial de Ecología Política y Decrecimiento en Europa (EJAtlas, proyectos ERC).'
+  },
+  {
+    id: 'src-wuppertal-institut',
+    name: 'Wuppertal Institut für Klima, Umwelt, Energie',
+    type: 'research_center',
+    url: 'https://wupperinst.org/das-institut/karriere/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'DACH',
+    countryFocus: 'Alemania (Wuppertal / Berlín)',
+    notes: 'Think tank de élite en investigación aplicada para la transición justa, descarbonización y economía circular.'
+  },
+  {
+    id: 'src-oeko-institut',
+    name: 'Öko-Institut e.V. - Institut für angewandte Ökologie',
+    type: 'research_center',
+    url: 'https://www.oeko.de/das-institut/stellenangebote/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'DACH',
+    countryFocus: 'Alemania (Friburgo / Darmstadt / Berlín)',
+    notes: 'Centro de referencia independiente en políticas públicas ambientales, energía y marcos de reporte para el BMUV y la UE.'
+  },
+  {
+    id: 'src-ecologic-institute',
+    name: 'Ecologic Institute - Science and Policy for a Sustainable World',
+    type: 'research_center',
+    url: 'https://www.ecologic.eu/jobs',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'DACH / Europa',
+    countryFocus: 'Alemania (Berlín) / Bélgica (Bruselas)',
+    notes: 'Think tank internacional en políticas ambientales de la UE, gobernanza del agua, Directiva Marco y derecho ambiental.'
+  },
+  {
+    id: 'src-eeb-brussels',
+    name: 'EEB - European Environmental Bureau',
+    type: 'multilateral',
+    url: 'https://eeb.org/en/about/opportunities/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa',
+    countryFocus: 'Bélgica (Bruselas)',
+    notes: 'Mayor federación de ONGs ambientales en Bruselas (+180 miembros). Vacantes de Policy Officers e incidencia legislativa en la UE.'
+  },
+  {
+    id: 'src-can-europe',
+    name: 'CAN Europe - Climate Action Network Europe',
+    type: 'multilateral',
+    url: 'https://caneurope.org/work-with-us/',
+    priority: 'Alta',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa',
+    countryFocus: 'Bélgica (Bruselas)',
+    notes: 'Principal red europea de incidencia climática sobre el Green Deal, financiación climática y transición justa.'
+  },
+  {
+    id: 'src-iddri-paris',
+    name: 'IDDRI - Institut du Développement Durable et des Relations Internationales',
+    type: 'research_center',
+    url: 'https://www.iddri.org/en/about-iddri/careers',
+    priority: 'Alta',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa',
+    countryFocus: 'Francia (París)',
+    notes: 'Think tank de investigación de políticas adscrito a Sciences Po en gobernanza climática, cuencas y agricultura sostenible.'
+  },
+  {
+    id: 'src-rifs-potsdam',
+    name: 'RIFS Potsdam - Research Institute for Sustainability (Helmholtz)',
+    type: 'research_center',
+    url: 'https://www.rifs-potsdam.de/de/institut/jobs',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'DACH',
+    countryFocus: 'Alemania (Potsdam)',
+    notes: 'Centro Helmholtz especializado en gobernanza participativa, justicia transformativa y políticas de sostenibilidad.'
+  },
+  {
+    id: 'src-ioer-dresden',
+    name: 'IOER Dresden - Leibniz Institute of Ecological Urban and Regional Development',
+    type: 'research_center',
+    url: 'https://www.ioer.de/karriere/stellenangebote',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'DACH',
+    countryFocus: 'Alemania (Dresde)',
+    notes: 'Instituto Leibniz pionero en justicia espacial, paisajes ecológicos resilientes y ordenamiento territorial.'
+  },
+  {
+    id: 'src-boell-stiftung',
+    name: 'Heinrich-Böll-Stiftung - Ecología Política & Justicia Global',
+    type: 'multilateral',
+    url: 'https://www.boell.de/de/jobs-der-heinrich-boell-stiftung',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'DACH / Europa',
+    countryFocus: 'Alemania (Berlín) / Bélgica (Bruselas)',
+    notes: 'Fundación de referencia en ecología política, derechos territoriales en el Sur Global y transición energética democrática.'
   }
 ];
 
@@ -1399,9 +1553,10 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Contrato vinculado a duración del proyecto de investigación (noviembre 2030) y plazos de postulación estrictos'],
     interviewArguments: [
-      'Máster europeo en Gestión y Protección Ambiental completado en Alemania (CAU Kiel) con conocimiento directo del sistema científico alemán.',
-      'Sólida formación en física y edafología con experiencia empírica en dinámica de suelos y flujos de gases.',
-      'Dominio demostrado de R para análisis estadístico y modelado de datos de campo.'
+      'Enfoque cuantitativo de geofísica continua: concibe el suelo como un medio poroso anisótropo y heterogéneo, modelando el transporte por derivación (bypass) con física de fluidos y ecuaciones de transporte.',
+      'Capacidad para automatizar el pipeline de visión computacional de la RootBox (densidad de longitud radicular bajo fluorescencia UV) en R/Python.',
+      'Experiencia directa en terreno en Alemania (CAU Kiel) con torres Eddy Covariance y cámaras cerradas, con total autonomía de muestreo y mantenimiento continuo de sensores.',
+      'Doble Máster europeo completado en Alemania con habilitación contractual inmediata (§20 AufenthG).'
     ],
     techStack: ['R', 'RootBox', 'Isotopenanalytik', 'TVöD Bund', 'GIS', 'Python'],
     lastResearched: '2026-10-21',
@@ -1436,9 +1591,10 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Puesto inicial como Mutterschutzvertretung, requiriendo validación de prórroga para la fase de Elternzeit'],
     interviewArguments: [
-      'Capacidad probada de tender puentes entre la ciencia biofísica de datos y la gobernanza / gestión de proyectos.',
-      'Experiencia en proyectos de impacto internacional y comunicación efectiva con equipos multidisciplinares.',
-      'Perfil MINT riguroso con base analítica en geofísica y máster europeo en protección ambiental.'
+      'Product Owner técnico con experiencia contrastada en la concepción y entrega de tres aplicaciones funcionales de software ambiental (Wetland Monitor, AgriTwin, Rewilding Field Suite).',
+      'Perfil puente MINT: traduce requerimientos biofísicos complejos y flujos de datos satelitales/in-situ en historias de usuario, backlogs ágiles de Scrum y arquitecturas MLOps para la administración pública.',
+      'Solvencia científica cuantitativa (Geofísica U. de Chile con distinción + Doble M.Sc. en CAU Kiel y AMU Poznań) combinada con experiencia de interlocución política ante comisiones legislativas e informes internacionales.',
+      'Plena habilitación contractual inmediata en Alemania (§20 AufenthG) con alemán profesional (B1-B2) e inglés C2.'
     ],
     techStack: ['Scrum / Kanban', 'AI / Machine Learning', 'OpenProject', 'MS Project', 'Python', 'GIS'],
     lastResearched: '2026-10-21',
@@ -1473,9 +1629,9 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Procesos de selección muy rigurosos basados en méritos y alineamiento metodológico'],
     interviewArguments: [
-      'Experiencia directa en cuantificación empírica de flujos de GEI (torres eddy covariance en CAU Kiel) y modelación biofísica con R/Python.',
-      'Manejo avanzado de balance de cuencas hidrológicas y análisis espacial (QGIS, GEE).',
-      'Base sólida en geofísica matemática (U. de Chile) complementada con visión de políticas europeas de sostenibilidad.'
+      'Modelación interoperable y gemelos biofísicos: encaje natural con la filosofía k.LAB / ARIES al conectar datos biofísicos empíricos (Eddy Covariance, balance hídrico) con arquitecturas de decisión.',
+      'Sólida base físico-matemática en geofísica continua (U. de Chile) combinada con doble máster europeo y experiencia de investigación empírica en Alemania.',
+      'Alineación directa con las líneas de resiliencia territorial frente a sequías y descarbonización de cuencas en Euskadi y Europa.'
     ],
     techStack: ['R', 'Python', 'QGIS', 'Google Earth Engine', 'k.LAB / ARIES', 'EddyPro'],
     lastResearched: '2026-10-14',
@@ -1510,9 +1666,9 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Ritmo ágil de entrega y plazos ajustados en licitaciones europeas'],
     interviewArguments: [
-      'Doble perfil científico-técnico capaz de integrar sensorización de campo con modelos numéricos y geoespaciales.',
-      'Semifinalista en el UN Citiverse Challenge con gemelo digital territorial para resiliencia.',
-      'Experiencia de trabajo trilingüe y adaptación inmediata a consorcios europeos.'
+      'Desarrollo y entrega de gemelos digitales ambientales en producción (Wetland Monitor, AgriTwin) conectando sensorización IoT, teledetección satelital y simulación física.',
+      'Distinción internacional como Semifinalista Global en el UN Citiverse Challenge (SDG Cities) por gemelo digital territorial ciberfísico.',
+      'Perfil híbrido ideal para consorcios Horizonte Europa: combina rigor científico (Geofísica con distinción + Doble M.Sc.) con desarrollo de software ágil.'
     ],
     techStack: ['Python', 'QGIS', 'IoT Sensor Networks', 'ArcGIS', 'R'],
     lastResearched: '2026-10-14',
@@ -2245,9 +2401,10 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Ritmo exigente de startup y necesidad de comunicar conceptos biofísicos complejos a clientes financieros'],
     interviewArguments: [
-      'Comprensión empírica directa de la física de flujos de carbono (Eddy Covariance) para validar modelos satelitales.',
-      'Manejo avanzado de R, Python y Google Earth Engine para procesamiento a escala de datos geoespaciales.',
-      'Experiencia previa en auditoría de integridad de carbono forestal con redes internacionales (EPN).'
+      'Ground-truthing empírico de modelos satelitales: experiencia directa en terreno cuantificando flujos de carbono y GEI con torres Eddy Covariance y cámaras en turberas alemanas.',
+      'Programación geoespacial en R, Python y Google Earth Engine para pipelines de teledetección a gran escala (Sentinel-2, Landsat).',
+      'Rigor metodológico y auditoría técnica de contabilidad de carbono demostrada como autor principal de informes internacionales (EPN / RED III).',
+      'Inglés técnico C2 fluido y capacidad de articulación analítica frente a equipos de machine learning y finanzas climáticas.'
     ],
     techStack: ['Python', 'R', 'Google Earth Engine', 'QGIS', 'LiDAR', 'Sentinel-1/2', 'Carbon MRV'],
     lastResearched: '2026-10-28',
@@ -2454,8 +2611,9 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     redFlags: ['Negocio estrictamente corporativo y financiero; requiere foco en valor de mercado'],
     interviewArguments: [
-      'Capacidad para vincular mediciones edáficas in-situ con índices satelitales de humedad y sequía.',
-      'Bilingüe español/inglés con conocimiento del riesgo hídrico en cuencas de América Latina y Europa.'
+      'Geofísico con sólida base física para parametrizar índices climáticos y sequías a partir de telemetría continua in-situ y teledetección satelital (experiencia directa en AgriTwin y Wetland Monitor).',
+      'Comprensión rigurosa de balances de masa hídricos y abatimiento freático ante eventos climáticos extremos (investigación de título U. de Chile con distinción).',
+      'Perfil trilingüe europeo con solvencia técnica en modelación paramétrica y análisis de incertidumbre en R y Python.'
     ],
     techStack: ['Python', 'Machine Learning', 'Earth Observation', 'Índices Paramétricos', 'R'],
     lastResearched: '2026-10-28',
@@ -3252,9 +3410,10 @@ export const initialCompanies: CompanyDossier[] = [
           "Contratos postdoctorales mayoritariamente sujetos a proyectos con plazos temporales delimitados"
     ],
     interviewArguments: [
-          "Geofísico con sólida formación en física de suelos, relaciones hídricas e hidrogeología.",
-          "Experiencia académica previa en el sistema universitario alemán (CAU Kiel) con dominio de R y Python.",
-          "Alineación exacta con sus líneas de monitoreo de sequías y física de horizontes de suelo."
+          "Geofísico (Universidad de Chile, con distinción) con sólida base matemática en transporte en medios porosos y caracterización hidrofísica edáfica en CAU Kiel.",
+          "Experiencia directa acoplando telemetría continua de humedad edáfica con índices satelitales Sentinel-2 en gemelos digitales (AgriTwin) y modelación de turberas (Wetland Monitor).",
+          "Alineación exacta con el Dürremonitor y la integración de Machine Learning / asimilación de datos en el modelo hidrológico mHM.",
+          "Familiaridad con el sistema científico alemán y disponibilidad contractual inmediata (§20 AufenthG) para residir en Leipzig."
     ],
     techStack: ["mHM","Python","R","Fortran","GIS","Simulación Numérica de Suelos"],
     lastResearched: '2026-10-29',
@@ -3670,9 +3829,10 @@ export const initialCompanies: CompanyDossier[] = [
       "Operaciones 24/7 en temporadas de incendios que demandan máxima resiliencia analítica"
     ],
     interviewArguments: [
-      "Experiencia pericial formal ante la Comisión Especial de Incendios de la Cámara de Diputados de Chile.",
-      "Autor del informe internacional sobre biomasa forestal, riesgo de incendios y salvaguardas (EPN & Global Forest Coalition).",
-      "Formación en geofísica matemática y física de medios continuos por la Universidad de Chile."
+      "Geofísico con formación rigurosa en física de propagación y medios continuos (Universidad de Chile, con distinción), ideal para modelación del frente térmico de incendios.",
+      "Perito técnico oficial ante la Cámara de Diputadas y Diputados de Chile en causalidad territorial y modelado de combustible en megaincendios.",
+      "Arquitecto de la solución ReWild / Rewilding Field Suite para modelado de carga de combustible en interfaz urbano-forestal.",
+      "Graduado de universidad alemana (CAU Kiel), bilingüe inglés C2 / alemán, con residencia y disponibilidad contractual inmediata en Alemania (§20 AufenthG)."
     ],
     techStack: ["Thermal Infrared", "Python", "Wildfire Modeling", "Cloud GIS", "Copernicus", "Satellite Telemetry"],
     lastResearched: '2026-11-20',
@@ -4031,8 +4191,10 @@ id: 'comp-climate-kic',
       'Procesos de selección y contratación formal largos al ser una agencia federal de investigación'
     ],
     interviewArguments: [
-      'Experiencia contrastada en modelación biofísica de incendios forestales y testimonio parlamentario oficial sobre la causalidad territorial de megaincendios.',
-      'Sólida formación cuantitativa en geofísica e inversión numérica, ideal para el procesamiento de datos radar y térmicos satelitales.'
+      'Perfil puente entre física de medios continuos (Geofísica U. de Chile) y teledetección espacial (Sentinel-1/2, GEE, térmico), superando la interpretación puramente empírica.',
+      'Experiencia directa en modelación biofísica de incendios y testimonio pericial parlamentario formal ante el Congreso Nacional sobre riesgo territorial.',
+      'Desarrollo de gemelos digitales (AgriTwin, Wetland Monitor) acoplando telemetría continua in-situ con series temporales satelitales.',
+      'Doble graduado europeo en Alemania con pleno conocimiento del ecosistema científico federal y disponibilidad inmediata (§20 AufenthG).'
     ],
     techStack: [
       'Sentinel-1/2',
@@ -4085,8 +4247,10 @@ id: 'comp-climate-kic',
       'Jena es una ciudad universitaria mediana; requerirá traslado si el contrato exige presencia in situ'
     ],
     interviewArguments: [
-      'Mediciones directas de Eddy Covariance y cámaras de flujo en turberas alemanas (Wallener Au), con dominio empírico de las limitaciones y artefactos de los datos de campo.',
-      'Capacidad comprobada en desarrollo de software y gemelos digitales con Python, R y Three.js, uniendo código y biofísica empírica.'
+      'Perfil puente idóneo para la línea de modelación híbrida (Hybrid Modeling / PINNs) de Markus Reichstein: formación física de origen (Geofísica U. de Chile, con distinción) combinada con mediciones continuas de flujos GEI (Eddy Covariance y cámaras en Wallener Au).',
+      'Desarrollo autónomo de gemelos digitales y software científico (Wetland Monitor, AgriTwin) con Python, R y Three.js, uniendo código reproducible con restricciones termodinámicas y balances de masa.',
+      'Comprensión empírica profunda del ruido, gaps y deriva de calibración de sensores de campo, evitando supuestos irreales en el entrenamiento de modelos de Machine Learning.',
+      'Doble M.Sc. europeo en CAU Kiel y AMU Poznań, bilingüe inglés (C2) y alemán (B1-B2), con plena habilitación contractual inmediata (§20 AufenthG).'
     ],
     techStack: [
       'Eddy Covariance',
@@ -5858,9 +6022,10 @@ id: 'comp-climate-kic',
     ],
     redFlags: ['Procesos selectivos muy rigurosos con alta exigencia en programación científica HPC y asimilación de datos'],
     interviewArguments: [
-      'Formación de origen en geofísica matemática (U. de Chile) con fuerte dominio de métodos inversos y cálculo tensorial.',
-      'Experiencia europea en Alemania y dominio fluido de inglés y alemán.',
-      'Capacidad de articular modelos físicos y big data geoespacial para monitoreo de gases y clima.'
+      'Alineación directa con los gemelos digitales de Destination Earth (DestinE): experiencia práctica en la arquitectura de gemelos digitales (Wetland Monitor, AgriTwin) con asimilación de datos satelitales (Copernicus) e in-situ.',
+      'Formación de origen en geofísica matemática (Universidad de Chile, con distinción) con dominio de inversión numérica, ecuaciones de transporte y procesamiento de series temporales continuas.',
+      'Investigación empírica en flujos de GEI (CO₂, CH₄) mediante Eddy Covariance en Alemania (CAU Kiel), ideal para la validación de productos CAMS y C3S.',
+      'Doble graduado de máster europeo en Alemania y Polonia, inglés C2 profesional y residencia contractual inmediata en Alemania (§20 AufenthG).'
     ],
     techStack: ['Python', 'Fortran', 'HPC', 'Data Assimilation', 'GRIB/NetCDF', 'Copernicus Data API'],
     lastResearched: '2026-11-20',
@@ -5872,6 +6037,466 @@ id: 'comp-climate-kic',
         name: 'ECMWF Recruitment Team',
         role: 'International Talent Acquisition',
         notes: 'Gestión de vacantes de la sede de Bonn y programas Copernicus'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-icta-uab',
+    name: 'ICTA-UAB - Institut de Ciència i Tecnologia Ambientals',
+    website: 'https://www.uab.cat/icta/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=uab.cat&sz=128',
+    sector: 'Ecología Política, Decrecimiento & Justicia Ambiental Global (EJAtlas)',
+    size: '200+ investigadores internacionales',
+    headquarters: 'Bellaterra (Barcelona), España',
+    description: 'Instituto universitario líder mundial en investigación interdisciplinar sobre cambio global y transición socioecológica en la UAB. Epicentro europeo de la Ecología Política, la Economía Ecológica y los estudios de Decrecimiento (sede del EJAtlas y de múltiples proyectos del Consejo Europeo de Investigación - ERC liderados por Giorgos Kallis y Joan Martínez Alier). Baremos del sector público universitario español complementados con fondos competitivos europeos.',
+    keyProjects: [
+      'Environmental Justice Atlas (EJAtlas): Mapeo global de conflictos socioambientales y resistencia comunitaria',
+      'Proyectos ERC de Decrecimiento y Post-crecimiento: Modelación biofísica de límites planetarios y bienestar',
+      'Gobernanza participativa de cuencas, transición alimentaria y soberanía hídrica'
+    ],
+    recentNews: [
+      {
+        title: 'ICTA-UAB abre convocatorias para investigadores postdoctorales en ecología política y decrecimiento',
+        date: '2026-11-08',
+        snippet: 'Proyectos Horizonte Europa y becas María Zambrano / Juan de la Cierva.'
+      }
+    ],
+    workCulture: [
+      'Ambiente intelectual de vanguardia crítica con debate teórico y metodológico continuo',
+      'Campus verde y moderno en el edificio ICTA-ICP en Bellaterra (Barcelona)',
+      'Máxima conexión con movimientos globales de justicia climática y soberanía territorial'
+    ],
+    redFlags: ['Gran volumen de candidaturas internacionales de alto nivel en ciencias sociales y ecología política'],
+    interviewArguments: [
+      'Doble perfil único: formación cuantitativa de origen en geofísica matemática (Universidad de Chile, con distinción) combinada con solvencia ensayística y ponente en la Conferencia Mundial de Decrecimiento (Oslo, 2025).',
+      'Experiencia de articulación de base y gobernanza del agua: coordinación nacional de "Apruebo Rural" en 14 regiones de Chile y defensa de cuencas frente a monocultivos.',
+      'Publicaciones ensayísticas y periodísticas consolidadas en ecología política (tetralogía en OLCA, coberturas en El Desconcierto y Tomate Rojo).'
+    ],
+    techStack: ['R', 'QGIS', 'EJAtlas Methodology', 'Political Ecology', 'Degrowth Modeling', 'Qualitative Analysis'],
+    lastResearched: '2026-11-20',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-icta-1',
+        name: 'ICTA-UAB Academic Committee',
+        role: 'Research Recruitment Coordinator',
+        notes: 'Coordinación de plazas de investigación en ecología política'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-wuppertal-institut',
+    name: 'Wuppertal Institut für Klima, Umwelt, Energie',
+    website: 'https://wupperinst.org/das-institut/karriere/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=wupperinst.org&sz=128',
+    sector: 'Políticas de Transición Justa, Descarbonización Estructural & Economía Circular',
+    size: '300+ investigadores y analistas',
+    headquarters: 'Wuppertal & Berlín, Alemania',
+    description: 'Think tank de investigación aplicada de referencia internacional en políticas de sostenibilidad y transición energética justa. Desarrolla escenarios prospectivos para el gobierno federal alemán, la Comisión Europea y regiones en descarbonización. Contratos regidos por el convenio colectivo TVöD Bund (E13 / E14).',
+    keyProjects: [
+      'Gobernanza de la transición justa (Just Transition) en cuencas mineras e industriales de Europa',
+      'Políticas de economía circular y contabilidad de flujos de materiales a escala nacional',
+      'Modelación de escenarios climáticos y descarbonización sectorial para la Unión Europea'
+    ],
+    recentNews: [
+      {
+        title: 'Wuppertal Institut amplía su división de investigación en políticas de transformación y gobernanza',
+        date: '2026-10-30',
+        snippet: 'Nuevas plazas para investigadores en gobernanza territorial y políticas públicas ambientales.'
+      }
+    ],
+    workCulture: [
+      'Puente entre la ciencia rigurosa y la toma de decisiones políticas y ministeriales en Alemania',
+      'Cultura de trabajo interdisciplinar, colaborativa y con alta autonomía investigadora',
+      'Sólida reputación en Alemania y la Unión Europea'
+    ],
+    redFlags: ['Requiere dominio del alemán técnico (B2/C1) para interacción con ministerios federales'],
+    interviewArguments: [
+      'Graduado de Máster en Alemania (CAU Kiel) con dominio fluido de inglés y alemán operativo para asesoría técnica.',
+      'Experiencia contrastada en políticas públicas y gobernanza: testimonio pericial oficial ante el Congreso Nacional de Chile y asesoría legislativa en cuencas.',
+      'Capacidad de auditar balances biofísicos de materiales y carbono con rigor cuantitativo geofísico.'
+    ],
+    techStack: ['Python', 'R', 'Policy Analysis', 'Material Flow Analysis', 'GIS', 'Stakeholder Facilitation'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-wupper-1',
+        name: 'Wuppertal Personalabteilung',
+        role: 'Scientific Talent Acquisition',
+        notes: 'Selección de investigadores en políticas de transformación'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-oeko-institut',
+    name: 'Öko-Institut e.V. - Institut für angewandte Ökologie',
+    website: 'https://www.oeko.de/das-institut/stellenangebote/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=oeko.de&sz=128',
+    sector: 'Investigación Aplicada en Políticas Ambientales, Energía & Transición Socioecológica',
+    size: '180+ científicos y consultores',
+    headquarters: 'Friburgo de Brisgovia / Darmstadt / Berlín, Alemania',
+    description: 'Instituto independiente pionero y referente indiscutible en Alemania para la investigación aplicada en derecho ambiental, políticas de recursos, energía y transición socioecológica. Asesora directamente al Ministerio Federal de Medio Ambiente (BMUV), la Agencia Federal de Medio Ambiente (UBA) y la Comisión Europea.',
+    keyProjects: [
+      'Evaluación de políticas de protección de suelos y biodiversidad bajo las directivas europeas',
+      'Fiscalización de esquemas de contabilidad de carbono e integridad de subsidios a la biomasa',
+      'Estrategias de transición energética justa y ordenamiento territorial ecológico'
+    ],
+    recentNews: [
+      {
+        title: 'Öko-Institut publica nuevas vacantes en sus sedes de Friburgo y Berlín para asesores de políticas climáticas',
+        date: '2026-11-05',
+        snippet: 'Puestos para científicos ambientales con experiencia en interfaces ciencia-política.'
+      }
+    ],
+    workCulture: [
+      'Compromiso inquebrantable con la independencia científica y el rigor frente a presiones corporativas',
+      'Convenio laboral propio asimilado a las condiciones públicas del TVöD',
+      'Ambiente intelectual de vanguardia ambiental en Friburgo y Berlín'
+    ],
+    redFlags: ['Alta exigencia en rigor metodológico y redacción de informes técnicos de políticas públicas'],
+    interviewArguments: [
+      'Autoría principal de informes de fiscalización de políticas de carbono y biomasa (EPN / Global Forest Coalition bajo directiva RED III de la UE).',
+      'Formación de doble máster europeo en CAU Kiel y AMU Poznań con experiencia en Directiva Marco del Agua y física de suelos.',
+      'Solvencia demostrada para traducir datos biofísicos en recomendaciones legislativas concretas.'
+    ],
+    techStack: ['R', 'Python', 'Policy Design', 'Carbon Accounting', 'EU Directives', 'Report Drafting'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-oeko-1',
+        name: 'Öko-Institut Recruiting Team',
+        role: 'Human Resources Coordinator',
+        notes: 'Coordinación de procesos de selección de científicos y analistas'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-ecologic-institute',
+    name: 'Ecologic Institute - Science and Policy for a Sustainable World',
+    website: 'https://www.ecologic.eu/jobs',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=ecologic.eu&sz=128',
+    sector: 'Políticas Ambientales de la UE, Gobernanza de Cuencas & Derecho Ambiental',
+    size: '150+ investigadores internacionales',
+    headquarters: 'Berlín (Alemania) / Bruselas (Bélgica)',
+    description: 'Think tank internacional especializado en el análisis interdisciplinar de políticas públicas ambientales, economía ecológica y derecho ambiental para la Unión Europea, ministerios nacionales y agencias multilaterales. Cuenta con una reputación destacada en gobernanza de cuencas fluviales, adaptación basada en la naturaleza y restauración de ecosistemas.',
+    keyProjects: [
+      'Implementación y evaluación de la Ley de Restauración de la Naturaleza de la UE y Directiva Marco del Agua',
+      'Diseño de instrumentos económicos y regulatorios para la conservación de turberas y suelos orgánicos',
+      'Proyectos Horizonte Europa en adaptación al cambio climático y justicia socioecológica'
+    ],
+    recentNews: [
+      {
+        title: 'Ecologic Institute selecciona investigadores para proyectos europeos de gobernanza hídrica y de suelos',
+        date: '2026-10-28',
+        snippet: 'Vacantes para las oficinas de Berlín y Bruselas en políticas ambientales.'
+      }
+    ],
+    workCulture: [
+      'Entorno internacional bilingüe (alemán e inglés como lenguas de trabajo diario)',
+      'Fuerte presencia en debates de políticas europeas en Bruselas y Berlín',
+      'Equipos jóvenes, dinámicos y fuertemente comprometidos con la sostenibilidad'
+    ],
+    redFlags: ['Compromiso estricto con los plazos de entrega de licitaciones europeas y proyectos Horizonte'],
+    interviewArguments: [
+      'Conocimiento aplicado de la Directiva Marco del Agua de la UE adquirido durante el Máster en AMU Poznań y monitoreo limnológico en Polonia.',
+      'Experiencia de campo en humedales y turberas templadas en Alemania (Wallener Au) vinculada al debate de políticas de restauración.',
+      'Capacidad bilingüe de redacción técnica e incidencia legislativa probada ante parlamentos.'
+    ],
+    techStack: ['Policy Evaluation', 'Water Framework Directive', 'R', 'QGIS', 'EU Law', 'Stakeholder Analysis'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-ecologic-1',
+        name: 'Ecologic Institute HR Office',
+        role: 'Recruitment & People Officer',
+        notes: 'Punto de contacto para puestos en Berlín y Bruselas'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-eeb-brussels',
+    name: 'EEB - European Environmental Bureau',
+    website: 'https://eeb.org/en/about/opportunities/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=eeb.org&sz=128',
+    sector: 'Federación Europea de ONGs Ambientales & Incidencia en Legislación de la UE',
+    size: '40+ especialistas en políticas y campañas',
+    headquarters: 'Bruselas, Bélgica',
+    description: 'La mayor federación de organizaciones ciudadanas ambientales de Europa, aglutinando a más de 180 ONGs de más de 30 países. Con sede en Bruselas, es el principal interlocutor de la sociedad civil frente al Parlamento Europeo y la Comisión Europea en materia de Green Deal, Ley de Restauración de la Naturaleza, directivas de agua, suelos y clima.',
+    keyProjects: [
+      'Campaña europea por la aprobación e implementación de la Ley de Restauración de la Naturaleza de la UE',
+      'Fiscalización de la Política Agrícola Común (PAC) y su impacto en suelos, biodiversidad y aguas subterráneas',
+      'Incidencia sobre la Directiva de Monitoreo de Suelos y neutralidad climática en ecosistemas terrestres'
+    ],
+    recentNews: [
+      {
+        title: 'EEB publica convocatorias para Policy Officers en clima, agricultura regenerativa y protección del agua',
+        date: '2026-11-12',
+        snippet: 'Puestos de incidencia estratégica en Bruselas para seguimiento de directivas comunitarias.'
+      }
+    ],
+    workCulture: [
+      'Epicentro de la incidencia política europea: impacto directo en directivas vinculantes de la UE',
+      'Ambiente multinacional, apasionado y de ritmo rápido en Bruselas',
+      'Condiciones laborales del sector asociativo belga con cobertura social y teletrabajo híbrido'
+    ],
+    redFlags: ['Requiere alta capacidad de negociación política bajo presión de tiempos parlamentarios europeos'],
+    interviewArguments: [
+      'Experiencia de liderazgo en campañas de incidencia y articulación ciudadana masiva (Apruebo Rural en 14 regiones de Chile).',
+      'Respaldo técnico biofísico irrebatible: geofísico de la U. de Chile y doble máster europeo, capaz de rebatir el lobby corporativo con datos físicos y empíricos.',
+      'Autoría en informes internacionales de fiscalización de directivas comunitarias (RED III con EPN).'
+    ],
+    techStack: ['EU Legislative Process', 'Policy Advocacy', 'Campaign Strategy', 'Media Relations', 'Coalition Building'],
+    lastResearched: '2026-11-20',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-eeb-1',
+        name: 'EEB HR Department',
+        role: 'Operations & Human Resources Coordinator',
+        notes: 'Gestión de convocatorias de Policy Officers en Bruselas'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-can-europe',
+    name: 'CAN Europe - Climate Action Network Europe',
+    website: 'https://caneurope.org/work-with-us/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=caneurope.org&sz=128',
+    sector: 'Políticas Climáticas de la UE, Transición Justa & Negociaciones Internacionales',
+    size: '50+ especialistas en incidencia y campañas',
+    headquarters: 'Bruselas, Bélgica',
+    description: 'La coalición no gubernamental de acción climática más relevante de Europa, integrando a más de 170 organizaciones miembro en 38 países. Lidera las estrategias de incidencia de la sociedad civil en las negociaciones climáticas internacionales (COP), la ambición de las NDCs europeas, la eliminación gradual de subsidios fósiles y la gobernanza de la transición justa.',
+    keyProjects: [
+      'Seguimiento del marco de gobernanza climática de la UE y paquetes Fit for 55',
+      'Observatorio de planes territoriales de transición justa en cuencas carboníferas y agrícolas',
+      'Campañas paneuropeas contra las falsas soluciones climáticas y compensaciones no verificables'
+    ],
+    recentNews: [
+      {
+        title: 'CAN Europe abre procesos de selección para coordinadores de campañas y políticas de transición energética',
+        date: '2026-11-02',
+        snippet: 'Contrataciones para el equipo de políticas en Bruselas de cara a las próximas rondas legislativas.'
+      }
+    ],
+    workCulture: [
+      'Cultura cooperativa, diversa y orientada a resultados de incidencia transformadora',
+      'Articulación diaria con redes de todos los países miembros de la Unión Europea',
+      'Ubicación estratégica en el distrito europeo de Bruselas'
+    ],
+    redFlags: ['Coordinación multiactor compleja que exige diplomacia y resolución de tensiones internas'],
+    interviewArguments: [
+      'Ponente internacional en la Conferencia Mundial de Decrecimiento (Oslo, 2025) y la Conferencia ENJUST (Bonn, 2025).',
+      'Demostración rigurosa de los vacíos de contabilidad de carbono en proyectos de bioenergía y compensaciones forestales.',
+      'Habilidad contrastada de comunicación pública y medios masivos (+700k audiencia en redes y experiencia radiofónica).'
+    ],
+    techStack: ['Climate Policy', 'Just Transition Advocacy', 'Campaign Management', 'EU Governance', 'Public Speaking'],
+    lastResearched: '2026-11-20',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-caneurope-1',
+        name: 'CAN Europe People & Culture Team',
+        role: 'HR Officer',
+        notes: 'Coordinación de procesos selectivos en Bruselas'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-iddri-paris',
+    name: 'IDDRI - Institut du Développement Durable et des Relations Internationales',
+    website: 'https://www.iddri.org/en/about-iddri/careers',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=iddri.org&sz=128',
+    sector: 'Gobernanza Climática Global, Política Agrícola y de Cuencas de la UE',
+    size: '60+ analistas internacionales',
+    headquarters: 'París (Sciences Po), Francia',
+    description: 'Think tank de investigación de políticas públicas adscrito a Sciences Po París. Figura entre los centros más influyentes del mundo en gobernanza ambiental global, habiendo desempeñado un papel decisivo en la arquitectura del Acuerdo de París. Investiga la transición de los sistemas agroalimentarios, la biodiversidad y la gobernanza de cuencas en Europa y a escala internacional.',
+    keyProjects: [
+      'Escenarios de modelación de la transición agroecológica en Europa (proyecto TYFA - Ten Years for Agroecology)',
+      'Gobernanza internacional de océanos, aguas y recursos compartidos',
+      'Articulación de metas de biodiversidad (Kunming-Montreal) con marcos de gobernanza climática'
+    ],
+    recentNews: [
+      {
+        title: 'IDDRI abre convocatorias para investigadores de políticas en agricultura sostenible y biodiversidad',
+        date: '2026-10-15',
+        snippet: 'Puestos en París para analistas de políticas europeas e internacionales.'
+      }
+    ],
+    workCulture: [
+      'Máximo prestigio académico e institucional en Sciences Po y redes internacionales',
+      'Enfoque analítico riguroso orientado a propuestas legislativas de alto impacto',
+      'Ambiente intelectual bilingüe (francés e inglés)'
+    ],
+    redFlags: ['Procesos selectivos muy competitivos con candidatos de grandes escuelas francesas e internacionales'],
+    interviewArguments: [
+      'Formación multidisciplinar de élite: Geofísico de la Universidad de Chile (con distinción) y Doble M.Sc. en CAU Kiel y AMU Poznań.',
+      'Experiencia práctica en diseño hidrológico regenerativo de cuencas y física de suelos agrícolas.',
+      'Publicación conjunta con diputados alemanes sobre transición agroecológica y subsidios a la fertilidad del suelo.'
+    ],
+    techStack: ['Agroecology Modeling', 'Policy Scenarios', 'TYFA Framework', 'R', 'International Environmental Law'],
+    lastResearched: '2026-11-20',
+    quadrants: ['GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-iddri-1',
+        name: 'IDDRI Direction des Ressources Humaines',
+        role: 'Recruitment Manager',
+        notes: 'Punto de contacto para candidaturas de investigación en París'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-rifs-potsdam',
+    name: 'RIFS Potsdam - Research Institute for Sustainability (Helmholtz)',
+    website: 'https://www.rifs-potsdam.de/de/institut/jobs',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=rifs-potsdam.de&sz=128',
+    sector: 'Gobernanza de Transformaciones hacia la Sostenibilidad & Transición Justa',
+    size: '120+ investigadores interdisciplinarios',
+    headquarters: 'Potsdam (Brandeburgo), Alemania',
+    description: 'Instituto de la Asociación Helmholtz (vinculado al GFZ Potsdam, antes IASS) dedicado exclusivamente a la investigación transdisciplinar de las transformaciones hacia la sostenibilidad. Destaca por su investigación sobre procesos deliberativos democráticos, ecología política, gobernanza de la transición justa y co-diseño de políticas públicas ambientales con la sociedad civil.',
+    keyProjects: [
+      'Investigación de procesos participativos y deliberación ciudadana en transiciones energéticas y territoriales',
+      'Gobernanza de la transición justa en regiones en proceso de descarbonización',
+      'Ecología política de los recursos y la economía circular en Europa'
+    ],
+    recentNews: [
+      {
+        title: 'RIFS Potsdam abre convocatorias de investigación postdoctoral en gobernanza transformativa',
+        date: '2026-11-04',
+        snippet: 'Proyectos financiados por la Asociación Helmholtz y el Ministerio Federal de Investigación (BMBF).'
+      }
+    ],
+    workCulture: [
+      'Libertad investigadora excepcional y enfoque transdisciplinar genuino',
+      'Campus científico idílico en el Telegrafenberg de Potsdam, conectado con Berlín',
+      'Contratos de investigación públicos de la red Helmholtz bajo el TVöD Bund E13 / E14'
+    ],
+    redFlags: ['Requiere capacidad demostrada para combinar métodos cualitativos participativos con análisis cuantitativo'],
+    interviewArguments: [
+      'Liderazgo empírico de base: facilitación de más de 80 asambleas comunales en 14 regiones de Chile y escuelas de formación ciudadana.',
+      'Respaldo de investigación cuantitativa en Alemania (CAU Kiel) con comprensión matemática de los límites biofísicos del planeta.',
+      'Ponente en conferencias internacionales de decrecimiento y justicia socioambiental (Oslo, Bonn, Bogotá).'
+    ],
+    techStack: ['Transdisciplinary Research', 'Participatory Governance', 'R', 'Policy Analysis', 'Qualitative Methods'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-rifs-1',
+        name: 'RIFS Personalstelle',
+        role: 'Recruitment Coordinator',
+        notes: 'Coordinación de procesos de contratación en Potsdam'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-ioer-dresden',
+    name: 'IOER Dresden - Leibniz Institute of Ecological Urban and Regional Development',
+    website: 'https://www.ioer.de/karriere/stellenangebote',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=ioer.de&sz=128',
+    sector: 'Ecología del Paisaje, Justicia Espacial y Ordenamiento Territorial Resiliente',
+    size: '110+ investigadores',
+    headquarters: 'Dresde (Sajonia), Alemania',
+    description: 'Instituto de investigación ecológica territorial de la prestigiosa Asociación Leibniz (Leibniz-Gemeinschaft) con sede en Dresde. Referente en ecología del paisaje, servicios ecosistémicos, justicia espacial (Interlinked Justice) y ordenamiento territorial resiliente ante el cambio climático. Contratos públicos de investigación regidos por el TV-L E13.',
+    keyProjects: [
+      'Interlinked Justice & Resilient Landscapes: Integración de justicia social y restauración del paisaje',
+      'Infraestructura verde, corredores biológicos y conectividad de humedales en cuencas centroeuropeas',
+      'Modelación geoespacial de vulnerabilidad climática y capacidad de adaptación territorial'
+    ],
+    recentNews: [
+      {
+        title: 'IOER Dresden convoca nuevas plazas científicas en ecología del paisaje y justicia espacial',
+        date: '2026-10-20',
+        snippet: 'Proyectos de investigación de la red Leibniz en ordenamiento territorial y resiliencia ecológica.'
+      }
+    ],
+    workCulture: [
+      'Excelencia científica de la red Leibniz con enfoque directo en la planificación espacial y ambiental',
+      'Instalaciones de investigación de primer nivel en Dresde con estabilidad investigadora',
+      'Fuerte vinculación con la Universidad Técnica de Dresde (TU Dresden)'
+    ],
+    redFlags: ['Foco muy marcado en la planificación territorial y los sistemas espaciales centroeuropeos'],
+    interviewArguments: [
+      'Vínculo formativo previo directo: graduado del programa de especialización "Interlinked Justice & Resilient Landscapes" impartido por el propio IOER Dresden (2024-2025).',
+      'Dominio de herramientas geoespaciales avanzadas (QGIS, Python, GEE, LiDAR) y modelación de medios continuos e hidrogeología.',
+      'Experiencia de campo en ordenamiento de cuencas frente a monocultivos y megaincendios en Sudamérica y Europa.'
+    ],
+    techStack: ['QGIS', 'Spatial Justice Analysis', 'Python', 'Landscape Ecology', 'Remote Sensing', 'GIS Modeling'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-ioer-1',
+        name: 'IOER Personalabteilung',
+        role: 'Recruitment & Academic HR',
+        notes: 'Punto de contacto para investigadores en Dresde'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-boell-stiftung',
+    name: 'Heinrich-Böll-Stiftung - Ecología Política & Justicia Global',
+    website: 'https://www.boell.de/de/jobs-der-heinrich-boell-stiftung',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=boell.de&sz=128',
+    sector: 'Ecología Política, Transición Socioecológica, Democracia y Justicia Territorial',
+    size: '300+ empleados y delegaciones internacionales',
+    headquarters: 'Berlín, Alemania / Bruselas, Bélgica',
+    description: 'Fundación política alemana vinculada a la corriente verde (Alianza 90/Los Verdes), referente mundial en ecología política, justicia climática, post-extractivismo y transición socioecológica. Desarrolla análisis de políticas públicas, apoya la defensa de derechos territoriales en el Sur Global y participa activamente en el debate legislativo de Alemania y la Unión Europea. Contratos bajo el convenio colectivo TVöD Bund.',
+    keyProjects: [
+      'Publicación del Atlas de los Recursos, Atlas del Suelo y Atlas de la Energía',
+      'Programas de diálogo global y justicia climática intergeneracional en América Latina y Europa',
+      'Fiscalización del comercio de materias primas críticas y falsas soluciones climáticas'
+    ],
+    recentNews: [
+      {
+        title: 'Heinrich-Böll-Stiftung abre plazas para oficiales de políticas en transición socioecológica y recursos globales',
+        date: '2026-11-10',
+        snippet: 'Puestos en la sede central de Berlín y la oficina europea de Bruselas.'
+      }
+    ],
+    workCulture: [
+      'Organización de valores sólidos basada en la ecología política, la justicia social y la no violencia',
+      'Red de oficinas en más de 30 países con impacto político de primer orden',
+      'Condiciones laborales excelentes bajo convenio TVöD Bund con alta flexibilidad'
+    ],
+    redFlags: ['Compromiso profundo con los valores de la ecología política y la democracia participativa'],
+    interviewArguments: [
+      'Autoría de columna conjunta con el diputado de Los Verdes Dirk Kock-Rohwer (Schleswig-Holstein) sobre agricultura orgánica y suelos.',
+      'Trayectoria acreditada en ecología política, justicia ambiental y decrecimiento (conferencias en Oslo, Bonn y publicaciones en OLCA).',
+      'Experiencia de campo en defensa de derechos hídricos y cuencas en América Latina y articulación comunitaria.'
+    ],
+    techStack: ['Political Ecology', 'Policy Analysis', 'Public Debates', 'Bilingual EN/DE/ES', 'Coalition Building'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-boell-1',
+        name: 'Heinrich-Böll-Stiftung Personalabteilung',
+        role: 'Human Resources Specialist',
+        notes: 'Coordinación de contrataciones en Berlín y Bruselas'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
@@ -5994,6 +6619,59 @@ const ubaRaw: Partial<JobOffer> = {
   jobDossier: UBA_KILAB_DOSSIER
 };
 
+const destineRaw: Partial<JobOffer> = {
+  id: 'job-destine-ecmwf-earth-ai-01',
+  title: 'Earth System Data Scientist & Digital Twin Specialist (Destination Earth / AI Core)',
+  company: 'ECMWF / Destination Earth Initiative',
+  companyId: 'comp-ecmwf',
+  location: 'Bonn, Alemania / Remoto UE',
+  country: 'Alemania',
+  isBilbaoLocation: false,
+  isRemote: true,
+  url: 'https://jobs.ecmwf.int/job/earth-system-digital-twin-ai',
+  sourceId: 'src-destine',
+  sourceName: 'Destination Earth / ECMWF Career Portal',
+  publishedDate: '2026-10-10',
+  deadline: '2026-11-30',
+  salaryMin: 68000,
+  salaryMax: 88000,
+  salaryCurrency: 'EUR',
+  rawDescription: 'The European Centre for Medium-Range Weather Forecasts (ECMWF), in partnership with ESA and EUMETSAT under the EU Destination Earth (DestinE) flagship, is seeking an Earth System Data Scientist & Digital Twin Specialist to contribute to the Digital Twin on Climate Change Adaptation and Weather-Induced Extremes. The role bridges high-resolution geophysical modeling, data assimilation, satellite observation pipelines (Copernicus Sentinel), and Physics-Informed Neural Networks (PINNs) / Machine Learning emulators for near-real-time environmental simulation.',
+  requirements: [
+    'Master of Science (M.Sc.) or equivalent in Geophysics, Environmental Sciences, Physics, Meteorology or Computational Earth System Science',
+    'Proven track record in geophysical data assimilation, Earth Observation processing (Copernicus, Sentinel-2/3) and Python scientific computing (xarray, NumPy, PyTorch/TensorFlow)',
+    'Practical experience in physical processes (soil moisture, water balance, greenhouse gas dynamics or groundwater flow)',
+    'Experience architecting interactive environmental software, digital twins, or high-dimensional geospatial visualization workflows',
+    'Demonstrated collaborative leadership, interdisciplinary communication and fluency in English; German or Spanish is an asset'
+  ],
+  responsibilities: [
+    'Design and calibrate ML/PINN surrogate models to emulate complex bio-geophysical land-surface interactions at kilometer-scale resolution',
+    'Ingest and preprocess continuous in-situ sensor networks (e.g. Eddy Covariance, groundwater levels) and multimodal satellite telemetry into the DestinE Data Lake',
+    'Contribute to interactive digital twin interfaces and scenario simulators for policy stakeholders and European climate risk managers',
+    'Collaborate with international consortium partners across ESA, EUMETSAT, Helmholtz Association and National Meteorological Services',
+    'Author technical documentation, open-source scientific software packages and peer-reviewed contributions'
+  ],
+  status: 'Nueva',
+  isFavorite: true,
+  extractedAt: '2026-10-21 03:00',
+  isVerified: true,
+  verificationStatus: 'Vigente y Verificada',
+  verifiedAt: '2026-10-21 03:00',
+  verificationReason: 'Convocatoria estratégica Destination Earth / ECMWF Digital Twins en el marco del programa Horizon Europe / Digital Europe.',
+  companyEnrichment: {
+    sector: 'Organismo Internacional de Predicción Meteorológica y Gemelos Digitales de la Tierra',
+    description: 'ECMWF es la organización intergubernamental líder mundial en predicción meteorológica numérica global y sede operativa del gemelo digital de extremos climáticos de Destination Earth.',
+    hqLocation: 'Bonn / Reading / Bolonia',
+    websiteUrl: 'https://www.ecmwf.int/',
+    strategicProjects: ['Destination Earth (DestinE)', 'Copernicus Climate Change Service (C3S)', 'Copernicus Atmosphere Monitoring Service (CAMS)']
+  },
+  personalFitDetails: {
+    matchingSkills: ['Earth System Data Science & Machine Learning', 'Asimilación de Datos & Telemetría IoT-Satélite', 'Python', 'Geofísica', 'Gemelos Digitales (AgriTwin, Wetland Monitor, Rewilding Suite)'],
+    skillGaps: [],
+    fitSummary: 'Alineación perfecta: formación geofísica pura en la U. de Chile, doble máster europeo, experiencia empírica de Eddy Covariance y 3 gemelos digitales ya operativos en producción.'
+  }
+};
+
 export const initialOffers: JobOffer[] = [
   {
     ...thuenenRaw,
@@ -6002,6 +6680,10 @@ export const initialOffers: JobOffer[] = [
   {
     ...ubaRaw,
     matchScore: calculateMatchScore(ubaRaw, initialProfile)
+  } as JobOffer,
+  {
+    ...destineRaw,
+    matchScore: calculateMatchScore(destineRaw, initialProfile)
   } as JobOffer
 ];
 
@@ -6975,6 +7657,480 @@ export const initialCVs: CVVersion[] = [
         'Food Hygiene & HACCP Principles',
         'German Health Infection Certificate (§ 43 IfSG) available on short notice',
         'Workplace Safety & First Aid'
+      ]
+    }
+  },
+  {
+    id: 'cv-daniel-santander-policy-es',
+    name: 'CV Daniel Santander — Políticas Ambientales, Ecología Política & Incidencia (Track C - ES)',
+    templateId: 'academic_ngo',
+    language: 'es',
+    createdAt: '2026-11-20',
+    updatedAt: '2026-11-20',
+    selectedExperiences: ['exp-advocacy-policy', 'exp-biomass-epn', 'exp-apruebo-rural', 'exp-primera-linea-prensa', 'exp-cau-kiel'],
+    selectedEducation: ['edu-msc-kiel', 'edu-msc-amu', 'edu-geophysics-uchile'],
+    selectedSkills: ['sk-14', 'sk-15', 'sk-9', 'sk-1', 'sk-2', 'sk-3'],
+    selectedAchievements: ['ach-1', 'ach-4', 'ach-8', 'ach-3'],
+    customSummary: 'Geofísico ambiental (U. de Chile, con distinción) y doble M.Sc. europeo en Manejo y Protección Ambiental (CAU Kiel, Alemania / AMU Poznań, Polonia) especializado en la interfaz ciencia-política, gobernanza territorial de cuencas y ecología política. Trayectoria contrastada en asesoría técnica parlamentaria y testimonio pericial ante el Congreso Nacional de Chile, autoría principal en fiscalización internacional de subsidios a la biomasa forestal (EPN / Global Forest Coalition bajo directivas UE RED III y ETS), dirección de campañas masivas de incidencia y soberanía hídrica ("Apruebo Rural" en 14 regiones) y producción ensayística en decrecimiento y límites planetarios (Oslo 2025, ENJUST Bonn, OLCA). Combina rigor biofísico cuantitativo con solvencia política, diplomática y comunicacional.',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: `${initialProfile.preferredCity}, España / UE Remoto`,
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Geofísico ambiental (U. de Chile, con distinción) y doble M.Sc. europeo en Manejo y Protección Ambiental (CAU Kiel, Alemania / AMU Poznań, Polonia) especializado en la interfaz ciencia-política, gobernanza territorial de cuencas y ecología política. Trayectoria contrastada en asesoría técnica parlamentaria y testimonio pericial ante el Congreso Nacional de Chile, autoría principal en fiscalización internacional de subsidios a la biomasa forestal (EPN / Global Forest Coalition bajo directivas UE RED III y ETS), dirección de campañas masivas de incidencia y soberanía hídrica ("Apruebo Rural" en 14 regiones) y producción ensayística en decrecimiento y límites planetarios (Oslo 2025, ENJUST Bonn, OLCA). Combina rigor biofísico cuantitativo con solvencia política, diplomática y comunicacional.',
+      experiences: [
+        {
+          id: 'exp-advocacy-policy',
+          company: 'Cámara de Diputadas y Diputados de Chile & Asesoría Legislativa en Cuencas',
+          role: 'Expositor Técnico Parlamentario & Asesor en Políticas de Cuencas y Desastres',
+          location: 'Valparaíso / Santiago, Chile & Europa',
+          startDate: '2021',
+          endDate: 'Presente',
+          isCurrent: true,
+          summary: 'Asesoría técnica parlamentaria y comunitaria sobre políticas públicas de prevención de megaincendios, gestión integrada del agua y transición ecológica territorial. Comparecencia oficial como perito técnico ante la Comisión Especial de Emergencia, Desastres y Bomberos de la Cámara de Diputadas y Diputados de Chile, fundamentando la relación biofísica estructural entre monocultivos forestales y riesgo de incendios.',
+          achievements: [
+            'Testimonio oficial ante la Cámara de Diputadas y Diputados de Chile sobre causalidad territorial del riesgo de incendios forestales.',
+            'Redacción de propuestas normativas sobre ordenamiento de cuencas hidrográficas y protección ecosistémica ante la Convención Constitucional.',
+            'Asesoría técnica a Comités de Agua Potable Rural (APR) y redes territoriales en derechos hídricos.'
+          ],
+          technologies: ['Incidencia Legislativa', 'Políticas Públicas', 'Gobernanza de Cuencas', 'Salvaguardias Ambientales', 'Ordenamiento Territorial'],
+          isVerified: true
+        },
+        {
+          id: 'exp-biomass-epn',
+          company: 'Environmental Paper Network (EPN) & Global Forest Coalition',
+          role: 'Autor Técnico Principal & Investigador de Impactos de Biomasa Forestal',
+          location: 'Internacional / Chile & Europa',
+          startDate: '2023',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Investigación internacional independiente y autoría principal del informe "Spotlight on Burning Biomass for Energy in South America: Community Opposition to a Power Plant in Parral, Chile". Análisis riguroso de vacíos metodológicos en la contabilidad de carbono de la biomasa forestal, desmintiendo la neutralidad climática y fiscalizando los subsidios de energía renovable otorgados bajo directivas europeas (RED III y ETS).',
+          achievements: [
+            'Publicación internacional como Autor Principal del informe técnico de caso EPN (Parral, Maule).',
+            'Demostración de los vacíos en los balances de carbono de centrales de bioenergía y su impacto comunitario.',
+            'Difusión internacional en redes de monitoreo de biomasa y políticas forestales en Europa y Latinoamérica.'
+          ],
+          technologies: ['Contabilidad de Carbono', 'Directiva UE RED III / ETS', 'Bioenergía', 'Salvaguardias Forestales', 'Facilitación Multiactor'],
+          isVerified: true
+        },
+        {
+          id: 'exp-apruebo-rural',
+          company: 'Campaña Nacional "Apruebo Rural"',
+          role: 'Coordinador General de Campaña y Director de Prensa Nacional',
+          location: 'Chile (14 Regiones)',
+          startDate: '2020',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Lideró la coordinación general de la campaña comunicacional y despliegue territorial de "Apruebo Rural" (2020-2023), articulando a pequeños agricultores familiares campesinos, comités de agua potable rural (APR) y poblados cercados por monocultivos forestales con las cadenas nacionales de TV, radios comunales y masivos actos públicos.',
+          achievements: [
+            'Gira nacional por 14 regiones del centro y sur de Chile realizando más de 80 asambleas y encuentros comunales.',
+            'Publicación de más de 60 columnas de opinión, notas en televisión y especiales radiales sobre soberanía del agua.',
+            'Distribución de más de 500.000 volantes y kits pedagógicos en terreno y organización del acto de cierre de campaña.'
+          ],
+          technologies: ['Dirección de Campañas', 'Comunicaciones Estratégicas', 'Storytelling Transmedia', 'Coordinación Multiactor'],
+          isVerified: true
+        },
+        {
+          id: 'exp-primera-linea-prensa',
+          company: 'Primera Línea Prensa & Red Maule Sur',
+          role: 'Fundador, Director Editorial & Periodista de Investigación Socioambiental',
+          location: 'Chile',
+          startDate: '2019',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Cofundador y director editorial de medio digital independiente enfocado en periodismo ciudadano, crisis climática, desastres forestales y derechos humanos, alcanzando más de 700.000 seguidores orgánicos en redes sociales. Diseñador y relator del "Taller de Corresponsales Populares", capacitando y certificando a 45 vecinos rurales en reportería móvil, ética y verificación de hechos.',
+          achievements: [
+            'Crecimiento de audiencia digital a +700.000 seguidores con millones de impresiones mensuales.',
+            'Capacitación y graduación de 45 corresponsales ciudadanos rurales.',
+            'Publicación de investigaciones y columnas en Tomate Rojo, El Desconcierto, Resumen.cl y OLCA.'
+          ],
+          technologies: ['Periodismo de Investigación', 'Dirección Editorial', 'Radio & Podcasts', 'Gestión de Redes Sociales', 'Fact-Checking'],
+          isVerified: true
+        },
+        {
+          id: 'exp-cau-kiel',
+          company: 'Christian-Albrechts-Universität zu Kiel & Adam Mickiewicz University',
+          role: 'Investigador en Hidrogeofísica, Suelos y Dinámica de GEI en Turberas',
+          location: 'Kiel (Alemania) / Poznań (Polonia)',
+          startDate: '2023',
+          endDate: 'Presente',
+          isCurrent: true,
+          summary: 'Cuantificación empírica de flujos de gases de efecto invernadero (CO2, CH4) en turberas templadas rehumedecidas bajo la Directiva Marco del Agua de la UE. Respaldo científico cuantitativo aplicado a la gobernanza y restauración de ecosistemas.',
+          achievements: [
+            'Cuantificación continua de balances de carbono en turberas bajo forzantes micrometeorológicos.',
+            'Evaluación limnológica y de bioindicadores bajo la Directiva Marco del Agua de la UE.'
+          ],
+          technologies: ['R', 'Python', 'QGIS', 'Directiva Marco del Agua', 'Física de Suelos'],
+          isVerified: true
+        }
+      ],
+      education: initialProfile.education,
+      skills: initialProfile.skills,
+      languages: initialProfile.languages,
+      achievements: [
+        {
+          id: 'ach-1',
+          title: 'Dictamen Pericial ante Comisión de Emergencia y Bomberos de la Cámara',
+          description: 'Fundamentación física y cartográfica de la correlación estructural entre plantaciones forestales y megaincendios, incorporada formalmente a las actas legislativas del Congreso Nacional de Chile.',
+          metrics: 'Intervención Legislativa Oficial',
+          tags: ['Congreso', 'Incendios', 'Modelo Forestal', 'Cuencas'],
+          date: '2024-03-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-4',
+          title: 'Autor Principal en Investigación Internacional EPN sobre Carbono y RED III',
+          description: 'Autoría principal del informe internacional de EPN que expuso los vacíos contables de carbono y las falsas declaraciones de energía renovable en bioenergía forestal frente a las directivas europeas RED III y ETS.',
+          metrics: 'Lead Author // Informe Internacional EPN',
+          tags: ['Biomasa', 'Carbono', 'RED III', 'EPN'],
+          date: '2023-06-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-8',
+          title: 'Dirección de Campaña Nacional Transmedia "Apruebo Rural"',
+          description: 'Liderazgo de campaña transmedia y articulación político-territorial: despliegue en 14 regiones con 80+ asambleas comunales, organización del acto de cierre nacional y distribución de 500K+ kits pedagógicos.',
+          metrics: '14 Regiones // 80+ Asambleas // 500K+ Kits',
+          tags: ['Apruebo Rural', 'Gobernanza del Agua', 'Movilización'],
+          date: '2022-09-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-3',
+          title: 'Taller de Corresponsales Populares en Territorio',
+          description: 'Creación y relatoría del taller de reportería comunitaria móvil y ética, capacitando y certificando a más de 45 voceros y vecinos rurales frente a la crisis hídrica en Maule Sur.',
+          metrics: '45+ Corresponsales Capacitados',
+          tags: ['Educación Popular', 'Maule Sur', 'Reportería Móvil', 'Medios'],
+          date: '2021-12-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: [
+        'Doughnut Economics Practitioner (DEAL Doughnut Economics Action Lab, Copenhague, Dinamarca, 2025)',
+        'Interlinked Justice & Resilient Landscapes (Leibniz Institute IOER, Dresden, Alemania, 2024–2025)',
+        'Economía Verde y Financiarización de la Naturaleza (Censat Agua Viva & Amigos de la Tierra, Bogotá, 2022)',
+        'Curso Certificado de Diseño en Permacultura - CDP (EPAC & Fundación Suelo, 2023)',
+        '3ª Escuela de Verano: Costas Resilientes ((CR)2, Universidad de Chile, 2023)'
+      ]
+    }
+  },
+  {
+    id: 'cv-daniel-santander-policy-en',
+    name: 'CV Daniel Santander — Environmental Policy, Political Ecology & Governance (Track C - EN)',
+    templateId: 'academic_ngo',
+    language: 'en',
+    createdAt: '2026-11-20',
+    updatedAt: '2026-11-20',
+    selectedExperiences: ['exp-advocacy-policy', 'exp-biomass-epn', 'exp-apruebo-rural', 'exp-primera-linea-prensa', 'exp-cau-kiel'],
+    selectedEducation: ['edu-msc-kiel', 'edu-msc-amu', 'edu-geophysics-uchile'],
+    selectedSkills: ['sk-14', 'sk-15', 'sk-9', 'sk-1', 'sk-2', 'sk-3'],
+    selectedAchievements: ['ach-1', 'ach-4', 'ach-8', 'ach-3'],
+    customSummary: 'Environmental geophysicist (Universidad de Chile, with distinction) and dual European M.Sc. in Environmental Management & Protection (CAU Kiel, Germany / AMU Poznań, Poland) specializing in the science-policy interface, watershed territorial governance, and political ecology. Proven track record in parliamentary technical advisory and expert witness testimony before Chile\'s National Congress, lead authorship in international investigative audits of biomass subsidies under EU RED III/ETS directives (EPN & Global Forest Coalition), nationwide campaign leadership on water sovereignty ("Apruebo Rural" across 14 regions), and published analytical work on degrowth and planetary boundaries (Oslo 2025, ENJUST Bonn, OLCA). Bridges rigorous biophysical science with institutional, diplomatic, and public advocacy.',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: 'Bilbao, Spain / EU Remote',
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Environmental geophysicist (Universidad de Chile, with distinction) and dual European M.Sc. in Environmental Management & Protection (CAU Kiel, Germany / AMU Poznań, Poland) specializing in the science-policy interface, watershed territorial governance, and political ecology. Proven track record in parliamentary technical advisory and expert witness testimony before Chile\'s National Congress, lead authorship in international investigative audits of biomass subsidies under EU RED III/ETS directives (EPN & Global Forest Coalition), nationwide campaign leadership on water sovereignty ("Apruebo Rural" across 14 regions), and published analytical work on degrowth and planetary boundaries (Oslo 2025, ENJUST Bonn, OLCA). Bridges rigorous biophysical science with institutional, diplomatic, and public advocacy.',
+      experiences: [
+        {
+          id: 'exp-advocacy-policy',
+          company: 'Chamber of Deputies of Chile & Parliamentary Policy Advisory',
+          role: 'Expert Legislative Advisor on Watersheds & Disaster Prevention Policy',
+          location: 'Valparaíso / Santiago, Chile & Europe',
+          startDate: '2021',
+          endDate: 'Present',
+          isCurrent: true,
+          summary: 'Parliamentary and civil-society technical advisory on wildfire prevention policy, integrated watershed governance, and socio-ecological transition. Official expert witness testimony before the Special Commission on Emergency, Disasters and Firefighters of the Chamber of Deputies of Chile on the biophysical causal link between industrial timber plantations and wildfire risk.',
+          achievements: [
+            'Official testimony before Chile\'s National Congress on territorial causality and wildfire disaster risk.',
+            'Drafted statutory proposals on river basin territorial ordering and ecosystem protection for the Constitutional Convention.',
+            'Technical assistance to Rural Drinking Water Committees (APR) and community networks on water rights.'
+          ],
+          technologies: ['Legislative Advocacy', 'Public Policy', 'Watershed Governance', 'Environmental Safeguards', 'Spatial Planning'],
+          isVerified: true
+        },
+        {
+          id: 'exp-biomass-epn',
+          company: 'Environmental Paper Network (EPN) & Global Forest Coalition',
+          role: 'Lead Author & International Investigator on Forest Biomass Subsidies',
+          location: 'International / Chile & Europe',
+          startDate: '2023',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Independent investigative audit and lead authorship of the international report "Spotlight on Burning Biomass for Energy in South America: Community Opposition to a Power Plant in Parral, Chile". In-depth analysis of carbon accounting loopholes and regulatory subsidies under EU RED III and ETS directives.',
+          achievements: [
+            'Published as Lead Author of the EPN international investigative report on biomass subsidies.',
+            'Uncovered systemic accounting flaws in bioenergy carbon neutrality and public health impacts.',
+            'Presented findings across international forest policy networks in Europe and Latin America.'
+          ],
+          technologies: ['Carbon Accounting', 'EU RED III / ETS Directives', 'Bioenergy Policy', 'Environmental Safeguards'],
+          isVerified: true
+        },
+        {
+          id: 'exp-apruebo-rural',
+          company: 'National Campaign "Apruebo Rural"',
+          role: 'General Campaign Coordinator & National Press Director',
+          location: 'Chile (14 Regions)',
+          startDate: '2020',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Led the overall coordination and nationwide field deployment of the "Apruebo Rural" movement (2020-2023), connecting family peasant farmers, rural drinking water committees, and frontline communities with national broadcasters, local radio networks, and mass public rallies.',
+          achievements: [
+            'Nationwide tour across 14 regions of Chile facilitating over 80 municipal assemblies and community dialogues.',
+            'Published over 60 op-eds, TV segments, and radio specials on water sovereignty and ecological governance.',
+            'Distributed over 500,000 educational kits and flyers in the field and coordinated the national closing rally.'
+          ],
+          technologies: ['Campaign Leadership', 'Strategic Communications', 'Transmedia Storytelling', 'Multi-Stakeholder Coordination'],
+          isVerified: true
+        },
+        {
+          id: 'exp-primera-linea-prensa',
+          company: 'Primera Línea Prensa & Maule Sur Media Network',
+          role: 'Founder, Editorial Director & Socio-Environmental Investigative Journalist',
+          location: 'Chile',
+          startDate: '2019',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Co-founder and editorial director of an independent digital news outlet focused on citizen journalism, climate crisis, forestry disasters, and human rights, reaching over 700,000 organic social media followers. Designed and delivered the "Popular Correspondents Workshop", training 45 rural community members in mobile reporting and fact-checking.',
+          achievements: [
+            'Scaled digital audience from zero to +700,000 followers with millions of monthly impressions.',
+            'Trained and certified 45 rural citizen journalists in ethical mobile reporting.',
+            'Authored investigations published in Tomate Rojo, El Desconcierto, Resumen.cl, and OLCA.'
+          ],
+          technologies: ['Investigative Journalism', 'Editorial Direction', 'Radio & Podcasting', 'Social Media Management', 'Fact-Checking'],
+          isVerified: true
+        },
+        {
+          id: 'exp-cau-kiel',
+          company: 'Christian-Albrechts-Universität zu Kiel & Adam Mickiewicz University',
+          role: 'Researcher in Hydrogeophysics, Soils & Peatland GHG Dynamics',
+          location: 'Kiel (Germany) / Poznań (Poland)',
+          startDate: '2023',
+          endDate: 'Present',
+          isCurrent: true,
+          summary: 'Empirical quantification of greenhouse gas fluxes (CO2, CH4) in rewetted peatlands under the EU Water Framework Directive. Biophysical scientific backing applied to ecosystem governance and restoration policy.',
+          achievements: [
+            'Continuous carbon balance quantification under micrometeorological drivers.',
+            'Limnological and bioindicator assessments under the EU Water Framework Directive.'
+          ],
+          technologies: ['R', 'Python', 'QGIS', 'EU Water Framework Directive', 'Soil Physics'],
+          isVerified: true
+        }
+      ],
+      education: initialProfile.education,
+      skills: initialProfile.skills,
+      languages: initialProfile.languages,
+      achievements: [
+        {
+          id: 'ach-1',
+          title: 'Expert Witness Testimony before Chile\'s Chamber of Deputies',
+          description: 'Physical and cartographic demonstration of the causal link between industrial timber plantations and wildfire risk, officially incorporated into congressional records.',
+          metrics: 'Official Congressional Testimony',
+          tags: ['Congress', 'Wildfires', 'Forestry Model', 'Watersheds'],
+          date: '2024-03-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-4',
+          title: 'Lead Author on International Investigation on Biomass & RED III (EPN)',
+          description: 'Exposed carbon accounting loopholes and false renewable energy claims in forest bioenergy under EU RED III and ETS directives.',
+          metrics: 'Lead Author // EPN International Report',
+          tags: ['Biomass', 'Carbon Accounting', 'RED III', 'EPN'],
+          date: '2023-06-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-8',
+          title: 'Leadership of Nationwide Campaign "Apruebo Rural"',
+          description: 'Orchestrated nationwide field mobilization across 14 regions with 80+ community assemblies and distribution of 500K+ educational kits.',
+          metrics: '14 Regions // 80+ Assemblies // 500K+ Kits',
+          tags: ['Apruebo Rural', 'Water Governance', 'Mobilization'],
+          date: '2022-09-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-3',
+          title: 'Popular Correspondents Workshop for Frontline Communities',
+          description: 'Designed and facilitated mobile citizen journalism and ethical reporting workshops, certifying 45+ rural community leaders.',
+          metrics: '45+ Trained Correspondents',
+          tags: ['Popular Education', 'Maule Sur', 'Mobile Reporting', 'Media'],
+          date: '2021-12-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: [
+        'Doughnut Economics Practitioner (DEAL Doughnut Economics Action Lab, Copenhagen, Denmark, 2025)',
+        'Interlinked Justice & Resilient Landscapes (Leibniz Institute IOER, Dresden, Germany, 2024–2025)',
+        'Green Economy and Financialization of Nature (Censat Agua Viva & Friends of the Earth, Bogotá, 2022)',
+        'Certified Permaculture Design Course - PDC (EPAC & Fundación Suelo, 2023)',
+        '3rd Summer School: Resilient Coasts ((CR)2, Universidad de Chile, 2023)'
+      ]
+    }
+  },
+  {
+    id: 'cv-daniel-santander-policy-de',
+    name: 'Lebenslauf Daniel Santander — Umweltpolitik, Politische Ökologie & Governance (Track C - DE)',
+    templateId: 'academic_ngo',
+    language: 'de',
+    createdAt: '2026-11-20',
+    updatedAt: '2026-11-20',
+    selectedExperiences: ['exp-advocacy-policy', 'exp-biomass-epn', 'exp-apruebo-rural', 'exp-primera-linea-prensa', 'exp-cau-kiel'],
+    selectedEducation: ['edu-msc-kiel', 'edu-msc-amu', 'edu-geophysics-uchile'],
+    selectedSkills: ['sk-14', 'sk-15', 'sk-9', 'sk-1', 'sk-2', 'sk-3'],
+    selectedAchievements: ['ach-1', 'ach-4', 'ach-8', 'ach-3'],
+    customSummary: 'Umweltgeophysiker (Universidad de Chile, mit Auszeichnung) und doppelter europäischer M.Sc. in Umweltmanagement und Umweltschutz (CAU Kiel, Deutschland / AMU Posen, Polen) mit Schwerpunkt auf der Schnittstelle zwischen Wissenschaft und Politik, Einzugsgebiets-Governance und politischer Ökologie. Ausgewiesene Praxiserfahrung in parlamentarischer Fachberatung und Gutachten vor dem chilenischen Nationalkongress, Hauptautor internationaler Prüfberichte zu EU-Biomassesubventionen (RED III/ETS mit EPN & Global Forest Coalition), bundesweite Kampagnenkoordination zu Wasserrechten und Veröffentlichungen zu Post-Wachstum und planetaren Grenzen (Degrowth-Konferenz Oslo 2025, ENJUST Bonn, OLCA).',
+    compiledData: {
+      fullName: initialProfile.fullName,
+      contactInfo: {
+        email: initialProfile.email,
+        phone: initialProfile.phone,
+        location: 'Kiel, Deutschland / Bilbao, Spanien',
+        linkedin: initialProfile.linkedin,
+        github: initialProfile.github
+      },
+      summary: 'Umweltgeophysiker (Universidad de Chile, mit Auszeichnung) und doppelter europäischer M.Sc. in Umweltmanagement und Umweltschutz (CAU Kiel, Deutschland / AMU Posen, Polen) mit Schwerpunkt auf der Schnittstelle zwischen Wissenschaft und Politik, Einzugsgebiets-Governance und politischer Ökologie. Ausgewiesene Praxiserfahrung in parlamentarischer Fachberatung und Gutachten vor dem chilenischen Nationalkongress, Hauptautor internationaler Prüfberichte zu EU-Biomassesubventionen (RED III/ETS mit EPN & Global Forest Coalition), bundesweite Kampagnenkoordination zu Wasserrechten und Veröffentlichungen zu Post-Wachstum und planetaren Grenzen (Degrowth-Konferenz Oslo 2025, ENJUST Bonn, OLCA).',
+      experiences: [
+        {
+          id: 'exp-advocacy-policy',
+          company: 'Abgeordnetenkammer von Chile & Parlamentarische Fachberatung',
+          role: 'Wissenschaftlicher Fachberater für Einzugsgebiete und Katastrophenschutzpolitik',
+          location: 'Valparaíso / Santiago, Chile & Europa',
+          startDate: '2021',
+          endDate: 'Heute',
+          isCurrent: true,
+          summary: 'Parlamentarische und zivilgesellschaftliche Fachberatung zu Waldbrandprävention, integrierter Einzugsgebietsbewirtschaftung und sozial-ökologischer Transformation. Offizielles Gutachten als Sachverständiger vor der Sonderkommission für Notfälle, Katastrophen und Feuerwehr des chilenischen Nationalkongresses über den kausalen Zusammenhang zwischen industriellen Forstmonokulturen und Waldbrandrisiken.',
+          achievements: [
+            'Offizielle Stellungnahme vor dem chilenischen Nationalkongress zu Raumordnung und Katastrophenrisiko.',
+            'Erarbeitung von Gesetzgebungsvorschlägen zur Flussgebietsbewirtschaftung für den Verfassungskonvent.',
+            'Fachliche Beratung von ländlichen Trinkwasserkomitees (APR) und Netzwerken zur Wassergovernance.'
+          ],
+          technologies: ['Politikberatung', 'Umweltpolitik', 'Einzugsgebiets-Governance', 'Raumordnung', 'Umweltstandards'],
+          isVerified: true
+        },
+        {
+          id: 'exp-biomass-epn',
+          company: 'Environmental Paper Network (EPN) & Global Forest Coalition',
+          role: 'Hauptautor & internationaler Prüfer für Biomasse- und Klimapolitik',
+          location: 'International / Chile & Europa',
+          startDate: '2023',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Unabhängige wissenschaftliche Untersuchung und Hauptautorschaft des internationalen Berichts "Spotlight on Burning Biomass for Energy in South America: Community Opposition to a Power Plant in Parral, Chile". Fundierte Analyse von Bilanzierungslücken bei forstlicher Biomasse unter den EU-Richtlinien RED III und ETS.',
+          achievements: [
+            'Veröffentlichung als Hauptautor des internationalen EPN-Untersuchungsberichts.',
+            'Nachweis systemischer Lücken bei der CO2-Neutralität von Bioenergie und gesundheitlichen Auswirkungen.',
+            'Internationale Fachpräsentationen in forstpolitischen Netzwerken in Europa und Lateinamerika.'
+          ],
+          technologies: ['CO2-Bilanzierung', 'EU-Richtlinie RED III / ETS', 'Bioenergiepolitik', 'Umweltstandards'],
+          isVerified: true
+        },
+        {
+          id: 'exp-apruebo-rural',
+          company: 'Nationale Kampagne "Apruebo Rural"',
+          role: 'Generalkoordinator der Kampagne & Nationaler Pressedirektor',
+          location: 'Chile (14 Regionen)',
+          startDate: '2020',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Gesamtleitung der Kommunikationskampagne und der territorialen Mobilisierung von "Apruebo Rural" (2020-2023), die bäuerliche Kleinlandwirte, ländliche Trinkwasserkomitees und von Monokulturen betroffene Gemeinden mit nationalen Medien und öffentlichen Kundgebungen verband.',
+          achievements: [
+            'Nationale Rundreise durch 14 Regionen Chiles mit über 80 Gemeindeversammlungen.',
+            'Veröffentlichung von über 60 Meinungskolumnen, Fernsehbeiträgen und Radiosendungen zu Wasserrechten.',
+            'Verteilung von über 500.000 Bildungsmaterialien vor Ort und Organisation der Abschlusskundgebung.'
+          ],
+          technologies: ['Kampagnenleitung', 'Strategische Kommunikation', 'Transmedia Storytelling', 'Multi-Stakeholder-Koordination'],
+          isVerified: true
+        },
+        {
+          id: 'exp-primera-linea-prensa',
+          company: 'Primera Línea Prensa & Maule Sur Mediennetzwerk',
+          role: 'Gründer, Chefredakteur & Investigativjournalist für Umweltfragen',
+          location: 'Chile',
+          startDate: '2019',
+          endDate: '2023',
+          isCurrent: false,
+          summary: 'Mitgründer und Chefredakteur eines unabhängigen digitalen Mediums mit Schwerpunkt auf Bürgerjournalismus, Klimakrise, Waldkatastrophen und Menschenrechten mit über 700.000 organischen Followern. Konzeption und Leitung von Schulungsworkshops für 45 Bürgerjournalisten im ländlichen Raum.',
+          achievements: [
+            'Aufbau einer digitalen Reichweite auf über 700.000 Follower mit Millionen monatlicher Impressionen.',
+            'Schulung und Zertifizierung von 45 ländlichen Bürgerkorrespondenten.',
+            'Veröffentlichung von Recherchen in Tomate Rojo, El Desconcierto, Resumen.cl und OLCA.'
+          ],
+          technologies: ['Investigativer Journalismus', 'Redaktionsleitung', 'Radio & Podcast', 'Social Media', 'Fact-Checking'],
+          isVerified: true
+        },
+        {
+          id: 'exp-cau-kiel',
+          company: 'Christian-Albrechts-Universität zu Kiel & Adam Mickiewicz University',
+          role: 'Wissenschaftlicher Mitarbeiter in Hydrogeophysik und THG-Flüssen in Mooren',
+          location: 'Kiel (Deutschland) / Poznań (Polen)',
+          startDate: '2023',
+          endDate: 'Heute',
+          isCurrent: true,
+          summary: 'Empirische Quantifizierung von Treibhausgasflüssen (CO2, CH4) in wiedervernässten Mooren unter der EU-Wasserrahmenrichtlinie. Biophysikalische Grundlage für Renaturierungs- und Klimapolitik.',
+          achievements: [
+            'Kontinuierliche Kohlenstoffbilanzierung unter mikrometeorologischen Antrieben.',
+            'Limnologische Untersuchungen unter der EU-Wasserrahmenrichtlinie.'
+          ],
+          technologies: ['R', 'Python', 'QGIS', 'EU-Wasserrahmenrichtlinie', 'Bodenphysik'],
+          isVerified: true
+        }
+      ],
+      education: initialProfile.education,
+      skills: initialProfile.skills,
+      languages: initialProfile.languages,
+      achievements: [
+        {
+          id: 'ach-1',
+          title: 'Sachverständigengutachten vor der chilenischen Abgeordnetenkammer',
+          description: 'Physikalischer und kartographischer Nachweis des Zusammenhangs zwischen Forstplantagen und Waldbränden, offiziell in Parlamentsakten aufgenommen.',
+          metrics: 'Offizielle parlamentarische Stellungnahme',
+          tags: ['Kongress', 'Waldbrände', 'Forstmodell', 'Einzugsgebiete'],
+          date: '2024-03-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-4',
+          title: 'Hauptautor internationaler Prüfbericht zu forstlicher Biomasse & RED III (EPN)',
+          description: 'Aufdeckung von Bilanzierungslücken und falschen Erneuerbare-Energien-Deklarationen bei forstlicher Bioenergie unter EU RED III und ETS.',
+          metrics: 'Lead Author // Internationaler EPN-Bericht',
+          tags: ['Biomasse', 'CO2-Bilanzierung', 'RED III', 'EPN'],
+          date: '2023-06-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-8',
+          title: 'Leitung der landesweiten Kampagne "Apruebo Rural"',
+          description: 'Territoriale Mobilisierung in 14 Regionen mit über 80 Versammlungen und Verteilung von über 500.000 Informationsmaterialien.',
+          metrics: '14 Regionen // 80+ Versammlungen // 500K+ Kits',
+          tags: ['Apruebo Rural', 'Wassergovernance', 'Mobilisierung'],
+          date: '2022-09-01',
+          isVerified: true
+        },
+        {
+          id: 'ach-3',
+          title: 'Schulungsworkshop für ländliche Bürgerkorrespondenten',
+          description: 'Konzeption und Durchführung von Trainings zu mobilem Journalismus und Ethik für über 45 ländliche Gemeindevertreter.',
+          metrics: '45+ Ausgebildete Korrespondenten',
+          tags: ['Bürgerbildung', 'Maule Sur', 'Mobiler Journalismus', 'Medien'],
+          date: '2021-12-01',
+          isVerified: true
+        }
+      ],
+      otherCourses: [
+        'Doughnut Economics Practitioner (DEAL Doughnut Economics Action Lab, Kopenhagen, Dänemark, 2025)',
+        'Interlinked Justice & Resilient Landscapes (Leibniz-Institut IOER, Dresden, Deutschland, 2024–2025)',
+        'Grüne Ökonomie und Finanzialisierung der Natur (Censat Agua Viva & Friends of the Earth, Bogotá, 2022)',
+        'Zertifizierter Permakultur-Designkurs - CDP (EPAC & Fundación Suelo, 2023)',
+        '3. Sommerschule: Resiliente Küsten ((CR)2, Universidad de Chile, 2023)'
       ]
     }
   }

@@ -86,10 +86,22 @@ export const offerText = (offer: StudioConfig['offer']): string => {
 };
 
 const TACTICAL_ANGLE_KEYWORDS: Record<Exclude<TacticalAngle, 'general'>, string[]> = {
+  ai_earth: [
+    'digital twin', 'gemelo digital', 'digital twins', 'gemelos digitales', 'digitale zwillinge',
+    'earth system', 'earth observation', 'destination earth', 'destine', 'pinns', 'physics-informed',
+    'data assimilation', 'asimilación de datos', 'surrogate', 'copernicus', 'python', 'three.js',
+    'agritwin', 'wetland monitor', 'rewilding field suite', 'machine learning', 'mlops'
+  ],
   biofisica: ['eddy covariance', 'peatland', 'turbera', 'moor', 'ghg', 'gei', 'greenhouse', 'paludiculture', 'paludicultura', 'soil', 'suelo', 'boden', 'biogeochemistry'],
   mrv_carbon: ['remote sensing', 'teledetección', 'earth observation', 'gee', 'google earth engine', 'sentinel', 'carbon', 'wetland monitor', 'satelital', 'mrv'],
   cat_risk: ['wildfire', 'incendio', 'catchment', 'cuenca', 'hydrology', 'hidrología', 'riesgo', 'hazard', 'geophysics', 'geofísica'],
-  politicas: ['congreso', 'policy', 'política', 'senado', 'water code', 'código de aguas', 'cuenca', 'watershed', 'comunicación']
+  politicas: [
+    'congreso', 'policy', 'política', 'senado', 'water code', 'código de aguas', 'cuenca',
+    'watershed', 'comunicación', 'degrowth', 'decrecimiento', 'political ecology',
+    'ecología política', 'advocacy', 'incidencia', 'just transition', 'transición justa',
+    'doughnut economics', 'stakeholder', 'governance', 'gobernanza', 'public policy',
+    'políticas públicas', 'apruebo rural', 'epn', 'biomass', 'biomasa', 'red iii', 'carbon accounting'
+  ]
 };
 
 export const scoreFacts = (offer: StudioConfig['offer'], tacticalAngle?: TacticalAngle): ScoredFact[] => {

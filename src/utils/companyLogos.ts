@@ -116,7 +116,17 @@ export const COMPANY_CURATED_LOGOS: Record<string, string> = {
   'comp-niva': 'https://www.google.com/s2/favicons?domain=niva.no&sz=128',
   'comp-lund-university': 'https://www.google.com/s2/favicons?domain=lu.se&sz=128',
   'comp-geomar': 'https://www.google.com/s2/favicons?domain=geomar.de&sz=128',
-  'comp-ecmwf': 'https://www.google.com/s2/favicons?domain=ecmwf.int&sz=128'
+  'comp-ecmwf': 'https://www.google.com/s2/favicons?domain=ecmwf.int&sz=128',
+  'comp-icta-uab': 'https://www.google.com/s2/favicons?domain=uab.cat&sz=128',
+  'comp-wuppertal-institut': 'https://www.google.com/s2/favicons?domain=wupperinst.org&sz=128',
+  'comp-oeko-institut': 'https://www.google.com/s2/favicons?domain=oeko.de&sz=128',
+  'comp-ecologic-institute': 'https://www.google.com/s2/favicons?domain=ecologic.eu&sz=128',
+  'comp-eeb-brussels': 'https://www.google.com/s2/favicons?domain=eeb.org&sz=128',
+  'comp-can-europe': 'https://www.google.com/s2/favicons?domain=caneurope.org&sz=128',
+  'comp-iddri-paris': 'https://www.google.com/s2/favicons?domain=iddri.org&sz=128',
+  'comp-rifs-potsdam': 'https://www.google.com/s2/favicons?domain=rifs-potsdam.de&sz=128',
+  'comp-ioer-dresden': 'https://www.google.com/s2/favicons?domain=ioer.de&sz=128',
+  'comp-boell-stiftung': 'https://www.google.com/s2/favicons?domain=boell.de&sz=128'
 };
 
 /**

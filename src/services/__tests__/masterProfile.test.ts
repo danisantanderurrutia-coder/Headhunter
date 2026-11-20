@@ -99,10 +99,10 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(permacultureInCourses).toBe(true);
   });
 
-  it('el banco de logros contiene 8 hitos verificados con métricas específicas sin redundancia textual', () => {
-    expect(initialProfile.achievementsBank.length).toBe(8);
+  it('el banco de logros contiene 9 hitos verificados con métricas específicas sin redundancia textual', () => {
+    expect(initialProfile.achievementsBank.length).toBe(9);
     const titles = initialProfile.achievementsBank.map((a) => a.title);
-    expect(new Set(titles).size).toBe(8);
+    expect(new Set(titles).size).toBe(9);
     // Cada logro tiene métricas no vacías y verificadas
     initialProfile.achievementsBank.forEach((ach) => {
       expect(ach.metrics).toBeTruthy();

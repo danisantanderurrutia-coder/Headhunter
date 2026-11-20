@@ -175,6 +175,33 @@ export const CANONICAL_PORTFOLIO_WEAPONS: PortfolioWeapon[] = [
     relevanceTriggers: ['carbon', 'kohlenstoff', 'carbono', 'biomass', 'biomasse', 'accounting', 'bilanzierung', 'policy', 'international', 'emissions'],
     whyInclude: 'Acredita rigor metodológico en balances de carbono y detección de brechas de contabilidad biofísica a escala europea.',
     suggestedInjection: 'Lead author of international investigative reports on biomass subsidies and carbon accounting integrity under EU RED III (EPN & GFC, 2023).'
+  },
+  {
+    id: 'w-apruebo-rural-advocacy',
+    name: 'Dirección de Campaña Nacional & Articulación Comunitaria (Apruebo Rural)',
+    category: 'policy',
+    matchedKeywords: ['apruebo rural', 'campaña', 'campaign', 'comunicación pública', 'participación comunitaria', 'comités de agua', 'apr', 'asambleas'],
+    relevanceTriggers: ['campaign', 'campaña', 'comunicación', 'stakeholder', 'community', 'comunidad', 'participación', 'governance', 'gobernanza', 'advocacy', 'outreach', 'educación'],
+    whyInclude: 'Demuestra liderazgo operativo y articulación masiva con comunidades rurales y comités de agua potable (80+ asambleas en 14 regiones).',
+    suggestedInjection: 'General Campaign Coordinator for "Apruebo Rural" (2020-2023), leading nationwide territorial outreach across 14 regions and 80+ rural water assemblies.'
+  },
+  {
+    id: 'w-political-ecology-degrowth',
+    name: 'Producción en Ecología Política, Decrecimiento & Límites Planetarios',
+    category: 'policy',
+    matchedKeywords: ['ecología política', 'political ecology', 'degrowth', 'decrecimiento', 'post-extractivismo', 'doughnut economics', 'límites planetarios', 'olca', 'world degrowth'],
+    relevanceTriggers: ['degrowth', 'decrecimiento', 'political ecology', 'ecología política', 'transición justa', 'just transition', 'doughnut', 'post-extractiv', 'justice', 'justicia'],
+    whyInclude: 'Acredita solvencia teórica y ensayística en economía ecológica, decrecimiento y justicia socioambiental (Conferencia de Decrecimiento de Oslo, ENJUST Bonn, OLCA).',
+    suggestedInjection: 'Published analyst and speaker at the World Degrowth Conference (Oslo, 2025) and author of the political ecology series "Ser libres al borde del abismo" (OLCA).'
+  },
+  {
+    id: 'w-digital-twins-earth-ai',
+    name: 'Gemelos Digitales & Earth System Data Science (PINNs / Copernicus)',
+    category: 'software',
+    matchedKeywords: ['gemelos digitales', 'digital twins', 'digitale zwillinge', 'earth system data science', 'pinns', 'physics-informed', 'asimilación de datos', 'destination earth'],
+    relevanceTriggers: ['digital twin', 'gemelo digital', 'earth system', 'earth observation', 'copernicus', 'pinn', 'machine learning', 'asimilación', 'telemetría', 'surrogate', 'emulator'],
+    whyInclude: 'Posiciona tu perfil en la vanguardia europea de gemelos digitales de la Tierra (Destination Earth, Copernicus, Helmholtz AI) fusionando física biofísica y ML.',
+    suggestedInjection: 'Architect of 3 production environmental digital twins & platforms, combining physics-informed machine learning with satellite telemetry and in-situ sensor networks.'
   }
 ];
 
@@ -190,7 +217,9 @@ const KEYWORD_SYNONYMS: Record<string, string[]> = {
   soil: ['soil', 'boden', 'suelo', 'unterboden', 'subsoil'],
   carbon: ['carbon', 'kohlenstoff', 'carbono', 'sequestrierung', 'sequestration', 'c-sequestrierung'],
   geophysics: ['geophysics', 'geofísica', 'geophysik', 'ves', 'sev', 'schlumberger', 'resistivity', 'resistividad'],
-  isotopes: ['isotope', 'isotop', 'isótopo', '13c', '15n']
+  isotopes: ['isotope', 'isotop', 'isótopo', '13c', '15n'],
+  digital_twins: ['digital twin', 'digital twins', 'digitaler zwilling', 'digitale zwillinge', 'gemelo digital', 'gemelos digitales'],
+  earth_ai: ['earth system', 'erdbeobachtung', 'earth observation', 'destination earth', 'pinn', 'pinns', 'physics-informed', 'data assimilation', 'asimilación de datos']
 };
 
 export const matchesKeywordOrSynonym = (textLower: string, keyword: string): boolean => {
@@ -236,7 +265,10 @@ const PHYSICAL_ASYMMETRY_KEYWORDS = [
   'flujo preferencial', 'preferential flow', 'bypass flow',
   'rauschen', 'signal-to-noise', 'ruido',
   'incertidumbre', 'uncertainty', 'unsicherheit',
-  'cuantitativo', 'quantitative', 'quantitativ'
+  'cuantitativo', 'quantitative', 'quantitativ',
+  'gemelos digitales', 'digital twins', 'digitale zwillinge',
+  'earth system data science', 'physics-informed', 'pinns',
+  'asimilación de datos', 'data assimilation', 'destination earth'
 ];
 
 // Palabras que delatan enfoque puramente agronómico o biológico genérico

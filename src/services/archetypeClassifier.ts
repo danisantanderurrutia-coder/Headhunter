@@ -156,55 +156,58 @@ export const ARCHETYPE_PROFILES: Record<ApplicationArchetype, ArchetypeProfile> 
 
   MULTILATERAL_GOVERNANCE: {
     id: 'MULTILATERAL_GOVERNANCE',
-    label: 'Gobernanza Climática & Organismos Multilaterales',
-    shortLabel: 'Gobernanza Multilateral',
+    label: 'Gobernanza Climática, Políticas Públicas & Think Tanks',
+    shortLabel: 'Gobernanza & Políticas',
     icon: '🌐',
     badgeClass: 'bg-sky-500/15 text-sky-400 border-sky-500/30',
     targetReader: {
-      roleTitle: 'Senior Programme Officer / Panel de Selección de RRHH y Convocatoria',
+      roleTitle: 'Senior Programme Officer / Director de Políticas / Panel Convocatoria',
       psychology:
-        'Oficial de programa o panel evaluador que coteja estrictamente los Términos de Referencia (ToR). Busca solvencia diplomática, rigor frente a delegaciones estatales y capacidad demostrada de interlocución institucional.',
+        'Oficial de programa, director de think tank o evaluador de políticas que valora la fundamentación empírica indiscutible, la solvencia institucional y la capacidad de traducir ciencia compleja en marcos regulatorios, directivas y acuerdos de gobernanza.',
       redFlags: [
-        'No estructurar las respuestas en base a los criterios exactos del ToR',
-        'Tono informal o personalista',
-        'Falta de evidencia en entornos multinacionales o regulatorios',
-        'Omisión de idiomas de trabajo oficiales (Inglés / Español / Francés)'
+        'No estructurar las respuestas en base a los criterios exactos del ToR o mandato',
+        'Tono puramente activista sin rigor cuantitativo o evidencia empírica',
+        'Falta de evidencia en entornos multinacionales, legislativos o regulatorios',
+        'Omisión de idiomas de trabajo oficiales (Inglés / Español / Alemán / Francés)'
       ]
     },
     stressTest: {
       hiddenObjection:
-        '¿Posee este candidato la madurez diplomática e institucional para interactuar con ministerios, comités multilaterales y delegaciones sin desvíos técnicos?',
+        '¿Posee este candidato la madurez diplomática, legislativa e institucional para interactuar con ministerios, comités multilaterales y delegaciones sin desvíos técnicos?',
       suggestedDisarm:
-        'Cuento con experiencia de interlocución institucional de primer orden, habiendo testificado formalmente como perito técnico ante el Congreso Nacional de Chile sobre riesgo forestal e hídrico y colaborado con redes globales como EPN.'
+        'Cuento con experiencia de interlocución institucional de primer orden, habiendo testificado formalmente como perito técnico ante el Congreso Nacional de Chile sobre riesgo forestal e hídrico, colaborado con redes globales como EPN en directivas europeas (RED III) y coordinado procesos territoriales a escala nacional.'
     },
     tacticalClosing: {
       proposedDiscussion:
-        'Alineación del protocolo de observatorios satelitales con las directivas de reporte de las NDCs y los Términos de Referencia.',
+        'Alineación del análisis biofísico de cuencas y carbono con las directivas de reporte, NDCs y gobernanza participativa.',
       snippetTemplate:
-        'Quedo a su disposición para coordinar una sesión de trabajo donde detallar la articulación de metodologías satelitales con el marco de gobernanza del programa.'
+        'Quedo a su disposición para coordinar una sesión de trabajo donde detallar la articulación de metodologías cuantitativas con el marco de políticas públicas y gobernanza del programa.'
     },
     wingmanGuidance: {
       formatStyle: 'Competency-Based Cover Letter / Declaración de Motivación Institucional (Estructura STAR/CAR)',
       targetWordCount: { min: 420, ideal: 500, max: 620 },
       preferredTone: 'diplomatic_governance',
       vocabularyFocus: [
-        'MARS Framework',
-        'Satellite Observatories',
         'Multi-stakeholder Governance',
         'Climate Diplomacy',
+        'Environmental Policy',
+        'Just Transition',
+        'Political Ecology',
+        'Territorial Governance',
+        'Degrowth / Planetary Boundaries',
+        'EU Directives (RED III/Nature Restoration)',
         'NDCs / IPCC Guidelines',
-        'Environmental Compliance',
         'Institutional Testimony'
       ],
       openingStrategy:
-        'Alineación formal con el mandato de la misión (ej. reducción acelerada de metano / conservación de cuencas) y las competencias clave del aviso.',
+        'Alineación formal con el mandato de la misión (ej. políticas de transición justa, gobernanza de cuencas, salvaguardias ecológicas) y las competencias clave del aviso.',
       closingStrategy:
-        'Reiteración de compromiso con el mandato multilateral y disponibilidad geográfica y contractual inmediata.'
+        'Reiteración de compromiso con el mandato de políticas públicas y disponibilidad geográfica y contractual inmediata.'
     },
     headhunterGuidance: {
       outlierLever:
-        'Legitimidad técnica demostrada al más alto nivel del Estado: testimonio pericial ante el Congreso Nacional de Chile sobre riesgo hídrico y forestal, combinado con trabajo directo en redes globales de carbono (EPN / Global Forest Coalition).',
-      priorityWeapons: ['wp-005-congreso-chile', 'wp-006-epn-carbon', 'wp-002-wetland-sentinel'],
+        'Legitimidad técnica demostrada al más alto nivel del Estado: testimonio pericial ante el Congreso Nacional de Chile sobre riesgo hídrico y forestal, liderazgo en campaña territorial nacional (Apruebo Rural en 14 regiones) y trabajo de fiscalización en redes globales de carbono (EPN / Global Forest Coalition).',
+      priorityWeapons: ['w-congress-testimony', 'w-epn-carbon-report', 'w-apruebo-rural-advocacy', 'w-political-ecology-degrowth'],
       keyComplianceChecks: ['Bilingüismo demostrable', 'Títulos convalidados internacionalmente', 'Disponibilidad de movilidad']
     }
   },
@@ -292,7 +295,8 @@ export function classifyOfferArchetype(offer?: JobOffer | null): ArchetypeProfil
     'thünen', 'fraunhofer', 'helmholtz', 'universität', 'university of', 'cau kiel',
     'tu delft', 'bern uas', 'leibniz', 'max planck', 'promotionsstelle', 'phd candidate',
     'postdoc', 'wissenschaftliche', 'wissenschaftlicher mitarbeiter', 'tvöd', 'drilosphäre',
-    'lehrstuhl', 'forschungsprojekt', 'dfg', 'doktorand'
+    'lehrstuhl', 'forschungsprojekt', 'dfg', 'doktorand', 'ecmwf', 'destination earth', 'destine',
+    'dlr', 'ufz', 'geomar', 'earth system data science', 'digital twin earth'
   ];
   dachSignals.forEach((sig) => {
     if (textToScan.includes(sig)) dachScore += sig.length > 7 ? 3 : 2;
@@ -303,18 +307,22 @@ export function classifyOfferArchetype(offer?: JobOffer | null): ArchetypeProfil
     'supercritical', 'agreena', 'carbon removal', 'cdr', 'biochar', 'enhanced weathering',
     'startup', 'marketplace', 'seed', 'series a', 'series b', 'equity', 'mrv', 'venture',
     'fast-paced', '14,000x', 'remote-first', 'unlimited vacation', 'product manager',
-    'head of climate science'
+    'head of climate science', 'ororatech', 'sylvera', 'descartes underwriting', 'climate ai', 'digital twin'
   ];
   startupSignals.forEach((sig) => {
     if (textToScan.includes(sig)) startupScore += sig.length > 7 ? 3 : 2;
   });
 
-  // 3. Señales Multilateral & Gobernanza
+  // 3. Señales Multilateral, Gobernanza & Políticas Públicas
   const multilateralSignals = [
     'unep', 'united nations', 'naciones unidas', 'imeo', 'mars', 'fao', 'undp',
     'world bank', 'intergovernmental', 'multilateral', 'terms of reference', 'tor',
     'programme officer', 'consultancy agreement', 'international organisation', 'cop28',
-    'ipcc', 'policy advisor', 'gobierno', 'ministerio'
+    'ipcc', 'policy advisor', 'gobierno', 'ministerio', 'think tank', 'policy officer',
+    'environmental policy', 'political ecology', 'ecología política', 'just transition',
+    'transición justa', 'degrowth', 'decrecimiento', 'advocacy', 'incidencia', 'ngo',
+    'ong', 'icta', 'wuppertal', 'öko-institut', 'oeko-institut', 'ecologic institute',
+    'eeb', 'can europe', 'iddri', 'rifs', 'ioer', 'boell', 'böll'
   ];
   multilateralSignals.forEach((sig) => {
     if (textToScan.includes(sig)) multilateralScore += sig.length > 6 ? 3 : 2;

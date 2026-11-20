@@ -1277,6 +1277,12 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                         badge: 'Referencia'
                       },
                       {
+                        id: 'ai_earth' as TacticalAngle,
+                        name: 'Gemelos Digitales & IA Ambiental',
+                        desc: 'Earth System Data Science, PINNs, asimilación de datos y teledetección.',
+                        badge: 'IA & Clima'
+                      },
+                      {
                         id: 'biofisica' as TacticalAngle,
                         name: 'Biofísica & Eddy Covariance',
                         desc: 'Flujos GEI (CO₂, CH₄), turberas, cámaras cerradas e hidrofísica de suelos.',

@@ -3,12 +3,12 @@ export interface DailyPortal {
   name: string;
   quadrant: 'DACH' | 'EUSKADI' | 'EUROPA' | 'GLOBAL_REMOTE';
   quadrantLabel: string;
-  category: 'Científico / I+D' | 'General / Profesional' | 'Ambiental / Clima' | 'Gobernanza / Público';
+  category: 'Científico / I+D' | 'General / Profesional' | 'Ambiental / Clima' | 'Gobernanza / Público' | 'Institucional / Multilateral';
   directUrl: string;
   recommendedFrequency: 'Diario' | '2-3 veces/semana' | 'Semanal';
   suggestedKeywords: string[];
   description: string;
-  iconName: 'Linkedin' | 'Briefcase' | 'Compass' | 'Leaf' | 'GraduationCap' | 'Globe' | 'Search' | 'Building2' | 'CloudRain' | 'Landmark';
+  iconName: 'Linkedin' | 'Briefcase' | 'Compass' | 'Leaf' | 'GraduationCap' | 'Globe' | 'Search' | 'Building2' | 'CloudRain' | 'Landmark' | 'MapPin' | 'Cpu' | 'FileText' | 'Users';
 }
 
 export const DAILY_PORTALS: DailyPortal[] = [
@@ -529,5 +529,149 @@ export const DAILY_PORTALS: DailyPortal[] = [
     suggestedKeywords: ['Copernicus C3S', 'CAMS', 'Numerical Weather Prediction', 'Greenhouse Gases', 'Data Assimilation', 'Climate Reanalysis'],
     description: 'Organismo intergubernamental europeo en Bonn, Bolonia y Reading. Operador oficial de Copernicus Climate Change (C3S) con salarios internacionales libres de impuestos (6.000 - 9.500 € netos/mes).',
     iconName: 'Globe'
+  },
+  {
+    id: 'portal-helmholtz-ai',
+    name: 'Helmholtz AI & HIDA (Data Science & Earth System AI)',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / DACH',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.helmholtz.ai/jobs-opportunities/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Earth System AI', 'Physics-Informed ML', 'Digital Twin', 'Data Assimilation', 'Geosciences', 'TVöD E13'],
+    description: 'Plataforma de inteligencia artificial de los 18 centros Helmholtz de Alemania (UFZ, DLR, GEOMAR, KIT, Jülich). Financian vacantes de gemelos digitales y asimilación de datos con TVöD E13.',
+    iconName: 'GraduationCap'
+  },
+  {
+    id: 'portal-destine-esa',
+    name: 'Destination Earth (DestinE) & ESA Φ-lab (Earth Digital Twins)',
+    quadrant: 'EUROPA',
+    quadrantLabel: 'Europa / ESA & ECMWF',
+    category: 'Científico / I+D',
+    directUrl: 'https://destination-earth.eu/opportunities/',
+    recommendedFrequency: '2-3 veces/semana',
+    suggestedKeywords: ['Digital Twin Earth', 'DestinE', 'Climate Adaptation', 'PINNs', 'Copernicus Sentinel', 'Extreme Weather'],
+    description: 'Iniciativa insignia de la Comisión Europea (ESA, ECMWF, EUMETSAT) para crear gemelos digitales de alta resolución del sistema Tierra.',
+    iconName: 'Globe'
+  },
+  {
+    id: 'portal-icta-uab',
+    name: 'ICTA-UAB - Institut de Ciència i Tecnologia Ambientals',
+    quadrant: 'EUROPA',
+    quadrantLabel: 'España / Barcelona (Bellaterra)',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.uab.cat/icta/',
+    recommendedFrequency: 'Semanal',
+    suggestedKeywords: ['Political Ecology', 'Degrowth', 'Ecología Política', 'Decrecimiento', 'Environmental Justice', 'EJAtlas', 'Post-extractivism'],
+    description: 'Epicentro europeo de investigación en Ecología Política, Decrecimiento y Justicia Ambiental Global. Proyectos ERC avanzados y análisis de conflictos ecológicos.',
+    iconName: 'GraduationCap'
+  },
+  {
+    id: 'portal-wuppertal-institut',
+    name: 'Wuppertal Institut für Klima, Umwelt, Energie',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / Renania del Norte-Westfalia',
+    category: 'Científico / I+D',
+    directUrl: 'https://wupperinst.org/das-institut/karriere/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Just Transition', 'Gerechter Übergang', 'Klimapolitik', 'Kreislaufwirtschaft', 'Transformationsforschung', 'TVöD'],
+    description: 'Instituto líder alemán en investigación de políticas de transición justa, descarbonización industrial estructural y gobernanza socioecológica en Wuppertal y Berlín.',
+    iconName: 'Building2'
+  },
+  {
+    id: 'portal-oeko-institut',
+    name: 'Öko-Institut e.V. - Institut für angewandte Ökologie',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / Friburgo, Darmstadt & Berlín',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.oeko.de/das-institut/stellenangebote/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Umweltpolitik', 'Klima und Energie', 'Ressourcenschutz', 'Socio-ecological Transformation', 'Politikberatung', 'BMUV'],
+    description: 'Uno de los centros independientes de investigación y asesoría de políticas ambientales más prestigiosos de Europa. Informes directos para el gobierno alemán y la UE.',
+    iconName: 'Landmark'
+  },
+  {
+    id: 'portal-ecologic-institute',
+    name: 'Ecologic Institute - Science and Policy for a Sustainable World',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / Berlín & Bélgica (Bruselas)',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.ecologic.eu/jobs',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['EU Environmental Policy', 'Water Governance', 'Biodiversity Policy', 'Climate Law', 'Think Tank', 'Policy Analyst'],
+    description: 'Think tank internacional líder en evaluación de políticas ambientales de la UE, gobernanza del agua, directivas de restauración de la naturaleza y derecho ambiental.',
+    iconName: 'Landmark'
+  },
+  {
+    id: 'portal-eeb-brussels',
+    name: 'EEB - European Environmental Bureau',
+    quadrant: 'EUROPA',
+    quadrantLabel: 'Bélgica / Bruselas (UE)',
+    category: 'Gobernanza / Público',
+    directUrl: 'https://eeb.org/en/about/opportunities/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Policy Officer', 'Advocacy', 'EU Green Deal', 'Nature Restoration', 'Soil Health', 'Water Directive', 'NGO Campaigner'],
+    description: 'La mayor federación de ONGs ciudadanas ambientales de Europa (+180 miembros en Bruselas). Incidencia directa sobre el Parlamento y la Comisión Europea.',
+    iconName: 'Globe'
+  },
+  {
+    id: 'portal-can-europe',
+    name: 'CAN Europe - Climate Action Network Europe',
+    quadrant: 'EUROPA',
+    quadrantLabel: 'Bélgica / Bruselas (UE)',
+    category: 'Gobernanza / Público',
+    directUrl: 'https://caneurope.org/work-with-us/',
+    recommendedFrequency: 'Semanal',
+    suggestedKeywords: ['Climate Policy', 'Just Transition', 'EU Energy Policy', 'Climate Finance', 'Campaign Coordinator', 'Advocacy'],
+    description: 'Principal coalición de ONGs climáticas en Europa. Coordinación de incidencia sobre los marcos de reporte de la UE, NDCs y justicia climática.',
+    iconName: 'Globe'
+  },
+  {
+    id: 'portal-iddri-paris',
+    name: 'IDDRI - Institut du Développement Durable et des Relations Internationales',
+    quadrant: 'EUROPA',
+    quadrantLabel: 'Francia / París (Sciences Po)',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.iddri.org/en/about-iddri/careers',
+    recommendedFrequency: 'Semanal',
+    suggestedKeywords: ['International Climate Governance', 'Biodiversity', 'EU Agriculture Policy', 'Watershed Transitions', 'Policy Fellow'],
+    description: 'Think tank de investigación de políticas públicas vinculado a Sciences Po París. Referente en gobernanza internacional de biodiversidad, agua y clima.',
+    iconName: 'Landmark'
+  },
+  {
+    id: 'portal-rifs-potsdam',
+    name: 'RIFS Potsdam - Research Institute for Sustainability (Helmholtz)',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / Brandeburgo (Potsdam)',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.rifs-potsdam.de/de/institut/jobs',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Transformative Governance', 'Transición Justa', 'Partizipative Prozesse', 'Democracy & Sustainability', 'Helmholtz', 'TVöD E13'],
+    description: 'Instituto de la Asociación Helmholtz dedicado a la gobernanza democrática y social de las transformaciones hacia la sostenibilidad en Potsdam.',
+    iconName: 'Building2'
+  },
+  {
+    id: 'portal-ioer-dresden',
+    name: 'IOER Dresden - Leibniz Institute of Ecological Urban and Regional Development',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / Sajonia (Dresde)',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.ioer.de/karriere/stellenangebote',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Spatial Justice', 'Interlinked Justice', 'Resilient Landscapes', 'Landscape Ecology', 'Territorial Planning', 'Leibniz TV-L'],
+    description: 'Instituto de la Asociación Leibniz en Dresde. Investigación pionera en justicia espacial, ordenamiento ecológico de paisajes y resiliencia territorial.',
+    iconName: 'MapPin'
+  },
+  {
+    id: 'portal-boell-stiftung',
+    name: 'Heinrich-Böll-Stiftung - Ecología Política & Justicia Global',
+    quadrant: 'DACH',
+    quadrantLabel: 'Alemania / Berlín & Bélgica (Bruselas)',
+    category: 'Gobernanza / Público',
+    directUrl: 'https://www.boell.de/de/jobs-der-heinrich-boell-stiftung',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Politische Ökologie', 'Klimagerechtigkeit', 'Ressourcenpolitik', 'Global Dialogue', 'TVöD Bund E13', 'Think Tank'],
+    description: 'Fundación política alemana para la ecología política, la sostenibilidad democrática y la justicia territorial internacional con sedes en Berlín y Bruselas.',
+    iconName: 'Landmark'
   }
 ];

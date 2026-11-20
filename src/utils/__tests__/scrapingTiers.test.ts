@@ -15,6 +15,9 @@ describe('Scraping Tiers Classifier', () => {
     expect(resolveScrapingTier({ id: 'comp-uba' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-aarhus-university' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-geomar' })).toBe('auto_green');
+    expect(resolveScrapingTier({ id: 'comp-icta-uab' })).toBe('auto_green');
+    expect(resolveScrapingTier({ id: 'comp-rifs-potsdam' })).toBe('auto_green');
+    expect(resolveScrapingTier({ id: 'comp-ioer-dresden' })).toBe('auto_green');
   });
 
   it('correctly classifies Category 2 (ats_yellow) ATS portals and climate scale-ups', () => {
@@ -34,6 +37,13 @@ describe('Scraping Tiers Classifier', () => {
     expect(resolveScrapingTier({ id: 'comp-niva' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-lund-university' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-ecmwf' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-wuppertal-institut' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-oeko-institut' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-ecologic-institute' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-eeb-brussels' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-can-europe' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-iddri-paris' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-boell-stiftung' })).toBe('ats_yellow');
   });
 
   it('correctly classifies Category 3 (manual_red) labs, BOPV gazettes and multilateral agencies', () => {

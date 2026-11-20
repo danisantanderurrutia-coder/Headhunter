@@ -43,7 +43,7 @@ import type { ParsedCVResult } from '../../services/cvParser';
 import { generateMasterProfileMarkdown } from '../../utils/masterProfileMarkdown';
 import danielProfileImg from '../../assets/daniel_santander_profile.jpg';
 
-type TacticalFilter = 'all' | 'biofisica' | 'mrv' | 'cat_risk' | 'policy' | 'comms';
+type TacticalFilter = 'all' | 'ai_earth' | 'biofisica' | 'mrv' | 'cat_risk' | 'policy' | 'comms';
 
 export const MasterProfileTab: React.FC = () => {
   const [profile, setProfile] = useState<MasterProfile>(getStoredProfile());
@@ -369,6 +369,9 @@ export const MasterProfileTab: React.FC = () => {
   const matchesTactical = (exp: WorkExperience): boolean => {
     if (activeFilter === 'all') return true;
     const text = `${exp.role} ${exp.company} ${exp.summary} ${(exp.technologies || []).join(' ')}`.toLowerCase();
+    if (activeFilter === 'ai_earth') {
+      return text.includes('gemelo') || text.includes('digital') || text.includes('wetland') || text.includes('agritwin') || text.includes('software') || text.includes('three.js') || text.includes('python') || text.includes('sentinel');
+    }
     if (activeFilter === 'biofisica') {
       return text.includes('kiel') || text.includes('eddy covariance') || text.includes('turbera') || text.includes('gei') || text.includes('suelos') || text.includes('limnolog');
     }
@@ -566,6 +569,7 @@ export const MasterProfileTab: React.FC = () => {
               </span>
               {[
                 { id: 'all', label: 'Ver Todo (Completo)', icon: '🌐' },
+                { id: 'ai_earth', label: 'Gemelos Digitales & IA', icon: '🤖' },
                 { id: 'biofisica', label: 'Ciencia Biofísica & GEI', icon: '🔬' },
                 { id: 'mrv', label: 'MRV, Carbono & Satélites', icon: '🛰️' },
                 { id: 'cat_risk', label: 'Riesgo Físico & Incendios', icon: '🔥' },

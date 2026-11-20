@@ -66,7 +66,7 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   if (text.includes('madrid')) {
     return [40.4168 + dLat, -3.7038 + dLng];
   }
-  if (text.includes('barcelona') || text.includes('cerdanyola')) {
+  if (text.includes('barcelona') || text.includes('cerdanyola') || text.includes('bellaterra') || text.includes('icta')) {
     return [41.3879 + dLat, 2.1699 + dLng];
   }
   if (text.includes('zaragoza')) {
@@ -124,6 +124,12 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   }
   if (text.includes('kiel')) {
     return [54.3233 + dLat, 10.1228 + dLng];
+  }
+  if (text.includes('wuppertal')) {
+    return [51.2562 + dLat, 7.1508 + dLng];
+  }
+  if (text.includes('dresden') || text.includes('dresde')) {
+    return [51.0504 + dLat, 13.7373 + dLng];
   }
 
   // 3. Austria & Suiza
