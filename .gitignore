@@ -27,3 +27,6 @@ dist-ssr
 .env.*
 demo/
 scripts/*.html
+
+# Personal application folders
+Aplicación Madrid/

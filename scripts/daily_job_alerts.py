@@ -27,6 +27,9 @@ import urllib.error
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from connectors.base import is_deadline_expired, parse_deadline
+
 DEFAULT_RECIPIENT = "danisantander.urrutia@gmail.com"
 DEFAULT_KEYWORDS = [
     "boden", "bodenkunde", "klima", "klimaschutz", "agrar", "wald",
@@ -90,40 +93,75 @@ def extract_field_from_desc(desc: str, label: str) -> str:
 
 
 def load_all_scraped_sources():
-    """Load Basque/Spanish research institutions and top international matches from jobs.json."""
+    """Load categorized opportunities from public/data/jobs.json."""
     basque_offers = []
+    academic_dach_offers = []
+    climate_tech_offers = []
     intl_offers = []
 
     if not os.path.exists(JOBS_DATA_PATH):
-        return basque_offers, intl_offers
+        return basque_offers, academic_dach_offers, climate_tech_offers, intl_offers
 
     try:
         with open(JOBS_DATA_PATH, "r", encoding="utf-8") as f:
             all_jobs = json.load(f)
 
         for j in all_jobs:
-            src = j.get("sourceId", "")
+            src = j.get("sourceId", "").lower()
             title = j.get("title", "")
             company = j.get("company", "")
             desc = j.get("rawDescription", "")
             matched = j.get("matchedKeywords", [])
+            deadline = j.get("deadline", "Consultar convocatoria")
+            salary = j.get("salary", "")
 
-            # Categorize Basque & Spanish Research / Governance Centers
+            # Excluir ofertas caducadas
+            if deadline and is_deadline_expired(deadline):
+                continue
+
+            # 1. Basque / Spanish Institutions
             if any(k in src for k in ["bc3", "tecnalia", "neiker", "ihobe", "idom"]):
                 basque_offers.append({
                     "title": title,
                     "company": company,
                     "location": j.get("location", "Euskadi / España"),
                     "url": j.get("url", ""),
-                    "deadline": "Convocatoria activa",
-                    "salary": "Escala I+D+i / Convenio entidad",
-                    "score": 90,
-                    "snippet": desc[:220] + "..."
+                    "deadline": deadline or "Convocatoria activa",
+                    "salary": salary or "Escala I+D+i / Convenio entidad",
+                    "score": 92,
+                    "snippet": desc[:240] + "..."
                 })
+
+            # 2. Category 1: DACH Academic & Research Centers
+            elif any(k in src for k in ["ethz", "eawag", "freiburg", "univie", "boku", "juelich"]):
+                academic_dach_offers.append({
+                    "title": title,
+                    "company": company,
+                    "location": j.get("location", "Suiza / Alemania / Austria"),
+                    "url": j.get("url", ""),
+                    "deadline": deadline,
+                    "salary": salary or "Escala Académica Oficial (TV-L / TVöD / ETH)",
+                    "score": 90,
+                    "snippet": desc[:240] + "..."
+                })
+
+            # 3. Category 2: Climate Tech & Earth Observation Startups (ATS APIs)
+            elif any(k in src for k in ["planet", "constellr", "sylvera", "ororatech", "mitiga", "pachama"]):
+                climate_tech_offers.append({
+                    "title": title,
+                    "company": company,
+                    "location": j.get("location", "Europa / Remoto"),
+                    "url": j.get("url", ""),
+                    "deadline": "Vacante activa en ATS",
+                    "salary": salary or "Compensación Startup / Scale-up",
+                    "score": 88,
+                    "snippet": desc[:240] + "..."
+                })
+
+            # 4. Global aggregators & remote
             elif any(k in src for k in ["arbeitnow", "remotive", "jobicy"]):
-                # High-match international and remote offers
-                if len(matched) >= 3 or any(w in (title + " " + desc).lower() for w in ["climate", "carbon", "soil", "eddy", "remote sensing", "gis"]):
-                    score = min(92, 65 + (len(matched) * 7))
+                if len(matched) >= 2 or any(w in (title + " " + desc).lower() for w in ["climate", "carbon", "soil", "eddy", "remote sensing", "gis"]):
+                    score = min(90, 65 + (len(matched) * 7))
                     intl_offers.append({
                         "title": title,
                         "company": company,
@@ -135,13 +173,15 @@ def load_all_scraped_sources():
                         "snippet": desc[:200] + "..."
                     })
 
-        # Sort international offers by match score
+        # Sort lists by match score
+        academic_dach_offers.sort(key=lambda x: x["score"], reverse=True)
+        climate_tech_offers.sort(key=lambda x: x["score"], reverse=True)
         intl_offers.sort(key=lambda x: x["score"], reverse=True)
 
     except Exception as e:
         print(f"[!] Aviso al leer jobs.json: {e}")
 
-    return basque_offers, intl_offers
+    return basque_offers, academic_dach_offers, climate_tech_offers, intl_offers
 
 
 def fetch_bund_rss_jobs(keywords: list):
@@ -170,12 +210,23 @@ def fetch_bund_rss_jobs(keywords: list):
                 location = extract_field_from_desc(desc, "Ort")
                 deadline = extract_field_from_desc(desc, "Bewerbungsfrist")
 
+                # 1. Filtro estricto de caducidad: descartar ofertas cuyo plazo ya venció
+                if deadline and is_deadline_expired(deadline):
+                    continue
+
                 full_text = f"{title} {desc} {employer} {location}".lower()
 
                 match_count = sum(1 for kw in keywords if kw.lower() in full_text)
                 is_high_priority = any(emp in full_text for emp in HIGH_PRIORITY_EMPLOYERS)
 
                 if match_count > 0 or is_high_priority:
+                    # Detectar si el cierre es inminente (plazo en <= 7 días)
+                    parsed_dl = parse_deadline(deadline)
+                    is_urgent = False
+                    if parsed_dl:
+                        days_left = (parsed_dl - datetime.utcnow().date()).days
+                        is_urgent = 0 <= days_left <= 7
+
                     score = min(95, 60 + (match_count * 8) + (15 if is_high_priority else 0))
                     matched.append({
                         "title": title,
@@ -186,7 +237,7 @@ def fetch_bund_rss_jobs(keywords: list):
                         "salary": "TVöD Bund / TV-L (según convocatoria)",
                         "pub_date": pub_date,
                         "score": score,
-                        "urgent": False,
+                        "urgent": is_urgent,
                         "snippet": clean_html(desc)[:220] + "..."
                     })
 
@@ -197,9 +248,9 @@ def fetch_bund_rss_jobs(keywords: list):
     return matched
 
 
-def build_html_digest(recipient: str, german_curated: list, basque_offers: list, bund_rss_offers: list, intl_offers: list, run_date: str) -> str:
+def build_html_digest(recipient: str, german_curated: list, academic_dach: list, climate_tech: list, basque_offers: list, bund_rss_offers: list, intl_offers: list, run_date: str) -> str:
     """Generate a multi-theater, responsive HTML email digest."""
-    total_offers = len(german_curated) + len(basque_offers) + len(bund_rss_offers[:5]) + len(intl_offers[:4])
+    total_offers = len(german_curated) + len(academic_dach[:6]) + len(climate_tech[:6]) + len(basque_offers) + len(bund_rss_offers[:5]) + len(intl_offers[:3])
 
     def render_card(off, border_color="#10b981", badge_text=None):
         badge = badge_text or f"MATCH {off.get('score', 85)}%"
@@ -237,9 +288,11 @@ def build_html_digest(recipient: str, german_curated: list, basque_offers: list,
         """
 
     german_cards = "".join(render_card(o, border_color="#ef4444" if o.get("urgent") else "#38bdf8") for o in german_curated)
-    basque_cards = "".join(render_card(o, border_color="#10b981") for o in basque_offers)
+    academic_cards = "".join(render_card(o, border_color="#0284c7") for o in academic_dach[:6])
+    climate_tech_cards = "".join(render_card(o, border_color="#10b981") for o in climate_tech[:6])
+    basque_cards = "".join(render_card(o, border_color="#14b8a6") for o in basque_offers)
     bund_cards = "".join(render_card(o, border_color="#8b5cf6") for o in bund_rss_offers[:5])
-    intl_cards = "".join(render_card(o, border_color="#06b6d4") for o in intl_offers[:4])
+    intl_cards = "".join(render_card(o, border_color="#06b6d4") for o in intl_offers[:3])
 
     html = f"""
     <!DOCTYPE html>
@@ -266,7 +319,7 @@ def build_html_digest(recipient: str, german_curated: list, basque_offers: list,
             <!-- Content Container -->
             <div style="padding: 24px;">
                 <p style="color: #94a3b8; font-size: 13px; margin-top: 0; line-height: 1.5;">
-                    Rastreo automático consolidado en <strong>Alemania (Thünen, UBA, service.bund.de)</strong>, <strong>Euskadi/España (BC3, Tecnalia, Neiker, IHOBE, IDOM)</strong> y <strong>plataformas internacionales (Arbeitnow, Remotive, Jobicy)</strong>:
+                    Rastreo automático consolidado por APIs de ATS, RSS oficiales y web scraping directo en centros de investigación y scale-ups climáticas:
                 </p>
 
                 <!-- Section 1: Alemania Prioritaria -->
@@ -277,31 +330,51 @@ def build_html_digest(recipient: str, german_curated: list, basque_offers: list,
                     {german_cards}
                 </div>
 
-                <!-- Section 2: Euskadi & España -->
+                <!-- Section 2: Centros Académicos DACH (Cat. 1) -->
+                {f'''
+                <div style="margin-top: 26px;">
+                    <div style="font-size: 12px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
+                        🎓 2. Universidades y Centros DACH (ETH Zürich, Eawag, Freiburg, UniVie, BOKU)
+                    </div>
+                    {academic_cards}
+                </div>
+                ''' if academic_cards else ''}
+
+                <!-- Section 3: Startups & MRV Satelital (Cat. 2 ATS APIs) -->
                 {f'''
                 <div style="margin-top: 26px;">
                     <div style="font-size: 12px; font-weight: 700; color: #10b981; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🌿 2. Centros de I+D en Euskadi & España (BC3, Tecnalia, Neiker, IHOBE, IDOM)
+                        🛰️ 3. Startups Climáticas, Satelitales y MRV (Planet Labs, ConstellR, Sylvera)
+                    </div>
+                    {climate_tech_cards}
+                </div>
+                ''' if climate_tech_cards else ''}
+
+                <!-- Section 4: Euskadi & España -->
+                {f'''
+                <div style="margin-top: 26px;">
+                    <div style="font-size: 12px; font-weight: 700; color: #14b8a6; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
+                        🌿 4. Centros de I+D en Euskadi & España (BC3, Tecnalia, Neiker, IHOBE, IDOM)
                     </div>
                     {basque_cards}
                 </div>
                 ''' if basque_cards else ''}
 
-                <!-- Section 3: Sector Público Federal Alemán -->
+                <!-- Section 5: Sector Público Federal Alemán -->
                 {f'''
                 <div style="margin-top: 26px;">
                     <div style="font-size: 12px; font-weight: 700; color: #a855f7; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🏛️ 3. Novedades del Sector Público Federal Alemán (service.bund.de)
+                        🏛️ 5. Convocatorias Federales en Alemania (service.bund.de)
                     </div>
                     {bund_cards}
                 </div>
                 ''' if bund_cards else ''}
 
-                <!-- Section 4: Remoto & Europa -->
+                <!-- Section 6: Remoto & Global -->
                 {f'''
                 <div style="margin-top: 26px;">
                     <div style="font-size: 12px; font-weight: 700; color: #06b6d4; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
-                        🌍 4. Oportunidades Remotas & Europa (Arbeitnow, Remotive, Jobicy)
+                        🌍 6. Oportunidades Remotas & Internacionales (Arbeitnow, Remotive)
                     </div>
                     {intl_cards}
                 </div>
@@ -310,8 +383,8 @@ def build_html_digest(recipient: str, german_curated: list, basque_offers: list,
                 <!-- Footer -->
                 <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid #1e293b; text-align: center;">
                     <p style="color: #64748b; font-size: 11px; margin: 0;">
-                        Generado automáticamente mediante GitHub Actions con tus filtros de clima, suelos, gobernanza y datos.<br/>
-                        Gestión 100% privada sin bases de datos externas.
+                        Generado automáticamente por Job Search OS mediante ingestión de APIs de ATS, RSS y web scraping.<br/>
+                        Gestión 100% privada sin intermediarios comerciales.
                     </p>
                 </div>
             </div>
@@ -422,18 +495,18 @@ def main():
     print(f"   Fecha: {now_str}")
     print("==================================================")
 
-    # 1. Load Basque/Spanish institutions and international jobs from jobs.json
-    basque_offers, intl_offers = load_all_scraped_sources()
-    print(f"[*] Encontradas {len(basque_offers)} convocatorias en Euskadi/España y {len(intl_offers)} internacionales.")
+    # 1. Load categorized opportunities from jobs.json
+    basque_offers, academic_dach, climate_tech, intl_offers = load_all_scraped_sources()
+    print(f"[*] Ingestadas desde jobs.json: {len(academic_dach)} académicas DACH, {len(climate_tech)} startups climáticas/ATS, {len(basque_offers)} Euskadi/España, {len(intl_offers)} internacionales.")
 
     # 2. Fetch service.bund.de RSS feed
     rss_matches = fetch_bund_rss_jobs(DEFAULT_KEYWORDS)
     print(f"[*] Encontradas {len(rss_matches)} ofertas coincidentes en service.bund.de")
 
     # 3. Build Multi-theater HTML Digest
-    total_count = len(CURATED_GERMAN_OFFERS) + len(basque_offers) + len(rss_matches[:5]) + len(intl_offers[:4])
-    subject = f"🎯 [Empleo 9:00 AM] {total_count} Convocatorias: Thünen, UBA, Euskadi & Remoto"
-    html_content = build_html_digest(recipient, CURATED_GERMAN_OFFERS, basque_offers, rss_matches, intl_offers, now_str)
+    total_count = len(CURATED_GERMAN_OFFERS) + len(academic_dach[:6]) + len(climate_tech[:6]) + len(basque_offers) + len(rss_matches[:5]) + len(intl_offers[:3])
+    subject = f"🎯 [Empleo 9:00 AM] {total_count} Convocatorias: DACH, Climate-Tech, Euskadi & Remoto"
+    html_content = build_html_digest(recipient, CURATED_GERMAN_OFFERS, academic_dach, climate_tech, basque_offers, rss_matches, intl_offers, now_str)
 
     # 4. Save local preview
     preview_path = os.path.join(os.path.dirname(__file__), "latest_job_digest.html")

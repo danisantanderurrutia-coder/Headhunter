@@ -1,17 +1,17 @@
-name: "Daily Job Alerts (PAUSADO / PAUSED)"
+name: "Daily Job Alerts Engine"
 
 on:
-  # DESACTIVADO PREVENTIVAMENTE: Cron matutino pausado para evitar envíos con enlaces obsoletos o alucinados
-  # schedule:
-  #   - cron: '15 7 * * *'
-  workflow_dispatch: # Permite disparo manual controlado desde la pestaña Actions de GitHub solo si se desea probar
+  schedule:
+    # 07:15 UTC = 09:15 CEST / 08:15 CET (Lunes a Viernes)
+    - cron: '15 7 * * 1-5'
+  workflow_dispatch: # Permite disparo manual desde la pestaña Actions de GitHub
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   run-alerts:
-    name: Execute Daily Job Digest (Manual Only)
+    name: Ingest Jobs & Dispatch Morning Digest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -21,21 +21,28 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
-      - name: Check if Alerts are Explicitly Enabled
-        id: check-enabled
+      - name: Install Dependencies
         run: |
-          if [ "${{ vars.ENABLE_JOB_ALERTS }}" != "true" ]; then
-            echo "::notice ::Las alertas automáticas por correo están en PAUSA PREVENTIVA. Cancelando envío para evitar alucinaciones."
-            echo "enabled=false" >> $GITHUB_OUTPUT
-          else
-            echo "enabled=true" >> $GITHUB_OUTPUT
-          fi
+          pip install --upgrade pip
+          pip install -r scripts/requirements.txt
 
-      - name: Run Job Alert Pipeline
-        if: steps.check-enabled.outputs.enabled == 'true'
+      - name: Execute Multi-Category Job Scraper
+        run: |
+          python scripts/job_scraper.py --category all
+
+      - name: Commit Updated jobs.json (Git-Scraping)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add public/data/jobs.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): auto-update jobs.json [skip ci]" && git push)
+        continue-on-error: true
+
+      - name: Dispatch Daily Job Digest
         env:
-          ENABLE_JOB_ALERTS: ${{ vars.ENABLE_JOB_ALERTS || 'false' }}
+          ENABLE_JOB_ALERTS: ${{ vars.ENABLE_JOB_ALERTS || 'true' }}
           ALERT_RECIPIENT_EMAIL: ${{ secrets.ALERT_RECIPIENT_EMAIL || 'danisantander.urrutia@gmail.com' }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           SMTP_HOST: ${{ secrets.SMTP_HOST || 'smtp.gmail.com' }}
@@ -43,7 +50,7 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER || 'danisantander.urrutia@gmail.com' }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
-          python scripts/daily_job_alerts.py
+          python scripts/daily_job_alerts.py --force-send
 
       - name: Upload HTML Digest Artifact
         uses: actions/upload-artifact@v4
