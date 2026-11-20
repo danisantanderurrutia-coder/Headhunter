@@ -100,7 +100,9 @@ const AUTO_GREEN_IDS = new Set<string>([
   'comp-forth',
   'comp-noa-beyond',
   'comp-creaf',
-  'comp-kit-imk-ifu'
+  'comp-kit-imk-ifu',
+  'comp-aarhus-university',
+  'comp-geomar'
 ]);
 
 /**

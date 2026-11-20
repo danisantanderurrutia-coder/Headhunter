@@ -106,7 +106,17 @@ export const COMPANY_CURATED_LOGOS: Record<string, string> = {
   'comp-moodys-rms': 'https://www.google.com/s2/favicons?domain=rms.com&sz=128',
   'comp-guy-carpenter': 'https://www.google.com/s2/favicons?domain=guycarp.com&sz=128',
   'comp-kettle': 'https://www.google.com/s2/favicons?domain=ourkettle.com&sz=128',
-  'comp-nccr-clim': 'https://commons.wikimedia.org/wiki/Special:FilePath/ETH_Z%C3%BCrich_Logo.svg?width=256'
+  'comp-nccr-clim': 'https://commons.wikimedia.org/wiki/Special:FilePath/ETH_Z%C3%BCrich_Logo.svg?width=256',
+  'comp-wsl': 'https://www.google.com/s2/favicons?domain=wsl.ch&sz=128',
+  'comp-empa': 'https://www.google.com/s2/favicons?domain=empa.ch&sz=128',
+  'comp-aarhus-university': 'https://www.google.com/s2/favicons?domain=au.dk&sz=128',
+  'comp-dtu': 'https://www.google.com/s2/favicons?domain=dtu.dk&sz=128',
+  'comp-list-luxembourg': 'https://www.google.com/s2/favicons?domain=list.lu&sz=128',
+  'comp-tno': 'https://www.google.com/s2/favicons?domain=tno.nl&sz=128',
+  'comp-niva': 'https://www.google.com/s2/favicons?domain=niva.no&sz=128',
+  'comp-lund-university': 'https://www.google.com/s2/favicons?domain=lu.se&sz=128',
+  'comp-geomar': 'https://www.google.com/s2/favicons?domain=geomar.de&sz=128',
+  'comp-ecmwf': 'https://www.google.com/s2/favicons?domain=ecmwf.int&sz=128'
 };
 
 /**

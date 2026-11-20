@@ -136,6 +136,9 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   if (text.includes('dübendorf') || text.includes('duebendorf') || text.includes('eawag')) {
     return [47.4032 + dLat, 8.6105 + dLng];
   }
+  if (text.includes('birmensdorf') || text.includes('wsl')) {
+    return [47.3553 + dLat, 8.4377 + dLng];
+  }
   if (text.includes('bern') || text.includes('berna')) {
     return [46.9480 + dLat, 7.4474 + dLng];
   }
@@ -164,6 +167,9 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   }
   if (text.includes('bruselas') || text.includes('lovaina') || text.includes('bélgica')) {
     return [50.8503 + dLat, 4.3517 + dLng];
+  }
+  if (text.includes('luxemburgo') || text.includes('luxembourg') || text.includes('belvaux')) {
+    return [49.5042 + dLat, 5.9264 + dLng];
   }
 
   // 5. Reino Unido & Irlanda
@@ -217,6 +223,15 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   }
 
   // 9. Nórdicos
+  if (text.includes('aarhus')) {
+    return [56.1629 + dLat, 10.2039 + dLng];
+  }
+  if (text.includes('lyngby')) {
+    return [55.7704 + dLat, 12.5038 + dLng];
+  }
+  if (text.includes('lund')) {
+    return [55.7047 + dLat, 13.1910 + dLng];
+  }
   if (text.includes('copenhague') || text.includes('dinamarca')) {
     return [55.6761 + dLat, 12.5683 + dLng];
   }

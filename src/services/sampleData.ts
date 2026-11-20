@@ -1226,6 +1226,146 @@ export const initialSources: JobSource[] = [
     region: 'Europa / Global',
     notes: 'Plataforma y mercado de referencia de créditos de eliminación permanente de carbono (durable CDR: biochar, intemperización de rocas, DAC). Protocolo de vetting científico en 118 puntos de control y vacantes remotas en ciencia climática y asesoría.',
     countryFocus: 'Reino Unido / Remoto Europa (GMT±3)'
+  },
+  {
+    id: 'src-wsl',
+    name: 'WSL - Swiss Federal Research Institute (Forest, Snow & Landscape)',
+    type: 'research_center',
+    url: 'https://www.wsl.ch/en/about-wsl/working-at-wsl/jobs-and-careers/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Instituto federal de investigación forestal, de nieve y del paisaje (Dominio ETH). Líder en suelos de montaña, microclima y dinámica de carbono (85k-120k CHF).'
+  },
+  {
+    id: 'src-empa',
+    name: 'Empa - Materials & Atmospheric Modeling (ETH Domain)',
+    type: 'research_center',
+    url: 'https://www.empa.ch/web/s604/jobs',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Laboratorio federal suizo de modelado atmosférico y contaminantes (Dominio ETH / Dübendorf). Balances de GEI, redes CarboSense y sensores.'
+  },
+  {
+    id: 'src-aarhus-university',
+    name: 'Aarhus University - Agroecology & Peatland Rewetting',
+    type: 'research_center',
+    url: 'https://international.au.dk/about/vacant-positions',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Dinamarca (Nórdicos)',
+    notes: 'Referente danés en mitigación de GEI en turberas agrícolas rehumidificadas (lavbundsjorde) y torres eddy covariance con pensión adicional del 17.1%.'
+  },
+  {
+    id: 'src-dtu',
+    name: 'DTU - Technical University of Denmark (Sustain & Space)',
+    type: 'research_center',
+    url: 'https://www.dtu.dk/english/about/job-and-career/vacant-positions',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Dinamarca (Nórdicos)',
+    notes: 'Universidad técnica líder de Dinamarca (Lyngby / Copenhague). Geofísica, teledetección satelital y modelación hídrica.'
+  },
+  {
+    id: 'src-list-luxembourg',
+    name: 'LIST - Luxembourg Institute of Science and Technology (ERIN)',
+    type: 'research_center',
+    url: 'https://www.list.lu/en/jobs/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Luxemburgo (Europa)',
+    notes: 'Instituto nacional de Luxemburgo con las escalas salariales más altas de la UE (75k-95k €). Departamento ERIN especializado en ecohidrología de cuencas y teledetección.'
+  },
+  {
+    id: 'src-tno',
+    name: 'TNO - Netherlands Organisation for Applied Scientific Research',
+    type: 'research_center',
+    url: 'https://www.tno.nl/en/careers/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Países Bajos (Benelux)',
+    notes: 'Mayor instituto de I+D aplicada de los Países Bajos. Unidades de Circular Economy & Environment y Subsurface & Groundwater con 13ª paga.'
+  },
+  {
+    id: 'src-niva',
+    name: 'NIVA - Norwegian Institute for Water Research',
+    type: 'research_center',
+    url: 'https://www.niva.no/en/vacancies',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Noruega (Nórdicos)',
+    notes: 'Instituto noruego líder en investigación acuática, humedales y mitigación climática en Oslo. Baremos salariales estatales superiores a 650.000 NOK.'
+  },
+  {
+    id: 'src-lund-university',
+    name: 'Lund University - INES & ICOS Sweden',
+    type: 'research_center',
+    url: 'https://www.lunduniversity.lu.se/vacancies',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Suecia (Nórdicos)',
+    notes: 'Departamento de Geografía Física y Ciencia de Ecosistemas de Lund. Cuna de ICOS Suecia, torres de flujo de carbono y modelado LPJ-GUESS.'
+  },
+  {
+    id: 'src-geomar',
+    name: 'GEOMAR Helmholtz Centre for Ocean Research Kiel',
+    type: 'research_center',
+    url: 'https://www.geomar.de/en/career-campus',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Alemania (Kiel)',
+    notes: 'Centro Helmholtz en Kiel. Biogeoquímica marina y costera, flujos de gases y dinámica de fluidos con contratos públicos TVöD E13.'
+  },
+  {
+    id: 'src-ecmwf',
+    name: 'ECMWF - European Centre for Medium-Range Weather Forecasts',
+    type: 'research_center',
+    url: 'https://www.ecmwf.int/en/about/jobs',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Europa / Global',
+    countryFocus: 'Alemania (Bonn) / Italia (Bolonia) / UK',
+    notes: 'Organismo intergubernamental operador de Copernicus C3S y CAMS con salarios internacionales libres de impuestos (6.000 - 9.500 € netos/mes).'
   }
 ];
 
@@ -3540,44 +3680,6 @@ export const initialCompanies: CompanyDossier[] = [
     sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
   },
   {
-    id: 'comp-agreena',
-    name: "Agreena",
-    website: 'https://agreena.com/',
-    sector: "Soil Carbon MRV, Agricultura Regenerativa y Teledetección Satelital",
-    size: "200+ científicos de suelos, desarrolladores de software y expertos agronómicos",
-    headquarters: "Copenhague (Dinamarca) / Presencia en Alemania y Remoto Europa",
-    description: "Plataforma líder europea de cuantificación y certificación de carbono edáfico (Soil Carbon MRV). Combina modelos biogeoquímicos de suelo con teledetección multiespectral de alta resolución (Copernicus Sentinel-2) para incentivar la transición de agricultores hacia prácticas regenerativas.",
-    keyProjects: [
-      "Cuantificación de carbono orgánico en suelo (SOC) y reducción de emisiones de N2O a escala de millones de hectáreas",
-      "Calibración de modelos biofísicos de suelo con series temporales satelitales (NDVI, NDRE) y muestreos de terreno",
-      "Certificación verificada bajo los más exigentes estándares internacionales de contabilidad de carbono"
-    ],
-    recentNews: [
-      {
-        title: "Agreena supera los 3 millones de hectáreas bajo monitoreo de agricultura regenerativa en Europa",
-        date: "2026-08-25",
-        snippet: "Fusión de teledetección Sentinel y protocolos de verificación in situ para créditos de carbono de alta integridad."
-      }
-    ],
-    workCulture: [
-      "Cultura nórdica horizontal, innovadora y orientada a la integridad científica de los datos de carbono",
-      "Posibilidad de trabajo remoto en Europa y sinergia con centros agronómicos alemanes",
-      "Inglés C2 como idioma operativo"
-    ],
-    redFlags: [
-      "Exigencia de rigor metodológico estricto para evitar riesgos de reputación en créditos de carbono"
-    ],
-    interviewArguments: [
-      "Investigación cuantitativa en física de suelos, curvas de retención hídrica y flujos de GEI (CAU Kiel).",
-      "Arquitecto del gemelo digital AgriTwin acoplando IoT de suelo y Copernicus Sentinel-2.",
-      "Autor principal de auditorías críticas de contabilidad de carbono y biomasa para redes internacionales."
-    ],
-    techStack: ["Python", "Sentinel-2", "Soil Carbon Modeling", "QGIS", "Google Earth Engine", "Biogeochemistry"],
-    lastResearched: '2026-11-20',
-    quadrants: ['NORDICS', 'DACH', 'GLOBAL'],
-    sectorCluster: 'EARTH_OBSERVATION_AGROTECH'
-  },
-  {
     id: 'comp-planet',
     name: "Planet Labs PBC (Planet)",
     website: 'https://www.planet.com/',
@@ -5310,6 +5412,466 @@ id: 'comp-climate-kic',
         name: 'CEU Environmental Sciences & Policy Dept',
         role: 'Doctoral & Research Office',
         notes: 'Gestión de convocatorias de investigación y fellowships en Viena'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-wsl',
+    name: 'WSL - Swiss Federal Institute for Forest, Snow and Landscape Research',
+    website: 'https://www.wsl.ch/en/about-wsl/working-at-wsl/jobs-and-careers/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=wsl.ch&sz=128',
+    sector: 'Dinámica Forestal, Suelos de Montaña & Microclima (Dominio ETH)',
+    size: '600+ investigadores (Dominio ETH)',
+    headquarters: 'Birmensdorf / Zúrich, Suiza',
+    description: 'El Instituto Federal Suizo de Investigación sobre el Bosque, la Nieve y el Paisaje (WSL) es parte del prestigioso Dominio ETH. Referente de élite mundial en dinámicas de ecosistemas forestales, suelos de montaña, balances de carbono y microclima. Remuneración líder mundial bajo el baremo federal suizo (85.000 - 120.000 CHF).',
+    keyProjects: [
+      'Dinámica de bosques de montaña y modelación de biomasa ante el cambio climático',
+      'Monitoreo micrometeorológico y balances de agua y carbono en suelos alpinos',
+      'Plataformas de observación ecológica de largo plazo (LWF) e inventarios forestales'
+    ],
+    recentNews: [
+      {
+        title: 'Apertura de plazas de investigación en modelación de ecosistemas forestales y suelos',
+        date: '2026-11-15',
+        snippet: 'Proyectos de investigación financiados por el SNSF y la Unión Europea.'
+      }
+    ],
+    workCulture: [
+      'Ambiente científico de primer nivel en el campus de Birmensdorf (cercano a Zúrich)',
+      'Máxima escala salarial y condiciones de investigación del sistema federal suizo',
+      'Fuerte sinergia con ETH Zürich y Eawag'
+    ],
+    redFlags: ['Procesos de selección altamente competitivos evaluados por comités del Dominio ETH'],
+    interviewArguments: [
+      'Formación físico-matemática en geofísica con dominio de balances de energía y masa.',
+      'Experiencia empírica de 2 años en monitoreo de flujos micrometeorológicos (eddy covariance) en ecosistemas templados en Alemania.',
+      'Dominio bilingüe de alemán e inglés para integración en equipos suizos.'
+    ],
+    techStack: ['Python', 'R', 'QGIS', 'EddyPro', 'Soil Physics', 'Spatial Statistics'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-wsl-1',
+        name: 'WSL Recruiting & Academic Affairs',
+        role: 'Research Recruitment Office',
+        notes: 'Punto de contacto para plazas de investigación del Dominio ETH'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-empa',
+    name: 'Empa - Materials Science & Atmospheric Modeling (ETH Domain)',
+    website: 'https://www.empa.ch/web/s604/jobs',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=empa.ch&sz=128',
+    sector: 'Monitoreo Atmosférico, Gases de Efecto Invernadero & Sensores',
+    size: '1.000+ personal científico',
+    headquarters: 'Dübendorf (Zúrich), Suiza',
+    description: 'Instituto federal de investigación interdisciplinaria del Dominio ETH en Dübendorf (Zúrich). Su laboratorio de Contaminantes del Aire y Tecnología Ambiental lidera redes de sensores de alta densidad (CarboSense), modelado inverso de emisiones de GEI y validación de balances de metano y dióxido de carbono.',
+    keyProjects: [
+      'Red CarboSense: Monitoreo espacial de CO2 y trazadores micrometeorológicos',
+      'Modelado atmosférico inverso y cuantificación de emisiones de gases de efecto invernadero',
+      'Desarrollo y calibración de instrumentación óptica y espectroscópica ambiental'
+    ],
+    recentNews: [
+      {
+        title: 'Nuevas convocatorias para investigadores en análisis de datos de gases atmosféricos',
+        date: '2026-11-12',
+        snippet: 'Puestos para físicos e ingenieros ambientales en modelado de emisiones urbanas y rurales.'
+      }
+    ],
+    workCulture: [
+      'Rigor analítico e instrumental absoluto en ciencia de medición',
+      'Contratos públicos de nivel federal suizo con estabilidad y fondos directos',
+      'Campus científico moderno en Dübendorf compartido con Eawag'
+    ],
+    redFlags: ['Alta exigencia técnica en instrumentación física y calibración de sensores'],
+    interviewArguments: [
+      'Sólida base en física matemática y cálculo para modelado de dispersión y transporte de gases.',
+      'Experiencia directa de campo con analizadores de gases (IRGA, cámaras cerradas, torres micrometeorológicas).',
+      'Manejo avanzado de Python/R para control de calidad y procesamiento de series temporales continuas.'
+    ],
+    techStack: ['Python', 'R', 'Atmospheric Modeling', 'Sensor Calibration', 'Time Series Analysis'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-empa-1',
+        name: 'Empa HR & Academic Recruiting',
+        role: 'Recruitment Manager',
+        notes: 'Coordinación de vacantes científicas en Dübendorf'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-aarhus-university',
+    name: 'Aarhus University - Agroecology & Rewetted Peatlands GHG',
+    website: 'https://international.au.dk/about/vacant-positions',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=au.dk&sz=128',
+    sector: 'Rehumidificación de Turberas, Flujos GEI & Eddy Covariance',
+    size: '8.000+ investigadores y docentes',
+    headquarters: 'Aarhus / Foulum, Dinamarca',
+    description: 'Universidad pública de investigación líder en los Países Nórdicos. El Departamento de Agroecología en Foulum lidera la investigación nacional en rehumidificación de suelos orgánicos agrícolas (lavbundsjorde) y balances de carbono con torres de covarianza de torbellinos. Excelentes salarios de convenio danés con aportación de pensiones del 17.1%.',
+    keyProjects: [
+      'Monitoreo micrometeorológico y balance de GEI en turberas agrícolas rehumidificadas (Lavbund)',
+      'Modelación de flujos de carbono y nitrógeno en suelos orgánicos bajo manejo hídrico',
+      'Certificación científica de reducciones de emisiones para el plan de descarbonización danés'
+    ],
+    recentNews: [
+      {
+        title: 'Expansión de la red danesa de monitoreo de flujos de GEI en turberas restauradas',
+        date: '2026-11-08',
+        snippet: 'Apertura de plazas postdoctorales en eddy covariance y biofísica de suelos.'
+      }
+    ],
+    workCulture: [
+      'Cultura nórdica horizontal, colaborativa y con gran conciliación de vida personal y laboral',
+      'Inversión pública masiva en restauración de suelos y transición agroclimática',
+      'Condiciones salariales del sector público danés entre las más altas de Europa'
+    ],
+    redFlags: ['Sede principal de investigación de campo en Foulum (Jutlandia Central)'],
+    interviewArguments: [
+      'Alineación perfecta (100%): 2 años de trabajo empírico en monitoreo de flujos de GEI y nivel freático en humedales templados de Alemania (Kiel / Wallener Au).',
+      'Dominio del flujo de trabajo completo: mantenimiento de estaciones, procesamiento con EddyPro y gap-filling.',
+      'Base matemática rigurosa en balance de masa y energía en la interfaz suelo-atmósfera.'
+    ],
+    techStack: ['EddyPro', 'Python', 'R', 'Fluxnet Standards', 'Soil Physics', 'QGIS'],
+    lastResearched: '2026-11-20',
+    quadrants: ['NORDICS'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-aarhus-1',
+        name: 'Aarhus Agroecology Search Committee',
+        role: 'Faculty Recruitment Coordinator',
+        notes: 'Punto de contacto para plazas de investigación en flujos de GEI'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-dtu',
+    name: 'DTU - Technical University of Denmark (Sustain & Space Geophysics)',
+    website: 'https://www.dtu.dk/english/about/job-and-career/vacant-positions',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=dtu.dk&sz=128',
+    sector: 'Geofísica Ambiental, Teledetección Satelital & Modelación Hídrica',
+    size: '6.000+ personal académico',
+    headquarters: 'Kongens Lyngby / Copenhague, Dinamarca',
+    description: 'Universidad técnica de élite de Escandinavia en Lyngby (área metropolitana de Copenhague). DTU Sustain y DTU Space combinan geofísica aplicada, modelado hidrodinámico de aguas subterráneas y teledetección satelital de cambios en la superficie terrestre. Baremos salariales de Dinamarca con fondos de investigación líderes en Europa.',
+    keyProjects: [
+      'Modelación numérica de transporte de fluidos y solutos en medios porosos',
+      'Geodesia y teledetección satelital (SAR, gravimetría) para monitoreo de recursos hídricos',
+      'Tecnologías ambientales de monitoreo y adaptación ante el cambio climático'
+    ],
+    recentNews: [
+      {
+        title: 'Convocatorias abiertas para investigadores en geociencias ambientales y teledetección',
+        date: '2026-11-04',
+        snippet: 'Proyectos Horizonte Europa en modelado geoespacial y gestión de cuencas nórdicas.'
+      }
+    ],
+    workCulture: [
+      'Enfoque de ingeniería y modelado cuantitativo de máxima excelencia internacional',
+      'Campus moderno con infraestructura de supercómputo y laboratorios avanzados',
+      'Alta calidad de vida en Copenhague y excelentes beneficios de jubilación daneses'
+    ],
+    redFlags: ['Exigencia matemática elevada en métodos numéricos y programación científica'],
+    interviewArguments: [
+      'Formación de origen en geofísica matemática (U. de Chile) con cálculo diferencial y física de medios continuos.',
+      'Experiencia europea en gestión ambiental cuantitativa y análisis de datos en Alemania.',
+      'Dominio de Python y librerías científicas geoespaciales para modelación y asimilación de datos.'
+    ],
+    techStack: ['Python', 'Fortran', 'MODFLOW', 'HydroGeoSphere', 'QGIS', 'SAR Processing'],
+    lastResearched: '2026-11-20',
+    quadrants: ['NORDICS'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-dtu-1',
+        name: 'DTU HR Recruitment Services',
+        role: 'Scientific Talent Acquisition',
+        notes: 'Coordinación de procesos selectivos de DTU Sustain y DTU Space'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-list-luxembourg',
+    name: 'LIST - Luxembourg Institute of Science and Technology (ERIN)',
+    website: 'https://www.list.lu/en/jobs/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=list.lu&sz=128',
+    sector: 'Hidrología de Cuencas, Sensores Ambientales & Teledetección',
+    size: '650+ investigadores',
+    headquarters: 'Belvaux, Luxemburgo',
+    description: 'Organización de investigación y tecnología de Luxemburgo. El Departamento ERIN (Environmental Research and Innovation) es un referente internacional en ecohidrología de cuencas, procesos del continuo suelo-planta-atmósfera y teledetección ambiental. Los salarios de investigación en Luxemburgo figuran entre los más altos de toda la UE (75.000 - 95.000 €).',
+    keyProjects: [
+      'Ecohidrología de procesos y dinámica de escorrentía en cuencas experimentales',
+      'Asimilación de datos satelitales y modelado de transpiración y humedad edáfica',
+      'Sistemas de alerta temprana de sequías e inundaciones a escala europea'
+    ],
+    recentNews: [
+      {
+        title: 'Nuevos puestos de investigación en ecohidrología y sensórica ambiental en Belvaux',
+        date: '2026-10-25',
+        snippet: 'Proyectos del FNR y Horizonte Europa en modelado biofísico de cuencas.'
+      }
+    ],
+    workCulture: [
+      'Remuneración extremadamente competitiva con baja carga fiscal en el Gran Ducado',
+      'Instalaciones científicas punteras en la Cité des Sciences de Belval',
+      'Cultura multilingüe de trabajo (inglés, francés, alemán)'
+    ],
+    redFlags: ['Costo de vida elevado en Luxemburgo (frecuente residencia fronteriza en Alemania o Francia)'],
+    interviewArguments: [
+      'Capacidad probada de integración en equipos de investigación centroeuropeos y fluidez en alemán e inglés.',
+      'Sólida base en física edáfica, balance hídrico y caracterización de medios porosos.',
+      'Experiencia práctica en diseño y operación de redes de sensores ambientales de campo.'
+    ],
+    techStack: ['Python', 'R', 'Hydrological Modeling', 'Remote Sensing', 'QGIS', 'SPAC Models'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-list-1',
+        name: 'LIST Talent Acquisition Office',
+        role: 'Recruiting Specialist ERIN',
+        notes: 'Punto de contacto para puestos en ciencias ambientales en Belvaux'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-tno',
+    name: 'TNO - Netherlands Organisation for Applied Scientific Research',
+    website: 'https://www.tno.nl/en/careers/',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=tno.nl&sz=128',
+    sector: 'Economía Circular, Aguas Subterráneas & Transición Climática',
+    size: '3.800+ científicos e ingenieros',
+    headquarters: 'Utrecht & La Haya, Países Bajos',
+    description: 'La mayor organización de investigación aplicada independiente de los Países Bajos. Sus unidades de Medio Ambiente y Subsuelo lideran proyectos en modelado hidrogeológico 3D, balance de carbono en deltas, subsidencia de suelos y adaptación climática. Convenio CAO de gran atractivo con 13ª paga y primas.',
+    keyProjects: [
+      'Modelado 3D del subsuelo y dinámica de aguas subterráneas en los Países Bajos (REGIS II)',
+      'Mitigación de la subsidencia y emisiones de carbono en turberas costeras y pólderes',
+      'Gemelos digitales para la gestión de recursos hídricos bajo estrés climático'
+    ],
+    recentNews: [
+      {
+        title: 'TNO amplía sus programas de investigación en resiliencia hídrica del subsuelo',
+        date: '2026-11-06',
+        snippet: 'Contratación de geocientíficos cuantitativos y modeladores hidrológicos.'
+      }
+    ],
+    workCulture: [
+      'Puente perfecto entre la investigación científica profunda y la aplicación industrial e institucional',
+      'Flexibilidad laboral neerlandesa, teletrabajo híbrido y excelentes condiciones salariales',
+      'Equipos internacionales multidisciplinares que operan en inglés'
+    ],
+    redFlags: ['Algunos proyectos requieren habilitación de seguridad para asesoría gubernamental neerlandesa'],
+    interviewArguments: [
+      'Perfil cuantitativo riguroso en geofísica con base matemática para modelado hidrogeológico inverso.',
+      'Experiencia directa en la dinámica de suelos orgánicos y turberas en el norte de Europa.',
+      'Habilidad en desarrollo de código analítico en Python y manejo de grandes bases de datos espaciales.'
+    ],
+    techStack: ['Python', 'R', 'MODFLOW', 'iMOD', 'GIS', 'Hydrogeology', 'Subsurface Modeling'],
+    lastResearched: '2026-11-20',
+    quadrants: ['UK_NL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-tno-1',
+        name: 'TNO Geological Survey & Environment Recruitment',
+        role: 'Talent Acquisition Partner',
+        notes: 'Selección de investigadores en geociencias y aguas subterráneas'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-niva',
+    name: 'NIVA - Norwegian Institute for Water Research',
+    website: 'https://www.niva.no/en/vacancies',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=niva.no&sz=128',
+    sector: 'Investigación de Cuencas, Humedales & Mitigación Climática Nórdica',
+    size: '300+ científicos',
+    headquarters: 'Oslo, Noruega',
+    description: 'Instituto nacional noruego de investigación sobre el agua con sede en Oslo. Líder nórdico en ecología y biogeoquímica de cuencas fluviales, restauración de humedales boreales y modelación de flujos de carbono y nutrientes. Salarios del sector estatal noruego superiores a 650.000 NOK anuales con excelentes coberturas sociales.',
+    keyProjects: [
+      'Restauración de humedales nórdicos y cuantificación de balances de GEI',
+      'Modelado de transporte de carbono orgánico disuelto (DOC) desde cuencas a fiordos',
+      'Evaluación de medidas de adaptación climática basadas en la naturaleza (NbS)'
+    ],
+    recentNews: [
+      {
+        title: 'NIVA lidera nuevos proyectos de investigación en mitigación climática basada en humedales',
+        date: '2026-10-18',
+        snippet: 'Apertura de convocatorias para investigadores en biogeoquímica acuática y cuencas.'
+      }
+    ],
+    workCulture: [
+      'Ambiente de trabajo escandinavo basado en la confianza, autonomía y bienestar',
+      'Sólida financiación a través del Consejo de Investigación de Noruega y la UE',
+      'Ubicación privilegiada en Oslo con acceso directo a la naturaleza'
+    ],
+    redFlags: ['Costo de vida elevado en Noruega; el aprendizaje del noruego se valora a largo plazo'],
+    interviewArguments: [
+      'Experiencia de campo directa en monitoreo de flujos biogeoquímicos y dinámica hídrica en humedales.',
+      'Sólido background cuantitativo en balance de masa y modelación estadística en R/Python.',
+      'Capacidad de trabajo en condiciones de campo exigentes y análisis riguroso de laboratorio.'
+    ],
+    techStack: ['R', 'Python', 'QGIS', 'Biogeochemical Modeling', 'EddyPro', 'Catchment Analysis'],
+    lastResearched: '2026-11-20',
+    quadrants: ['NORDICS'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-niva-1',
+        name: 'NIVA HR & Recruitment',
+        role: 'People & Culture Advisor',
+        notes: 'Punto de contacto para plazas científicas en Oslo'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-lund-university',
+    name: 'Lund University - INES & ICOS Sweden (Carbon Flux & Peatlands)',
+    website: 'https://www.lunduniversity.lu.se/vacancies',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=lu.se&sz=128',
+    sector: 'Micrometeorología, Flujos de Carbono & Modelación LPJ-GUESS',
+    size: '7.500+ empleados',
+    headquarters: 'Lund (Escania), Suecia',
+    description: 'Universidad de prestigio mundial en el sur de Suecia. El Departamento de Geografía Física y Ciencia de Ecosistemas (INES) es la sede central de ICOS Suecia y el lugar de desarrollo del modelo dinámico global de vegetación LPJ-GUESS. Centro de referencia mundial en torres de flujo eddy covariance, balances de carbono y turberas boreales.',
+    keyProjects: [
+      'Operación y análisis de datos de la red nacional de torres ICOS Suecia',
+      'Simulación de balances de carbono y agua en ecosistemas boreales y templados (LPJ-GUESS)',
+      'Monitoreo micrometeorológico y balance de gases de efecto invernadero en turberas suecas'
+    ],
+    recentNews: [
+      {
+        title: 'Nuevas plazas doctorales y postdoctorales en el grupo de modelación de ecosistemas INES',
+        date: '2026-11-01',
+        snippet: 'Proyectos sobre el impacto de sequías en el intercambio de carbono en turberas.'
+      }
+    ],
+    workCulture: [
+      'Comunidad científica global con máxima especialización en covarianza de torbellinos y flujos de GEI',
+      'Condiciones salariales del sector universitario sueco y excelente entorno en la ciudad universitaria de Lund',
+      'Conexión inmediata con Copenhague (a 35 minutos en tren cruzando el puente de Øresund)'
+    ],
+    redFlags: ['Gran competencia entre candidatos internacionales especializados en eddy covariance'],
+    interviewArguments: [
+      '2 años de experiencia directa operando y procesando datos de covarianza de torbellinos en turberas templadas en Alemania (Wallener Au).',
+      'Dominio de los estándares y protocolos de ICOS / Fluxnet.',
+      'Base matemática fuerte en física de procesos y cálculo para asimilar datos en modelos dinámicos de vegetación.'
+    ],
+    techStack: ['Python', 'R', 'EddyPro', 'LPJ-GUESS', 'Fluxnet Standards', 'Time Series'],
+    lastResearched: '2026-11-20',
+    quadrants: ['NORDICS'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-lund-1',
+        name: 'INES Recruitment Committee',
+        role: 'Department Search Committee',
+        notes: 'Coordinación de vacantes en micrometeorología y ecología'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-geomar',
+    name: 'GEOMAR Helmholtz Centre for Ocean Research Kiel',
+    website: 'https://www.geomar.de/en/career-campus',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=geomar.de&sz=128',
+    sector: 'Biogeoquímica Marina/Costera, Flujos de Gases & Dinámica de Fluidos',
+    size: '1.000+ investigadores (Helmholtz)',
+    headquarters: 'Kiel (Schleswig-Holstein, Alemania)',
+    description: 'Centro de investigación marina y climática de la Asociación Helmholtz con sede central en Kiel. Referente internacional en ciclos biogeoquímicos marinos y costeros, intercambios de gases en la interfaz agua-atmósfera y dinámica física de fluidos. Contratos públicos de investigación bajo el convenio TVöD Bund E13.',
+    keyProjects: [
+      'Flujos biogeoquímicos de carbono, metano y óxido nitroso en aguas costeras y humedales estuarinos',
+      'Modelado numérico de circulación oceánica y dispersión de trazadores químicos',
+      'Observación continua y redes de sensores autónomos marinos y de superficie'
+    ],
+    recentNews: [
+      {
+        title: 'Convocatorias abiertas para investigadores en biogeoquímica y modelado de fluidos',
+        date: '2026-10-22',
+        snippet: 'Plazas financiadas por la DFG y la Asociación Helmholtz en el campus Seefischmarkt de Kiel.'
+      }
+    ],
+    workCulture: [
+      'Ubicación inmejorable en Kiel: sin necesidad de mudanza ni adaptación logística',
+      'Prestigio absoluto de la red Helmholtz y acceso a infraestructura de supercómputo y buques oceanográficos',
+      'Contratos públicos TVöD Bund E13 con garantía salarial y estabilidad'
+    ],
+    redFlags: ['Enfoque preferentemente marino/estuarino que requiere conectar la experiencia de turberas terrestres con las zonas costeras'],
+    interviewArguments: [
+      'Cercanía geográfica inmediata: residente en Kiel con conocimiento del ecosistema científico local (CAU Kiel / GEOMAR).',
+      'Dominio cuantitativo en física de fluidos, cálculo y ecuaciones diferenciales aplicadas a la dispersión de solutos y gases.',
+      'Experiencia demostrada en instrumentación de campo y análisis de gases de efecto invernadero en el norte de Alemania.'
+    ],
+    techStack: ['Python', 'Fortran', 'R', 'Fluid Dynamics', 'Gas Chromatography', 'Sensors'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-geomar-1',
+        name: 'GEOMAR Personalabteilung',
+        role: 'Academic HR Coordinator',
+        notes: 'Punto de contacto para contrataciones en Kiel'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-ecmwf',
+    name: 'ECMWF - European Centre for Medium-Range Weather Forecasts (C3S)',
+    website: 'https://www.ecmwf.int/en/about/jobs',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=ecmwf.int&sz=128',
+    sector: 'Modelación Climática Numérica, Copernicus C3S & Balances GEI',
+    size: '500+ científicos internacionales',
+    headquarters: 'Bonn (Alemania) / Bolonia (Italia) / Reading (UK)',
+    description: 'Organismo meteorológico e intergubernamental de pronóstico numérico del tiempo más avanzado del mundo. Opera los servicios insignia de la Unión Europea: Copernicus Climate Change Service (C3S) y Copernicus Atmosphere Monitoring Service (CAMS) desde su centro en Bonn. Empleo internacional exento de impuestos sobre la renta (6.000 - 9.500 € netos mensuales).',
+    keyProjects: [
+      'Copernicus Climate Change Service (C3S): Reanálisis climático global ERA5 y proyecciones',
+      'Copernicus Atmosphere Monitoring Service (CAMS): Asimilación de datos satelitales de gases de efecto invernadero (CO2, CH4)',
+      'Desarrollo del gemelo digital de la Tierra (Destination Earth - DestinE)'
+    ],
+    recentNews: [
+      {
+        title: 'ECMWF abre nuevas plazas científicas en su sede de Bonn para los programas Copernicus',
+        date: '2026-11-10',
+        snippet: 'Puestos para meteorólogos, geofísicos y científicos de datos climáticos.'
+      }
+    ],
+    workCulture: [
+      'Estatuto diplomático e intergubernamental: salarios netos de élite libres de impuestos nacionales',
+      'Cúspide de la ciencia computacional y modelado meteorológico a escala planetaria',
+      'Ambiente de trabajo de élite internacional en Bonn (Alemania)'
+    ],
+    redFlags: ['Procesos selectivos muy rigurosos con alta exigencia en programación científica HPC y asimilación de datos'],
+    interviewArguments: [
+      'Formación de origen en geofísica matemática (U. de Chile) con fuerte dominio de métodos inversos y cálculo tensorial.',
+      'Experiencia europea en Alemania y dominio fluido de inglés y alemán.',
+      'Capacidad de articular modelos físicos y big data geoespacial para monitoreo de gases y clima.'
+    ],
+    techStack: ['Python', 'Fortran', 'HPC', 'Data Assimilation', 'GRIB/NetCDF', 'Copernicus Data API'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH', 'GLOBAL'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-ecmwf-1',
+        name: 'ECMWF Recruitment Team',
+        role: 'International Talent Acquisition',
+        notes: 'Gestión de vacantes de la sede de Bonn y programas Copernicus'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
