@@ -218,16 +218,20 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
     return { station: 'market_radar', subTab: 'organizations' };
   }
 
-  // 3. Academia Formativa
+  // 3. Cursos & Academia Formativa
   if (
     clean === '/academia' || 
     clean === '/academy' || 
+    clean === '/cursos' || 
+    clean === '/courses' || 
     clean === '/academia/radar' ||
     clean === '/academia/brechas' ||
     clean === '/academia/cursos' ||
     clean === '/academia/gaps' ||
     clean.startsWith('/academia') || 
-    clean.startsWith('/academy')
+    clean.startsWith('/academy') ||
+    clean.startsWith('/cursos') ||
+    clean.startsWith('/courses')
   ) {
     return { station: 'academy' };
   }

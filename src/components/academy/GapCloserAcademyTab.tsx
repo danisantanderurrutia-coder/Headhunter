@@ -448,7 +448,7 @@ export const GapCloserAcademyTab: React.FC<GapCloserAcademyTabProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase">
-                  Academia Estratégica & Radar Formativo
+                  Cursos & Radar Formativo
                 </h1>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-500/30 font-bold hidden sm:inline-block">
                   7 ÁREAS TRANSDISCIPLINARIAS
