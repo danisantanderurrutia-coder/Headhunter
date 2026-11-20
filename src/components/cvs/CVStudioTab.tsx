@@ -91,13 +91,10 @@ const segBtn = (active: boolean) =>
 const STUDIO_I18N = {
   de: {
     accordion1Title: 'Basis-Vorlage & Fachliche Ausrichtung (Bereich A)',
-    accordion5Title: 'Gespeicherte Versionen & Vorlagen (Bereich A & B)',
-    accordion5Summary: (c: number, v: number) => `${c} Offizielle Lebensläufe · ${v} Gespeichert`,
+    accordion5Title: 'Gespeicherte Versionen & Bereich B (Gastronomie)',
+    accordion5Summary: (c: number, v: number) => `${c} Gastro-Lebensläufe · ${v} Gespeichert`,
     precompiledHeader: 'Offizielle Vorformatierte Lebensläufe',
     precompiledSub: 'Klicken zum Öffnen & Drucken',
-    trackATitle: '🔬 Bereich A · Wissenschaft & Umwelt',
-    trackABadge: '3 Muster',
-    trackASub: '3 vorkompilierte Muster (Im Menü 1 oben flexibel anpassbar).',
     trackBTitle: '🍽️ Bereich B · Gastronomie, Bar & Service',
     trackBBadge: '3 Sprachen (Identischer Inhalt)',
     trackBSub: 'Schwerpunkt: à-la-carte-Service, Barbetrieb, Kassenführung & Gästebetreuung (El Huerto, Subterráneo, Nuria, Märkte).',
@@ -108,13 +105,10 @@ const STUDIO_I18N = {
   },
   en: {
     accordion1Title: 'Base Template & Tactical Positioning (Track A)',
-    accordion5Title: 'Versions & Pre-compiled Resumes (Track A & B)',
-    accordion5Summary: (c: number, v: number) => `${c} Resumes · ${v} Saved`,
+    accordion5Title: 'Saved Versions & Track B (Hospitality)',
+    accordion5Summary: (c: number, v: number) => `${c} Hospitality CVs · ${v} Saved`,
     precompiledHeader: 'Official Pre-formatted Resumes',
     precompiledSub: 'Click to Open & Print',
-    trackATitle: '🔬 Track A · Science & Environment',
-    trackABadge: '3 Samples',
-    trackASub: '3 pre-compiled samples (Use Menu 1 above to customize angle and language).',
     trackBTitle: '🍽️ Track B · Hospitality, Bartending & Service',
     trackBBadge: '3 Languages (Identical Content)',
     trackBSub: 'Focus: Table service, high-volume bartending, cash register balancing & guest relations (El Huerto, Subterráneo, Nuria, Fairs).',
@@ -125,13 +119,10 @@ const STUDIO_I18N = {
   },
   es: {
     accordion1Title: 'Plantilla Base & Posicionamiento (Sector A)',
-    accordion5Title: 'Versiones y Compilaciones (Sector A & B)',
-    accordion5Summary: (c: number, v: number) => `${c} prearmados (A & B) · ${v} guardadas`,
+    accordion5Title: 'Versiones Guardadas & Sector B (Hostelería)',
+    accordion5Summary: (c: number, v: number) => `${c} prearmados (Sector B) · ${v} guardadas`,
     precompiledHeader: 'CVs Prearmados Oficiales',
     precompiledSub: 'Clic para Abrir / Imprimir',
-    trackATitle: '🔬 Sector A · Científico & Ambiental',
-    trackABadge: '3 Muestras',
-    trackASub: '3 muestras oficiales precompiladas (en el Menú 1 puedes compilar cualquier combinación de ángulo e idioma).',
     trackBTitle: '🍽️ Sector B · Hostelería & Servicios',
     trackBBadge: 'Mismo contenido en 3 idiomas',
     trackBSub: 'Enfoque: Servicio de mesa, barra y atención al cliente (El Huerto, Subterráneo, Nuria, Ferias).',
@@ -1825,52 +1816,19 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
                 onToggle={toggleCvSection}
                 title={uiT.accordion5Title}
                 icon={<Save className="h-4 w-4 text-sky-500" />}
-                summary={uiT.accordion5Summary(storedCompiledCVs.length, versions.length)}
+                summary={uiT.accordion5Summary(storedCompiledCVs.filter((c) => c.id.includes('gastro')).length, versions.length)}
               >
                 <div className="space-y-3.5 text-xs">
-                  {/* SECCIÓN 1: CVs Prearmados de Fábrica (Sector A y B) con botones interactivos por idioma */}
+                  {/* SECCIÓN 1: Sector B - Hostelería, Gastronomía & Servicios (ES, DE, EN) */}
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-mono font-bold text-[var(--text-primary)] uppercase flex items-center gap-1.5">
-                        <Sparkles className="h-3.5 w-3.5 text-sky-500" />
-                        <span>{uiT.precompiledHeader} ({storedCompiledCVs.length})</span>
+                        <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                        <span>{uiT.precompiledHeader} ({storedCompiledCVs.filter((c) => c.id.includes('gastro')).length})</span>
                       </span>
                       <span className="text-[10px] font-mono text-[var(--text-muted)]">
                         {uiT.precompiledSub}
                       </span>
-                    </div>
-
-                    {/* Sector A: Científico & Ambiental */}
-                    <div className="p-3 rounded-xl border border-sky-500/30 bg-sky-500/5 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-bold text-sky-700 dark:text-sky-300 flex items-center gap-1">
-                          <span>{uiT.trackATitle}</span>
-                        </span>
-                        <span className="text-[9px] font-mono font-bold text-sky-500 uppercase">
-                          {uiT.trackABadge}
-                        </span>
-                      </div>
-                      <div className="text-[10px] text-[var(--text-muted)]">
-                        {uiT.trackASub}
-                      </div>
-                      <div className="grid grid-cols-3 gap-1.5">
-                        {storedCompiledCVs
-                          .filter((c) => !c.id.includes('gastro'))
-                          .map((cv) => (
-                            <button
-                              key={cv.id}
-                              type="button"
-                              onClick={() => setSelectedCvForModal(cv)}
-                              className="py-2 px-1.5 rounded-lg bg-sky-600/10 hover:bg-sky-600 text-sky-800 dark:text-sky-200 hover:text-white border border-sky-500/30 text-xs font-mono font-bold transition cursor-pointer text-center truncate shadow-xs flex flex-col items-center justify-center gap-0.5 group"
-                              title={cv.name}
-                            >
-                              <span className="uppercase text-[11px] font-black">{cv.language}</span>
-                              <span className="text-[9.5px] opacity-80 truncate group-hover:opacity-100">
-                                {uiT.langNames[cv.language as keyof typeof uiT.langNames] || cv.language.toUpperCase()}
-                              </span>
-                            </button>
-                          ))}
-                      </div>
                     </div>
 
                     {/* Sector B: Hostelería, Gastronomía & Servicios */}
