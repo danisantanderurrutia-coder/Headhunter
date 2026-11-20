@@ -44,35 +44,31 @@ interface CompaniesTabProps {
 type QuickFilterType = 'ALL' | 'FAVORITES' | 'HIGH_MATCH' | 'WITH_CONTACTS';
 type SortByType = 'MATCH' | 'NAME' | 'CONTACTS' | 'QUADRANT';
 
+import { resolveCompanyLogoDetails } from '../../utils/companyLogos';
+
 /**
  * Helper component to display high-resolution entity logo extracted from domain
- * with Google Favicons service, DuckDuckGo fallback, and stylized monogram backup.
+ * with official curated SVG/PNG logos, Google Favicons service, DuckDuckGo fallback,
+ * and stylized monogram backup.
  */
-const CompanyLogo: React.FC<{ website?: string; name: string }> = ({ website, name }) => {
-  const [imgError, setImgError] = useState(false);
-  const [ddgError, setDdgError] = useState(false);
+const CompanyLogo: React.FC<{ id?: string; website?: string; name: string; logoUrl?: string }> = ({ id, website, name, logoUrl }) => {
+  const [useFallbackFavicon, setUseFallbackFavicon] = useState(false);
+  const [useFallbackDdg, setUseFallbackDdg] = useState(false);
+  const [allFailed, setAllFailed] = useState(false);
 
-  const domain = useMemo(() => {
-    if (!website) return '';
-    try {
-      const url = website.startsWith('http') ? website : `https://${website}`;
-      return new URL(url).hostname.replace(/^www\./, '');
-    } catch {
-      return '';
-    }
-  }, [website]);
+  const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, initials } = useMemo(
+    () => resolveCompanyLogoDetails({ id, website, name, logoUrl }),
+    [id, website, name, logoUrl]
+  );
 
-  const initials = useMemo(() => {
-    return name
-      .replace(/^(the|el|la|los|las|de|von|der)\s+/i, '')
-      .split(/[\s-]+/)
-      .filter(w => w.length > 0)
-      .slice(0, 2)
-      .map(w => w[0].toUpperCase())
-      .join('');
-  }, [name]);
+  const currentSrc = useMemo(() => {
+    if (primaryUrl && !useFallbackFavicon && !useFallbackDdg) return primaryUrl;
+    if (fallbackFaviconUrl && !useFallbackDdg) return fallbackFaviconUrl;
+    if (fallbackDdgUrl) return fallbackDdgUrl;
+    return '';
+  }, [primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, useFallbackFavicon, useFallbackDdg]);
 
-  if (!domain || (imgError && ddgError)) {
+  if (!currentSrc || allFailed) {
     return (
       <div className="w-full h-full rounded-xl bg-black border border-slate-800 flex items-center justify-center text-slate-300 font-mono font-black text-sm tracking-wider select-none">
         {initials}
@@ -80,20 +76,18 @@ const CompanyLogo: React.FC<{ website?: string; name: string }> = ({ website, na
     );
   }
 
-  const logoSrc = !imgError 
-    ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128`
-    : `https://icons.duckduckgo.com/ip3/${domain}.ico`;
-
   return (
     <img
-      src={logoSrc}
+      src={currentSrc}
       alt={`${name} logo`}
       loading="lazy"
       onError={() => {
-        if (!imgError) {
-          setImgError(true);
+        if (!useFallbackFavicon && fallbackFaviconUrl && primaryUrl) {
+          setUseFallbackFavicon(true);
+        } else if (!useFallbackDdg && fallbackDdgUrl) {
+          setUseFallbackDdg(true);
         } else {
-          setDdgError(true);
+          setAllFailed(true);
         }
       }}
       className="max-h-full max-w-full object-contain rounded-lg transition-transform duration-200"
@@ -938,7 +932,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                     {/* Center Logo & Name (Fondo negro limpio, sin resplandores) */}
                     <div className="flex-1 flex flex-col items-center justify-center w-full my-1">
                       <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-black border border-slate-800 p-2.5 flex items-center justify-center shrink-0">
-                        <CompanyLogo website={comp.website} name={comp.name} />
+                        <CompanyLogo id={comp.id} website={comp.website} name={comp.name} logoUrl={comp.logoUrl} />
                       </div>
 
                       <h4 className="font-bold text-xs sm:text-sm text-white font-sans line-clamp-2 mt-2 leading-snug group-hover:text-cyan-300 transition-colors">
@@ -1031,7 +1025,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-800 pb-4">
               <div className="flex items-start gap-3.5">
                 <div className="w-16 h-16 rounded-2xl bg-black border border-slate-800 p-2.5 flex items-center justify-center shrink-0">
-                  <CompanyLogo website={dossierCompany.website} name={dossierCompany.name} />
+                  <CompanyLogo id={dossierCompany.id} website={dossierCompany.website} name={dossierCompany.name} logoUrl={dossierCompany.logoUrl} />
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">

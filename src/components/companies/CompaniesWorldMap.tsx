@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import type { CompanyDossier } from '../../types/companies';
 import { analyzeCompanyFit } from '../../utils/companyFit';
+import { resolveCompanyLogoDetails } from '../../utils/companyLogos';
 
 interface CompaniesWorldMapProps {
   companies: CompanyDossier[];
@@ -389,36 +390,21 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       const fit = analyzeCompanyFit(comp);
       const isSelected = selectedCompany?.id === comp.id;
 
-      // Extract initials or domain
-      const initials = comp.name
-        .replace(/^(the|el|la|los|las|de|von|der)\s+/i, '')
-        .split(/[\s-]+/)
-        .filter(w => w.length > 0)
-        .slice(0, 2)
-        .map(w => w[0].toUpperCase())
-        .join('');
-
-      const domain = comp.website 
-        ? (() => {
-            try {
-              const url = comp.website.startsWith('http') ? comp.website : `https://${comp.website}`;
-              return new URL(url).hostname.replace(/^www\./, '');
-            } catch {
-              return '';
-            }
-          })()
-        : '';
-
-      const faviconUrl = domain 
-        ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
-        : '';
+      // Resolve official curated logo or domain favicons
+      const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, initials } = resolveCompanyLogoDetails(comp);
+      const initialLogoUrl = primaryUrl || fallbackFaviconUrl || fallbackDdgUrl;
 
       const iconHtml = `
         <div class="relative flex items-center justify-center cursor-pointer" style="width: 36px; height: 36px;">
           <!-- Solid Black Box with neat border for logo (no glow or blur) -->
-          <div class="w-8 h-8 rounded-xl flex items-center justify-center border ${isSelected ? 'border-cyan-400 scale-105' : 'border-slate-700'} overflow-hidden bg-black shadow-md">
-            ${faviconUrl 
-              ? `<img src="${faviconUrl}" alt="${comp.name}" class="w-5 h-5 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center border ${isSelected ? 'border-cyan-400 scale-105' : 'border-slate-700'} overflow-hidden bg-black shadow-md p-1">
+            ${initialLogoUrl 
+              ? `<img 
+                  src="${initialLogoUrl}" 
+                  alt="${comp.name}" 
+                  class="w-5 h-5 object-contain" 
+                  onerror="if (this.src !== '${fallbackFaviconUrl}' && '${fallbackFaviconUrl}') { this.src = '${fallbackFaviconUrl}'; } else if (this.src !== '${fallbackDdgUrl}' && '${fallbackDdgUrl}') { this.src = '${fallbackDdgUrl}'; } else { this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block'; }" 
+                 />
                  <span style="display:none; color:#cbd5e1; font-family:monospace; font-weight:700; font-size:10px;">${initials}</span>`
               : `<span style="color:#cbd5e1; font-family:monospace; font-weight:700; font-size:10px;">${initials}</span>`
             }
@@ -555,14 +541,34 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
               <div className="w-12 h-12 rounded-xl bg-black border border-slate-800 p-2 flex items-center justify-center shrink-0">
-                <img
-                  src={`https://www.google.com/s2/favicons?domain=${new URL(selectedCompany.website.startsWith('http') ? selectedCompany.website : `https://${selectedCompany.website}`).hostname}&sz=128`}
-                  alt={selectedCompany.name}
-                  className="max-h-full max-w-full object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLElement).style.display = 'none';
-                  }}
-                />
+                {(() => {
+                  const cardLogo = resolveCompanyLogoDetails(selectedCompany);
+                  const cardSrc = cardLogo.primaryUrl || cardLogo.fallbackFaviconUrl || cardLogo.fallbackDdgUrl;
+                  if (!cardSrc) {
+                    return (
+                      <span className="text-slate-300 font-mono font-bold text-xs">
+                        {cardLogo.initials}
+                      </span>
+                    );
+                  }
+                  return (
+                    <img
+                      src={cardSrc}
+                      alt={selectedCompany.name}
+                      className="max-h-full max-w-full object-contain"
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        if (img.src !== cardLogo.fallbackFaviconUrl && cardLogo.fallbackFaviconUrl) {
+                          img.src = cardLogo.fallbackFaviconUrl;
+                        } else if (img.src !== cardLogo.fallbackDdgUrl && cardLogo.fallbackDdgUrl) {
+                          img.src = cardLogo.fallbackDdgUrl;
+                        } else {
+                          img.style.display = 'none';
+                        }
+                      }}
+                    />
+                  );
+                })()}
               </div>
 
               <div>

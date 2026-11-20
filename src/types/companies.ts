@@ -28,6 +28,7 @@ export interface CompanyDossier {
   id: string;
   name: string;
   website: string;
+  logoUrl?: string;
   sector: string;
   size: string; // e.g. "50-200 empleados"
   headquarters: string;
