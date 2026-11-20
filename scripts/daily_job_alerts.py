@@ -29,7 +29,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from connectors.base import is_deadline_expired, parse_deadline, EXCLUDED_ROLE_PATTERNS, matches_profile_strictly
+from connectors.base import is_deadline_expired, parse_deadline, EXCLUDED_ROLE_PATTERNS, matches_profile_strictly, is_location_europe
 
 DEFAULT_RECIPIENT = "danisantander.urrutia@gmail.com"
 DEFAULT_KEYWORDS = [
@@ -150,6 +150,12 @@ def load_all_scraped_sources():
 
             # Excluir ofertas caducadas
             if deadline and is_deadline_expired(deadline):
+                continue
+
+            # Excluir estrictamente ofertas fuera de Europa (EE.UU., Emiratos Árabes, Asia, etc.)
+            location = j.get("location", "")
+            country = j.get("country", "")
+            if not is_location_europe(location, country):
                 continue
 
             # 1. Basque / Spanish Institutions
@@ -300,12 +306,12 @@ def get_verified_live_slice(offers: list, limit: int = 6) -> list:
 
 def build_html_digest(recipient: str, academic_dach: list, climate_tech: list, basque_offers: list, bund_rss_offers: list, intl_offers: list, run_date: str) -> str:
     """Generate a multi-theater, responsive HTML email digest with 100% verified live URLs."""
-    # Pre-flight verify URLs lazily with early exit
-    live_academic = get_verified_live_slice(academic_dach, limit=6)
-    live_climate = get_verified_live_slice(climate_tech, limit=6)
-    live_bund = get_verified_live_slice(bund_rss_offers, limit=6)
-    live_basque = get_verified_live_slice(basque_offers, limit=4)
-    live_intl = get_verified_live_slice(intl_offers, limit=3)
+    # Pre-flight verify URLs lazily with early exit (Curated executive volume: 10-12 total max)
+    live_academic = get_verified_live_slice(academic_dach, limit=4)
+    live_climate = get_verified_live_slice(climate_tech, limit=3)
+    live_bund = get_verified_live_slice(bund_rss_offers, limit=3)
+    live_basque = get_verified_live_slice(basque_offers, limit=2)
+    live_intl = get_verified_live_slice(intl_offers, limit=2)
 
     total_offers = len(live_academic) + len(live_climate) + len(live_basque) + len(live_bund) + len(live_intl)
 

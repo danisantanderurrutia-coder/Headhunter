@@ -28,7 +28,7 @@ from datetime import datetime
 # Add scripts directory to path to allow seamless connector imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from connectors.base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html
+from connectors.base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html, is_location_europe
 from connectors.category1 import CATEGORY_1_CONNECTORS
 from connectors.category2 import CATEGORY_2_CONNECTORS
 
@@ -185,11 +185,18 @@ def main():
         agg_offers = run_legacy_aggregators()
         all_offers.extend(agg_offers)
 
-    # 4. Strict Canonical Deduplication & Preservation
+    # 4. Strict Geographic (Europe only) & Canonical Deduplication
     seen_urls = set()
     unique_offers = []
     for o in all_offers:
         url = o.get("url")
+        loc = o.get("location", "")
+        country = o.get("country", "")
+
+        # Exclude non-European postings (US, UAE, Asia, etc.)
+        if not is_location_europe(loc, country):
+            continue
+
         if url and url not in seen_urls:
             seen_urls.add(url)
             unique_offers.append(o)

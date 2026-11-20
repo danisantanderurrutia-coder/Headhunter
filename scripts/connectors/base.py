@@ -203,6 +203,59 @@ def clean_html(raw_html: str) -> str:
     return " ".join(clean.split()).strip()
 
 
+NON_EUROPE_PATTERNS = [
+    r"\bunited\s+states\b", r"\busa\b", r"\bu\.s\.\b", r"\bva\b", r"\bca\b", r"\bco\b",
+    r"\bsan\s+francisco\b", r"\barlington\b", r"\bdenver\b", r"\bcolorado\b", r"\bvirginia\b",
+    r"\bcalifornia\b", r"\bwashington\b", r"\bnew\s+york\b", r"\bboston\b", r"\baustin\b",
+    r"\bseattle\b", r"\bchicago\b", r"\bus\s*[-–]\s*remote\b",
+    r"\bunited\s+arab\s+emirates\b", r"\buae\b", r"\bdubai\b", r"\babu\s+dhabi\b",
+    r"\bsouth\s+korea\b", r"\bseoul\b", r"\bkorea\b", r"\bjapan\b", r"\btokyo\b",
+    r"\bsingapore\b", r"\bindia\b", r"\baustralia\b", r"\bcanada\b", r"\bbrazil\b", r"\bargentina\b"
+]
+
+EUROPE_PATTERNS = [
+    r"\bgermany\b", r"\bdeutschland\b", r"\balemania\b", r"\bspain\b", r"\bespaña\b", r"\beuskadi\b",
+    r"\bbasque\b", r"\bswitzerland\b", r"\bschweiz\b", r"\bsuiza\b", r"\baustria\b", r"\bösterreich\b",
+    r"\bnetherlands\b", r"\bnederland\b", r"\bpaíses\s+bajos\b", r"\bdenmark\b", r"\bdinamarca\b",
+    r"\bsweden\b", r"\bsverige\b", r"\bsuecia\b", r"\bnorway\b", r"\bnorge\b", r"\bnoruega\b",
+    r"\bunited\s+kingdom\b", r"\buk\b", r"\breino\s+unido\b", r"\bgreat\s+britain\b",
+    r"\bbelgium\b", r"\bbelgique\b", r"\bbélgica\b", r"\bfrance\b", r"\bfrancia\b",
+    r"\bluxembourg\b", r"\bluxemburgo\b", r"\bitaly\b", r"\bitalia\b", r"\bportugal\b",
+    r"\bfinland\b", r"\bireland\b", r"\bslovenia\b", r"\bpoland\b", r"\beurope\b", r"\beuropa\b",
+    r"\beu\b", r"\bemea\b", r"\bdach\b",
+    # European Major Cities & Regions
+    r"\bberlin\b", r"\bmunich\b", r"\bmünchen\b", r"\bpotsdam\b", r"\bkiel\b", r"\bfreiburg\b",
+    r"\bheidelberg\b", r"\bbonn\b", r"\bkarlsruhe\b", r"\bleipzig\b", r"\bdresden\b", r"\bhamburg\b",
+    r"\bfrankfurt\b", r"\bköln\b", r"\bcologne\b", r"\bstuttgart\b", r"\bjülich\b", r"\bmünster\b",
+    r"\bvienna\b", r"\bwien\b", r"\bgraz\b", r"\bzurich\b", r"\bzürich\b", r"\bbern\b", r"\bbasel\b",
+    r"\bgeneva\b", r"\bginebra\b", r"\blausanne\b", r"\bdübendorf\b", r"\bbirmensdorf\b",
+    r"\bamsterdam\b", r"\butrecht\b", r"\bdelft\b", r"\bhaarlem\b", r"\brotterdam\b", r"\bwageningen\b",
+    r"\blondon\b", r"\blondres\b", r"\bcambridge\b", r"\boxford\b", r"\bedinburgh\b", r"\breading\b",
+    r"\bbrussels\b", r"\bbruselas\b", r"\bparis\b", r"\bmadrid\b", r"\bbarcelona\b", r"\bbilbao\b",
+    r"\bcopenhagen\b", r"\bcopenhague\b", r"\baarhus\b", r"\bstockholm\b", r"\blund\b", r"\boslo\b",
+    r"\bljubljana\b", r"\bbelvaux\b", r"\b\d{5}\b"
+]
+
+
+def is_location_europe(location_str: str, country_str: str = "") -> bool:
+    """Strictly verify if job location is within Europe (EU / DACH / UK / Switzerland / Norway)."""
+    combined = f"{location_str} {country_str}".lower()
+    if not combined.strip():
+        return False
+
+    # 1. Reject if matches explicit non-European countries or US states/cities
+    for ne in NON_EUROPE_PATTERNS:
+        if re.search(ne, combined):
+            return False
+
+    # 2. Accept if matches positive European countries, regions, or cities
+    for ep in EUROPE_PATTERNS:
+        if re.search(ep, combined):
+            return True
+
+    return False
+
+
 def is_canonical_url(url_str: str) -> bool:
     """Verify that URL points to a specific job posting rather than a generic root."""
     if not url_str or not url_str.startswith("http"):

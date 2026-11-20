@@ -10,7 +10,7 @@ Configured for:
 """
 
 import sys
-from ..base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html
+from ..base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html, is_location_europe
 
 GREENHOUSE_COMPANIES = [
     {
@@ -53,6 +53,10 @@ class GreenhouseConnector(BaseConnector):
                     location_info = j.get("location", {})
                     location_name = location_info.get("name") if isinstance(location_info, dict) else str(location_info)
                     location_name = location_name or comp["default_country"]
+
+                    # Strictly enforce European geography (exclude US, UAE, Asia, etc.)
+                    if not is_location_europe(location_name, comp.get("default_country", "")):
+                        continue
 
                     desc_html = j.get("content", "")
                     desc_clean = clean_html(desc_html)

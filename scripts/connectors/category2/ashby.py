@@ -9,7 +9,7 @@ Configured for:
 """
 
 import sys
-from ..base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html
+from ..base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html, is_location_europe
 
 ASHBY_COMPANIES = [
     {
@@ -44,6 +44,10 @@ class AshbyConnector(BaseConnector):
                         continue
 
                     location_name = j.get("locationName") or comp["default_country"]
+
+                    # Strictly enforce European geography
+                    if not is_location_europe(location_name, comp["default_country"]):
+                        continue
                     dept_name = j.get("departmentName") or ""
                     desc_html = j.get("descriptionHtml", "")
                     desc_clean = clean_html(desc_html)
