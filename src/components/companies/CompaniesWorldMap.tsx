@@ -116,10 +116,16 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   }
 
   // 3. Austria & Suiza
-  if (text.includes('laxenburg') || text.includes('viena') || text.includes('austria')) {
+  if (text.includes('laxenburg') || text.includes('viena') || text.includes('wien') || text.includes('austria')) {
     return [48.2082 + dLat, 16.3738 + dLng];
   }
-  if (text.includes('zúrich') || text.includes('zurich') || text.includes('suiza') || text.includes('berna')) {
+  if (text.includes('lausanne') || text.includes('lausana') || text.includes('epfl')) {
+    return [46.5191 + dLat, 6.5668 + dLng];
+  }
+  if (text.includes('dübendorf') || text.includes('duebendorf') || text.includes('eawag')) {
+    return [47.4032 + dLat, 8.6105 + dLng];
+  }
+  if (text.includes('zúrich') || text.includes('zurich') || text.includes('suiza') || text.includes('berna') || text.includes('ethz')) {
     return [47.3769 + dLat, 8.5417 + dLng];
   }
 

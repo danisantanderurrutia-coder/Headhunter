@@ -214,7 +214,14 @@ export const parseSlugToState = (rawPath: string): ParsedRouteState => {
   if (clean === '/mercado/fuentes') {
     return { station: 'market_radar', subTab: 'portals' };
   }
-  if (clean === '/mercado' || clean === '/mercado/ofertas' || clean === '/mercado/vacantes' || clean.startsWith('/mercado/ofertas/')) {
+  if (
+    clean === '/ofertas' ||
+    clean === '/mercado' || 
+    clean === '/mercado/ofertas' || 
+    clean === '/mercado/vacantes' || 
+    clean.startsWith('/mercado/ofertas/') ||
+    clean.startsWith('/ofertas')
+  ) {
     return { station: 'market_radar', subTab: 'organizations' };
   }
 

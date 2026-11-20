@@ -75,7 +75,7 @@ export const MarketRadarTab: React.FC<MarketRadarTabProps> = ({
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-sm sm:text-base font-black text-[var(--text-primary)] flex items-center gap-2 font-mono uppercase tracking-tight">
-                MERCADO // PROSPECCIÓN & CUADRANTES
+                OFERTAS // PROSPECCIÓN & CUADRANTES
               </h1>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30 font-bold hidden sm:inline-block">
                 DIRECTA

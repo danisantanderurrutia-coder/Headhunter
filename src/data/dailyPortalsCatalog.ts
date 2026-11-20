@@ -16,6 +16,54 @@ export const DAILY_PORTALS: DailyPortal[] = [
   // CUADRANTE DACH (Alemania, Austria, Suiza)
   // -------------------------------------------------------------
   {
+    id: 'portal-ethz',
+    name: 'ETH Zürich - Job Board Oficial',
+    quadrant: 'DACH',
+    quadrantLabel: 'Suiza / DACH',
+    category: 'Científico / I+D',
+    directUrl: 'https://jobs.ethz.ch/site/index',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Geophysics', 'Hydrology', 'Earth Sciences', 'Climate', 'Postdoc'],
+    description: 'Portal oficial de vacantes de la ETH Zürich, universidad líder de Europa continental. Máxima escala salarial para investigadores en geofísica, hidrología y ciencias de la tierra (85.000 - 115.000 CHF).',
+    iconName: 'GraduationCap'
+  },
+  {
+    id: 'portal-eawag',
+    name: 'Eawag - Swiss Federal Institute of Aquatic Science and Technology',
+    quadrant: 'DACH',
+    quadrantLabel: 'Suiza / DACH',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.eawag.ch/en/about-us/working/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Water Resources', 'Hydrology', 'Catchment', 'Biogeochemistry', 'Rivers'],
+    description: 'Instituto federal suizo en Dübendorf/Zürich (Dominio ETH). Referencia mundial en modelado de cuencas hidrológicas, calidad del agua, hidrología superficial y biogeoquímica acuática.',
+    iconName: 'CloudRain'
+  },
+  {
+    id: 'portal-epfl-herus',
+    name: 'EPFL - HERUS Lab (Openings & Careers)',
+    quadrant: 'DACH',
+    quadrantLabel: 'Suiza / DACH',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.epfl.ch/labs/herus/index-html/openings/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Urban Systems', 'Spatial Analysis', 'Environmental Dynamics', 'Modeling'],
+    description: 'Laboratorio HERUS de la EPFL en Lausanne. Puestos de investigación en modelado sistémico espacial, transiciones socio-ecológicas y resiliencia territorial con remuneración de nivel federal suizo.',
+    iconName: 'Compass'
+  },
+  {
+    id: 'portal-univie',
+    name: 'Universität Wien - Job Portal (Praedoc & Research)',
+    quadrant: 'DACH',
+    quadrantLabel: 'Austria / DACH',
+    category: 'Científico / I+D',
+    directUrl: 'https://jobs.univie.ac.at/go/Praedoc/8877001/25/?q=&sortColumn=referencedate&sortDirection=desc',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Praedoc', 'Geophysics', 'Earth Sciences', 'Climate', 'Hydrology'],
+    description: 'Portal oficial de vacantes predoctorales (Praedoc) y científicas de la Universidad de Viena. Convocatorias en ciencias de la tierra, meteorología y geofísica bajo convenio universitario austriaco (FWF / TV-UG).',
+    iconName: 'GraduationCap'
+  },
+  {
     id: 'portal-xing-dach',
     name: 'XING Jobs (DACH)',
     quadrant: 'DACH',
@@ -102,6 +150,18 @@ export const DAILY_PORTALS: DailyPortal[] = [
     suggestedKeywords: ['Python', 'GIS Data', 'Remote Sensing', 'Data Analyst'],
     description: 'Ofertas especializadas en desarrollo técnico, análisis de datos, Python y sistemas de información geográfica.',
     iconName: 'Search'
+  },
+  {
+    id: 'portal-bc3',
+    name: 'BC3 Basque Centre for Climate Change - Job Offers',
+    quadrant: 'EUSKADI',
+    quadrantLabel: 'Euskadi / Bilbao',
+    category: 'Científico / I+D',
+    directUrl: 'https://www.bc3research.org/en/careers/job-offers/',
+    recommendedFrequency: 'Diario',
+    suggestedKeywords: ['Climate Change', 'Basin Modeling', 'Ecosystem Services', 'ARIES', 'Carbon MRV'],
+    description: 'Portal oficial de vacantes del Basque Centre for Climate Change (BC3) en el Parque Tecnológico de Leioa (Bizkaia). Puestos en modelación climática, balance hídrico de cuencas, flujos de carbono y servicios ecosistémicos.',
+    iconName: 'Leaf'
   },
   {
     id: 'portal-eit-food',

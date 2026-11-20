@@ -799,13 +799,71 @@ export const initialSources: JobSource[] = [
     id: 'src-bc3',
     name: 'BC3 Basque Centre for Climate Change (Bilbao / Leioa)',
     type: 'research_center',
-    url: 'https://www.bc3research.org/careers.html',
+    url: 'https://www.bc3research.org/en/careers/job-offers/',
     priority: 'Alta',
     frequency: 'Diario',
     status: 'Activo',
     lastScraped: '',
     offersExtracted: 0,
-    notes: 'Centro de investigación en cambio climático de excelencia mundial en Bizkaia.'
+    region: 'Euskadi / España',
+    countryFocus: 'Euskadi',
+    notes: 'Centro de investigación en cambio climático de excelencia mundial en Bizkaia. Portal oficial de ofertas de empleo e investigación.'
+  },
+  {
+    id: 'src-ethz',
+    name: 'ETH Zürich (Eidgenössische Technische Hochschule Zürich)',
+    type: 'research_center',
+    url: 'https://jobs.ethz.ch/site/index',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Portal oficial de contratación académica y científica en Suiza. Máxima escala salarial europea (85k-115k CHF) en geofísica e hidrología.'
+  },
+  {
+    id: 'src-eawag',
+    name: 'Eawag - Swiss Federal Institute of Aquatic Science and Technology',
+    type: 'research_center',
+    url: 'https://www.eawag.ch/en/about-us/working/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Instituto federal de investigación acuática en Dübendorf/Zúrich (Dominio ETH). Puestos de modelado hidrológico de cuencas y balance hídrico.'
+  },
+  {
+    id: 'src-epfl-herus',
+    name: 'EPFL - HERUS Lab (Human-Environment Relations in Urban Systems)',
+    type: 'research_center',
+    url: 'https://www.epfl.ch/labs/herus/index-html/openings/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Laboratorio de la Escuela Politécnica Federal de Lausanne enfocado en modelado sistémico socio-ecológico y dinámicas espaciales.'
+  },
+  {
+    id: 'src-univie',
+    name: 'Universität Wien - Job Portal (Praedoc / Postdoc)',
+    type: 'research_center',
+    url: 'https://jobs.univie.ac.at/go/Praedoc/8877001/25/?q=&sortColumn=referencedate&sortDirection=desc',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Austria (DACH)',
+    notes: 'Vacantes predoctorales (Praedoc) y científicas de la Universidad de Viena bajo convenio universitario TV-UG / FWF en meteorología, geofísica y ciencias de la tierra.'
   },
   {
     id: 'src-tecnalia',
@@ -4527,6 +4585,186 @@ id: 'comp-climate-kic',
         name: 'Prof. Spyros Pandis',
         role: 'Collaborating Faculty Member / ERC Advanced Grantee',
         notes: 'Pionero mundial en física y química de la atmósfera'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-ethz',
+    name: 'ETH Zürich - Eidgenössische Technische Hochschule',
+    website: 'https://jobs.ethz.ch/site/index',
+    sector: 'Investigación de Excelencia Mundial en Geofísica, Clima e Hidrología',
+    size: '10.000+ personal científico y académico',
+    headquarters: 'Zürich, Suiza',
+    description: 'La universidad politécnica líder de Europa continental. Su Departamento de Ciencias de Sistemas Ambientales (D-USYS) y Ciencias de la Tierra (D-ERPS) albergan grupos de vanguardia en física del clima, dinámica de cuencas hidrológicas y modelación geofísica con máxima escala salarial suiza.',
+    keyProjects: [
+      'Modelación de acoplamiento tierra-atmósfera y balance hídrico en cuencas alpinas',
+      'Monitoreo avanzado de flujos de carbono y balance de radiación con redes micrometeorológicas',
+      'Simulación numérica de transporte de fluidos y geotermia en la litosfera'
+    ],
+    recentNews: [
+      {
+        title: 'Convocatorias abiertas de proyectos doctorales y postdoctorales en dinámica ambiental',
+        date: '2026-11-18',
+        snippet: 'Líneas prioritarias en simulación hidro-climatológica y sensores geofísicos.'
+      }
+    ],
+    workCulture: [
+      'Cúspide de la excelencia académica global y fondos de investigación ilimitados',
+      'Escala salarial federal de primer nivel mundial (85.000 - 115.000 CHF/año)',
+      'Infraestructura computacional de supercómputo (CSCS) y laboratorios analíticos punteros'
+    ],
+    redFlags: ['Alta competitividad internacional en procesos de selección científica'],
+    interviewArguments: [
+      'Formación cuantitativa rigurosa en geofísica matemática (U. de Chile) e investigación ambiental aplicada en Europa (CAU Kiel).',
+      'Dominio de sensores de campo, torres de flujo eddy covariance y modelado físico-matemático en Python/R.',
+      'Alineamiento directo con los estándares de rigor analítico y publicaciones de alto impacto de la ETH.'
+    ],
+    techStack: ['Python', 'R', 'C++', 'Fortran', 'GIS', 'EddyPro', 'High-Performance Computing'],
+    lastResearched: '2026-11-19',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-ethz-1',
+        name: 'ETH Job Portal / D-USYS Recruiting',
+        role: 'Scientific Talent Acquisition & Academic Search',
+        notes: 'Canal oficial de candidaturas para investigadores en ciencias de la tierra y clima'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-eawag',
+    name: 'Eawag - Swiss Federal Institute of Aquatic Science and Technology',
+    website: 'https://www.eawag.ch/en/about-us/working/',
+    sector: 'Ciencias Acuáticas, Hidrología de Cuencas & Biogeoquímica (ETH Domain)',
+    size: '500+ científicos y especialistas',
+    headquarters: 'Dübendorf / Zürich, Suiza',
+    description: 'Instituto federal de investigación acuática dentro del Dominio de las Escuelas Politécnicas Federales (ETH Domain). Referente global en hidrología de cuencas, hidrogeología, procesos biogeoquímicos y transporte de contaminantes y solutos en aguas superficiales y subterráneas.',
+    keyProjects: [
+      'Modelación hidrológica distribuida de caudales, recarga de acuíferos y escorrentía',
+      'Monitoreo continuo de calidad del agua y balances de masa biogeoquímicos en cuencas fluviales',
+      'Adaptación de ecosistemas acuáticos ante regímenes de sequía y estrés térmico'
+    ],
+    recentNews: [
+      {
+        title: 'Nuevas posiciones de investigación en dinámica de cuencas y resiliencia de recursos hídricos',
+        date: '2026-11-15',
+        snippet: 'Proyectos estratégicos financiados por el Fondo Nacional Suizo (SNSF) y Horizonte Europa.'
+      }
+    ],
+    workCulture: [
+      'Ambiente interdisciplinar de investigación aplicada con transferencia directa a políticas públicas',
+      'Condiciones laborales del Dominio ETH de Suiza con salarios y beneficios de vanguardia',
+      'Fuerte colaboración con la ETH Zürich y la EPFL en programas doctorales conjuntos'
+    ],
+    redFlags: ['Requisitos metodológicos muy estrictos en modelado cuantitativo de aguas'],
+    interviewArguments: [
+      'Experiencia empírica en monitoreo hidrológico, propiedades físicas de suelos y balance hídrico de cuencas.',
+      'Manejo de series temporales ambientales complejas, calibración de modelos y geoestadística.',
+      'Capacidad de integración en equipos multiculturales y multilingües (español, inglés, alemán).'
+    ],
+    techStack: ['Python', 'R', 'QGIS', 'SWAT / MODFLOW', 'Git', 'Statistical Hydrology'],
+    lastResearched: '2026-11-19',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-eawag-1',
+        name: 'Eawag Human Resources & Scientific Staff',
+        role: 'Recruitment & Academic Support',
+        notes: 'Coordinación de contratos de investigación y fellowships pre/postdoctorales'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-epfl-herus',
+    name: 'EPFL - HERUS Lab (Human-Environment Relations in Urban Systems)',
+    website: 'https://www.epfl.ch/labs/herus/index-html/openings/',
+    sector: 'Modelación Sistémica Socio-Ecológica & Dinámicas Espaciales (EPFL)',
+    size: '30+ investigadores en laboratorio / 4.000+ en EPFL',
+    headquarters: 'Lausanne, Vaud, Suiza',
+    description: 'Laboratorio de excelencia de la École Polytechnique Fédérale de Lausanne (EPFL) dirigido por la Prof. Claudia R. Binder dentro del ENAC. Especializado en análisis de metabolismo espacial, flujos de recursos, modelos basados en agentes y evaluación de resiliencia ante transiciones socio-ecológicas.',
+    keyProjects: [
+      'Modelado computacional de sistemas socio-ecológicos acoplados (SES)',
+      'Análisis de flujos de materiales, agua y carbono a escala regional y urbana',
+      'Simulación de escenarios de resiliencia territorial y adaptación climática'
+    ],
+    recentNews: [
+      {
+        title: 'Apertura de convocatorias para investigadores predoctorales y postdoctorales en sistemas urbanos',
+        date: '2026-11-16',
+        snippet: 'Financiación completa de doctorado y contratos de investigación en Lausanne.'
+      }
+    ],
+    workCulture: [
+      'Campus internacional de alta energía científica a orillas del Lago Lemán',
+      'Contratos suizos de la EPFL con excelente retribución económica y estabilidad',
+      'Enfoque transdisciplinar combinando modelos físico-ambientales con toma de decisiones'
+    ],
+    redFlags: ['Perfil de investigación muy específico requiriendo enfoque en teoría de sistemas y modelado'],
+    interviewArguments: [
+      'Perfil híbrido cuantitativo: formación de base en física de sistemas complejos y máster en gestión y protección ambiental.',
+      'Experiencia en teledetección espacial, SIG y programación para análisis territorial.',
+      'Habilidad demostrada para comunicar modelos científicos a partes interesadas y planificadores.'
+    ],
+    techStack: ['Python', 'R', 'Spatial GIS', 'Agent-Based Modeling', 'System Dynamics', 'Jupyter'],
+    lastResearched: '2026-11-19',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-herus-1',
+        name: 'HERUS Lab Coordination',
+        role: 'Research & Lab Management',
+        notes: 'Punto de contacto para candidaturas espontáneas y proyectos de investigación'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-univie',
+    name: 'Universität Wien - Institut für Meteorologie und Geophysik',
+    website: 'https://jobs.univie.ac.at/go/Praedoc/8877001/25/?q=&sortColumn=referencedate&sortDirection=desc',
+    sector: 'Investigación Universitaria en Meteorología, Clima y Geofísica',
+    size: '9.000+ personal académico y científico',
+    headquarters: 'Viena (Wien), Austria',
+    description: 'La universidad más antigua del mundo germanófono y centro de investigación de élite en Austria. Su Facultad de Ciencias de la Tierra, Geografía y Astronomía lidera programas FWF en física atmosférica, sismología, balance de agua y modelación del ciclo del carbono.',
+    keyProjects: [
+      'Modelado acoplado de dinámica atmosférica y procesos de superficie terrestre',
+      'Monitoreo geofísico ambiental y redes de observación alpina',
+      'Estudios de variabilidad paleoclimática y proyecciones de impacto regional'
+    ],
+    recentNews: [
+      {
+        title: 'Convocatorias Praedoc / Wissenschaftliche Mitarbeiter*innen en meteorología y geofísica',
+        date: '2026-11-17',
+        snippet: 'Plazas financiadas bajo el convenio colectivo universitario austriaco (Kollektivvertrag § 48).'
+      }
+    ],
+    workCulture: [
+      'Tradición científica rigurosa y vibrante vida cultural en la capital mundial de mayor calidad de vida',
+      'Convenio colectivo universitario TV-UG / Uni-KV (nivel B1 / 30h-40h semanales)',
+      'Sinergia directa con organismos internacionales con sede en Viena (IAEA, IIASA, CTBTO)'
+    ],
+    redFlags: ['Procesos administrativos formales con plazos de candidatura estrictos'],
+    interviewArguments: [
+      'Licenciatura en Geofísica (U. de Chile) con equivalencia académica y base matemática superior en física de medios continuos.',
+      'M.Sc. en Environmental Management en Alemania (CAU Kiel) con perfecto conocimiento del sistema académico germano-austriaco.',
+      'Fluidez en alemán e inglés para investigación, docencia y publicación indexada.'
+    ],
+    techStack: ['Python', 'Fortran', 'R', 'Linux/Bash', 'CDO/NCO', 'Geophysical Modeling'],
+    lastResearched: '2026-11-19',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-univie-1',
+        name: 'Universität Wien Job Center / Fakultät für Geowissenschaften',
+        role: 'Recruiting Office',
+        notes: 'Gestión centralizada de candidaturas praedoc y postdoctorales'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']

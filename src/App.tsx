@@ -277,7 +277,7 @@ export function App() {
               id: `h-${Date.now()}`,
               timestamp,
               stage: 1,
-              title: `Prospección de Cuenta Diana iniciada desde Mercado (${targetCompany.name})`,
+              title: `Prospección de Cuenta Diana iniciada desde Ofertas (${targetCompany.name})`,
               actor: 'Usuario'
             }
           ]
