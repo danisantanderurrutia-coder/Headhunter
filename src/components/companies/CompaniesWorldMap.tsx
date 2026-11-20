@@ -81,6 +81,15 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   if (text.includes('karlsruhe')) {
     return [49.0069 + dLat, 8.4037 + dLng];
   }
+  if (text.includes('freiburg')) {
+    return [47.9990 + dLat, 7.8421 + dLng];
+  }
+  if (text.includes('heidelberg')) {
+    return [49.3988 + dLat, 8.6724 + dLng];
+  }
+  if (text.includes('stuttgart') || text.includes('hohenheim')) {
+    return [48.7758 + dLat, 9.1829 + dLng];
+  }
   if (text.includes('jena')) {
     return [50.9271 + dLat, 11.5892 + dLng];
   }
@@ -125,7 +134,13 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   if (text.includes('dübendorf') || text.includes('duebendorf') || text.includes('eawag')) {
     return [47.4032 + dLat, 8.6105 + dLng];
   }
-  if (text.includes('zúrich') || text.includes('zurich') || text.includes('suiza') || text.includes('berna') || text.includes('ethz')) {
+  if (text.includes('bern') || text.includes('berna')) {
+    return [46.9480 + dLat, 7.4474 + dLng];
+  }
+  if (text.includes('geneva') || text.includes('ginebra') || text.includes('genf')) {
+    return [46.2044 + dLat, 6.1432 + dLng];
+  }
+  if (text.includes('zúrich') || text.includes('zurich') || text.includes('suiza') || text.includes('ethz') || text.includes('uzh')) {
     return [47.3769 + dLat, 8.5417 + dLng];
   }
 

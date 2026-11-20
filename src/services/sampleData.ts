@@ -821,7 +821,7 @@ export const initialSources: JobSource[] = [
     offersExtracted: 0,
     region: 'Alemania / DACH',
     countryFocus: 'Suiza (DACH)',
-    notes: 'Portal oficial de contratación académica y científica en Suiza. Máxima escala salarial europea (85k-115k CHF) en geofísica e hidrología.'
+    notes: 'Portal oficial de contratación académica en Suiza. Grupos clave: Energy & Tech Policy (EPG - Prof. Schmidt), KOF Lab (Global Trade & Climate Shocks), Agricultural Economics (ACHIEVE), Circular Economy y NCCR CLIM+ (85k-115k CHF).'
   },
   {
     id: 'src-eawag',
@@ -835,7 +835,7 @@ export const initialSources: JobSource[] = [
     offersExtracted: 0,
     region: 'Alemania / DACH',
     countryFocus: 'Suiza (DACH)',
-    notes: 'Instituto federal de investigación acuática en Dübendorf/Zúrich (Dominio ETH). Puestos de modelado hidrológico de cuencas y balance hídrico.'
+    notes: 'Instituto federal de investigación acuática en Dübendorf/Zúrich (Dominio ETH & NCCR CLIM+). Foco primordial en humedales, restauración y balance de GEI (alineación 100% con trabajo en Kiel).'
   },
   {
     id: 'src-epfl-herus',
@@ -849,7 +849,7 @@ export const initialSources: JobSource[] = [
     offersExtracted: 0,
     region: 'Alemania / DACH',
     countryFocus: 'Suiza (DACH)',
-    notes: 'Laboratorio de la Escuela Politécnica Federal de Lausanne enfocado en modelado sistémico socio-ecológico y dinámicas espaciales.'
+    notes: 'Laboratorio de la EPFL (Prof. Claudia Binder). Modelado sistémico espacial, transición socio-ecológica, gestión de bosques/treeline y gobernanza energética.'
   },
   {
     id: 'src-univie',
@@ -863,7 +863,119 @@ export const initialSources: JobSource[] = [
     offersExtracted: 0,
     region: 'Alemania / DACH',
     countryFocus: 'Austria (DACH)',
-    notes: 'Vacantes predoctorales (Praedoc) y científicas de la Universidad de Viena bajo convenio universitario TV-UG / FWF en meteorología, geofísica y ciencias de la tierra.'
+    notes: 'Vacantes predoctorales y científicas de la Universidad de Viena bajo convenio TV-UG / FWF. Grupos de alta prioridad: TiCCA4Danu, PEGIS/GEIST (cooperación activa Kiel), VISESS Earth System, ENGAGE y STRENGTH.'
+  },
+  {
+    id: 'src-uni-freiburg',
+    name: 'University of Freiburg - Future Forests & Forest Policy',
+    type: 'research_center',
+    url: 'https://uni-freiburg.de/universitaet/stellenangebote/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Alemania (DACH)',
+    notes: 'Cluster de Excelencia Future Forests y Chair of Forest and Environmental Policy. Investigación en adaptación climática de bosques, gobernanza y sistemas socio-ecológicos (TV-L E13).'
+  },
+  {
+    id: 'src-kit-c4land',
+    name: 'KIT Karlsruhe - IRTG C4LaNd & IMK-IFU Campus Alpin',
+    type: 'research_center',
+    url: 'https://www.c4land.kit.edu/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Alemania (DACH)',
+    notes: 'International Research Training Group C4LaNd (Competition for Land) con Hohenheim y Melbourne. Nexus food-energy-materials, biodiversidad, blue-green infrastructure (GRUSS/IIP) y flujos GEI (IMK-IFU).'
+  },
+  {
+    id: 'src-tum-edfm',
+    name: 'TUM Freising - Ecosystem Dynamics & Forest Management (BETA-FOR)',
+    type: 'research_center',
+    url: 'https://www.edfm.wzw.tum.de/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Alemania (DACH)',
+    notes: 'Cátedra de Dinámica de Ecosistemas Forestales en Regiones Montañosas (Prof. Rupert Seidl). Modelado numérico de perturbaciones forestales, proyecto DFG BETA-FOR y Center for Alpine Forest Management.'
+  },
+  {
+    id: 'src-uni-heidelberg',
+    name: 'Universität Heidelberg - Climate Governance & HCE',
+    type: 'research_center',
+    url: 'https://www.uni-heidelberg.de/de/beschaeftigte/stellenmarkt',
+    priority: 'Media',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Alemania (DACH)',
+    notes: 'Heidelberg Center for the Environment (HCE) e Institut für Politische Wissenschaft. Puestos en gobernanza y políticas públicas climáticas.'
+  },
+  {
+    id: 'src-uni-stuttgart-enwat',
+    name: 'Universität Stuttgart - Graduate School ENWAT & IWS',
+    type: 'research_center',
+    url: 'https://www.iws.uni-stuttgart.de/en/research/enwat/',
+    priority: 'Media',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Alemania (DACH)',
+    notes: 'Escuela de doctorado internacional Environment Water (ENWAT) e Instituto de Modelado de Sistemas Hidráulicos (IWS). Modelación hidrológica de cuencas e infraestructura azul-verde.'
+  },
+  {
+    id: 'src-nccr-clim',
+    name: 'NCCR CLIM+ Swiss National Consortium (ETH Zürich / Bern / Eawag)',
+    type: 'research_center',
+    url: 'https://nccr-climplus.ch/',
+    priority: 'Alta',
+    frequency: 'Diario',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Gran consorcio nacional suizo (SNSF) en extremos climáticos, sociedad, gobernanza y balance hídrico, conectando ETHZ, Uni Bern y Eawag.'
+  },
+  {
+    id: 'src-uzh',
+    name: 'University of Zurich (UZH) - Remote Sensing & EcoVision Lab',
+    type: 'research_center',
+    url: 'https://www.geo.uzh.ch/en/units/rsl/jobs.html',
+    priority: 'Media',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Suiza (DACH)',
+    notes: 'Departamento de Geografía de la UZH. Laboratorio EcoVision y Remote Sensing Laboratories (RSL) en teledetección de cambios ambientales y ecología del paisaje.'
+  },
+  {
+    id: 'src-ceu-vienna',
+    name: 'Central European University (CEU) - Dept. Environmental Sciences',
+    type: 'research_center',
+    url: 'https://envsci.ceu.edu/',
+    priority: 'Media',
+    frequency: 'Semanal',
+    status: 'Activo',
+    lastScraped: '',
+    offersExtracted: 0,
+    region: 'Alemania / DACH',
+    countryFocus: 'Austria (DACH)',
+    notes: 'Departamento de Ciencias y Políticas Ambientales en Viena. Gobernanza ambiental internacional, recursos hídricos y transiciones justas.'
   },
   {
     id: 'src-tecnalia',
@@ -4591,37 +4703,38 @@ id: 'comp-climate-kic',
   },
   {
     id: 'comp-ethz',
-    name: 'ETH Zürich - Eidgenössische Technische Hochschule',
+    name: 'ETH Zürich - Energy Policy, Economics & Earth Systems',
     website: 'https://jobs.ethz.ch/site/index',
-    sector: 'Investigación de Excelencia Mundial en Geofísica, Clima e Hidrología',
+    sector: 'Investigación de Excelencia Mundial en Geofísica, Clima, Economía & Políticas',
     size: '10.000+ personal científico y académico',
     headquarters: 'Zürich, Suiza',
-    description: 'La universidad politécnica líder de Europa continental. Su Departamento de Ciencias de Sistemas Ambientales (D-USYS) y Ciencias de la Tierra (D-ERPS) albergan grupos de vanguardia en física del clima, dinámica de cuencas hidrológicas y modelación geofísica con máxima escala salarial suiza.',
+    description: 'La universidad politécnica líder de Europa continental. Alberga grupos de máximo impacto estratégico: Energy and Technology Policy Group (EPG - Prof. Tobias Schmidt en economía política de la adaptación climática bajo el consorcio NCCR CLIM+), KOF Lab (Global Trade, Supply Chains and Climate Shocks - Prof. Hans Gersbach / Dr. Kieran Walsh), Agricultural Economics and Policy Group (proyecto ACHIEVE en mitigación agraria), Circular Economy Group, y cátedras líderes en ecología del paisaje y ciencias de la tierra con máxima escala salarial suiza (85.000 - 115.000 CHF).',
     keyProjects: [
-      'Modelación de acoplamiento tierra-atmósfera y balance hídrico en cuencas alpinas',
-      'Monitoreo avanzado de flujos de carbono y balance de radiación con redes micrometeorológicas',
-      'Simulación numérica de transporte de fluidos y geotermia en la litosfera'
+      'Energy and Technology Policy Group (EPG): Political economy of climate change adaptation policies (NCCR CLIM+)',
+      'KOF Swiss Economic Institute Lab: Global Trade, Supply Chains and Climate Shocks',
+      'Agricultural Economics and Policy Group: Proyecto ACHIEVE para mitigación y balance de carbono en agricultura',
+      'Circular Economy & Landscape Ecology: Modelación biofísica y gobernanza de recursos'
     ],
     recentNews: [
       {
-        title: 'Convocatorias abiertas de proyectos doctorales y postdoctorales en dinámica ambiental',
+        title: 'Convocatorias abiertas en el consorcio NCCR CLIM+ y grupos EPG / KOF para investigadores doctorales y postdocs',
         date: '2026-11-18',
-        snippet: 'Líneas prioritarias en simulación hidro-climatológica y sensores geofísicos.'
+        snippet: 'Proyectos de investigación sobre impactos de extremos climáticos, cadenas de suministro y economía política de la transición.'
       }
     ],
     workCulture: [
-      'Cúspide de la excelencia académica global y fondos de investigación ilimitados',
-      'Escala salarial federal de primer nivel mundial (85.000 - 115.000 CHF/año)',
-      'Infraestructura computacional de supercómputo (CSCS) y laboratorios analíticos punteros'
+      'Cúspide de la excelencia académica global y fondos de investigación de primer nivel',
+      'Escala salarial federal de primer orden mundial (85.000 - 115.000 CHF/año)',
+      'Infraestructura de supercómputo (CSCS), laboratorios analíticos y redes internacionales'
     ],
     redFlags: ['Alta competitividad internacional en procesos de selección científica'],
     interviewArguments: [
       'Formación cuantitativa rigurosa en geofísica matemática (U. de Chile) e investigación ambiental aplicada en Europa (CAU Kiel).',
-      'Dominio de sensores de campo, torres de flujo eddy covariance y modelado físico-matemático en Python/R.',
-      'Alineamiento directo con los estándares de rigor analítico y publicaciones de alto impacto de la ETH.'
+      'Dominio de sensores de campo, balance de masas/energía, torres eddy covariance y modelado biofísico y geoespacial en Python/R.',
+      'Alineamiento directo con las líneas del NCCR CLIM+ y la integración de evidencia física en políticas de transición.'
     ],
-    techStack: ['Python', 'R', 'C++', 'Fortran', 'GIS', 'EddyPro', 'High-Performance Computing'],
-    lastResearched: '2026-11-19',
+    techStack: ['Python', 'R', 'C++', 'Fortran', 'GIS', 'EddyPro', 'High-Performance Computing', 'Policy Modeling'],
+    lastResearched: '2026-11-20',
     quadrants: ['DACH'],
     sectorCluster: 'RD_PUBLIC',
     contacts: [
@@ -4630,6 +4743,12 @@ id: 'comp-climate-kic',
         name: 'ETH Job Portal / D-USYS Recruiting',
         role: 'Scientific Talent Acquisition & Academic Search',
         notes: 'Canal oficial de candidaturas para investigadores en ciencias de la tierra y clima'
+      },
+      {
+        id: 'cnt-ethz-epg',
+        name: 'Prof. Dr. Tobias Schmidt',
+        role: 'Head of Energy and Technology Policy Group (EPG)',
+        notes: 'Líder en economía política de adaptación climática y políticas energéticas (NCCR CLIM+)'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
@@ -4638,20 +4757,21 @@ id: 'comp-climate-kic',
     id: 'comp-eawag',
     name: 'Eawag - Swiss Federal Institute of Aquatic Science and Technology',
     website: 'https://www.eawag.ch/en/about-us/working/',
-    sector: 'Ciencias Acuáticas, Hidrología de Cuencas & Biogeoquímica (ETH Domain)',
+    sector: 'Ciencias Acuáticas, Restauración de Humedales, Balance de GEI & NCCR CLIM+',
     size: '500+ científicos y especialistas',
     headquarters: 'Dübendorf / Zürich, Suiza',
-    description: 'Instituto federal de investigación acuática dentro del Dominio de las Escuelas Politécnicas Federales (ETH Domain). Referente global en hidrología de cuencas, hidrogeología, procesos biogeoquímicos y transporte de contaminantes y solutos en aguas superficiales y subterráneas.',
+    description: 'Instituto federal suizo de investigación acuática dentro del Dominio ETH y actor clave del consorcio nacional NCCR CLIM+. Referente mundial en hidrología de cuencas, restauración ecológica de humedales (wetlands rewetted), cuantificación de flujos de gases de efecto invernadero (GEI), infraestructura azul-verde (blue-green climate adaptations) e integración ciencia-política. Encaje total con la investigación empírica de campo en turberas y sensores de flujo desarrollada en Kiel.',
     keyProjects: [
-      'Modelación hidrológica distribuida de caudales, recarga de acuíferos y escorrentía',
-      'Monitoreo continuo de calidad del agua y balances de masa biogeoquímicos en cuencas fluviales',
-      'Adaptación de ecosistemas acuáticos ante regímenes de sequía y estrés térmico'
+      'Restauración de humedales y mitigación biofísica de emisiones de GEI en turberas templadas',
+      'Blue-Green Climate Adaptations: Infraestructuras de drenaje sostenible y mitigación térmica',
+      'Participación en el consorcio nacional NCCR CLIM+ (Water, Climate Extremes & Society)',
+      'Modelación hidrológica distribuida de cuencas fluviales y balances de masa biogeoquímicos'
     ],
     recentNews: [
       {
-        title: 'Nuevas posiciones de investigación en dinámica de cuencas y resiliencia de recursos hídricos',
+        title: 'Nuevas posiciones en restauración de humedales, balance de carbono y dinámica de cuencas dentro del NCCR CLIM+',
         date: '2026-11-15',
-        snippet: 'Proyectos estratégicos financiados por el Fondo Nacional Suizo (SNSF) y Horizonte Europa.'
+        snippet: 'Proyectos estratégicos del Fondo Nacional Suizo (SNSF) en adaptación climática hídrica.'
       }
     ],
     workCulture: [
@@ -4659,14 +4779,14 @@ id: 'comp-climate-kic',
       'Condiciones laborales del Dominio ETH de Suiza con salarios y beneficios de vanguardia',
       'Fuerte colaboración con la ETH Zürich y la EPFL en programas doctorales conjuntos'
     ],
-    redFlags: ['Requisitos metodológicos muy estrictos en modelado cuantitativo de aguas'],
+    redFlags: ['Requisitos metodológicos muy estrictos en modelado cuantitativo de aguas y balances de flujos'],
     interviewArguments: [
-      'Experiencia empírica en monitoreo hidrológico, propiedades físicas de suelos y balance hídrico de cuencas.',
-      'Manejo de series temporales ambientales complejas, calibración de modelos y geoestadística.',
-      'Capacidad de integración en equipos multiculturales y multilingües (español, inglés, alemán).'
+      'Experiencia directa de 2 años operando torres de Eddy Covariance y cámaras automatizadas en turberas restauradas (Wallener Au / CAU Kiel).',
+      'Dominio probado en procesamiento de flujos de CO2, CH4 y H2O, correcciones micrometeorológicas y gap-filling.',
+      'Sólida base en física de suelos, balance hídrico de cuencas y programación científica en R y Python.'
     ],
-    techStack: ['Python', 'R', 'QGIS', 'SWAT / MODFLOW', 'Git', 'Statistical Hydrology'],
-    lastResearched: '2026-11-19',
+    techStack: ['Python', 'R', 'EddyPro', 'QGIS', 'SWAT / MODFLOW', 'Biogeochemical Modeling', 'Statistical Hydrology'],
+    lastResearched: '2026-11-20',
     quadrants: ['DACH'],
     sectorCluster: 'RD_PUBLIC',
     contacts: [
@@ -4674,7 +4794,7 @@ id: 'comp-climate-kic',
         id: 'cnt-eawag-1',
         name: 'Eawag Human Resources & Scientific Staff',
         role: 'Recruitment & Academic Support',
-        notes: 'Coordinación de contratos de investigación y fellowships pre/postdoctorales'
+        notes: 'Coordinación de contratos de investigación y fellowships pre/postdoctorales en humedales y clima'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
@@ -4683,20 +4803,21 @@ id: 'comp-climate-kic',
     id: 'comp-epfl-herus',
     name: 'EPFL - HERUS Lab (Human-Environment Relations in Urban Systems)',
     website: 'https://www.epfl.ch/labs/herus/index-html/openings/',
-    sector: 'Modelación Sistémica Socio-Ecológica & Dinámicas Espaciales (EPFL)',
+    sector: 'Modelación Sistémica Socio-Ecológica & Transiciones Ambientales (EPFL)',
     size: '30+ investigadores en laboratorio / 4.000+ en EPFL',
     headquarters: 'Lausanne, Vaud, Suiza',
-    description: 'Laboratorio de excelencia de la École Polytechnique Fédérale de Lausanne (EPFL) dirigido por la Prof. Claudia R. Binder dentro del ENAC. Especializado en análisis de metabolismo espacial, flujos de recursos, modelos basados en agentes y evaluación de resiliencia ante transiciones socio-ecológicas.',
+    description: 'Laboratorio de excelencia de la École Polytechnique Fédérale de Lausanne (EPFL) dirigido por la Prof. Claudia R. Binder dentro de la Facultad ENAC. Especializado en modelado computacional de sistemas socio-ecológicos acoplados (SES), co-diseño de vías de transición ambiental ("Co-designing environmental transition pathways"), dinámicas de bosques y treeline alpino ("Forest Treeline Management"), y gobernanza de la transición energética y del suelo.',
     keyProjects: [
-      'Modelado computacional de sistemas socio-ecológicos acoplados (SES)',
-      'Análisis de flujos de materiales, agua y carbono a escala regional y urbana',
-      'Simulación de escenarios de resiliencia territorial y adaptación climática'
+      'Co-designing environmental transition pathways: Modelos computacionales participativos de sostenibilidad regional',
+      'Forest Treeline Management: Dinámica ecológica y resiliencia de la vegetación alpina ante cambio climático',
+      'Gobernanza de la transición energética y metabolismo socio-ecológico urbano',
+      'Análisis de flujos de materiales, agua y carbono a escala regional y territorial'
     ],
     recentNews: [
       {
-        title: 'Apertura de convocatorias para investigadores predoctorales y postdoctorales en sistemas urbanos',
+        title: 'Líneas prioritarias en modelado participativo de transiciones socio-ecológicas y treeline management',
         date: '2026-11-16',
-        snippet: 'Financiación completa de doctorado y contratos de investigación en Lausanne.'
+        snippet: 'Proyectos de investigación de frontera con financiación federal suiza en el campus de Lausanne.'
       }
     ],
     workCulture: [
@@ -4711,37 +4832,38 @@ id: 'comp-climate-kic',
       'Habilidad demostrada para comunicar modelos científicos a partes interesadas y planificadores.'
     ],
     techStack: ['Python', 'R', 'Spatial GIS', 'Agent-Based Modeling', 'System Dynamics', 'Jupyter'],
-    lastResearched: '2026-11-19',
+    lastResearched: '2026-11-20',
     quadrants: ['DACH'],
     sectorCluster: 'RD_PUBLIC',
     contacts: [
       {
         id: 'cnt-herus-1',
-        name: 'HERUS Lab Coordination',
-        role: 'Research & Lab Management',
-        notes: 'Punto de contacto para candidaturas espontáneas y proyectos de investigación'
+        name: 'Prof. Dr. Claudia R. Binder',
+        role: 'Academic Director HERUS Lab / Dean ENAC',
+        notes: 'Punto de contacto para proyectos de modelación socio-ecológica y transiciones ambientales'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
   },
   {
     id: 'comp-univie',
-    name: 'Universität Wien - Institut für Meteorologie und Geophysik',
+    name: 'Universität Wien - Economic Geography, VISESS & Climate Research',
     website: 'https://jobs.univie.ac.at/go/Praedoc/8877001/25/?q=&sortColumn=referencedate&sortDirection=desc',
-    sector: 'Investigación Universitaria en Meteorología, Clima y Geofísica',
+    sector: 'Investigación Universitaria de Excelencia en Clima, Geografía Económica & VISESS',
     size: '9.000+ personal académico y científico',
     headquarters: 'Viena (Wien), Austria',
-    description: 'La universidad más antigua del mundo germanófono y centro de investigación de élite en Austria. Su Facultad de Ciencias de la Tierra, Geografía y Astronomía lidera programas FWF en física atmosférica, sismología, balance de agua y modelación del ciclo del carbono.',
+    description: 'La universidad de mayor prestigio de Austria con grupos pioneros en geociencias, transformación territorial y adaptación climática. Destacan: TiCCA4Danu (Economic Geography - adaptación climática justa y gobernanza regional del Danubio), Human/Economic Geography Group (PEGIS + GEIST, con activa cooperación académica con la Universidad de Kiel), la escuela doctoral VISESS (Vienna International School of Earth and Space Sciences), el grupo ENGAGE (gobernanza participativa y stakeholder engagement) y STRENGTH (resiliencia socio-natural y economía ambiental).',
     keyProjects: [
-      'Modelado acoplado de dinámica atmosférica y procesos de superficie terrestre',
-      'Monitoreo geofísico ambiental y redes de observación alpina',
-      'Estudios de variabilidad paleoclimática y proyecciones de impacto regional'
+      'TiCCA4Danu: Adaptación climática justa, innovación transformadora y gobernanza regional en la cuenca del Danubio (Prioridad 1)',
+      'Human / Economic Geography Group (PEGIS + GEIST): Geografía económica y transformaciones con cooperación Kiel (Prioridad 1)',
+      'VISESS (Vienna International School of Earth and Space Sciences): Geociencias, Earth System y sostenibilidad interdisciplinaria (Prioridad 2)',
+      'ENGAGE & STRENGTH: Gobernanza participativa, justicia socio-ambiental, resiliencia y riesgos socio-naturales (Prioridad 2-3)'
     ],
     recentNews: [
       {
-        title: 'Convocatorias Praedoc / Wissenschaftliche Mitarbeiter*innen en meteorología y geofísica',
+        title: 'Nuevas iniciativas doctorales y de investigación en TiCCA4Danu y la escuela doctoral VISESS',
         date: '2026-11-17',
-        snippet: 'Plazas financiadas bajo el convenio colectivo universitario austriaco (Kollektivvertrag § 48).'
+        snippet: 'Proyectos financiados bajo el convenio colectivo universitario austriaco (Kollektivvertrag § 48 / FWF).'
       }
     ],
     workCulture: [
@@ -4751,20 +4873,384 @@ id: 'comp-climate-kic',
     ],
     redFlags: ['Procesos administrativos formales con plazos de candidatura estrictos'],
     interviewArguments: [
-      'Licenciatura en Geofísica (U. de Chile) con equivalencia académica y base matemática superior en física de medios continuos.',
-      'M.Sc. en Environmental Management en Alemania (CAU Kiel) con perfecto conocimiento del sistema académico germano-austriaco.',
-      'Fluidez en alemán e inglés para investigación, docencia y publicación indexada.'
+      'Licenciatura en Geofísica (U. de Chile) y M.Sc. en Environmental Management en Alemania (CAU Kiel, conectando directamente con las redes de cooperación PEGIS/GEIST).',
+      'Manejo de análisis espacial, dinámica de cuencas hidrológicas y modelación biofísica con perspectiva de gobernanza regional.',
+      'Fluidez bilingüe alemán-inglés para investigación, docencia y publicación indexada.'
     ],
-    techStack: ['Python', 'Fortran', 'R', 'Linux/Bash', 'CDO/NCO', 'Geophysical Modeling'],
-    lastResearched: '2026-11-19',
+    techStack: ['Python', 'R', 'QGIS', 'Spatial Econometrics', 'Earth System Science', 'CDO/NCO'],
+    lastResearched: '2026-11-20',
     quadrants: ['DACH'],
     sectorCluster: 'RD_PUBLIC',
     contacts: [
       {
         id: 'cnt-univie-1',
-        name: 'Universität Wien Job Center / Fakultät für Geowissenschaften',
-        role: 'Recruiting Office',
+        name: 'Universität Wien Job Center / Fakultät für Geowissenschaften & Geographie',
+        role: 'Recruiting Office & VISESS Coordination',
         notes: 'Gestión centralizada de candidaturas praedoc y postdoctorales'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-uni-freiburg',
+    name: 'University of Freiburg - Future Forests & Forest Policy',
+    website: 'https://uni-freiburg.de/universitaet/stellenangebote/',
+    sector: 'Adaptación Climática de Bosques, Gobernanza & Sistemas Socio-Ecológicos (Excellence Cluster)',
+    size: '5.000+ personal científico y académico',
+    headquarters: 'Freiburg im Breisgau (Baden-Württemberg, Alemania)',
+    description: 'Universidad de Excelencia de Baden-Württemberg. Alberga el Clúster de Excelencia Future Forests enfocado en la adaptación de sistemas socio-ecológicos forestales al cambio climático, junto con la Chair of Forest and Environmental Policy (Facultad de Medio Ambiente y Recursos Naturales). Líder en investigación interdisciplinaria sobre gobernanza, conflictos socio-ambientales y resiliencia en la Selva Negra y Europa Central.',
+    keyProjects: [
+      'Cluster de Excelencia "Future Forests": Adaptación y gobernanza de sistemas socio-ecológicos forestales',
+      'Chair of Forest and Environmental Policy: Análisis de políticas de transición ecológica y conflictos territoriales',
+      'Monitoreo biofísico y socioeconómico de la resiliencia forestal en la Selva Negra (Schwarzwald)'
+    ],
+    recentNews: [
+      {
+        title: 'Lanzamiento de convocatorias del Clúster Future Forests para doctorandos y postdocs',
+        date: '2026-11-12',
+        snippet: 'Plazas de investigación interdisciplinaria financiadas por la DFG en modelado socio-ecológico y políticas forestales.'
+      }
+    ],
+    workCulture: [
+      'Centro neurálgico europeo en ciencias forestales, gobernanza ambiental y sostenibilidad urbana',
+      'Contratos públicos de investigación 100% TV-L E13/E14 con estabilidad y complementos',
+      'Fuerte proyección internacional y vida académica en una de las ciudades más verdes de Europa'
+    ],
+    redFlags: ['Coste de vivienda elevado en Freiburg y competencia por plazas DFG'],
+    interviewArguments: [
+      'Doble máster europeo en Gestión y Protección Ambiental en Alemania (CAU Kiel) con conocimiento de políticas ambientales europeas y alemanas.',
+      'Capacidad única de integrar datos biofísicos de terreno (suelo, vegetación, carbono) con marcos de gobernanza y teoría de sistemas socio-ecológicos.',
+      'Fluidez en alemán (para gobernanza y administración) e inglés (para investigación peer-reviewed).'
+    ],
+    techStack: ['R', 'Python', 'QGIS', 'Social-Ecological Systems (SES)', 'Policy Analysis', 'Field Monitoring'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-freiburg-1',
+        name: 'Future Forests Cluster Office / Chair of Forest & Env Policy',
+        role: 'Academic Coordination & PhD Recruitment',
+        notes: 'Reclutamiento de investigadores para proyectos DFG y Future Forests'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-kit-c4land',
+    name: 'KIT Karlsruhe - IRTG C4LaNd & Urban Systems (GRUSS / IIP)',
+    website: 'https://www.c4land.kit.edu/',
+    sector: 'Competition for Land, Infraestructura Azul-Verde & Nexo Clima-Biodiversidad',
+    size: '9.000+ investigadores (KIT / Helmholtz)',
+    headquarters: 'Karlsruhe (Baden-Württemberg, Alemania)',
+    description: 'International Research Training Group "Competition for Land" (C4LaNd / DFG GRK 2900) liderado por el KIT en cooperación con University of Hohenheim y University of Melbourne. Integra al IMK-IFU (Atmospheric Environmental Research / Campus Alpin), el Instituto de Producción Industrial (IIP) y el grupo GRUSS (Green, Resilient and Urban Spatial Systems). Aborda el nexo comida-energía-materiales, restauración ecológica, infraestructura azul-verde y gobernanza del suelo ante crisis de biodiversidad y clima.',
+    keyProjects: [
+      'IRTG C4LaNd: Tackling climate and biodiversity crises through the food, energy and materials nexus',
+      'Blue-green infrastructure para adaptación climática urbana y mitigación del efecto isla de calor',
+      'Modelación de transiciones de uso de suelo y trade-offs entre secuestro de carbono, agricultura y energías renovables',
+      'Monitoreo micrometeorológico y balances de GEI en ecosistemas terrestres (con IMK-IFU Campus Alpin)'
+    ],
+    recentNews: [
+      {
+        title: 'Apertura de cohortes doctorales y postdoctorales en el IRTG C4LaNd',
+        date: '2026-11-10',
+        snippet: 'Proyectos conjuntos con Melbourne y Hohenheim en nexo de uso de suelo y modelado biofísico.'
+      }
+    ],
+    workCulture: [
+      'Investigación colaborativa internacional de élite con estancias en Australia (Uni Melbourne) y Alemania',
+      'Remuneración completa TV-L E13 bajo la Asociación Helmholtz / KIT',
+      'Enfoque holístico que combina biofísica de campo, economía de recursos y modelos espaciales'
+    ],
+    redFlags: ['Requiere disponibilidad para períodos de estancia de investigación en Melbourne'],
+    interviewArguments: [
+      'Experiencia empírica de 2 años en monitoreo de flujos de carbono y balance de agua en suelos y humedales en Alemania (CAU Kiel / Wallener Au).',
+      'Base sólida en geofísica matemática y análisis cuantitativo de balance de masa y energía.',
+      'Manejo de programación geoespacial en Python/R y modelado de trade-offs de uso del suelo.'
+    ],
+    techStack: ['Python', 'R', 'QGIS', 'EddyPro', 'Land-Use Nexus Modeling', 'Blue-Green Infrastructure'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-kit-c4land-1',
+        name: 'C4LaNd Coordination Office (KIT & Hohenheim)',
+        role: 'IRTG Scientific Coordinator',
+        notes: 'Gestión de convocatorias doctorales transcontinentales'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-tum-edfm',
+    name: 'TUM - Ecosystem Dynamics and Forest Management Group (EDFM / BETA-FOR)',
+    website: 'https://www.edfm.wzw.tum.de/',
+    sector: 'Dinámica de Ecosistemas Forestales de Montaña & Modelación Climática (Prof. Rupert Seidl)',
+    size: '40+ investigadores en grupo / TUM School of Life Sciences',
+    headquarters: 'Freising / Weihenstephan (Múnich, Baviera, Alemania)',
+    description: 'Cátedra de Dinámica de Ecosistemas y Manejo Forestal en Regiones Montañosas en la TUM School of Life Sciences (Weihenstephan), liderada por el Prof. Dr. Rupert Seidl. Referente mundial en modelación cuantitativa de perturbaciones forestales (fuegos, plagas, sequías), microclima y resiliencia de la biomasa. Lidera la unidad de investigación DFG BETA-FOR y el Center for Alpine Forest Management en estrecha colaboración con el Parque Nacional de Berchtesgaden, TUM.wood y el Centro Forestal de Weihenstephan.',
+    keyProjects: [
+      'Proyecto BETA-FOR (DFG): Estructura, microclima y modelación de resiliencia forestal y biodiversidad',
+      'Center for Alpine Forest Management & colaboración con Berchtesgaden National Park',
+      'Simulación numérica individualizada de rodales y dinámica de biomasa forestal (iLand Model)',
+      'Interacciones suelo-atmósfera y régimen hídrico en bosques templados y de montaña'
+    ],
+    recentNews: [
+      {
+        title: 'Publicaciones del proyecto BETA-FOR sobre microclima y mitigación de temperaturas extremas en bosques',
+        date: '2026-11-05',
+        snippet: 'Avances en simulación de estrés hídrico de copas y regeneración natural.'
+      }
+    ],
+    workCulture: [
+      'Rigor cuantitativo absoluto en modelado computacional y ecología teórica',
+      'Condiciones de excelencia de la TUM (TV-L E13) y acceso a supercómputo bávaro',
+      'Excelente ambiente de investigación en el campus científico de Weihenstephan (Freising)'
+    ],
+    redFlags: ['Alta exigencia en programación científica y modelos de simulación dinámica'],
+    interviewArguments: [
+      'Formación cuantitativa en geofísica matemática (U. de Chile) con fuerte base en física de medios continuos, cálculo tensorial y modelos dinámicos.',
+      'M.Sc. en Environmental Management en Alemania (CAU Kiel) con experiencia en microclima, torres micrometeorológicas y flujos superficiales.',
+      'Dominio avanzado de Python y R para simulaciones numéricas y manejo de grandes volúmenes de datos espaciotemporales.'
+    ],
+    techStack: ['Python', 'R', 'C++', 'iLand Forest Model', 'Microclimate Sensors', 'Spatial Statistics', 'HPC'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-tum-edfm-1',
+        name: 'Prof. Dr. Rupert Seidl',
+        role: 'Chair of Ecosystem Dynamics & Forest Management',
+        notes: 'Líder del grupo EDFM e investigador principal de BETA-FOR'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-uni-heidelberg',
+    name: 'Universität Heidelberg - Climate Governance & HCE',
+    website: 'https://www.uni-heidelberg.de/de/beschaeftigte/stellenmarkt',
+    sector: 'Gobernanza Climática, Economía Política Ambiental & HCE',
+    size: '8.000+ personal académico',
+    headquarters: 'Heidelberg (Baden-Württemberg, Alemania)',
+    description: 'La universidad más antigua de Alemania y centro de referencia en ciencias sociales y ambientales. El Heidelberg Center for the Environment (HCE) y el Institut für Politische Wissenschaft (IPW) lideran investigaciones en gobernanza climática multinivel, economía política de las transiciones ecológicas, políticas públicas de adaptación y justicia socio-ambiental.',
+    keyProjects: [
+      'Gobernanza de transiciones climáticas complejas y políticas de descarbonización regional',
+      'Heidelberg Center for the Environment (HCE): Diálogo ciencia-política para la resiliencia',
+      'Evaluación de políticas de mitigación de emisiones y conflictos de uso de recursos'
+    ],
+    recentNews: [
+      {
+        title: 'Nuevos proyectos de investigación interdisciplinaria en políticas climáticas en el HCE',
+        date: '2026-10-28',
+        snippet: 'Convocatorias para investigadores en ciencias ambientales y políticas públicas.'
+      }
+    ],
+    workCulture: [
+      'Tradición humanista y científica con fuerte enfoque en impacto en políticas europeas',
+      'Contratos públicos TV-L E13 con garantías de investigación y docencia',
+      'Ciudad universitaria histórica con alta calidad de vida'
+    ],
+    redFlags: ['Enfoque preferentemente cualitativo/institucional; requiere destacar el valor del background cuantitativo'],
+    interviewArguments: [
+      'Doble perfil: formación analítica estricta en geociencias complementada con máster europeo en políticas de gestión ambiental.',
+      'Capacidad de articular evidencia científica cuantitativa (modelos, balances de carbono) en recomendaciones directas de políticas públicas.',
+      'Fluidez bilingüe alemán-inglés para trabajo interdisciplinario y publicaciones de alto impacto.'
+    ],
+    techStack: ['R', 'Policy Analysis', 'Environmental Governance', 'QGIS', 'Mixed Methods'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-heidelberg-1',
+        name: 'HCE Coordination Office',
+        role: 'Interdisciplinary Research Manager',
+        notes: 'Punto de contacto para proyectos de gobernanza climática'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-uni-stuttgart-enwat',
+    name: 'Universität Stuttgart - ENWAT Environment Water & Hydraulic Systems (IWS)',
+    website: 'https://www.iws.uni-stuttgart.de/en/research/enwat/',
+    sector: 'Modelación Hidrológica de Cuencas, Infraestructura Azul-Verde & Hidráulica',
+    size: '5.000+ personal académico',
+    headquarters: 'Stuttgart (Baden-Württemberg, Alemania)',
+    description: 'La Universidad de Stuttgart alberga la Graduate School of Environment Water (ENWAT) y el prestigioso Institute for Modelling Hydraulic and Environmental Systems (IWS). Centro de excelencia en modelación hidrológica de cuencas, transporte en medios porosos, aguas subterráneas, infraestructura azul-verde para adaptación urbana y gestión de extremos hidrometeorológicos (sequías e inundaciones).',
+    keyProjects: [
+      'Graduate School ENWAT: Modelado avanzado de sistemas hidrológicos y ambientales',
+      'Blue-Green Infrastructure: Adaptación hídrica urbana y balance de escorrentía',
+      'Simulación estocástica y determinista de recarga de acuíferos y flujos subterráneos',
+      'Gestión integrada de recursos hídricos bajo escenarios de cambio climático'
+    ],
+    recentNews: [
+      {
+        title: 'Convocatorias abiertas para investigadores doctorales en la Graduate School ENWAT',
+        date: '2026-11-02',
+        snippet: 'Becas y plazas TV-L E13 en modelación numérica hidrológica y transporte de solutos.'
+      }
+    ],
+    workCulture: [
+      'Enfoque de ingeniería ambiental y modelado físico-matemático de máxima rigurosidad',
+      'Laboratorios computacionales avanzados y proyectos directos con ministerios ambientales y la DFG',
+      'Sólida red internacional de investigación en recursos hídricos'
+    ],
+    redFlags: ['Requisitos técnicos muy altos en mecánica de fluidos y modelado numérico'],
+    interviewArguments: [
+      'Sólida formación cuantitativa en geofísica matemática (U. de Chile) con cálculo de campos, ecuaciones en derivadas parciales y transporte de fluidos en medios porosos.',
+      'Experiencia empírica en hidrogeología, propiedades físicas del suelo y balance hídrico de cuencas en Alemania (CAU Kiel).',
+      'Dominio de Python y librerías hidrológicas para calibración de modelos y análisis estocástico.'
+    ],
+    techStack: ['Python', 'Fortran', 'MODFLOW', 'SWAT', 'QGIS', 'Hydraulic Modeling', 'HydroGeoSphere'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-stuttgart-enwat-1',
+        name: 'ENWAT Graduate School Office',
+        role: 'Doctoral Program Coordinator',
+        notes: 'Admisión y contratación de investigadores en modelado hídrico'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-nccr-clim',
+    name: 'NCCR CLIM+ (Climate Extremes and Society) - Swiss National Consortium',
+    website: 'https://nccr-climplus.ch/',
+    sector: 'Consorcio Nacional Suizo en Extremos Climáticos, Gobernanza & Resiliencia Social',
+    size: '200+ investigadores en consorcio nacional',
+    headquarters: 'Bern / Zürich / Dübendorf, Suiza',
+    description: 'National Centre of Competence in Research (NCCR) financiado por el Fondo Nacional Suizo (SNSF). Gran consorcio de élite que agrupa a la Universidad de Berna (Leading House - Oeschger Centre), ETH Zürich (EPG - Prof. Schmidt, KOF, Agricultural Economics), Eawag (Blue-Green Adaptation & Wetlands), EPFL y University of Zurich. Investiga de forma integrada la física de los eventos climáticos extremos, sus impactos socioeconómicos y los procesos de gobernanza y economía política para una adaptación justa.',
+    keyProjects: [
+      'Work Package "Policy & Governance": Economía política de las transiciones de adaptación al cambio climático',
+      'Work Package "Water & Ecosystems": Restauración de humedales y mitigación biofísica con Eawag',
+      'Work Package "Global Supply Chains": Shocks climáticos y comercio global con KOF / ETH Zürich',
+      'Modelos integrados de extremos climáticos y vulnerabilidad socio-ecológica'
+    ],
+    recentNews: [
+      {
+        title: 'Lanzamiento oficial de paquetes de trabajo del NCCR CLIM+ y apertura de plazas de investigación',
+        date: '2026-11-14',
+        snippet: 'Múltiples puestos de doctorado y postdoctorado distribuidos entre Berna, Zürich y Dübendorf.'
+      }
+    ],
+    workCulture: [
+      'Cúspide de la investigación científica y política de Suiza con financiación de largo plazo SNSF',
+      'Escalas salariales de primer nivel mundial del sistema suizo (80.000 - 110.000 CHF/año)',
+      'Máxima interdisciplinariedad: geofísicos, hidrólogos, economistas y politólogos trabajando juntos'
+    ],
+    redFlags: ['Procesos de selección altamente competitivos evaluados por comités conjuntos'],
+    interviewArguments: [
+      'Perfil híbrido idóneo para el NCCR: geofísico cuantitativo (U. de Chile) con máster europeo en políticas de gestión ambiental (CAU Kiel).',
+      'Experiencia práctica en el monitoreo físico de ecosistemas (turberas/humedales con eddy covariance) y análisis socio-ecológico.',
+      'Capacidad de tender puentes metodológicos entre los paquetes de física/ecosistemas (Eawag) y los paquetes de políticas/gobernanza (EPG / Bern).'
+    ],
+    techStack: ['Python', 'R', 'Integrated Assessment Models', 'GIS', 'Policy Modeling', 'EddyPro'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-nccr-clim-1',
+        name: 'NCCR CLIM+ Scientific Secretariat',
+        role: 'Managing Director NCCR CLIM+',
+        notes: 'Coordinación central de postulaciones y proyectos consorciados'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-uzh',
+    name: 'University of Zurich (UZH) - Remote Sensing Laboratories & EcoVision Lab',
+    website: 'https://www.geo.uzh.ch/en/units/rsl/jobs.html',
+    sector: 'Teledetección de Cambios Ambientales, Ecología del Paisaje & Machine Learning',
+    size: '3.000+ personal científico y académico',
+    headquarters: 'Zürich, Suiza',
+    description: 'El Departamento de Geografía de la Universidad de Zúrich (UZH) alberga los prestigiosos Remote Sensing Laboratories (RSL) y el EcoVision Lab. Líderes en observación de la tierra, monitoreo de la biodiversidad, dinámica de la vegetación y modelado de cambios en la cobertura terrestre mediante asimilación de imágenes multiespectrales, SAR y algoritmos de aprendizaje automático.',
+    keyProjects: [
+      'EcoVision Lab: Aprendizaje automático y visión artificial aplicados a la conservación de ecosistemas',
+      'Remote Sensing Laboratories (RSL): Cuantificación espectral de estrés de vegetación y biomasa',
+      'Landscape Ecology & Dynamics: Modelos espaciotemporales de fragmentación y resiliencia ecológica'
+    ],
+    recentNews: [
+      {
+        title: 'Nuevos proyectos de monitoreo de biodiversidad mediante teledetección satelital en la UZH',
+        date: '2026-11-08',
+        snippet: 'Puestos de investigación en asimilación de datos de teledetección y modelado ecológico.'
+      }
+    ],
+    workCulture: [
+      'Excelencia académica suiza con amplia proyección europea e infraestructura de supercómputo',
+      'Contratos cantonales de investigación con salarios suizos (CHF 75k - 105k)',
+      'Excelente ubicación y ambiente universitario en Zúrich'
+    ],
+    redFlags: ['Requisitos avanzados en procesamiento de imágenes satelitales y aprendizaje automático'],
+    interviewArguments: [
+      'Manejo fluido de datos satelitales (Sentinel-1/2, Landsat, MODIS) y plataformas en la nube (Google Earth Engine).',
+      'Base sólida en geofísica para la interpretación física de señales ópticas y de radar.',
+      'Experiencia en validación de datos satelitales con mediciones de terreno (ground truthing).'
+    ],
+    techStack: ['Python', 'Google Earth Engine', 'Sentinel Hub', 'R', 'QGIS', 'PyTorch', 'Landscape Metrics'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-uzh-1',
+        name: 'UZH Geography Department Recruiting',
+        role: 'Academic Search Committee',
+        notes: 'Canal oficial de plazas de investigación en teledetección y ecología'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
+  },
+  {
+    id: 'comp-ceu-vienna',
+    name: 'Central European University (CEU) - Dept. Environmental Sciences and Policy',
+    website: 'https://envsci.ceu.edu/',
+    sector: 'Gobernanza Ambiental Global, Transición Energética Justa & Recursos Hídricos',
+    size: '300+ académicos e investigadores en campus Viena',
+    headquarters: 'Viena (Wien), Austria',
+    description: 'Universidad internacional de investigación con sede central en Viena (Quellenstraße). Su Departamento de Ciencias y Políticas Ambientales es un referente en transiciones socio-ecológicas, gobernanza de cuencas fluviales, seguridad hídrica, economía circular y políticas de mitigación climática en la región de Europa Central y los Balcanes.',
+    keyProjects: [
+      'Gobernanza de recursos hídricos y cuencas compartidas en Europa Central y Danubio',
+      'Transición energética justa y evaluación de impacto de políticas de descarbonización',
+      'Sistemas socio-ecológicos urbanos y resiliencia climática'
+    ],
+    recentNews: [
+      {
+        title: 'Apertura de fellowships y plazas pre/postdoctorales en el Departamento de Ciencias Ambientales',
+        date: '2026-10-30',
+        snippet: 'Becas de investigación doctoral completas y proyectos de cooperación europea.'
+      }
+    ],
+    workCulture: [
+      'Ambiente universitario ultra-internacional con estudiantes e investigadores de más de 100 países',
+      'Ubicación céntrica en Viena y condiciones competitivas de investigación',
+      'Fuerte enfoque interdisciplinario entre ciencia ambiental aplicada y políticas públicas'
+    ],
+    redFlags: ['Entorno académico angloparlante en Austria; menos vínculos con la industria local que con ONGs y organismos multilaterales'],
+    interviewArguments: [
+      'Trayectoria internacional demostrada (Chile, Alemania) y dominio completo del inglés y alemán.',
+      'Doble formación en ciencias cuantitativas del medio físico y gestión ambiental europea.',
+      'Capacidad de investigar dinámicas transfronterizas de cuencas y gobernanza socio-ecológica.'
+    ],
+    techStack: ['R', 'Python', 'QGIS', 'Environmental Policy Analysis', 'Stakeholder Mapping'],
+    lastResearched: '2026-11-20',
+    quadrants: ['DACH'],
+    sectorCluster: 'RD_PUBLIC',
+    contacts: [
+      {
+        id: 'cnt-ceu-1',
+        name: 'CEU Environmental Sciences & Policy Dept',
+        role: 'Doctoral & Research Office',
+        notes: 'Gestión de convocatorias de investigación y fellowships en Viena'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
