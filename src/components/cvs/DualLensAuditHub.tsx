@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import type { DualLensAuditReport } from '../../services/dualAuditEngine';
 import { getSelectableCriteriaFromReport, generateGeminiReviewPrompt } from '../../services/dualAuditEngine';
+import { JOB_HUNT_PSYCHOLOGY_PILLARS } from '../../data/jobHuntPsychology';
 import type { JobOffer } from '../../types/offers';
 
 interface DualLensAuditHubProps {
@@ -32,7 +33,7 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
   onInjectSnippet,
   className = ''
 }) => {
-  const [activeLens, setActiveLens] = useState<'both' | 'headhunter' | 'wingman'>('both');
+  const [activeLens, setActiveLens] = useState<'both' | 'headhunter' | 'wingman' | 'psychology'>('both');
   const [copiedSnippetId, setCopiedSnippetId] = useState<string | null>(null);
   const [copiedGeminiPrompt, setCopiedGeminiPrompt] = useState(false);
   const [showPromptPreview, setShowPromptPreview] = useState(false);
@@ -389,6 +390,17 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
         >
           <Bot className="h-3.5 w-3.5" />
           <span>Auditor Wingman ({wingman.score}%)</span>
+        </button>
+        <button
+          onClick={() => setActiveLens('psychology')}
+          className={`px-3 py-1 rounded-lg font-medium transition cursor-pointer shrink-0 flex items-center space-x-1 ${
+            activeLens === 'psychology'
+              ? 'bg-purple-600 text-white font-bold shadow-xs'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+          }`}
+        >
+          <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+          <span>Psicología (7 Pilares)</span>
         </button>
       </div>
 
@@ -804,6 +816,80 @@ export const DualLensAuditHub: React.FC<DualLensAuditHubProps> = ({
                 )}
               </div>
             )}
+          </div>
+        )}
+
+        {/* SECTION 3: PSICOLOGÍA DE LA BÚSQUEDA DE TRABAJO (7 PILARES) */}
+        {activeLens === 'psychology' && (
+          <div className="col-span-full p-4 sm:p-5 rounded-2xl border border-purple-500/40 bg-[var(--panel-bg)] space-y-4 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-purple-500/20 pb-3">
+              <div className="space-y-0.5">
+                <span className="font-mono font-bold text-xs uppercase flex items-center gap-1.5 text-purple-600 dark:text-purple-400">
+                  <Bot className="h-4 w-4 text-purple-500 shrink-0" />
+                  <span>Fiscalización Psicológica de Alto Nivel // 7 Pilares</span>
+                </span>
+                <p className="text-[11.5px] text-[var(--text-muted)] font-sans">
+                  Evalúa cómo reacciona la mente del evaluador ante tu documento. De la súplica a la coinversión técnica y paridad de estatus.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                Calibración Dual Wingman + Headhunter
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {JOB_HUNT_PSYCHOLOGY_PILLARS.map((pillar) => {
+                const langKey = (offer?.location && (offer.location.toLowerCase().includes('alem') || offer.location.toLowerCase().includes('germany') || offer.location.toLowerCase().includes('austria') || offer.location.toLowerCase().includes('suiza'))) ? 'de' : 'es';
+                const snippet = pillar.snippets[langKey] || pillar.snippets.es;
+
+                return (
+                  <div
+                    key={pillar.id}
+                    className="p-3.5 rounded-xl border border-[var(--panel-border)] bg-[var(--card-bg)] space-y-2.5 flex flex-col justify-between"
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono font-black text-sky-500">{pillar.num}</span>
+                        <span className="text-[9.5px] font-mono uppercase px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] text-[var(--text-muted)]">
+                          {pillar.roleLabel}
+                        </span>
+                      </div>
+                      <h4 className="text-xs font-bold font-mono text-[var(--text-primary)]">
+                        {pillar.name}
+                      </h4>
+                      <p className="text-[11px] text-[var(--text-secondary)] font-sans leading-tight">
+                        {pillar.tagline}
+                      </p>
+                      <div className="p-2 rounded-lg bg-black/5 dark:bg-black/20 border border-[var(--panel-border)] space-y-1 text-[10.5px]">
+                        <span className="text-[9.5px] font-mono text-purple-500 uppercase font-bold block">Efecto Psicológico:</span>
+                        <p className="text-[var(--text-secondary)] font-sans leading-tight">{pillar.psychologyInsight}</p>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-[var(--panel-border)] space-y-1.5">
+                      <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]">
+                        <span>Snippet recomendado:</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleCopySnippet(`psy-${pillar.id}`, snippet);
+                            onInjectSnippet?.(snippet);
+                          }}
+                          className="px-2 py-0.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-mono text-[10px] flex items-center gap-1 cursor-pointer transition shadow-xs"
+                          title="Inyectar en documento"
+                        >
+                          {copiedSnippetId === `psy-${pillar.id}` ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                          <span>{copiedSnippetId === `psy-${pillar.id}` ? '¡Inyectado!' : 'Inyectar'}</span>
+                        </button>
+                      </div>
+                      <p className="text-[10.5px] font-mono text-[var(--text-primary)] p-1.5 rounded bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] line-clamp-3">
+                        «{snippet}»
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 

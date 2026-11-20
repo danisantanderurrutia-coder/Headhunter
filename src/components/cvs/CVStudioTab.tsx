@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import craftingHeroImg from '../../assets/crafting_nanobanana_hero.jpg';
+import { JOB_HUNT_PSYCHOLOGY_PILLARS } from '../../data/jobHuntPsychology';
 import {
   AlertTriangle,
   BadgeCheck,
   Bot,
   Briefcase,
+  Check,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
@@ -236,6 +238,14 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
 
   // Estados de acordeón para menú izquierdo ordenado y banner colapsable
   const [showHeroGuide, setShowHeroGuide] = useState(false);
+  const [heroGuideTab, setHeroGuideTab] = useState<'visual' | 'psychology'>('visual');
+  const [copiedPsychSnippetId, setCopiedPsychSnippetId] = useState<string | null>(null);
+
+  const handleCopyPsychSnippet = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedPsychSnippetId(id);
+    setTimeout(() => setCopiedPsychSnippetId(null), 2000);
+  };
   const [openCvSections, setOpenCvSections] = useState<Record<string, boolean>>({
     format: true,
     offer: true,
@@ -1011,48 +1021,236 @@ export const CVStudioTab: React.FC<CVStudioTabProps> = ({
               </p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setShowHeroGuide((prev) => !prev)}
-            className="px-2.5 py-1 rounded-lg border border-[var(--panel-border)] bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5 text-[11px] font-mono font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center gap-1.5 cursor-pointer shrink-0 transition"
-          >
-            <span>{showHeroGuide ? 'Ocultar Guía' : 'Ver Guía Visual'}</span>
-            {showHeroGuide ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-          </button>
+          <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
+            <button
+              type="button"
+              onClick={() => {
+                if (showHeroGuide && heroGuideTab === 'psychology') {
+                  setShowHeroGuide(false);
+                } else {
+                  setShowHeroGuide(true);
+                  setHeroGuideTab('psychology');
+                }
+              }}
+              className={`px-2.5 py-1 rounded-lg border text-[11px] font-mono font-bold flex items-center gap-1.5 cursor-pointer transition ${
+                showHeroGuide && heroGuideTab === 'psychology'
+                  ? 'border-purple-500/50 bg-purple-500/15 text-purple-600 dark:text-purple-300'
+                  : 'border-[var(--panel-border)] bg-[var(--card-bg)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-purple-500/30'
+              }`}
+            >
+              <Lightbulb className="h-3.5 w-3.5 text-purple-400" />
+              <span>Psicología de Selección (7 Pilares)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (showHeroGuide && heroGuideTab === 'visual') {
+                  setShowHeroGuide(false);
+                } else {
+                  setShowHeroGuide(true);
+                  setHeroGuideTab('visual');
+                }
+              }}
+              className="px-2.5 py-1 rounded-lg border border-[var(--panel-border)] bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5 text-[11px] font-mono font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center gap-1.5 cursor-pointer transition"
+            >
+              <span>{showHeroGuide && heroGuideTab === 'visual' ? 'Ocultar Guía' : 'Guía Visual'}</span>
+              {showHeroGuide && heroGuideTab === 'visual' ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+            </button>
+          </div>
         </div>
 
         {showHeroGuide && (
           <div className="border-t border-[var(--panel-border)]">
-            <div className="relative w-full aspect-[16/9] max-h-[460px] overflow-hidden bg-[#1a2330] flex items-center justify-center">
-              <img 
-                src={craftingHeroImg || '/crafting_nanobanana_hero.jpg'} 
-                alt="Wingman & Headhunter Crafting Review Architecture" 
-                className="w-full h-full object-contain sm:object-cover object-[center_12%] select-none"
-                loading="eager"
-              />
+            {/* Selector de pestañas dentro de la guía */}
+            <div className="flex items-center justify-between px-4 py-2 bg-black/5 dark:bg-white/5 border-b border-[var(--panel-border)]">
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setHeroGuideTab('visual')}
+                  className={`px-3 py-1 rounded-md text-[11px] font-mono font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    heroGuideTab === 'visual'
+                      ? 'bg-sky-600 text-white shadow-xs'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                  }`}
+                >
+                  <Sparkles className="h-3 w-3" />
+                  <span>Flujo & Diagrama Visual</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setHeroGuideTab('psychology')}
+                  className={`px-3 py-1 rounded-md text-[11px] font-mono font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                    heroGuideTab === 'psychology'
+                      ? 'bg-purple-600 text-white shadow-xs'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                  }`}
+                >
+                  <Bot className="h-3 w-3" />
+                  <span>Psicología de la Búsqueda de Trabajo (7 Pilares)</span>
+                </button>
+              </div>
+              <span className="text-[10px] font-mono text-[var(--text-muted)] hidden md:inline">
+                Metodología Headhunter + Wingman
+              </span>
             </div>
-            <div className="p-4 sm:p-5 space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-1">
-                  <div className="flex items-center space-x-2 text-[var(--text-primary)] font-bold font-mono text-xs">
-                    <Bot className="h-4 w-4 text-sky-500" />
-                    <span>WINGMAN — Empatía & Match Técnico</span>
+
+            {/* VISTA 1: Flujo & Diagrama Visual (Nano Banana) */}
+            {heroGuideTab === 'visual' && (
+              <>
+                <div className="relative w-full aspect-[16/9] max-h-[460px] overflow-hidden bg-[#1a2330] flex items-center justify-center">
+                  <img 
+                    src={craftingHeroImg || '/crafting_nanobanana_hero.jpg'} 
+                    alt="Wingman & Headhunter Crafting Review Architecture" 
+                    className="w-full h-full object-contain sm:object-cover object-[center_12%] select-none"
+                    loading="eager"
+                  />
+                </div>
+                <div className="p-4 sm:p-5 space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="p-3.5 rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-1">
+                      <div className="flex items-center space-x-2 text-[var(--text-primary)] font-bold font-mono text-xs">
+                        <Bot className="h-4 w-4 text-purple-400" />
+                        <span>WINGMAN — Empatía & Match Técnico</span>
+                      </div>
+                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
+                        Comprende las expectativas y el lenguaje del líder del equipo o PI. Asegura que el formato y la cadencia de la carta o CV resuelvan sus puntos de dolor con tono soberano Zero-Servility.
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-1">
+                      <div className="flex items-center space-x-2 text-[var(--text-primary)] font-bold font-mono text-xs">
+                        <Scale className="h-4 w-4 text-sky-400" />
+                        <span>HEADHUNTER — Asimetría & Filtro de Élite</span>
+                      </div>
+                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
+                        Destaca por encima de la media con evidencia asimétrica incontrastable. Neutraliza filtros de selección inicial y blinda cada término legal y credencial académica.
+                      </p>
+                    </div>
                   </div>
+                </div>
+              </>
+            )}
+
+            {/* VISTA 2: Psicología de la Búsqueda de Trabajo (7 Pilares) */}
+            {heroGuideTab === 'psychology' && (
+              <div className="p-4 sm:p-6 space-y-5 bg-[var(--panel-bg)]">
+                <div className="border-b border-[var(--panel-border)] pb-3 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                      Metodología de Alto Nivel
+                    </span>
+                    <span className="text-xs font-mono text-[var(--text-muted)]">
+                      De la súplica a la coinversión técnica y paridad de estatus
+                    </span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold font-mono text-[var(--text-primary)]">
+                    Los 7 Pilares de la Psicología de Selección (Wingman + Headhunter)
+                  </h3>
                   <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
-                    Comprende las expectativas y el lenguaje del líder del equipo o PI. Asegura que el formato y la cadencia de la carta o CV resuelvan sus puntos de dolor con tono soberano Zero-Servility.
+                    Los comités y líderes técnicos leen con aversión al riesgo y sobrecarga mental. Estos 7 pilares articulan el control de marco, la confesión estratégica y la evidencia asimétrica para posicionarte en el Top 5%.
                   </p>
                 </div>
-                <div className="p-3.5 rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-1">
-                  <div className="flex items-center space-x-2 text-[var(--text-primary)] font-bold font-mono text-xs">
-                    <Scale className="h-4 w-4 text-sky-500" />
-                    <span>HEADHUNTER — Asimetría & Filtro de Élite</span>
-                  </div>
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
-                    Destaca por encima de la media con evidencia asimétrica incontrastable. Neutraliza filtros de selección inicial y blinda cada término legal y credencial académica.
-                  </p>
+
+                {/* Grid de los 7 Pilares */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                  {JOB_HUNT_PSYCHOLOGY_PILLARS.map((pillar) => {
+                    const activeSnippet = pillar.snippets[letterLang] || pillar.snippets.es;
+                    const isCopied = copiedPsychSnippetId === pillar.id;
+
+                    const roleBadgeClass =
+                      pillar.role === 'wingman'
+                        ? 'bg-purple-500/15 text-purple-600 dark:text-purple-300 border-purple-500/30'
+                        : pillar.role === 'headhunter'
+                        ? 'bg-sky-500/15 text-sky-600 dark:text-sky-300 border-sky-500/30'
+                        : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border-emerald-500/30';
+
+                    return (
+                      <div
+                        key={pillar.id}
+                        className="p-4 rounded-2xl border bg-[var(--card-bg)] border-[var(--card-border)] space-y-3 flex flex-col justify-between shadow-xs hover:border-[var(--text-muted)] transition"
+                      >
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-xs font-mono font-black text-sky-500">
+                              {pillar.num}
+                            </span>
+                            <span className={`px-2 py-0.5 rounded-full text-[9.5px] font-mono font-bold border ${roleBadgeClass}`}>
+                              {pillar.roleLabel}
+                            </span>
+                          </div>
+
+                          <h4 className="text-xs sm:text-[13px] font-bold font-mono text-[var(--text-primary)] leading-snug">
+                            {pillar.name}
+                          </h4>
+
+                          <p className="text-[11.5px] text-[var(--text-muted)] font-mono leading-tight">
+                            {pillar.tagline}
+                          </p>
+
+                          <div className="p-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--panel-border)] space-y-1.5">
+                            <span className="block text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                              Psicología del Evaluador:
+                            </span>
+                            <p className="text-[11px] text-[var(--text-secondary)] font-sans leading-relaxed">
+                              {pillar.psychologyInsight}
+                            </p>
+                          </div>
+
+                          <div className="space-y-1">
+                            <span className="block text-[10px] font-mono font-bold text-amber-500 uppercase">
+                              Regla de Oro:
+                            </span>
+                            <p className="text-[11px] text-[var(--text-secondary)] font-sans leading-tight">
+                              {pillar.goldenRule}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Snippet Táctico listo para usar con idioma actual */}
+                        <div className="pt-2 border-t border-[var(--panel-border)] space-y-2">
+                          <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]">
+                            <span>Snippet Táctico ({letterLang.toUpperCase()}):</span>
+                          </div>
+                          <div className="p-2 rounded-lg bg-[var(--panel-bg)] border border-[var(--panel-border)] text-[11px] font-sans text-[var(--text-primary)] leading-snug max-h-24 overflow-y-auto">
+                            "{activeSnippet}"
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => handleCopyPsychSnippet(pillar.id, activeSnippet)}
+                              className="flex-1 py-1 px-2 rounded-lg border border-[var(--panel-border)] bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5 text-[10px] font-mono font-medium text-[var(--text-primary)] flex items-center justify-center gap-1 cursor-pointer transition"
+                            >
+                              {isCopied ? (
+                                <>
+                                  <Check className="h-3 w-3 text-emerald-500" />
+                                  <span className="text-emerald-500 font-bold">¡Copiado!</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3 w-3" />
+                                  <span>Copiar</span>
+                                </>
+                              )}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                handleInjectWeapon(activeSnippet);
+                                handleCopyPsychSnippet(pillar.id, activeSnippet);
+                              }}
+                              className="flex-1 py-1 px-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-mono font-bold flex items-center justify-center gap-1 cursor-pointer shadow-xs transition"
+                              title="Inyectar directamente al borrador de la carta"
+                            >
+                              <PlusCircle className="h-3 w-3" />
+                              <span>Inyectar en Carta</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>

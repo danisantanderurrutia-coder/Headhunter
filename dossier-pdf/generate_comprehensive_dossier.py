@@ -740,8 +740,63 @@ def build_pdf(filename):
     ]))
     story.append(tree_table)
 
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("15. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("15. Psicología de la Búsqueda de Trabajo de Alto Nivel (7 Pilares Wingman + Headhunter)", h1))
+    story.append(Paragraph("Marco psicológico que rige toda postulación: transitar de la súplica a la coinversión técnica, paridad de estatus y minimización preventiva del riesgo del evaluador.", rule_body))
+    story.append(Spacer(1, 2))
+
+    psycho_data = [
+        [Paragraph("Pilar Psicológico", tree_bold), Paragraph("Mecanismo & Dinámica con el Evaluador", tree_bold), Paragraph("Ejecución en Carta / CV", tree_bold)],
+        [
+            Paragraph("1. Cualificación Mutua<br/><i>(Reverse Framing)</i>", tree_body),
+            Paragraph("Transición de súplica a coinversión: evaluar si el entorno ofrece las condiciones para el alto rendimiento.", tree_body),
+            Paragraph("Párrafo 3: explicitar que se priorizan equipos con autonomía analítica, acceso a datos y debate sin dogmas.", tree_body)
+        ],
+        [
+            Paragraph("2. Desarme de Riesgo<br/><i>(De-risking / C.Y.A.)</i>", tree_body),
+            Paragraph("Los comités temen equivocarse más de lo que buscan genialidad. Neutralizar miedos ocultos preventivamente.", tree_body),
+            Paragraph("Blindar estatus legal (§20 AufenthG), títulos Anabin H+, distinción académica y reproducibilidad de código.", tree_body)
+        ],
+        [
+            Paragraph("3. Efecto Pratfall<br/><i>(Confesión Estratégica)</i>", tree_body),
+            Paragraph("Admitir un límite deliberado para hiper-validar el 100% de la fortaleza central (anti-vendehumo).", tree_body),
+            Paragraph("Aclarar que no se busca agronomía de escritorio ni roles comerciales; núcleo en física cuantitativa de suelos.", tree_body)
+        ],
+        [
+            Paragraph("4. Ancla Cognitiva Spike<br/><i>(T-Shaped Dominante)</i>", tree_body),
+            Paragraph("Los evaluadores recuerdan una sola etiqueta memorable, no listas difusas de 15 habilidades genéricas.", tree_body),
+            Paragraph("'Geofísico cuantitativo especializado en física de suelos, balances hídricos y transporte no saturado para MRV'.", tree_body)
+        ],
+        [
+            Paragraph("5. Fricción Intelectual<br/><i>(Curiosity Hook)</i>", tree_body),
+            Paragraph("Sustituir elogios vacíos por el planteamiento de un dilema técnico de frontera compartido con el laboratorio.", tree_body),
+            Paragraph("Tocar cuellos de botella reales (histéresis capilar, escala parcela-cuenca, dispersión de sensores en campo).", tree_body)
+        ],
+        [
+            Paragraph("6. Paridad de Estatus<br/><i>(Zero-Servility)</i>", tree_body),
+            Paragraph("La sumisión delata bajo valor percibido. Hablar como colegas científicos en distintas etapas de una misión.", tree_body),
+            Paragraph("Cortesía impecable pero sin subordinación; cierre táctico invitando a contraste técnico de 15 minutos.", tree_body)
+        ],
+        [
+            Paragraph("7. Señales Costosas<br/><i>(Show, Don't Claim)</i>", tree_body),
+            Paragraph("Las palabras son cheap talk en teoría de juegos. Solo convencen artefactos que demandaron destreza real.", tree_body),
+            Paragraph("Enlaces activos a gemelos digitales (Wetland Monitor, AgriTwin), métricas numéricas (62.4 kPa) y repositorios.", tree_body)
+        ]
+    ]
+    psycho_table = Table(psycho_data, colWidths=[110, 240, 169])
+    psycho_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('LEFTPADDING', (0,0), (-1,-1), 3),
+        ('RIGHTPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 1.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1.2),
+    ]))
+    story.append(psycho_table)
+
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("16. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
     
     prompt_box = """Actúa como el Asesor Táctico y Redactor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de 6 puestos de experiencia, 8 logros cuantitativos, 5 gemelos digitales/software, instrumental de campo, 9 publicaciones y conferencias. Tu tarea es 'servirte' los elementos exactos que maximicen el encaje con la vacante objetivo.
 
@@ -753,11 +808,19 @@ VOZ Y ESTILO OBLIGATORIO: Joven líder intelectual experto (30 años). Tono ené
    • Cero jerga corporativa ("90-day operational milestone", "onboarding friction").
 2. PRESERVACIÓN ESTRICTA DE LA VOZ: Si el usuario provee un borrador propio, PROHIBIDO borrar frases vivenciales o despersonalizarlo a 3ª persona. Preserva el 100% de la intención ética y la estructura original.
 3. ESTUDIO OBLIGATORIO DEL PI (INTELIGENCIA WINGMAN): Investiga y dirígete explícitamente a la persona a cargo (ej. Prof. Dr. Angela Meyer en TU Delft/BFH), citando con respeto sus investigaciones recientes (ej. Lanzilao & Meyer 2026 en Energy and AI) y conectando con los retos de su grupo. NUNCA des clases teóricas de su propia especialidad.
-4. PUNTUACIÓN HUMANA ESTRICTA (CERO GUIONES LARGOS Y CERO SLASHES):
+4. PSICOLOGÍA DE LA BÚSQUEDA DE TRABAJO (7 PILARES WINGMAN + HEADHUNTER):
+   • Cualificación Mutua (Reverse Framing): explicita en el Párrafo 3 qué condiciones operativas buscas en el equipo para rendir al máximo.
+   • Desarme preventivo de riesgo (De-risking): blinda estatus legal (§20 AufenthG), títulos Anabin H+ y rigor empírico.
+   • Efecto Pratfall: delimita con honestidad tu núcleo físico de suelos frente a agronomía tradicional de escritorio.
+   • Ancla Cognitiva Spike: fija la etiqueta clara del candidato (geofísico cuantitativo de física de suelos y balances hídricos).
+   • Fricción intelectual constructiva: plantea un reto metodológico real de frontera en vez de alabanzas vacías.
+   • Paridad de Estatus (Zero-Servility): habla como colega científico sin fórmulas de subordinación ni súplica.
+   • Señales costosas (Show, Don't Claim): sustituye adjetivos por artefactos canónicos y métricas experimentales verificadas.
+5. PUNTUACIÓN HUMANA ESTRICTA (CERO GUIONES LARGOS Y CERO SLASHES):
    • PROHIBIDO el uso de em-dashes ("—"), doble guión ("--") o guiones como paréntesis en el texto (ej. "My background — which... — allows").
    • PROHIBIDO usar slashes ("/") como conectores sintéticos (ej. "sensor/satélite", "física/datos"). Escribe "sensores y satélites" o "física y datos".
    • Emplea puntuación clásica, elegante y fluida (comas, dos puntos, punto y coma o puntos seguidos).
-5. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ (Wetland Monitor), https://danisantanderurrutia-coder.github.io/agritwin-app/ (AgriTwin), https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html (ReWild) y https://danisantanderurrutia-coder.github.io/portafolio/ (Portafolio). No inventes enlaces.
+6. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ (Wetland Monitor), https://danisantanderurrutia-coder.github.io/agritwin-app/ (AgriTwin), https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html (ReWild) y https://danisantanderurrutia-coder.github.io/portafolio/ (Portafolio). No inventes enlaces.
 
 Toda carta debe cumplir la 'Receta Maestra' en 1 página A4 DIN 5008 (400 a 480 palabras). Respeta las 7 ramas del Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
     

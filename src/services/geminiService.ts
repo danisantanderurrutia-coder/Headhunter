@@ -297,6 +297,23 @@ VOZ Y POSICIONAMIENTO DEL CANDIDATO (JOVEN LÍDER INTELECTUAL - 30 AÑOS):
   2. CERO SLASHES SINTÉTICOS: Prohibido usar slashes ("/") como atajos o conectores perezosos (ej. "sensor/satélite", "R/Python", "física/datos"). Escribe "sensores y satélites", "R y Python", "física y datos empíricos".
   3. ESTRUCTURA NARRATIVA CONTINUA: La carta debe componerse exclusivamente de 4 a 5 párrafos narrativos fluidos y continuos, nunca listas con viñetas o guiones. La presencia de guiones largos delata automáticamente un texto sintético de IA.
 
+PSICOLOGÍA DE LA BÚSQUEDA DE TRABAJO DE ALTO NIVEL (7 PILARES WINGMAN + HEADHUNTER):
+1. CUALIFICACIÓN MUTUA & FRAME CONTROL (REVERSE FRAMING):
+   - En el Párrafo 3 (o transición al cierre), Daniel no pide favores: explicita qué condiciones operativas busca en un entorno para rendir al máximo (ej. autonomía analítica, acceso a datos brutos de terreno, debate sin dogmas).
+   - Ejemplo: "Para desplegar modelos de balance hídrico fiables, priorizo activamente equipos donde el contraste empírico guíe las decisiones metodológicas".
+2. DESARME PREVENTIVO DE RIESGO (DE-RISKING ASIMÉTRICO / C.Y.A.):
+   - Despejar con naturalidad el estatus legal en Alemania (§20 AufenthG) o España (Ley 14/2013) y la homologación académica ("con distinción", Anabin H+), neutralizando cualquier duda administrativa del comité.
+3. EFECTO PRATFALL (CONFESIÓN ESTRATÉGICA ANTI-VENDEHUMO):
+   - Delimitar honestamente su núcleo de especialidad técnica: aclarar que su valor no radica en agronomía tradicional de escritorio ni ventas comerciales, sino en física cuantitativa de suelos, balances hídricos e instrumentación de terreno. Esto hiper-valida su autoridad en su campo central.
+4. ANCLA COGNITIVA SPIKE (T-SHAPED DOMINANTE):
+   - Anclar la mente del evaluador en una etiqueta técnica memorable: "Geofísico de física de suelos y modelación numérica de flujo no saturado para MRV", evitando diluirse en listas difusas de generalista.
+5. FRICCIÓN INTELECTUAL CONSTRUCTIVA (CURIOSITY HOOK):
+   - Cero adulación vacía. Plantear un dilema técnico de frontera real que desafía al grupo (ej. histéresis capilar en biocarbón, acoplamiento Darcy-Richards a escala hectárea, dispersión de sensores FDR/TDR en suelos pedregosos).
+6. PARIDAD DE ESTATUS (ZERO-SERVILITY):
+   - Trato horizontal de colega científico o par técnico de alto nivel. Cero frases de subordinación o súplica ("espero ser merecedor de...", "sería un honor inconmensurable"). Cierre táctico orientado a contrastar hipótesis en una charla técnica de 15 minutos.
+7. SEÑALES COSTOSAS (SHOW, DON'T CLAIM):
+   - Sustituir adjetivos genéricos por artefactos de prueba costosos: enlaces canónicos a gemelos digitales interactivos (Wetland Monitor, AgriTwin, ReWild) y números experimentales precisos (62.4 kPa).
+
 CATÁLOGO ESTRICTO DE ENLACES (ARTIFACT HOOKS - PROHIBIDO INVENTAR OTROS):
 - Portafolio Central / Evidence Bunker: https://danisantanderurrutia-coder.github.io/portafolio/
 - Wetland Monitor 3D (Wallener Au): https://danisantanderurrutia-coder.github.io/wetland-monitor/
