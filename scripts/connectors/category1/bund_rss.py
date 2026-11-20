@@ -11,6 +11,7 @@ Integrates national research and environmental authorities in Germany:
 - Helmholtz & Leibniz centers with federal job announcements (GFZ, PIK, etc.)
 """
 
+import html
 import re
 import xml.etree.ElementTree as ET
 from ..base import BaseConnector, is_canonical_url, matches_profile_strictly, clean_html, is_deadline_expired
@@ -52,19 +53,18 @@ class BundRssConnector(BaseConnector):
                 if not is_canonical_url(link) or len(title) < 5:
                     continue
 
-                employer = extract_field_from_desc(desc, "Arbeitgeber")
-                location = extract_field_from_desc(desc, "Ort")
+                employer = html.unescape(extract_field_from_desc(desc, "Arbeitgeber"))
+                location = html.unescape(extract_field_from_desc(desc, "Ort"))
                 deadline = extract_field_from_desc(desc, "Bewerbungsfrist")
+                title = html.unescape(title)
 
                 # Discard offers with expired application deadline
                 if deadline and is_deadline_expired(deadline):
                     continue
 
                 full_text = f"{title} {desc} {employer} {location}"
-                is_high_pri = any(emp in full_text.lower() for emp in HIGH_PRIORITY_EMPLOYERS)
-
                 is_match, matched_kws = matches_profile_strictly(title, full_text)
-                if not (is_match or is_high_pri):
+                if not is_match:
                     continue
 
                 # Parse publication date if possible

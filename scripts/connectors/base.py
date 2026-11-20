@@ -6,6 +6,7 @@ canonical URL verification, and schema normalization for all
 job ingestion connectors (Category 1 direct scrapers and Category 2 ATS APIs).
 """
 
+import html
 import json
 import re
 import sys
@@ -40,32 +41,64 @@ CORE_DOMAIN_TERMS = [
     r"\becosystem\s+services\b", r"\bservicios\s+ecosist[eé]micos\b",
     r"\benvironmental\s+governance\b", r"\bgobernanza\s+ambiental\b",
     r"\bumwelt\w*\b", r"\becolog\w*\b", r"\bforest\w*\b", r"\bwald\w*\b",
-    r"\bagro\w*\b", r"\bagrar\w*\b", r"\bsustainability\b", r"\bnachhaltig\w*\b"
+    r"\bagro\w*\b", r"\bagrar\w*\b"
 ]
 
-# 2. Secondary Skills / Tools
+# 2. Secondary Skills / Contextual Terms (require either a core term or at least 2 secondary terms)
 SECONDARY_TERMS = [
+    r"\bsustainability\b", r"\bnachhaltig\w*\b",
     r"\bqgis\b", r"\barcgis\b", r"\bgis\b", r"\bsig\b", r"\bgoogle\s+earth\s+engine\b",
     r"\bpython\b", r"\br\b", r"\bmodeling\b", r"\bmodelaci[oó]n\b", r"\bmodellierung\b",
     r"\bgeodata\b", r"\bgeodaten\b", r"\bearth\s+observation\b"
 ]
 
-# 3. Roles completely excluded from profile (including Postdoc as user has Master and seeks PhD / predoc / researcher roles)
+# 3. Roles completely excluded from profile
 EXCLUDED_ROLE_PATTERNS = [
+    # Academic senior roles requiring existing PhD
     r"\bpostdoc\w*\b", r"\bpostdoctoral\b", r"\bpost[‑\-_\s]*doc\w*\b",
     r"\bprofessur\b", r"\bprofessor\b", r"\btenure\s+track\b", r"\bhabilit\w*\b",
+    # Executive & high-management seniority
+    r"\bdirector\b", r"\bhead\s+of\b", r"\bvp\b", r"\bvice\s+president\b",
+    r"\bmanaging\s+director\b", r"\bchief\b", r"\bc-level\b",
+    # Pre-Master / Student / Non-graduate internships
+    r"\binternship\b", r"\bintern\b", r"\bpraktik\w*\b", r"\bworking\s+student\b",
+    r"\bwerkstudent\w*\b", r"\bstudentische\s+hilfskraft\b", r"\bstudents\s*&\s*interns\b",
+    # Generic speculative talent pools
+    r"\bwork\s+with\s+us\b", r"\bspontanbewerbung\b", r"\binitiativbewerbung\b",
+    # Administrative, Secretarial, Office Management
+    r"\bexecutive\s+assistant\b", r"\bassistant\b", r"\bassistent\w*\b",
+    r"\boffice\s+manager\b", r"\breceptionist\b", r"\bsekretär\w*\b", r"\bsekretariat\b",
+    # Corporate Operations, Procurement, Legal & HR
+    r"\bprocurement\b", r"\beinkauf\b", r"\bexport\s+control\b", r"\bgovernment\s+relations\b",
+    r"\blegal\b", r"\bjurist\w*\b", r"\bcompliance\b", r"\btrade\s+compliance\b",
+    r"\bhuman\s+resources\b", r"\bpeople\s+partner\b", r"\brecruiter\b", r"\brecruiting\b",
+    # PR, Social Media, Communications & Design
+    r"\bsocial\s+media\b", r"\bpressesprecher\w*\b", r"\bpr\s+manager\b",
+    r"\bdesigner\b", r"\bcontent\s+designer\b", r"\bux\b", r"\bui[‑\-\s]*ux\b",
+    # Sales, Account Exec, Business Development, Product & Finance
     r"\baccount\s+executive\b", r"\bsales\b", r"\bventas\b", r"\bvertrieb\b",
     r"\bcustomer\s+success\b", r"\bbusiness\s+development\b", r"\baccount\s+manager\b",
-    r"\bmarketing\b", r"\brecruiting\b", r"\btax\b", r"\bsteuerberater\b",
-    r"\bdevops\b", r"\bfrontend\b", r"\bfullstack\b", r"\bembedded\b",
-    r"\blaunch\s+vehicle\b", r"\brobotics\b", r"\bcompensation\b",
-    r"\bcorporate\s+finance\b", r"\bcustomer\s+support\b", r"\bcall\s+center\b",
+    r"\bpartnerships?\s+lead\b", r"\bmarketing\b", r"\btax\b", r"\bpresales\b", r"\bpre-sales\b",
+    r"\bcorporate\s+finance\b", r"\bfinancial\b", r"\bfinance\b", r"\bcompensation\b",
+    r"\bcustomer\s+support\b", r"\bcall\s+center\b", r"\bproduct\s+manager\b",
     r"\bactuary\b", r"\baktuar\b", r"\bunderwriter\b", r"\binsurance\b",
+    # Hardware, Avionics, Industrial Trades & Facilities
+    r"\bopto[‑\-\s]*mechanical\b", r"\bcamera\s+systems\b", r"\bspacecraft\b",
+    r"\bpayload\s+flight\b", r"\bsatellite\s+platform\b", r"\bground\s+segment\b",
+    r"\bmechatronik\w*\b", r"\belektriker\w*\b", r"\bmechanik\w*\b", r"\btechniker\b",
+    r"\bautomatisierungstechniker\w*\b", r"\bhandwerklich\w*\b",
+    # IT Infrastructure & DevOps (outside Environmental / GIS modeling)
+    r"\bsre\b", r"\bsite\s+reliability\b", r"\bdevops\b", r"\bfrontend\b", r"\bfullstack\b",
+    r"\bbackend\b", r"\b\.net\b", r"\bstorage\s+infrastructure\b",
+    r"\bplatform\s+engineer\b", r"\bcloud\s+architect\b", r"\bsecurity\s+compliance\b",
+    r"\bit[‑\-\s]*administration\b", r"\bsystemadministrator\w*\b", r"\bserveradministration\b",
+    r"\bit[‑\-\s]*spezialist\w*\b", r"\benterprise\s+architect\b", r"\bsolutions\s+architect\b",
+    # Non-environmental public administration, real estate & social services
+    r"\bhaushalt\b", r"\bliegenschaft\w*\b", r"\bqualitätsmanagement\w*\b",
     r"\bkindertagesstätte\b", r"\bkita\b", r"\bhort\b", r"\bpädagog\w*\b", r"\berzieher\w*\b", r"\bschulweg\w*\b",
     r"\btherapie\b", r"\bpflege\b", r"\bklinik\b", r"\bneurolog\w*\b", r"\barzt\b", r"\bärzt\w*\b", r"\bmedizin\w*\b",
     r"\bhauswart\b", r"\bgardener\b", r"\bgärtner\b", r"\blehrstelle\b",
-    r"\bwerkfeuerwehr\b", r"\bkoch\b", r"\bküche\b", r"\breinigungs\w*\b",
-    r"\bit[‑\-\s]*administration\b", r"\bsystemadministrator\w*\b"
+    r"\bwerkfeuerwehr\b", r"\bkoch\b", r"\bküche\b", r"\breinigungs\w*\b"
 ]
 
 
@@ -122,10 +155,11 @@ def is_deadline_expired(deadline_str: str) -> bool:
 
 
 def clean_html(raw_html: str) -> str:
-    """Strip HTML tags and collapse whitespace."""
+    """Strip HTML tags, unescape entities, and collapse whitespace."""
     if not raw_html:
         return ""
-    clean = re.sub(r"<[^>]+>", " ", raw_html)
+    unescaped = html.unescape(raw_html)
+    clean = re.sub(r"<[^>]+>", " ", unescaped)
     return " ".join(clean.split()).strip()
 
 
@@ -218,12 +252,15 @@ class BaseConnector:
         is_bilbao = any(b in location.lower() for b in ["bilbao", "bizkaia", "euskadi", "basque", "barakaldo", "leioa"])
 
         clean_desc = clean_html(raw_description)[:1500]
+        title_clean = html.unescape(title).strip()
+        company_clean = html.unescape(company).strip()
+        location_clean = html.unescape(location).strip()
 
         job = {
             "id": job_id,
-            "title": title.strip(),
-            "company": company.strip(),
-            "location": location.strip(),
+            "title": title_clean,
+            "company": company_clean,
+            "location": location_clean,
             "country": country.strip(),
             "isBilbaoLocation": is_bilbao,
             "isRemote": is_remote,

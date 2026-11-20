@@ -47,25 +47,41 @@ BUND_RSS_URL = "https://www.service.bund.de/Content/Globals/Functions/RSSFeed/RS
 JOBS_DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "public", "data", "jobs.json")
 
 
+EXPIRED_TEXT_PATTERNS = [
+    "nicht mehr verfügbar", "abgelaufen", "ausschreibung ist beendet",
+    "position has been filled", "this job is no longer available", "closed"
+]
+
+
 def is_url_live(url: str, timeout: int = 4) -> bool:
-    """Pre-flight check: ensure the offer URL is genuinely reachable and not a dead link."""
+    """Pre-flight check: ensure the offer URL is genuinely reachable, not redirected to home/search, and not soft-expired."""
     if not url or not url.startswith("http"):
         return False
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)"
     }
     try:
-        req = urllib.request.Request(url, headers=headers, method="HEAD")
+        # Use GET with byte limit so we can inspect redirect location and body
+        req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.status < 400
+            if resp.status >= 400:
+                return False
+
+            final_url = resp.geturl()
+            # Detect Interamt / Bund redirect trap to generic search home
+            if "interamt.de" in url and final_url.rstrip("/").endswith("/koop/app"):
+                return False
+            if final_url.rstrip("/").endswith(("/careers", "/jobs", "/search", "/login")):
+                return False
+
+            # Inspect first 2KB for soft-404 markers
+            chunk = resp.read(2048).decode("utf-8", errors="ignore").lower()
+            if any(p in chunk for p in EXPIRED_TEXT_PATTERNS):
+                return False
+
+            return True
     except Exception:
-        # Fallback to GET for servers disallowing HEAD
-        try:
-            req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return resp.status < 400
-        except Exception:
-            return False
+        return False
 
 
 def clean_html(raw_html: str) -> str:
