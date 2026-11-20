@@ -393,20 +393,21 @@ export const CompaniesWorldMap: React.FC<CompaniesWorldMapProps> = ({
       // Resolve official curated logo or domain favicons
       const { primaryUrl, fallbackFaviconUrl, fallbackDdgUrl, initials } = resolveCompanyLogoDetails(comp);
       const initialLogoUrl = primaryUrl || fallbackFaviconUrl || fallbackDdgUrl;
+      const safeName = comp.name.replace(/["'\\]/g, '');
 
       const iconHtml = `
         <div class="relative flex items-center justify-center cursor-pointer" style="width: 36px; height: 36px;">
-          <!-- Solid Black Box with neat border for logo (no glow or blur) -->
-          <div class="w-8 h-8 rounded-xl flex items-center justify-center border ${isSelected ? 'border-cyan-400 scale-105' : 'border-slate-700'} overflow-hidden bg-black shadow-md p-1">
+          <!-- High-Contrast Clean White Box for Logo (no glow, crisp visibility) -->
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center border ${isSelected ? 'border-cyan-400 ring-2 ring-cyan-400/50 scale-110' : 'border-slate-600'} overflow-hidden bg-white shadow-md p-0.5">
             ${initialLogoUrl 
               ? `<img 
                   src="${initialLogoUrl}" 
-                  alt="${comp.name}" 
-                  class="w-5 h-5 object-contain" 
-                  onerror="if (this.src !== '${fallbackFaviconUrl}' && '${fallbackFaviconUrl}') { this.src = '${fallbackFaviconUrl}'; } else if (this.src !== '${fallbackDdgUrl}' && '${fallbackDdgUrl}') { this.src = '${fallbackDdgUrl}'; } else { this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block'; }" 
+                  alt="${safeName}" 
+                  class="w-6 h-6 object-contain" 
+                  onerror="if (this.src !== '${fallbackFaviconUrl}' && '${fallbackFaviconUrl}') { this.src = '${fallbackFaviconUrl}'; } else if (this.src !== '${fallbackDdgUrl}' && '${fallbackDdgUrl}') { this.src = '${fallbackDdgUrl}'; } else { this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex'; }" 
                  />
-                 <span style="display:none; color:#cbd5e1; font-family:monospace; font-weight:700; font-size:10px;">${initials}</span>`
-              : `<span style="color:#cbd5e1; font-family:monospace; font-weight:700; font-size:10px;">${initials}</span>`
+                 <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center; background-color:#020617; color:#38bdf8; font-family:monospace; font-weight:800; font-size:10px;">${initials}</span>`
+              : `<span class="w-full h-full flex items-center justify-center bg-slate-950 text-cyan-400 font-mono font-bold text-[10px]">${initials}</span>`
             }
           </div>
 

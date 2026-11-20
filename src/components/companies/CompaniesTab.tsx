@@ -70,7 +70,7 @@ const CompanyLogo: React.FC<{ id?: string; website?: string; name: string; logoU
 
   if (!currentSrc || allFailed) {
     return (
-      <div className="w-full h-full rounded-xl bg-black border border-slate-800 flex items-center justify-center text-slate-300 font-mono font-black text-sm tracking-wider select-none">
+      <div className="w-full h-full rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-cyan-400 font-mono font-black text-xs sm:text-sm tracking-wider select-none shadow-inner">
         {initials}
       </div>
     );
@@ -90,7 +90,7 @@ const CompanyLogo: React.FC<{ id?: string; website?: string; name: string; logoU
           setAllFailed(true);
         }
       }}
-      className="max-h-full max-w-full object-contain rounded-lg transition-transform duration-200"
+      className="max-h-full max-w-full object-contain transition-transform duration-200"
     />
   );
 };
@@ -929,9 +929,9 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
                       </div>
                     </div>
 
-                    {/* Center Logo & Name (Fondo negro limpio, sin resplandores) */}
+                    {/* Center Logo & Name (Fondo blanco nítido para máximo contraste) */}
                     <div className="flex-1 flex flex-col items-center justify-center w-full my-1">
-                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-black border border-slate-800 p-2.5 flex items-center justify-center shrink-0">
+                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-white border border-slate-700/80 p-2 flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                         <CompanyLogo id={comp.id} website={comp.website} name={comp.name} logoUrl={comp.logoUrl} />
                       </div>
 
@@ -1024,7 +1024,7 @@ export const CompaniesTab: React.FC<CompaniesTabProps> = ({
             {/* Modal Top Header Bar */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-800 pb-4">
               <div className="flex items-start gap-3.5">
-                <div className="w-16 h-16 rounded-2xl bg-black border border-slate-800 p-2.5 flex items-center justify-center shrink-0">
+                <div className="w-16 h-16 rounded-2xl bg-white border border-slate-700/80 p-2 flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                   <CompanyLogo id={dossierCompany.id} website={dossierCompany.website} name={dossierCompany.name} logoUrl={dossierCompany.logoUrl} />
                 </div>
                 <div className="space-y-1">

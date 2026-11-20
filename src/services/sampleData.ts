@@ -1700,7 +1700,7 @@ export const initialCompanies: CompanyDossier[] = [
     id: 'comp-mundubat',
     name: 'Mundubat',
     website: 'https://www.mundubat.org/',
-    logoUrl: 'https://www.mundubat.org/wp-content/uploads/2019/09/logo-mundubat.svg',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=mundubat.org&sz=128',
     sector: 'Soberanía Alimentaria, Derechos Territoriales y Solidaridad Internacional',
     size: '30-45 personas',
     headquarters: 'Bilbao (Bizkaia)',
