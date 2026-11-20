@@ -2,8 +2,8 @@ name: "Daily Job Alerts Engine"
 
 on:
   schedule:
-    # 07:15 UTC = 09:15 CEST / 08:15 CET (Lunes a Viernes)
-    - cron: '15 7 * * 1-5'
+    # 08:15 UTC = 09:15 CET (Horario de Invierno, Noviembre-Marzo)
+    - cron: '15 8 * * 1-5'
   workflow_dispatch: # Permite disparo manual desde la pestaña Actions de GitHub
 
 permissions:
