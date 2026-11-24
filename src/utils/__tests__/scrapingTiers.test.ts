@@ -42,6 +42,7 @@ describe('Scraping Tiers Classifier', () => {
     expect(resolveScrapingTier({ id: 'comp-ecologic-institute' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-eeb-brussels' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-can-europe' })).toBe('ats_yellow');
+    expect(resolveScrapingTier({ id: 'comp-iddri' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-iddri-paris' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-boell-stiftung' })).toBe('ats_yellow');
   });

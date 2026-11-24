@@ -53,225 +53,241 @@ const resolveCoordinates = (hq: string, id: string): [number, number] => {
   const dLat = Math.sin(angle) * radius;
   const dLng = Math.cos(angle) * radius;
 
-  // 1. Euskadi / España
-  if (text.includes('bilbao') || text.includes('zamudio') || text.includes('derio') || text.includes('leioa') || text.includes('zorrotzaurre') || text.includes('elorrio') || text.includes('bizkaia')) {
-    return [43.2630 + dLat, -2.9350 + dLng];
-  }
-  if (text.includes('donostia') || text.includes('san sebastián') || text.includes('pasaia') || text.includes('gipuzkoa') || text.includes('sukarrieta')) {
-    return [43.3183 + dLat, -1.9812 + dLng];
-  }
-  if (text.includes('vitoria') || text.includes('gasteiz') || text.includes('arkaute') || text.includes('miñano') || text.includes('álava')) {
-    return [42.8467 + dLat, -2.6716 + dLng];
-  }
-  if (text.includes('madrid')) {
-    return [40.4168 + dLat, -3.7038 + dLng];
-  }
-  if (text.includes('barcelona') || text.includes('cerdanyola') || text.includes('bellaterra') || text.includes('icta')) {
-    return [41.3879 + dLat, 2.1699 + dLng];
-  }
-  if (text.includes('zaragoza')) {
-    return [41.6488 + dLat, -0.8891 + dLng];
-  }
+  const matchLocation = (target: string): [number, number] | null => {
+    // 1. Euskadi / España
+    if (target.includes('bilbao') || target.includes('zamudio') || target.includes('derio') || target.includes('leioa') || target.includes('zorrotzaurre') || target.includes('elorrio') || target.includes('bizkaia')) {
+      return [43.2630 + dLat, -2.9350 + dLng];
+    }
+    if (target.includes('donostia') || target.includes('san sebastián') || target.includes('pasaia') || target.includes('gipuzkoa') || target.includes('sukarrieta')) {
+      return [43.3183 + dLat, -1.9812 + dLng];
+    }
+    if (target.includes('vitoria') || target.includes('gasteiz') || target.includes('arkaute') || target.includes('miñano') || target.includes('álava')) {
+      return [42.8467 + dLat, -2.6716 + dLng];
+    }
+    if (target.includes('madrid')) {
+      return [40.4168 + dLat, -3.7038 + dLng];
+    }
+    if (target.includes('barcelona') || target.includes('cerdanyola') || target.includes('bellaterra') || target.includes('icta')) {
+      return [41.3879 + dLat, 2.1699 + dLng];
+    }
+    if (target.includes('zaragoza')) {
+      return [41.6488 + dLat, -0.8891 + dLng];
+    }
+    if (target.includes('vícar') || target.includes('vicar') || target.includes('almería') || target.includes('almeria')) {
+      return [36.8381 + dLat, -2.4597 + dLng];
+    }
 
-  // 2. Alemania (DACH)
-  if (text.includes('garmisch')) {
-    return [47.4921 + dLat, 11.0955 + dLng];
-  }
-  if (text.includes('münchen') || text.includes('munich') || text.includes('freising') || text.includes('oberpfaffenhofen')) {
-    return [48.1351 + dLat, 11.5820 + dLng];
-  }
-  if (text.includes('karlsruhe')) {
-    return [49.0069 + dLat, 8.4037 + dLng];
-  }
-  if (text.includes('freiburg')) {
-    return [47.9990 + dLat, 7.8421 + dLng];
-  }
-  if (text.includes('heidelberg')) {
-    return [49.3988 + dLat, 8.6724 + dLng];
-  }
-  if (text.includes('stuttgart') || text.includes('hohenheim')) {
-    return [48.7758 + dLat, 9.1829 + dLng];
-  }
-  if (text.includes('jena')) {
-    return [50.9271 + dLat, 11.5892 + dLng];
-  }
-  if (text.includes('potsdam') || text.includes('telegrafenberg')) {
-    return [52.3906 + dLat, 13.0645 + dLng];
-  }
-  if (text.includes('berlin') || text.includes('berlín')) {
-    return [52.5200 + dLat, 13.4050 + dLng];
-  }
-  if (text.includes('leipzig')) {
-    return [51.3397 + dLat, 12.3731 + dLng];
-  }
-  if (text.includes('dessau')) {
-    return [51.8386 + dLat, 12.2456 + dLng];
-  }
-  if (text.includes('braunschweig')) {
-    return [52.2689 + dLat, 10.5268 + dLng];
-  }
-  if (text.includes('greifswald')) {
-    return [54.0931 + dLat, 13.3879 + dLng];
-  }
-  if (text.includes('bonn')) {
-    return [50.7374 + dLat, 7.0982 + dLng];
-  }
-  if (text.includes('jülich')) {
-    return [50.9224 + dLat, 6.3609 + dLng];
-  }
-  if (text.includes('essen')) {
-    return [51.4556 + dLat, 7.0116 + dLng];
-  }
-  if (text.includes('kiel')) {
-    return [54.3233 + dLat, 10.1228 + dLng];
-  }
-  if (text.includes('wuppertal')) {
-    return [51.2562 + dLat, 7.1508 + dLng];
-  }
-  if (text.includes('dresden') || text.includes('dresde')) {
-    return [51.0504 + dLat, 13.7373 + dLng];
-  }
+    // 2. Alemania (DACH)
+    if (target.includes('garmisch')) {
+      return [47.4921 + dLat, 11.0955 + dLng];
+    }
+    if (target.includes('münchen') || target.includes('munich') || target.includes('freising') || target.includes('oberpfaffenhofen')) {
+      return [48.1351 + dLat, 11.5820 + dLng];
+    }
+    if (target.includes('karlsruhe')) {
+      return [49.0069 + dLat, 8.4037 + dLng];
+    }
+    if (target.includes('freiburg')) {
+      return [47.9990 + dLat, 7.8421 + dLng];
+    }
+    if (target.includes('heidelberg')) {
+      return [49.3988 + dLat, 8.6724 + dLng];
+    }
+    if (target.includes('stuttgart') || target.includes('hohenheim')) {
+      return [48.7758 + dLat, 9.1829 + dLng];
+    }
+    if (target.includes('jena')) {
+      return [50.9271 + dLat, 11.5892 + dLng];
+    }
+    if (target.includes('potsdam') || target.includes('telegrafenberg')) {
+      return [52.3906 + dLat, 13.0645 + dLng];
+    }
+    if (target.includes('berlin') || target.includes('berlín')) {
+      return [52.5200 + dLat, 13.4050 + dLng];
+    }
+    if (target.includes('leipzig')) {
+      return [51.3397 + dLat, 12.3731 + dLng];
+    }
+    if (target.includes('dessau')) {
+      return [51.8386 + dLat, 12.2456 + dLng];
+    }
+    if (target.includes('braunschweig')) {
+      return [52.2689 + dLat, 10.5268 + dLng];
+    }
+    if (target.includes('greifswald')) {
+      return [54.0931 + dLat, 13.3879 + dLng];
+    }
+    if (target.includes('bonn')) {
+      return [50.7374 + dLat, 7.0982 + dLng];
+    }
+    if (target.includes('jülich')) {
+      return [50.9224 + dLat, 6.3609 + dLng];
+    }
+    if (target.includes('essen')) {
+      return [51.4556 + dLat, 7.0116 + dLng];
+    }
+    if (target.includes('kiel')) {
+      return [54.3233 + dLat, 10.1228 + dLng];
+    }
+    if (target.includes('wuppertal')) {
+      return [51.2562 + dLat, 7.1508 + dLng];
+    }
+    if (target.includes('dresden') || target.includes('dresde')) {
+      return [51.0504 + dLat, 13.7373 + dLng];
+    }
 
-  // 3. Austria & Suiza
-  if (text.includes('laxenburg') || text.includes('viena') || text.includes('wien') || text.includes('austria')) {
-    return [48.2082 + dLat, 16.3738 + dLng];
-  }
-  if (text.includes('lausanne') || text.includes('lausana') || text.includes('epfl')) {
-    return [46.5191 + dLat, 6.5668 + dLng];
-  }
-  if (text.includes('dübendorf') || text.includes('duebendorf') || text.includes('eawag')) {
-    return [47.4032 + dLat, 8.6105 + dLng];
-  }
-  if (text.includes('birmensdorf') || text.includes('wsl')) {
-    return [47.3553 + dLat, 8.4377 + dLng];
-  }
-  if (text.includes('bern') || text.includes('berna')) {
-    return [46.9480 + dLat, 7.4474 + dLng];
-  }
-  if (text.includes('geneva') || text.includes('ginebra') || text.includes('genf')) {
-    return [46.2044 + dLat, 6.1432 + dLng];
-  }
-  if (text.includes('zúrich') || text.includes('zurich') || text.includes('suiza') || text.includes('ethz') || text.includes('uzh')) {
-    return [47.3769 + dLat, 8.5417 + dLng];
-  }
+    // 3. Austria & Suiza
+    if (target.includes('laxenburg') || target.includes('viena') || target.includes('wien') || target.includes('austria')) {
+      return [48.2082 + dLat, 16.3738 + dLng];
+    }
+    if (target.includes('lausanne') || target.includes('lausana') || target.includes('epfl')) {
+      return [46.5191 + dLat, 6.5668 + dLng];
+    }
+    if (target.includes('dübendorf') || target.includes('duebendorf') || target.includes('eawag')) {
+      return [47.4032 + dLat, 8.6105 + dLng];
+    }
+    if (target.includes('birmensdorf') || target.includes('wsl')) {
+      return [47.3553 + dLat, 8.4377 + dLng];
+    }
+    if (target.includes('bern') || target.includes('berna')) {
+      return [46.9480 + dLat, 7.4474 + dLng];
+    }
+    if (target.includes('geneva') || target.includes('ginebra') || target.includes('genf')) {
+      return [46.2044 + dLat, 6.1432 + dLng];
+    }
+    if (target.includes('zúrich') || target.includes('zurich') || target.includes('suiza') || target.includes('ethz') || target.includes('uzh')) {
+      return [47.3769 + dLat, 8.5417 + dLng];
+    }
 
-  // 4. Países Bajos & Bélgica
-  if (text.includes('delft')) {
-    return [52.0116 + dLat, 4.3571 + dLng];
-  }
-  if (text.includes('utrecht') || text.includes('de bilt')) {
-    return [52.0907 + dLat, 5.1214 + dLng];
-  }
-  if (text.includes('amsterdam') || text.includes('ámsterdam')) {
-    return [52.3676 + dLat, 4.9041 + dLng];
-  }
-  if (text.includes('wageningen')) {
-    return [51.9692 + dLat, 5.6654 + dLng];
-  }
-  if (text.includes('la haya') || text.includes('the hague')) {
-    return [52.0705 + dLat, 4.3007 + dLng];
-  }
-  if (text.includes('bruselas') || text.includes('lovaina') || text.includes('bélgica')) {
-    return [50.8503 + dLat, 4.3517 + dLng];
-  }
-  if (text.includes('luxemburgo') || text.includes('luxembourg') || text.includes('belvaux')) {
-    return [49.5042 + dLat, 5.9264 + dLng];
-  }
+    // 4. Países Bajos & Bélgica
+    if (target.includes('delft')) {
+      return [52.0116 + dLat, 4.3571 + dLng];
+    }
+    if (target.includes('utrecht') || target.includes('de bilt')) {
+      return [52.0907 + dLat, 5.1214 + dLng];
+    }
+    if (target.includes('amsterdam') || target.includes('ámsterdam')) {
+      return [52.3676 + dLat, 4.9041 + dLng];
+    }
+    if (target.includes('wageningen')) {
+      return [51.9692 + dLat, 5.6654 + dLng];
+    }
+    if (target.includes('la haya') || target.includes('the hague')) {
+      return [52.0705 + dLat, 4.3007 + dLng];
+    }
+    if (target.includes('bruselas') || target.includes('lovaina') || target.includes('bélgica')) {
+      return [50.8503 + dLat, 4.3517 + dLng];
+    }
+    if (target.includes('luxemburgo') || target.includes('luxembourg') || target.includes('belvaux')) {
+      return [49.5042 + dLat, 5.9264 + dLng];
+    }
 
-  // 5. Reino Unido & Irlanda
-  if (text.includes('londres') || text.includes('london')) {
-    return [51.5074 + dLat, -0.1278 + dLng];
-  }
-  if (text.includes('cambridge')) {
-    return [52.2053 + dLat, 0.1218 + dLng];
-  }
-  if (text.includes('bristol')) {
-    return [51.4545 + dLat, -2.5879 + dLng];
-  }
-  if (text.includes('oxford')) {
-    return [51.7520 + dLat, -1.2577 + dLng];
-  }
-  if (text.includes('edimburgo') || text.includes('edinburgh')) {
-    return [55.9533 + dLat, -3.1883 + dLng];
-  }
-  if (text.includes('dublín') || text.includes('dublin') || text.includes('irlanda')) {
-    return [53.3498 + dLat, -6.2603 + dLng];
-  }
+    // 5. Reino Unido & Irlanda
+    if (target.includes('londres') || target.includes('london')) {
+      return [51.5074 + dLat, -0.1278 + dLng];
+    }
+    if (target.includes('cambridge')) {
+      return [52.2053 + dLat, 0.1218 + dLng];
+    }
+    if (target.includes('bristol')) {
+      return [51.4545 + dLat, -2.5879 + dLng];
+    }
+    if (target.includes('oxford')) {
+      return [51.7520 + dLat, -1.2577 + dLng];
+    }
+    if (target.includes('edimburgo') || target.includes('edinburgh')) {
+      return [55.9533 + dLat, -3.1883 + dLng];
+    }
+    if (target.includes('dublín') || target.includes('dublin') || target.includes('irlanda')) {
+      return [53.3498 + dLat, -6.2603 + dLng];
+    }
 
-  // 6. Francia
-  if (text.includes('parís') || text.includes('paris') || text.includes('francia')) {
-    return [48.8566 + dLat, 2.3522 + dLng];
-  }
+    // 6. Francia
+    if (target.includes('parís') || target.includes('paris') || target.includes('francia')) {
+      return [48.8566 + dLat, 2.3522 + dLng];
+    }
 
-  // 7. Italia
-  if (text.includes('ispra') || text.includes('varese') || text.includes('lago maggiore')) {
-    return [45.8131 + dLat, 8.6128 + dLng];
-  }
-  if (text.includes('bolzano') || text.includes('bozen')) {
-    return [46.4983 + dLat, 11.3548 + dLng];
-  }
-  if (text.includes('bologna') || text.includes('lecce')) {
-    return [44.4949 + dLat, 11.3426 + dLng];
-  }
-  if (text.includes('milán') || text.includes('milan')) {
-    return [45.4642 + dLat, 9.1900 + dLng];
-  }
-  if (text.includes('roma') || text.includes('pisa') || text.includes('italia')) {
-    return [41.9028 + dLat, 12.4964 + dLng];
-  }
+    // 7. Italia
+    if (target.includes('ispra') || target.includes('varese') || target.includes('lago maggiore')) {
+      return [45.8131 + dLat, 8.6128 + dLng];
+    }
+    if (target.includes('bolzano') || target.includes('bozen')) {
+      return [46.4983 + dLat, 11.3548 + dLng];
+    }
+    if (target.includes('bologna') || target.includes('lecce')) {
+      return [44.4949 + dLat, 11.3426 + dLng];
+    }
+    if (target.includes('milán') || target.includes('milan')) {
+      return [45.4642 + dLat, 9.1900 + dLng];
+    }
+    if (target.includes('roma') || target.includes('pisa') || target.includes('italia')) {
+      return [41.9028 + dLat, 12.4964 + dLng];
+    }
 
-  // 8. Grecia
-  if (text.includes('atenas') || text.includes('athens')) {
-    return [37.9838 + dLat, 23.7275 + dLng];
-  }
-  if (text.includes('heraclión') || text.includes('patras') || text.includes('creta') || text.includes('grecia')) {
-    return [35.3387 + dLat, 25.1442 + dLng];
-  }
+    // 8. Grecia
+    if (target.includes('atenas') || target.includes('athens')) {
+      return [37.9838 + dLat, 23.7275 + dLng];
+    }
+    if (target.includes('heraclión') || target.includes('patras') || target.includes('creta') || target.includes('grecia')) {
+      return [35.3387 + dLat, 25.1442 + dLng];
+    }
 
-  // 9. Nórdicos
-  if (text.includes('aarhus')) {
-    return [56.1629 + dLat, 10.2039 + dLng];
-  }
-  if (text.includes('lyngby')) {
-    return [55.7704 + dLat, 12.5038 + dLng];
-  }
-  if (text.includes('lund')) {
-    return [55.7047 + dLat, 13.1910 + dLng];
-  }
-  if (text.includes('copenhague') || text.includes('dinamarca')) {
-    return [55.6761 + dLat, 12.5683 + dLng];
-  }
-  if (text.includes('estocolmo') || text.includes('stockholm') || text.includes('uppsala')) {
-    return [59.3293 + dLat, 18.0686 + dLng];
-  }
-  if (text.includes('norrk')) {
-    return [58.5877 + dLat, 16.1924 + dLng];
-  }
-  if (text.includes('helsinki') || text.includes('espoo') || text.includes('joensuu') || text.includes('oulu') || text.includes('finlandia')) {
-    return [60.1699 + dLat, 24.9384 + dLng];
-  }
-  if (text.includes('oslo') || text.includes('kjeller') || text.includes('tromsø') || text.includes('noruega')) {
-    return [59.9139 + dLat, 10.7522 + dLng];
-  }
+    // 9. Nórdicos
+    if (target.includes('aarhus')) {
+      return [56.1629 + dLat, 10.2039 + dLng];
+    }
+    if (target.includes('lyngby')) {
+      return [55.7704 + dLat, 12.5038 + dLng];
+    }
+    if (target.includes('lund')) {
+      return [55.7047 + dLat, 13.1910 + dLng];
+    }
+    if (target.includes('copenhague') || target.includes('dinamarca')) {
+      return [55.6761 + dLat, 12.5683 + dLng];
+    }
+    if (target.includes('estocolmo') || target.includes('stockholm') || target.includes('uppsala')) {
+      return [59.3293 + dLat, 18.0686 + dLng];
+    }
+    if (target.includes('norrk')) {
+      return [58.5877 + dLat, 16.1924 + dLng];
+    }
+    if (target.includes('helsinki') || target.includes('espoo') || target.includes('joensuu') || target.includes('oulu') || target.includes('finlandia')) {
+      return [60.1699 + dLat, 24.9384 + dLng];
+    }
+    if (target.includes('oslo') || target.includes('kjeller') || target.includes('tromsø') || target.includes('noruega')) {
+      return [59.9139 + dLat, 10.7522 + dLng];
+    }
 
-  // 10. Norteamérica
-  if (text.includes('calgary') || text.includes('saskatoon') || text.includes('alberta')) {
-    return [51.0447 + dLat, -114.0719 + dLng];
-  }
-  if (text.includes('montreal') || text.includes('quebec') || text.includes('canadá')) {
-    return [45.5017 + dLat, -73.5673 + dLng];
-  }
-  if (text.includes('houston') || text.includes('texas')) {
-    return [29.7604 + dLat, -95.3698 + dLng];
-  }
-  if (text.includes('san francisco') || text.includes('pasadena') || text.includes('california')) {
-    return [37.7749 + dLat, -122.4194 + dLng];
-  }
+    // 10. Norteamérica
+    if (target.includes('calgary') || target.includes('saskatoon') || target.includes('alberta')) {
+      return [51.0447 + dLat, -114.0719 + dLng];
+    }
+    if (target.includes('montreal') || target.includes('quebec') || target.includes('canadá')) {
+      return [45.5017 + dLat, -73.5673 + dLng];
+    }
+    if (target.includes('houston') || target.includes('texas')) {
+      return [29.7604 + dLat, -95.3698 + dLng];
+    }
+    if (target.includes('san francisco') || target.includes('pasadena') || target.includes('california')) {
+      return [37.7749 + dLat, -122.4194 + dLng];
+    }
 
-  // 11. Chile / Sudamérica
-  if (text.includes('chile') || text.includes('santiago') || text.includes('maule') || text.includes('valparaíso')) {
-    return [-33.4489 + dLat, -70.6693 + dLng];
-  }
+    // 11. Chile / Sudamérica
+    if (target.includes('chile') || target.includes('santiago') || target.includes('maule') || target.includes('valparaíso')) {
+      return [-33.4489 + dLat, -70.6693 + dLng];
+    }
+
+    return null;
+  };
+
+  // Prioritize primary headquarters city (strip parentheticals and secondary offices after slash)
+  const primaryText = hq.replace(/\([^)]*\)/g, '').split('/')[0].trim().toLowerCase();
+  const primaryCoord = matchLocation(primaryText);
+  if (primaryCoord) return primaryCoord;
+
+  // Fallback to searching the full headquarters text
+  const fullCoord = matchLocation(text);
+  if (fullCoord) return fullCoord;
 
   // Default Central Europe Hub
   return [50.0 + dLat, 8.5 + dLng];

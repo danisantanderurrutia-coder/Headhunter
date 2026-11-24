@@ -55,7 +55,6 @@ const MANUAL_RED_IDS = new Set<string>([
   'comp-unccd',
   'comp-unep-wcmc',
   'comp-wri-europe',
-  'comp-iddri',
   'comp-iberdrola',
   'comp-siemens-gamesa',
   'comp-munich-re',

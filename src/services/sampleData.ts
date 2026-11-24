@@ -2617,7 +2617,7 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     techStack: ['Python', 'Machine Learning', 'Earth Observation', 'Índices Paramétricos', 'R'],
     lastResearched: '2026-10-28',
-    quadrants: ['EUSKADI', 'GLOBAL'],
+    quadrants: ['GLOBAL'],
     sectorCluster: 'CAT_RISK_INSURANCE'
   },
   {
@@ -2690,7 +2690,7 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     techStack: ['Evidencia Científica', 'Litigio Climático', 'Contabilidad de Carbono', 'Derecho Ambiental'],
     lastResearched: '2026-10-28',
-    quadrants: ['DACH', 'UK_NL', 'EUSKADI'],
+    quadrants: ['UK_NL', 'DACH', 'GLOBAL'],
     sectorCluster: 'MULTILATERAL_POLICY'
   },
   {
@@ -3226,7 +3226,7 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     techStack: ["Python","R","RMS","AIR Touchstone","GIS","Excel/VBA Avanzado"],
     lastResearched: '2026-10-29',
-    quadrants: ['UK_NL','EUSKADI','GLOBAL'],
+    quadrants: ['UK_NL', 'GLOBAL'],
     sectorCluster: 'CAT_RISK_INSURANCE'
   },
   {
@@ -3726,41 +3726,49 @@ export const initialCompanies: CompanyDossier[] = [
   },
   {
     id: 'comp-iddri',
-    name: "IDDRI - Institut du Développement Durable et des Relations Internationales",
-    website: 'https://www.iddri.org/',
-    sector: "Instituto de Investigación y Diálogo de Políticas Internacionales sobre Clima y Biodiversidad",
-    size: "60+ investigadores de políticas públicas y gobernanza",
-    headquarters: "París (Francia) / Enlaces con Bruselas",
-    description: "Instituto independiente de investigación de políticas públicas con sede en Sciences Po París. Clave en la gestación del Acuerdo de París, analiza los mecanismos multilaterales de descarbonización, gobernanza de los océanos y salvaguardias en el uso de la tierra.",
+    name: 'IDDRI - Institut du Développement Durable et des Relations Internationales',
+    website: 'https://www.iddri.org/en/about-iddri/careers',
+    logoUrl: 'https://www.google.com/s2/favicons?domain=iddri.org&sz=128',
+    sector: 'Gobernanza Climática Global, Política Agrícola y de Cuencas de la UE',
+    size: '60+ analistas internacionales',
+    headquarters: 'París (Sciences Po), Francia',
+    description: 'Think tank de investigación de políticas públicas adscrito a Sciences Po París. Figura entre los centros más influyentes del mundo en gobernanza ambiental global, habiendo desempeñado un papel decisivo en la arquitectura del Acuerdo de París. Investiga la transición de los sistemas agroalimentarios, la biodiversidad y la gobernanza de cuencas en Europa y a escala internacional.',
     keyProjects: [
-          "Mecanismos de ambición y balance global (Global Stocktake) en el marco de la CMNUCC",
-          "Transición agroecológica y política alimentaria en la Unión Europea",
-          "Diálogo de políticas UE-América Latina en conservación de bosques y minerales críticos para la transición"
+      'Escenarios de modelación de la transición agroecológica en Europa (proyecto TYFA - Ten Years for Agroecology)',
+      'Gobernanza internacional de océanos, aguas y recursos compartidos',
+      'Articulación de metas de biodiversidad (Kunming-Montreal) con marcos de gobernanza climática'
     ],
     recentNews: [
       {
-        title: "Publicación de análisis sobre la integración de salvaguardias ambientales en acuerdos de comercio de materias primas",
-        date: "2026-09-12",
-        snippet: "Recomendaciones para armonizar estándares de huella ambiental entre la Unión Europea y el Cono Sur."
+        title: 'IDDRI abre convocatorias para investigadores de políticas en agricultura sostenible y biodiversidad',
+        date: '2026-10-15',
+        snippet: 'Puestos en París para analistas de políticas europeas e internacionales.'
       }
     ],
     workCulture: [
-          "Ambiente intelectual de ciencias políticas y economía ecológica en París",
-          "Fuerte proyección internacional con misiones en cumbres de la ONU y foros de la OCDE",
-          "Enfoque de deliberación rigurosa y publicación en revistas de políticas públicas"
+      'Máximo prestigio académico e institucional en Sciences Po y redes internacionales',
+      'Enfoque analítico riguroso orientado a propuestas legislativas de alto impacto',
+      'Ambiente intelectual bilingüe (francés e inglés)'
     ],
-    redFlags: [
-          "El francés suele ser idioma de trabajo interno predominante junto con el inglés"
-    ],
+    redFlags: ['Procesos selectivos muy competitivos con candidatos de grandes escuelas francesas e internacionales'],
     interviewArguments: [
-          "Perspectiva dual América Latina - Europa con formación científica de base en geofísica y gestión ambiental.",
-          "Experiencia contrastada en comisiones legislativas y elaboración de informes para tomadores de decisiones.",
-          "Perfil idóneo para proyectos de gobernanza hídrica, cuencas y mitigación climática internacional."
+      'Formación multidisciplinar de élite: Geofísico de la Universidad de Chile (con distinción) y Doble M.Sc. en CAU Kiel y AMU Poznań.',
+      'Experiencia práctica en diseño hidrológico regenerativo de cuencas y física de suelos agrícolas.',
+      'Publicación conjunta con diputados alemanes sobre transición agroecológica y subsidios a la fertilidad del suelo.'
     ],
-    techStack: ["Policy Design","Gobernanza Ambiental","Análisis Multilateral","Redacción Estratégica"],
-    lastResearched: '2026-10-29',
+    techStack: ['Agroecology Modeling', 'Policy Scenarios', 'TYFA Framework', 'R', 'International Environmental Law'],
+    lastResearched: '2026-11-20',
     quadrants: ['GLOBAL'],
-    sectorCluster: 'MULTILATERAL_POLICY'
+    sectorCluster: 'MULTILATERAL_POLICY',
+    contacts: [
+      {
+        id: 'cnt-iddri-1',
+        name: 'IDDRI Direction des Ressources Humaines',
+        role: 'Recruitment Manager',
+        notes: 'Punto de contacto para candidaturas de investigación en París'
+      }
+    ],
+    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
   },
   {
         id: 'comp-constellr',
@@ -3998,7 +4006,7 @@ id: 'comp-climate-kic',
       'Stakeholder Management'
     ],
     lastResearched: '2026-10-29',
-    quadrants: ['UK_NL', 'DACH', 'EUSKADI', 'GLOBAL'],
+    quadrants: ['UK_NL', 'DACH', 'GLOBAL'],
     sectorCluster: 'CARBON_TECH_MRV',
     fundingTies: ['f-climate-kic-awards', 'f-horizon-cluster6']
   },
@@ -6075,7 +6083,7 @@ id: 'comp-climate-kic',
     ],
     techStack: ['R', 'QGIS', 'EJAtlas Methodology', 'Political Ecology', 'Degrowth Modeling', 'Qualitative Analysis'],
     lastResearched: '2026-11-20',
-    quadrants: ['GLOBAL'],
+    quadrants: ['EUSKADI', 'GLOBAL'],
     sectorCluster: 'MULTILATERAL_POLICY',
     contacts: [
       {
@@ -6313,52 +6321,6 @@ id: 'comp-climate-kic',
         name: 'CAN Europe People & Culture Team',
         role: 'HR Officer',
         notes: 'Coordinación de procesos selectivos en Bruselas'
-      }
-    ],
-    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
-  },
-  {
-    id: 'comp-iddri-paris',
-    name: 'IDDRI - Institut du Développement Durable et des Relations Internationales',
-    website: 'https://www.iddri.org/en/about-iddri/careers',
-    logoUrl: 'https://www.google.com/s2/favicons?domain=iddri.org&sz=128',
-    sector: 'Gobernanza Climática Global, Política Agrícola y de Cuencas de la UE',
-    size: '60+ analistas internacionales',
-    headquarters: 'París (Sciences Po), Francia',
-    description: 'Think tank de investigación de políticas públicas adscrito a Sciences Po París. Figura entre los centros más influyentes del mundo en gobernanza ambiental global, habiendo desempeñado un papel decisivo en la arquitectura del Acuerdo de París. Investiga la transición de los sistemas agroalimentarios, la biodiversidad y la gobernanza de cuencas en Europa y a escala internacional.',
-    keyProjects: [
-      'Escenarios de modelación de la transición agroecológica en Europa (proyecto TYFA - Ten Years for Agroecology)',
-      'Gobernanza internacional de océanos, aguas y recursos compartidos',
-      'Articulación de metas de biodiversidad (Kunming-Montreal) con marcos de gobernanza climática'
-    ],
-    recentNews: [
-      {
-        title: 'IDDRI abre convocatorias para investigadores de políticas en agricultura sostenible y biodiversidad',
-        date: '2026-10-15',
-        snippet: 'Puestos en París para analistas de políticas europeas e internacionales.'
-      }
-    ],
-    workCulture: [
-      'Máximo prestigio académico e institucional en Sciences Po y redes internacionales',
-      'Enfoque analítico riguroso orientado a propuestas legislativas de alto impacto',
-      'Ambiente intelectual bilingüe (francés e inglés)'
-    ],
-    redFlags: ['Procesos selectivos muy competitivos con candidatos de grandes escuelas francesas e internacionales'],
-    interviewArguments: [
-      'Formación multidisciplinar de élite: Geofísico de la Universidad de Chile (con distinción) y Doble M.Sc. en CAU Kiel y AMU Poznań.',
-      'Experiencia práctica en diseño hidrológico regenerativo de cuencas y física de suelos agrícolas.',
-      'Publicación conjunta con diputados alemanes sobre transición agroecológica y subsidios a la fertilidad del suelo.'
-    ],
-    techStack: ['Agroecology Modeling', 'Policy Scenarios', 'TYFA Framework', 'R', 'International Environmental Law'],
-    lastResearched: '2026-11-20',
-    quadrants: ['GLOBAL'],
-    sectorCluster: 'MULTILATERAL_POLICY',
-    contacts: [
-      {
-        id: 'cnt-iddri-1',
-        name: 'IDDRI Direction des Ressources Humaines',
-        role: 'Recruitment Manager',
-        notes: 'Punto de contacto para candidaturas de investigación en París'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
