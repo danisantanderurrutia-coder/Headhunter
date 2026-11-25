@@ -1298,20 +1298,6 @@ export const initialSources: JobSource[] = [
     notes: 'Universidad técnica líder de Dinamarca (Lyngby / Copenhague). Geofísica, teledetección satelital y modelación hídrica.'
   },
   {
-    id: 'src-list-luxembourg',
-    name: 'LIST - Luxembourg Institute of Science and Technology (ERIN)',
-    type: 'research_center',
-    url: 'https://www.list.lu/en/jobs/',
-    priority: 'Alta',
-    frequency: 'Diario',
-    status: 'Activo',
-    lastScraped: '',
-    offersExtracted: 0,
-    region: 'Europa / Global',
-    countryFocus: 'Luxemburgo (Europa)',
-    notes: 'Instituto nacional de Luxemburgo con las escalas salariales más altas de la UE (75k-95k €). Departamento ERIN especializado en ecohidrología de cuencas y teledetección.'
-  },
-  {
     id: 'src-tno',
     name: 'TNO - Netherlands Organisation for Applied Scientific Research',
     type: 'research_center',
@@ -1352,20 +1338,6 @@ export const initialSources: JobSource[] = [
     region: 'Europa / Global',
     countryFocus: 'Suecia (Nórdicos)',
     notes: 'Departamento de Geografía Física y Ciencia de Ecosistemas de Lund. Cuna de ICOS Suecia, torres de flujo de carbono y modelado LPJ-GUESS.'
-  },
-  {
-    id: 'src-geomar',
-    name: 'GEOMAR Helmholtz Centre for Ocean Research Kiel',
-    type: 'research_center',
-    url: 'https://www.geomar.de/en/career-campus',
-    priority: 'Alta',
-    frequency: 'Diario',
-    status: 'Activo',
-    lastScraped: '',
-    offersExtracted: 0,
-    region: 'Alemania / DACH',
-    countryFocus: 'Alemania (Kiel)',
-    notes: 'Centro Helmholtz en Kiel. Biogeoquímica marina y costera, flujos de gases y dinámica de fluidos con contratos públicos TVöD E13.'
   },
   {
     id: 'src-ecmwf',
@@ -1560,7 +1532,7 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     techStack: ['R', 'RootBox', 'Isotopenanalytik', 'TVöD Bund', 'GIS', 'Python'],
     lastResearched: '2026-10-21',
-    quadrants: ['DACH'],
+    quadrants: ['NORDICS', 'GLOBAL'],
     sectorCluster: 'RD_PUBLIC'
   },
   {
@@ -2332,7 +2304,7 @@ export const initialCompanies: CompanyDossier[] = [
     ],
     techStack: ['EddyPro', 'R', 'QGIS', 'Licor Eddy Covariance', 'Python'],
     lastResearched: '2026-10-25',
-    quadrants: ['DACH'],
+    quadrants: ['NORDICS', 'GLOBAL'],
     sectorCluster: 'RD_PUBLIC',
     fundingTies: ['f-dfg-walter-benjamin', 'f-dfg-sachbeihilfe-eigene-stelle', 'f-dfg-graduiertenkolleg', 'f-daad-research']
   },
@@ -5773,52 +5745,6 @@ id: 'comp-climate-kic',
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
   },
   {
-    id: 'comp-list-luxembourg',
-    name: 'LIST - Luxembourg Institute of Science and Technology (ERIN)',
-    website: 'https://www.list.lu/en/jobs/',
-    logoUrl: 'https://www.google.com/s2/favicons?domain=list.lu&sz=128',
-    sector: 'Hidrología de Cuencas, Sensores Ambientales & Teledetección',
-    size: '650+ investigadores',
-    headquarters: 'Belvaux, Luxemburgo',
-    description: 'Organización de investigación y tecnología de Luxemburgo. El Departamento ERIN (Environmental Research and Innovation) es un referente internacional en ecohidrología de cuencas, procesos del continuo suelo-planta-atmósfera y teledetección ambiental. Los salarios de investigación en Luxemburgo figuran entre los más altos de toda la UE (75.000 - 95.000 €).',
-    keyProjects: [
-      'Ecohidrología de procesos y dinámica de escorrentía en cuencas experimentales',
-      'Asimilación de datos satelitales y modelado de transpiración y humedad edáfica',
-      'Sistemas de alerta temprana de sequías e inundaciones a escala europea'
-    ],
-    recentNews: [
-      {
-        title: 'Nuevos puestos de investigación en ecohidrología y sensórica ambiental en Belvaux',
-        date: '2026-10-25',
-        snippet: 'Proyectos del FNR y Horizonte Europa en modelado biofísico de cuencas.'
-      }
-    ],
-    workCulture: [
-      'Remuneración extremadamente competitiva con baja carga fiscal en el Gran Ducado',
-      'Instalaciones científicas punteras en la Cité des Sciences de Belval',
-      'Cultura multilingüe de trabajo (inglés, francés, alemán)'
-    ],
-    redFlags: ['Costo de vida elevado en Luxemburgo (frecuente residencia fronteriza en Alemania o Francia)'],
-    interviewArguments: [
-      'Capacidad probada de integración en equipos de investigación centroeuropeos y fluidez en alemán e inglés.',
-      'Sólida base en física edáfica, balance hídrico y caracterización de medios porosos.',
-      'Experiencia práctica en diseño y operación de redes de sensores ambientales de campo.'
-    ],
-    techStack: ['Python', 'R', 'Hydrological Modeling', 'Remote Sensing', 'QGIS', 'SPAC Models'],
-    lastResearched: '2026-11-20',
-    quadrants: ['DACH', 'GLOBAL'],
-    sectorCluster: 'RD_PUBLIC',
-    contacts: [
-      {
-        id: 'cnt-list-1',
-        name: 'LIST Talent Acquisition Office',
-        role: 'Recruiting Specialist ERIN',
-        notes: 'Punto de contacto para puestos en ciencias ambientales en Belvaux'
-      }
-    ],
-    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
-  },
-  {
     id: 'comp-tno',
     name: 'TNO - Netherlands Organisation for Applied Scientific Research',
     website: 'https://www.tno.nl/en/careers/',
@@ -5952,52 +5878,6 @@ id: 'comp-climate-kic',
         name: 'INES Recruitment Committee',
         role: 'Department Search Committee',
         notes: 'Coordinación de vacantes en micrometeorología y ecología'
-      }
-    ],
-    fundingTies: ['f-horizon-cluster6', 'f-marie-curie']
-  },
-  {
-    id: 'comp-geomar',
-    name: 'GEOMAR Helmholtz Centre for Ocean Research Kiel',
-    website: 'https://www.geomar.de/en/career-campus',
-    logoUrl: 'https://www.google.com/s2/favicons?domain=geomar.de&sz=128',
-    sector: 'Biogeoquímica Marina/Costera, Flujos de Gases & Dinámica de Fluidos',
-    size: '1.000+ investigadores (Helmholtz)',
-    headquarters: 'Kiel (Schleswig-Holstein, Alemania)',
-    description: 'Centro de investigación marina y climática de la Asociación Helmholtz con sede central en Kiel. Referente internacional en ciclos biogeoquímicos marinos y costeros, intercambios de gases en la interfaz agua-atmósfera y dinámica física de fluidos. Contratos públicos de investigación bajo el convenio TVöD Bund E13.',
-    keyProjects: [
-      'Flujos biogeoquímicos de carbono, metano y óxido nitroso en aguas costeras y humedales estuarinos',
-      'Modelado numérico de circulación oceánica y dispersión de trazadores químicos',
-      'Observación continua y redes de sensores autónomos marinos y de superficie'
-    ],
-    recentNews: [
-      {
-        title: 'Convocatorias abiertas para investigadores en biogeoquímica y modelado de fluidos',
-        date: '2026-10-22',
-        snippet: 'Plazas financiadas por la DFG y la Asociación Helmholtz en el campus Seefischmarkt de Kiel.'
-      }
-    ],
-    workCulture: [
-      'Ubicación inmejorable en Kiel: sin necesidad de mudanza ni adaptación logística',
-      'Prestigio absoluto de la red Helmholtz y acceso a infraestructura de supercómputo y buques oceanográficos',
-      'Contratos públicos TVöD Bund E13 con garantía salarial y estabilidad'
-    ],
-    redFlags: ['Enfoque preferentemente marino/estuarino que requiere conectar la experiencia de turberas terrestres con las zonas costeras'],
-    interviewArguments: [
-      'Cercanía geográfica inmediata: residente en Kiel con conocimiento del ecosistema científico local (CAU Kiel / GEOMAR).',
-      'Dominio cuantitativo en física de fluidos, cálculo y ecuaciones diferenciales aplicadas a la dispersión de solutos y gases.',
-      'Experiencia demostrada en instrumentación de campo y análisis de gases de efecto invernadero en el norte de Alemania.'
-    ],
-    techStack: ['Python', 'Fortran', 'R', 'Fluid Dynamics', 'Gas Chromatography', 'Sensors'],
-    lastResearched: '2026-11-20',
-    quadrants: ['DACH'],
-    sectorCluster: 'RD_PUBLIC',
-    contacts: [
-      {
-        id: 'cnt-geomar-1',
-        name: 'GEOMAR Personalabteilung',
-        role: 'Academic HR Coordinator',
-        notes: 'Punto de contacto para contrataciones en Kiel'
       }
     ],
     fundingTies: ['f-horizon-cluster6', 'f-marie-curie']

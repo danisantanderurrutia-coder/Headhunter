@@ -459,18 +459,6 @@ export const DAILY_PORTALS: DailyPortal[] = [
     iconName: 'Compass'
   },
   {
-    id: 'portal-list-erin',
-    name: 'LIST - Luxembourg Institute of Science and Technology (ERIN)',
-    quadrant: 'EUROPA',
-    quadrantLabel: 'Luxemburgo / Europa Central',
-    category: 'Científico / I+D',
-    directUrl: 'https://www.list.lu/en/jobs/',
-    recommendedFrequency: 'Diario',
-    suggestedKeywords: ['Catchment Hydrology', 'Remote Sensing', 'Environmental Sensing', 'Soil-Plant-Atmosphere', 'Ecohydrology'],
-    description: 'Instituto nacional de Luxemburgo con las escalas salariales más altas de la Unión Europea (postdocs 75k-95k €). Departamento ERIN especializado en ecohidrología de cuencas y teledetección.',
-    iconName: 'Landmark'
-  },
-  {
     id: 'portal-tno-environment',
     name: 'TNO - Netherlands Organisation for Applied Scientific Research',
     quadrant: 'EUROPA',
@@ -507,18 +495,6 @@ export const DAILY_PORTALS: DailyPortal[] = [
     iconName: 'GraduationCap'
   },
   {
-    id: 'portal-geomar-kiel',
-    name: 'GEOMAR - Helmholtz Centre for Ocean Research Kiel',
-    quadrant: 'DACH',
-    quadrantLabel: 'Alemania / DACH (Kiel)',
-    category: 'Científico / I+D',
-    directUrl: 'https://www.geomar.de/en/career-campus',
-    recommendedFrequency: 'Diario',
-    suggestedKeywords: ['Biogeochemistry', 'Gas Fluxes', 'Ocean-Atmosphere', 'Numerical Modeling', 'Marine Geosciences', 'TVöD E13'],
-    description: 'Centro Helmholtz en Kiel (Alemania). Investigación de vanguardia en biogeoquímica, flujos de gases y dinámica de fluidos con contratos públicos de investigación TVöD Bund E13.',
-    iconName: 'Compass'
-  },
-  {
     id: 'portal-ecmwf-copernicus',
     name: 'ECMWF - European Centre for Medium-Range Weather Forecasts (C3S / CAMS)',
     quadrant: 'GLOBAL_REMOTE',
@@ -539,7 +515,7 @@ export const DAILY_PORTALS: DailyPortal[] = [
     directUrl: 'https://www.helmholtz.ai/jobs-opportunities/',
     recommendedFrequency: 'Diario',
     suggestedKeywords: ['Earth System AI', 'Physics-Informed ML', 'Digital Twin', 'Data Assimilation', 'Geosciences', 'TVöD E13'],
-    description: 'Plataforma de inteligencia artificial de los 18 centros Helmholtz de Alemania (UFZ, DLR, GEOMAR, KIT, Jülich). Financian vacantes de gemelos digitales y asimilación de datos con TVöD E13.',
+    description: 'Plataforma de inteligencia artificial de los 18 centros Helmholtz de Alemania (UFZ, DLR, KIT, Jülich). Financian vacantes de gemelos digitales y asimilación de datos con TVöD E13.',
     iconName: 'GraduationCap'
   },
   {

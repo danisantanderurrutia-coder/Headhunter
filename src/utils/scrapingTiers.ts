@@ -101,7 +101,6 @@ const AUTO_GREEN_IDS = new Set<string>([
   'comp-creaf',
   'comp-kit-imk-ifu',
   'comp-aarhus-university',
-  'comp-geomar',
   'comp-icta-uab',
   'comp-rifs-potsdam',
   'comp-ioer-dresden'

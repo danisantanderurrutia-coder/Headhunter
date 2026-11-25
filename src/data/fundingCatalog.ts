@@ -286,7 +286,7 @@ export const FUNDING_CATALOG: FundingOpportunity[] = [
     targetDisciplines: ['Earth System AI', 'Physics-Informed ML', 'Gemelos Digitales', 'Geociencias', 'Teledetección'],
     officialUrl: 'https://www.helmholtz.ai/funding/',
     description: 'Convocatoria de proyectos competitivos para desarrollar métodos de aprendizaje automático e inteligencia artificial aplicados a las ciencias de la Tierra y el medio ambiente.',
-    strategicFit: 'Permite liderar como científico de datos el desarrollo de modelos surrogados y asimilación satelital en red con UFZ, DLR o GEOMAR.'
+    strategicFit: 'Permite liderar como científico de datos el desarrollo de modelos surrogados y asimilación satelital en red con UFZ, DLR o KIT.'
   },
   {
     id: 'f-destine-innovation-grant',

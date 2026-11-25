@@ -14,7 +14,6 @@ describe('Scraping Tiers Classifier', () => {
     expect(resolveScrapingTier({ id: 'comp-thuenen' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-uba' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-aarhus-university' })).toBe('auto_green');
-    expect(resolveScrapingTier({ id: 'comp-geomar' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-icta-uab' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-rifs-potsdam' })).toBe('auto_green');
     expect(resolveScrapingTier({ id: 'comp-ioer-dresden' })).toBe('auto_green');
@@ -32,7 +31,6 @@ describe('Scraping Tiers Classifier', () => {
     expect(resolveScrapingTier({ id: 'comp-wsl' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-empa' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-dtu' })).toBe('ats_yellow');
-    expect(resolveScrapingTier({ id: 'comp-list-luxembourg' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-tno' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-niva' })).toBe('ats_yellow');
     expect(resolveScrapingTier({ id: 'comp-lund-university' })).toBe('ats_yellow');

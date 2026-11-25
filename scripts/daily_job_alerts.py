@@ -63,7 +63,7 @@ DEFAULT_KEYWORDS = [
 HIGH_PRIORITY_EMPLOYERS = [
     "thünen", "thuenen", "umweltbundesamt", "uba", "bundesamt für naturschutz", "bfn",
     "julius kühn", "institut für agrarklimaschutz", "helmholtz", "leibniz", "geoforschungszentrum",
-    "wsl", "empa", "geomar", "ecmwf", "dtu", "lund", "aarhus", "tno", "niva", "list",
+    "wsl", "empa", "ecmwf", "dtu", "lund", "aarhus", "tno", "niva",
     "icta", "rifs", "ioer", "zalf", "pik"
 ]
 
@@ -174,8 +174,8 @@ def load_all_scraped_sources():
             # 2. Category 1: European & DACH Academic & Public Research Centers
             elif any(k in src for k in [
                 "ethz", "eawag", "freiburg", "univie", "boku", "juelich",
-                "wsl", "empa", "geomar", "ecmwf", "dtu", "lund", "aarhus",
-                "tno", "niva", "list", "icta", "rifs", "ioer", "zalf", "pik", "bund"
+                "wsl", "empa", "ecmwf", "dtu", "lund", "aarhus",
+                "tno", "niva", "icta", "rifs", "ioer", "zalf", "pik", "bund"
             ]):
                 academic_dach_offers.append({
                     "title": title,

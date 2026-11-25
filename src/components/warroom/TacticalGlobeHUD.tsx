@@ -46,24 +46,6 @@ const ATTRACTIVE_OFFERS: AttractiveOfferTarget[] = [
     colorHex: 0x059669
   },
   {
-    id: 'off-kiel',
-    name: 'CAU Kiel / Helmholtz Ocean Research (GEOMAR)',
-    role: 'Postdoctoral Researcher in Soil Carbon Fluxes & Peatlands',
-    city: 'Kiel',
-    flag: '🇩🇪',
-    country: 'Alemania',
-    coordsText: '54.32° N, 10.12° E',
-    lat: 54.32,
-    lon: 10.12,
-    matchScore: 96,
-    framework: '🇩🇪 §20 AufenthG • Transición directa a EU Blue Card',
-    salary: 'TV-L E13 (~50.400 € brutos/año)',
-    requirements: ['Eddy Covariance', 'Flujos de Carbono', 'Turberas Templadas', 'CAU Kiel'],
-    sectorKey: 'kiel',
-    color: '#0284c7',
-    colorHex: 0x0284c7
-  },
-  {
     id: 'off-gfz',
     name: 'GFZ Helmholtz German Research Centre for Geosciences',
     role: 'Scientist in Quantitative Geodesy & Satellite Earth Observation',
