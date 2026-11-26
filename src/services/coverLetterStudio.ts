@@ -883,7 +883,15 @@ export const generateAntiAiPrompt = (
 
   return `Actúa como un editor senior de candidaturas internacionales y asesor de redacción ejecutiva para organizaciones globales, institutos de investigación y movimientos socioambientales.
 
-Tu misión es REVISAR, AUDITAR y PULIR mi Carta de Postulación (Cover Letter) basándote en mi borrador adjunto, asegurando una voz humana, rigurosa, no corporativa y completamente libre de fórmulas mecánicas de IA.
+Tu misión es REVISAR, AUDITAR y PULIR mi Carta de Postulación (Cover Letter) basándote en mi borrador adjunto y en mi expediente verified 'Operative Core Dossier', asegurando una voz humana, rigurosa, no corporativa y completamente libre de fórmulas mecánicas de IA.
+
+PROTOCOLO DE EJECUCIÓN (MODO DISCOVERY & CALIBRACIÓN INTERACTIVA):
+Si necesitas calibrar o afinar la personalización antes de entregar la versión final, o si no se ha definido la extensión, plantéame primero estas preguntas con tus sugerencias fundamentadas en la vacante:
+1. Extensión objetivo: ¿1 página DIN 5008 (400-480 palabras) o 2 páginas (700-900 palabras para convocatorias de investigación profunda)?
+2. Motivación e interés: ¿Qué retos específicos del proyecto resuenan más con mi trayectoria?
+3. Asimetría competitiva: ¿Qué arma de evidencia priorizamos (SEV Maule, Eddy Covariance Wallener Au, Wetland Monitor 3D, AgriTwin)?
+4. Fricciones/Gaps: ¿Qué requisitos de la oferta requieren neutralización mediante física matemática y aprendizaje rápido?
+5. Interlocutor: ¿Nos dirigimos a un PI específico o al comité colegiado?
 
 ================================================================================
 1. CONTEXTO DE LA POSTULACIÓN

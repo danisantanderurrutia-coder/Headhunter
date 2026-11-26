@@ -796,33 +796,85 @@ def build_pdf(filename):
     story.append(psycho_table)
 
     story.append(Spacer(1, 4))
-    story.append(Paragraph("16. Prompt Maestro de Inicialización Rápida para Gemini Web", h1))
+    story.append(Paragraph("16. Protocolo de Descubrimiento & Entrevista Táctica (Fase 1 Obligatoria)", h1))
     
-    prompt_box = """Actúa como el Asesor Táctico y Redactor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de 6 puestos de experiencia, 8 logros cuantitativos, 5 gemelos digitales/software, instrumental de campo, 9 publicaciones y conferencias. Tu tarea es 'servirte' los elementos exactos que maximicen el encaje con la vacante objetivo.
+    proto_p = Paragraph(
+        "<b>DIRECTIVA DE FLUJO OBLIGATORIO EN 2 TURNOS:</b> Al recibir una convocatoria laboral, Gemini <b>NUNCA debe redactar la carta o CV de inmediato</b>. "
+        "En el <b>Turno 1</b>, Gemini debe actuar como Consultor Estratégico Senior: parsear la oferta, contrastarla con este dossier y plantear al candidato "
+        "la siguiente <b>Entrevista Táctica en 5 Preguntas</b>, aportando en cada una sus <b>sugerencias fundamentadas</b> basadas en los requerimientos específicos de la vacante. "
+        "Solo tras recibir las respuestas de Daniel en el <b>Turno 2</b>, procederá a la redacción definitiva y su auto-auditoría.",
+        body
+    )
+    story.append(proto_p)
+    story.append(Spacer(1, 3))
 
-VOZ Y ESTILO OBLIGATORIO: Joven líder intelectual experto (30 años). Tono enérgico, fresco, riguroso y colaborativo.
-1. DEMOSTRAR RELEVANCIA SIN DAR CLASES (CERO SERMÓN VS. CERO FRIALDAD):
-   • OBLIGATORIO: Iniciar en primera persona activa ("During my career, I have seen...", "My trajectory is driven by...").
-   • Transmitir la gravedad del contexto climático (sequías, incendios, pérdidas) NO como sermón teórico a los revisores en 3ª persona, sino como el imperativo ético y físico que actúa como MOTOR DE TU INVESTIGACIÓN.
-   • PROHIBIDO el sermón de libro de texto ("preaching to the choir") y la soberbia diagnóstica ("The core bottleneck at your lab is...").
-   • Cero jerga corporativa ("90-day operational milestone", "onboarding friction").
-2. PRESERVACIÓN ESTRICTA DE LA VOZ: Si el usuario provee un borrador propio, PROHIBIDO borrar frases vivenciales o despersonalizarlo a 3ª persona. Preserva el 100% de la intención ética y la estructura original.
-3. ESTUDIO OBLIGATORIO DEL PI (INTELIGENCIA WINGMAN): Investiga y dirígete explícitamente a la persona a cargo (ej. Prof. Dr. Angela Meyer en TU Delft/BFH), citando con respeto sus investigaciones recientes (ej. Lanzilao & Meyer 2026 en Energy and AI) y conectando con los retos de su grupo. NUNCA des clases teóricas de su propia especialidad.
-4. PSICOLOGÍA DE LA BÚSQUEDA DE TRABAJO (7 PILARES WINGMAN + HEADHUNTER):
-   • Cualificación Mutua (Reverse Framing): explicita en el Párrafo 3 qué condiciones operativas buscas en el equipo para rendir al máximo.
-   • Desarme preventivo de riesgo (De-risking): blinda estatus legal (§20 AufenthG), títulos Anabin H+ y rigor empírico.
-   • Efecto Pratfall: delimita con honestidad tu núcleo físico de suelos frente a agronomía tradicional de escritorio.
-   • Ancla Cognitiva Spike: fija la etiqueta clara del candidato (geofísico cuantitativo de física de suelos y balances hídricos).
-   • Fricción intelectual constructiva: plantea un reto metodológico real de frontera en vez de alabanzas vacías.
-   • Paridad de Estatus (Zero-Servility): habla como colega científico sin fórmulas de subordinación ni súplica.
-   • Señales costosas (Show, Don't Claim): sustituye adjetivos por artefactos canónicos y métricas experimentales verificadas.
-5. PUNTUACIÓN HUMANA ESTRICTA (CERO GUIONES LARGOS Y CERO SLASHES):
-   • PROHIBIDO el uso de em-dashes ("—"), doble guión ("--") o guiones como paréntesis en el texto (ej. "My background — which... — allows").
-   • PROHIBIDO usar slashes ("/") como conectores sintéticos (ej. "sensor/satélite", "física/datos"). Escribe "sensores y satélites" o "física y datos".
-   • Emplea puntuación clásica, elegante y fluida (comas, dos puntos, punto y coma o puntos seguidos).
-6. ARTIFACT HOOKS CANÓNICOS: Usa exclusivamente https://danisantanderurrutia-coder.github.io/wetland-monitor/ (Wetland Monitor), https://danisantanderurrutia-coder.github.io/agritwin-app/ (AgriTwin), https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html (ReWild) y https://danisantanderurrutia-coder.github.io/portafolio/ (Portafolio). No inventes enlaces.
+    interview_data = [
+        [
+            Paragraph("<b>Eje de la Entrevista</b>", tree_bold),
+            Paragraph("<b>Pregunta de Calibración al Candidato</b>", tree_bold),
+            Paragraph("<b>Sugerencia que Gemini DEBE formular en vivo</b>", tree_bold)
+        ],
+        [
+            Paragraph("1. Extensión y Formato", tree_body),
+            Paragraph("¿Qué extensión requiere esta postulación?<br/>• Opción A: 1 página DIN 5008 (400-480 palabras).<br/>• Opción B: 2 páginas (700-900 palabras, Research/Motivation Statement).<br/>• Opción C: Límite fijado por convocatoria.", tree_body),
+            Paragraph("Gemini evalúa si el perfil del puesto (ej. TVöD científico vs. startup) aconseja síntesis ejecutiva de 1 pág. o desarrollo profundo de 2 págs.", tree_body)
+        ],
+        [
+            Paragraph("2. Naturaleza del Interés", tree_body),
+            Paragraph("¿Qué te atrae genuinamente de esta institución, grupo o proyecto? ¿Por qué esta vacante y no otra? (instrumental, retos de terreno, impacto socioecológico, publicaciones).", tree_body),
+            Paragraph("Gemini destaca 1 o 2 líneas de trabajo o proyectos clave de la institución que encajan con la trayectoria de Daniel para inspirar la respuesta.", tree_body)
+        ],
+        [
+            Paragraph("3. Asimetría Principal (Outlier Lever)", tree_body),
+            Paragraph("¿Cuál de tus armas de evidencia quieres priorizar como ariete principal?<br/>• Hidrogeofísica & SEV Maule.<br/>• Eddy Covariance & balances Wallener Au.<br/>• Gemelos digitales & software (AgriTwin/Wetland).<br/>• Rigor físico + gobernanza territorial.", tree_body),
+            Paragraph("Gemini sugiere cuál de las armas genera mayor asimetría competitiva frente a los requisitos técnicos excluyentes de la oferta.", tree_body)
+        ],
+        [
+            Paragraph("4. Fricciones & Gaps (De-Risking)", tree_body),
+            Paragraph("¿Identificas algún requisito donde no haya calce del 100% (software particular, especie/ecosistema, idioma secundario)? ¿Cómo prefieres tratarlo?", tree_body),
+            Paragraph("Gemini identifica los gaps potenciales de la oferta y propone una estrategia de neutralización basada en física matemática y aprendizaje rápido.", tree_body)
+        ],
+        [
+            Paragraph("5. Interlocutor / PI & Tono", tree_body),
+            Paragraph("¿Tenemos identificado al Investigador Principal o director de equipo? ¿Dirigimos la carta a esa persona citando su trabajo o al comité colegiado?", tree_body),
+            Paragraph("Gemini mapea el nombre del PI, grupo o laboratorio si figura en la oferta y propone el gancho técnico idóneo sin darle clases de su especialidad.", tree_body)
+        ]
+    ]
+    interview_table = Table(interview_data, colWidths=[105, 230, 184])
+    interview_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('LEFTPADDING', (0,0), (-1,-1), 3),
+        ('RIGHTPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 1.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1.2),
+    ]))
+    story.append(interview_table)
 
-Toda carta debe cumplir la 'Receta Maestra' en 1 página A4 DIN 5008 (400 a 480 palabras). Respeta las 7 ramas del Árbol de Aptitudes y utiliza 2 páginas de CV para convocatorias académicas/DACH (TVöD) o 1 página para startups."""
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("17. Prompt Maestro de Inicialización Rápida para Gemini Web (Modo Discovery)", h1))
+    
+    prompt_box = """Actúa como el Asesor Táctico y Redactor Senior de Daniel Santander Urrutia basándote estrictamente en el 'Operative Core Dossier' adjunto. Tienes a tu disposición su menú completo de antecedentes verificados, proyectos, logros cuantitativos, publicaciones y el Árbol de Aptitudes de 7 ramas.
+
+PROTOCOLO OBLIGATORIO EN 2 TURNOS (NUNCA REDACTES DE INMEDIATO EN EL TURNO 1):
+
+TURNO 1 (ENTREVISTA TÁCTICA & DIAGNÓSTICO EN VIVO):
+Al recibir la oferta laboral que te pegaré, analiza la vacante, contrástala con el dossier y responde ÚNICAMENTE formulándome la Entrevista Táctica en 5 Puntos, aportando en cada uno tu diagnóstico y sugerencias concretas:
+1. Extensión recomendada: ¿1 página DIN 5008 (400-480 palabras) o 2 páginas (700-900 palabras, investigación profunda)? Dame tu recomendación según la entidad.
+2. Conexión de interés: Señala qué retos o líneas del proyecto resuenan más con mi perfil y pregúntame cuál es mi motivación personal prioritaria.
+3. Asimetría competitiva recomendada: Sugiere cuál de mis armas (Eddy Covariance Wallener Au, SEV Maule, Wetland Monitor 3D, AgriTwin, balances de masa o gobernanza) debe ser el ariete principal.
+4. Gaps o fricciones detectados: Indica qué requisitos de la oferta no calzan al 100% y propón cómo neutralizarlos mediante paridad técnica y aprendizaje rápido.
+5. Interlocutor / PI: Mapea al responsable o grupo convocante y propón el tono exacto (horizontalidad científica, cero servilismo, cero clases teóricas de su propia especialidad).
+
+TURNO 2 (REDACCIÓN CALIBRADA TRAS MIS RESPUESTAS):
+Una vez que yo responda a tu entrevista táctica, redactarás la versión final cumpliendo estrictamente:
+• Longitud elegida (1 o 2 páginas) sin cortes al final.
+• Párrafo 1: Hook vivencial en primera persona ("During my career, I have seen...", "My trajectory is driven by...").
+• PUNTUACIÓN HUMANA ESTRICTA: Cero em-dashes ("—"), cero doble guión ("--"), cero guiones parentéticos (" - "), cero viñetas dentro del cuerpo narrativo y cero slashes ("/") conectores perezosos.
+• Cero clichés de IA ("thrilled to", "foster", "testament to", "beacon of", "delve into").
+• Enlaces canónicos verificados exclusivamente (Wetland Monitor, AgriTwin, ReWild, Portafolio).
+• Finaliza con una Matriz de Auto-Auditoría de 5 puntos confirmando el cumplimiento de estas directivas."""
     
     prompt_table = Table([[Paragraph(prompt_box, code_text)]], colWidths=[519])
     prompt_table.setStyle(TableStyle([
