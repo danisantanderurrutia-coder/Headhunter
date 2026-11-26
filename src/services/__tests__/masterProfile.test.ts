@@ -59,9 +59,10 @@ describe('MasterProfile & Expediente Maestro Consolidado', () => {
     expect(events).toContain('Costa Rica');
   });
 
-  it('los proyectos tecnológicos agrupan los 5 proyectos de innovación sin duplicar campañas de experiencias', () => {
-    expect(initialProfile.keyProjects?.length).toBe(5);
+  it('los proyectos tecnológicos agrupan los 6 proyectos de innovación sin duplicar campañas de experiencias', () => {
+    expect(initialProfile.keyProjects?.length).toBe(6);
     const projIds = initialProfile.keyProjects?.map((p) => p.id);
+    expect(projIds).toContain('proj-hombros');
     expect(projIds).toContain('proj-agritwin');
     expect(projIds).toContain('proj-wetland-monitor');
     expect(projIds).toContain('proj-rewild-resumof');

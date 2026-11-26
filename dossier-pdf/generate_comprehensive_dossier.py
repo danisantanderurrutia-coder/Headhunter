@@ -242,7 +242,7 @@ def build_pdf(filename):
         [Paragraph("<b>Contacto Oficial</b>", id_body), Paragraph("Kiel, Schleswig-Holstein, Alemania | Bilbao, Bizkaia, España | danisantander.urrutia@gmail.com", id_body)],
         [Paragraph("<b>Portafolio de Evidencias</b>", id_body), Paragraph("https://danisantanderurrutia-coder.github.io/portafolio/ (Búnker central de proyectos, peritajes, modelos y código)", id_body)],
         [Paragraph("<b>Habilitación Legal UE</b>", id_body), Paragraph("<b>Alemania:</b> Permiso <b>§ 20 AufenthG</b> (Investigador calificado / búsqueda de empleo; contratación y formalización inmediata bajo convenio TVöD sin requerir patrocinio de visa).<br/><b>España:</b> Régimen Profesionales Altamente Cualificados (PAC) Ley 14/2013.", id_body)],
-        [Paragraph("<b>Enlaces Canónicos (Artifact Hooks)</b>", id_body), Paragraph("<b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Field Suite):</b> https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", id_body)],
+        [Paragraph("<b>Enlaces Canónicos (Artifact Hooks)</b>", id_body), Paragraph("<b>HOMBROS (Sistema Metabólico):</b> https://danisantanderurrutia-coder.github.io/hombros/<br/><b>Wetland Monitor:</b> https://danisantanderurrutia-coder.github.io/wetland-monitor/<br/><b>AgriTwin:</b> https://danisantanderurrutia-coder.github.io/agritwin-app/<br/><b>ReWild (Field Suite):</b> https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html<br/><i>(Nota: Prohibido inventar URLs o enlazar herramientas internas).</i>", id_body)],
     ]
     id_table = Table(id_data, colWidths=[120, 399])
     id_table.setStyle(TableStyle([
@@ -527,9 +527,10 @@ def build_pdf(filename):
     story.append(ach_table)
     story.append(Spacer(1, 5))
 
-    story.append(Paragraph("8. Los 5 Gemelos Digitales & Proyectos Tecnológicos (Artifact Hooks)", h1))
+    story.append(Paragraph("8. Los 6 Gemelos Digitales & Proyectos Tecnológicos (Artifact Hooks)", h1))
     
     projects = [
+        ("HOMBROS: Sistema Metabólico Territorial", "Modelación Biofísica, Medios Continuos & Gobernanza (2024-Presente)", "Modelo cuantitativo y plataforma web que parametriza la capacidad portante biofísica H = (S·E·K)^(1/3), tensión mecánica (sigma = D/H), límites de fluencia elástica/plástica y metabolismo de emisiones Scope 1, 2 y 3, superando brechas de Doughnut y Planetary Boundaries.", "React, TypeScript, Leaflet, KaTeX, Tailwind, R Tidyverse", "https://danisantanderurrutia-coder.github.io/hombros/"),
         ("Wetland Monitor (Wallener Au)", "Gemelo Digital & Software Científico (2023-2026)", "Simulación interactiva 3D de flujos de CO₂ y picos de CH₄ en turberas templadas rehumedecidas bajo forzantes de Eddy Covariance y curvas de retención hídrica edáfica.", "React, TypeScript, R, Eddy Covariance, Three.js", "https://danisantanderurrutia-coder.github.io/wetland-monitor/"),
         ("Chile Agrotech & AgriTwin", "Agrotech, IoT & Satélites (2023-Presente)", "Gemelo digital de telemetría de suelo IoT LoRaWAN combinado con pipeline automatizado de índices satelitales Copernicus Sentinel-2 (NDVI/NDRE) para prevención de estrés hídrico.", "Python, Sentinel-2 API, IoT LoRaWAN, FastAPI, QGIS, PostGIS, Next.js", "https://danisantanderurrutia-coder.github.io/agritwin-app/"),
         ("ReWild: Rewilding Field Suite", "PWA Offline-First & Analítica de Incendios (2024)", "Plataforma PWA offline-first (IndexedDB) para protocolos GoWild de restauración ecológica, monitoreo de biomasa y mitigación de riesgo de incendios forestales mediante cortafuegos vivos.", "PWA Offline IndexedDB, Python GIS, Sentinel-2, StoryMaps", "https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html"),
@@ -863,7 +864,7 @@ TURNO 1 (ENTREVISTA TÁCTICA & DIAGNÓSTICO EN VIVO):
 Al recibir la oferta laboral que te pegaré, analiza la vacante, contrástala con el dossier y responde ÚNICAMENTE formulándome la Entrevista Táctica en 5 Puntos, aportando en cada uno tu diagnóstico y sugerencias concretas:
 1. Extensión recomendada: ¿1 página DIN 5008 (400-480 palabras) o 2 páginas (700-900 palabras, investigación profunda)? Dame tu recomendación según la entidad.
 2. Conexión de interés: Señala qué retos o líneas del proyecto resuenan más con mi perfil y pregúntame cuál es mi motivación personal prioritaria.
-3. Asimetría competitiva recomendada: Sugiere cuál de mis armas (Eddy Covariance Wallener Au, SEV Maule, Wetland Monitor 3D, AgriTwin, balances de masa o gobernanza) debe ser el ariete principal.
+3. Asimetría competitiva recomendada: Sugiere cuál de mis armas (HOMBROS Sistema Metabólico, Eddy Covariance Wallener Au, SEV Maule, Wetland Monitor 3D, AgriTwin, balances de masa o gobernanza) debe ser el ariete principal.
 4. Gaps o fricciones detectados: Indica qué requisitos de la oferta no calzan al 100% y propón cómo neutralizarlos mediante paridad técnica y aprendizaje rápido.
 5. Interlocutor / PI: Mapea al responsable o grupo convocante y propón el tono exacto (horizontalidad científica, cero servilismo, cero clases teóricas de su propia especialidad).
 
@@ -873,7 +874,7 @@ Una vez que yo responda a tu entrevista táctica, redactarás la versión final 
 • Párrafo 1: Hook vivencial en primera persona ("During my career, I have seen...", "My trajectory is driven by...").
 • PUNTUACIÓN HUMANA ESTRICTA: Cero em-dashes ("—"), cero doble guión ("--"), cero guiones parentéticos (" - "), cero viñetas dentro del cuerpo narrativo y cero slashes ("/") conectores perezosos.
 • Cero clichés de IA ("thrilled to", "foster", "testament to", "beacon of", "delve into").
-• Enlaces canónicos verificados exclusivamente (Wetland Monitor, AgriTwin, ReWild, Portafolio).
+• Enlaces canónicos verificados exclusivamente (HOMBROS https://danisantanderurrutia-coder.github.io/hombros/, Wetland Monitor, AgriTwin, ReWild, Portafolio).
 • Finaliza con una Matriz de Auto-Auditoría de 5 puntos confirmando el cumplimiento de estas directivas."""
     
     prompt_table = Table([[Paragraph(prompt_box, code_text)]], colWidths=[519])

@@ -935,6 +935,7 @@ C. EL HILO CONDUCTOR ("THE GOLDEN THREAD") Y ARQUITECTURA NARRATIVA (1 PÁGINA D
      * DEMOSTRACIÓN DE RELEVANCIA: Conecta la gravedad de los extremos climáticos (pérdidas socioecológicas, sequías, incendios) no como un sermón teórico al revisor, sino como el motor empírico que justifica tu investigación y el valor del laboratorio.
    - Párrafo 2 (Alineamiento con los Retos de Frontera): Conéctate con las dificultades o preguntas abiertas del proyecto desde la curiosidad intelectual compartida. NUNCA diagnostiques con arrogancia ("your core bottleneck is...") ni des clases teóricas de pregrado a los revisores.
    - Párrafo 3 (Evidencia de Terreno & Artifact Hook): Articula tu experiencia empírica demostrando cómo resuelves problemas concretos (Eddy Covariance, curvas de retención hídrica, balances continuos, R/Python). Incluye un Artifact Hook verificado:
+     * HOMBROS (Sistema Metabólico Territorial): https://danisantanderurrutia-coder.github.io/hombros/
      * Wetland Monitor 3D: https://danisantanderurrutia-coder.github.io/wetland-monitor/
      * AgriTwin: https://danisantanderurrutia-coder.github.io/agritwin-app/
      * ReWild (Rewilding Field Suite): https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html

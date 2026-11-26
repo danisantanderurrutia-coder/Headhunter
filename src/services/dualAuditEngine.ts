@@ -114,6 +114,15 @@ export interface DualAuditInput {
 
 export const CANONICAL_PORTFOLIO_WEAPONS: PortfolioWeapon[] = [
   {
+    id: 'w-hombros',
+    name: 'HOMBROS: Sistema Metabólico Territorial (Capacidad Portante & Tensión Biofísica)',
+    category: 'software',
+    matchedKeywords: ['hombros', 'capacidad portante', 'carrying capacity', 'metabolismo territorial', 'metabolic audit', 'medios continuos', 'tensión sistémica', 'socio-ecológico', 'doughnut', 'planetary boundaries', 'biofísica'],
+    relevanceTriggers: ['territori', 'metaboli', 'carrying capacity', 'capacidad portante', 'biophysi', 'biofísi', 'planetary', 'doughnut', 'sustentab', 'sustainab', 'governance', 'gobernanza', 'footprint', 'huella', 'cuenca', 'watershed'],
+    whyInclude: 'Demuestra modelación de vanguardia en mecánica de medios continuos aplicada al metabolismo socioecológico, capacidad portante no compensatoria y superación de gaps de Doughnut/Planetary Boundaries.',
+    suggestedInjection: 'HOMBROS: Interactive territorial metabolism & continuum mechanics model quantifying systemic carrying capacity H=(S·E·K)^(1/3) and biophysical stress (https://danisantanderurrutia-coder.github.io/hombros/).'
+  },
+  {
     id: 'w-agritwin',
     name: 'AgriTwin (Gemelo Digital IoT & Sentinel-2)',
     category: 'software',

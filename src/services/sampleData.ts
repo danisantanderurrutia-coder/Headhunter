@@ -492,6 +492,22 @@ export const initialProfile: MasterProfile = {
   ],
   keyProjects: [
     {
+      id: 'proj-hombros',
+      title: 'HOMBROS: Sistema Metabólico Territorial',
+      role: 'Autor Principal & Lead Systems Architect',
+      period: '2024 – Presente',
+      category: 'Modelación Biofísica, Mecánica de Medios Continuos & Gobernanza',
+      description: 'Plataforma interactiva y modelo de mecánica de medios continuos y metabolismo socioecológico para cuantificar capacidad portante sistémica H = (S·E·K)^(1/3), tensión estructural (sigma = D/H), deformación y desplazamiento entrópico territorial validado empíricamente en 8 territorios (Chile y Europa).',
+      deliverables: [
+        'Modelo matemático no compensatorio de capacidad portante biofísica y humana (Suelo/Naturaleza, Energía/Flujos, Tejido Comunitario)',
+        'Panel interactivo de auditoría metabólica, límites de fluencia elástica/plástica y cálculo de huellas Alcance 1, 2 y 3',
+        'Suite cartográfica interactiva y scripts reproducibles en R (tidyverse/ggplot2) con validación split-sample'
+      ],
+      techStack: ['React', 'TypeScript', 'Vite', 'Leaflet', 'KaTeX', 'Tailwind CSS', 'R Tidyverse'],
+      githubUrl: 'https://github.com/danisantanderurrutia-coder/hombros',
+      url: 'https://danisantanderurrutia-coder.github.io/hombros/'
+    },
+    {
       id: 'proj-agritwin',
       title: 'Chile Agrotech & Plataforma AgriTwin',
       role: 'Lead Architect & Systems Modeler',

@@ -316,6 +316,7 @@ PSICOLOGÍA DE LA BÚSQUEDA DE TRABAJO DE ALTO NIVEL (7 PILARES WINGMAN + HEADHU
 
 CATÁLOGO ESTRICTO DE ENLACES (ARTIFACT HOOKS - PROHIBIDO INVENTAR OTROS):
 - Portafolio Central / Evidence Bunker: https://danisantanderurrutia-coder.github.io/portafolio/
+- HOMBROS (Sistema Metabólico Territorial): https://danisantanderurrutia-coder.github.io/hombros/
 - Wetland Monitor 3D (Wallener Au): https://danisantanderurrutia-coder.github.io/wetland-monitor/
 - AgriTwin (Chile Agrotech IoT & Satélites): https://danisantanderurrutia-coder.github.io/agritwin-app/
 - ReWild (Rewilding Field Suite): https://danisantanderurrutia-coder.github.io/agrotech/rewild/rewilding-field-suite.html
