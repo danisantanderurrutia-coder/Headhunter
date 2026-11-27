@@ -18,7 +18,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:09",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -38,7 +38,7 @@
     "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_aeloET1t4I7y99lddS",
     "sourceId": "src-ethz-jobs",
     "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "ETH Zürich Vacancy: Two Doctoral Positions in the SNSF Research Project \"From Homes to Habitat – Swiss Housing Cooperatives as Agents of Socio-Ecological Transition\". Two Doctoral Positions in the SNSF Research Project \"From Homes to Habitat – Swiss Housing Cooperatives as Agents of Socio-Ecological Transition\" | 100%, Zurich, fixed-term | 06.11.2026 | ETH Wohnforum – Centre for Research on Architecture, Society & the Built Environment",
     "requirements": [
       "Doctorate / Master Degree in Environmental or Earth Sciences",
@@ -46,7 +46,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -66,7 +66,7 @@
     "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_VHL83kyFBbwBQD0AfO",
     "sourceId": "src-ethz-jobs",
     "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "ETH Zürich Vacancy: Doctoral Position: 3D scene reconstruction and multi-modal sensing for digital twins of stone-built heritage. Doctoral Position: 3D scene reconstruction and multi-modal sensing for digital twins of stone-built heritage | 100%, Zurich, fixed-term | 02.11.2026 | Institute of Geodesy and Photogrammetry",
     "requirements": [
       "Doctorate / Master Degree in Environmental or Earth Sciences",
@@ -74,7 +74,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -94,7 +94,7 @@
     "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_SbmISbke8WdGnkbzJk",
     "sourceId": "src-ethz-jobs",
     "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "ETH Zürich Vacancy: Doctoral Position in Groundwater Microbial and Viral Ecology and Environmental Bioinformatics. Doctoral Position in Groundwater Microbial and Viral Ecology and Environmental Bioinformatics | 100%, Zurich, fixed-term | 27.10.2026 | Department of Earth and Planetary Sciences (D-EAPS)",
     "requirements": [
       "Doctorate / Master Degree in Environmental or Earth Sciences",
@@ -102,7 +102,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -122,7 +122,7 @@
     "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_TIiC0vSwRKzG8cjCb4",
     "sourceId": "src-ethz-jobs",
     "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "ETH Zürich Vacancy: PhD Position in Digital Twins of Embryonic Development. PhD Position in Digital Twins of Embryonic Development | 100%, Basel, fixed-term | 05.10.2026 | Department of Biosystems Science and Engineering (D-BSSE) Computational Biology Group",
     "requirements": [
       "Doctorate / Master Degree in Environmental or Earth Sciences",
@@ -130,7 +130,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -150,7 +150,7 @@
     "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_eMp6VK8Hmtj3lkloXX",
     "sourceId": "src-ethz-jobs",
     "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "ETH Zürich Vacancy: PhD Position in Computational Methods for Digital Twins of Embryonic Development & Disease. PhD Position in Computational Methods for Digital Twins of Embryonic Development & Disease | 100%, Basel, fixed-term | 05.10.2026 | Department of Biosystems Science and Engineering (D-BSSE), Computational Biology Group",
     "requirements": [
       "Doctorate / Master Degree in Environmental or Earth Sciences",
@@ -158,39 +158,11 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
       "digital\\s+twins?"
-    ],
-    "deadline": "05.10.2026",
-    "salary": "ETH Scale (Predoc ca. 60.000 - 85.000 CHF / Postdoc ca. 85.000 - 115.000 CHF)"
-  },
-  {
-    "id": "ethz-CeeOoz3e4bWjwIztTz",
-    "title": "Doktorand:in in Wahrnehmung des Bevölkerungsrückgangs (m/w/d)",
-    "company": "ETH Zürich",
-    "location": "Zürich / Basel, Suiza",
-    "country": "Suiza",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_CeeOoz3e4bWjwIztTz",
-    "sourceId": "src-ethz-jobs",
-    "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
-    "rawDescription": "ETH Zürich Vacancy: Doktorand:in in Wahrnehmung des Bevölkerungsrückgangs (m/w/d). Doktorand:in in Wahrnehmung des Bevölkerungsrückgangs (m/w/d) | 100%, Zürich, befristet | 05.10.2026 | Institut für Umweltentscheidungen, Professur für Konsumverhalten",
-    "requirements": [
-      "Doctorate / Master Degree in Environmental or Earth Sciences",
-      "ETH Domain Standards"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt"
     ],
     "deadline": "05.10.2026",
     "salary": "ETH Scale (Predoc ca. 60.000 - 85.000 CHF / Postdoc ca. 85.000 - 115.000 CHF)"
@@ -206,7 +178,7 @@
     "url": "https://jobs.ethz.ch/job/view/JOPG_ethz_xoycY0syftRiptDI1A",
     "sourceId": "src-ethz-jobs",
     "sourceName": "ETH Zürich Job Board",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "ETH Zürich Vacancy: Labormitarbeiter:in im Bereich Werkstoffe, Korrosion und Dauerhaftigkeit (m/w/d). Labormitarbeiter:in im Bereich Werkstoffe, Korrosion und Dauerhaftigkeit (m/w/d) | 80%-100%, Zürich, unbefristet | 01.10.2026 | Institut für Baustoffe am Departement für Bau (D-BAUG), Umwelt und Geomatik",
     "requirements": [
       "Doctorate / Master Degree in Environmental or Earth Sciences",
@@ -214,7 +186,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -234,7 +206,7 @@
     "url": "https://uni-freiburg.de/stellenangebot/00005262",
     "sourceId": "src-uni-freiburg",
     "sourceName": "University of Freiburg Stellenangebote",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "Universität Freiburg Ausschreibung: PhD position in ecology (m/f/d). PhD position in ecology (m/f/d) | The Chair of Nature Conservation and Landscape Ecology is seeking a highly motivated and enthusiastic PhD candidate (m/f/d/x). PhD position in ecology (m/f/d) | <1 Woche | Teilzeit | Forschung und Lehre | Bewerbungsfrist: | 6. Dezember 2026 | Kennziffer: 00005262 | Veröffentlicht: | 6. November 2026 | mehr erfahren",
     "requirements": [
       "Master / PhD in Environmental Sciences, Forestry, Ecology, or Climate Dynamics",
@@ -242,7 +214,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -262,15 +234,15 @@
     "url": "https://uni-freiburg.de/stellenangebot/00005251",
     "sourceId": "src-uni-freiburg",
     "sourceName": "University of Freiburg Stellenangebote",
-    "publishedDate": "2026-11-26",
-    "rawDescription": "Universität Freiburg Ausschreibung: Project Manager (m/f/d/x). Project Manager (m/f/d/x) | The Chair of Nature Conservation and Landscape Ecology is looking for a motivated and well-organized Project Manager (m/f/d) to support the scientific coordination and administrative management of the second phase of the DFG Research Unit MultiTroph. Project Manager (m/f/d/x) | Nur noch 4 Tage | Vollzeit | Forschung und Lehre | Wissenschaftsmanagement | Bewerbungsfrist: | 30. November 2026 | Kennziffer: 00005251 | Veröffentlicht: | 26. Oktober 2026 | mehr erfahren",
+    "publishedDate": "2026-11-27",
+    "rawDescription": "Universität Freiburg Ausschreibung: Project Manager (m/f/d/x). Project Manager (m/f/d/x) | The Chair of Nature Conservation and Landscape Ecology is looking for a motivated and well-organized Project Manager (m/f/d) to support the scientific coordination and administrative management of the second phase of the DFG Research Unit MultiTroph. Project Manager (m/f/d/x) | Nur noch 3 Tage | Vollzeit | Forschung und Lehre | Wissenschaftsmanagement | Bewerbungsfrist: | 30. November 2026 | Kennziffer: 00005251 | Veröffentlicht: | 26. Oktober 2026 | mehr erfahren",
     "requirements": [
       "Master / PhD in Environmental Sciences, Forestry, Ecology, or Climate Dynamics",
       "Kennziffer: 00005251"
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -290,7 +262,7 @@
     "url": "https://apply.refline.ch/673277/1426/pub/1/index.html",
     "sourceId": "src-eawag-swiss",
     "sourceName": "Eawag Job Portal (ETH Domain)",
-    "publishedDate": "2026-11-26",
+    "publishedDate": "2026-11-27",
     "rawDescription": "Convocatoria Eawag (Dominio ETH): Senior Research Infrastructure & Software-Engineer (m/w/d) im Umweltbereich (80-100%). Senior Research Infrastructure & Software-Engineer (m/w/d) im Umweltbereich (80-100%) 80% - 100% 19.11.2026 23.12.2026 SESC4398",
     "requirements": [
       "Master / PhD in Hydrology, Limnology, Environmental Sciences or Biogeochemistry",
@@ -298,7 +270,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -308,7 +280,235 @@
     "salary": "ETH Domain Salary Scale (80.000 - 110.000 CHF según grado)"
   },
   {
-    "id": "bund-2344940829831501965",
+    "id": "bund-2713572674425390230",
+    "title": "Sachbearbeitung für ministerielle Angelegenheiten des Berliner Landesstraßenrechts (m/w/d), E 11 TV-L",
+    "company": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt - Abteilung VI",
+    "location": "12101 Berlin",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/editor/Senatsverwaltung-fuer-Mobilitaet-Verkehr-Klimaschutz-und-Umwelt/2026/11/6731562.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Fri, 27 Nov 2026",
+    "rawDescription": "Arbeitgeber: Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt - Abteilung VI Ort: 12101 Berlin Bewerbungsfrist: 18.12.2026 23:59 Veröffentlichungsende: 18.12.2026 23:59",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klimaschutz",
+      "umwelt",
+      "r"
+    ],
+    "deadline": "18.12.2026 23:59",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--3794396523091867660",
+    "title": "Ingenieurstechnische Sachbearbeitung im Fachbereich Umweltschutz (m/w/d)",
+    "company": "Bezirksamt Tempelhof-Schöneberg von Berlin",
+    "location": "10825 Berlin",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1509627.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Bezirksamt Tempelhof-Schöneberg von Berlin Ort: 10825 Berlin Bewerbungsfrist: 20.12.2026 00:00 Veröffentlichungsende: 21.12.2026 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "umwelt"
+    ],
+    "deadline": "20.12.2026 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--2027966384199232915",
+    "title": "Sachbearbeiter/in (m/w/d) im Fachbereich Bauen und Umwelt-Sachgebiet Tiefbau",
+    "company": "Verbandsgemeindeverwaltung Oberes Glantal",
+    "location": "66914 Waldmohr",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516538.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Verbandsgemeindeverwaltung Oberes Glantal Ort: 66914 Waldmohr Bewerbungsfrist: 23.12.2026 00:00 Veröffentlichungsende: 24.12.2026 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "umwelt",
+      "wald"
+    ],
+    "deadline": "23.12.2026 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--4514993203915780047",
+    "title": "Sachbearbeiter Steueramt (m/w/d)",
+    "company": "Stadtverwaltung Waldheim",
+    "location": "04736 Waldheim",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516539.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Stadtverwaltung Waldheim Ort: 04736 Waldheim Bewerbungsfrist: 03.01.2027 00:00 Veröffentlichungsende: 04.01.2027 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "wald"
+    ],
+    "deadline": "03.01.2027 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--4542612570823001874",
+    "title": "Sachbearbeiter:in im Vorzimmer des Beigeordneten für Stadtplanung Bauen und Klimaschutz",
+    "company": "Stadt Königswinter",
+    "location": "53639 Königswinter",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516515.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Stadt Königswinter Ort: 53639 Königswinter Bewerbungsfrist: 03.01.2027 00:00 Veröffentlichungsende: 04.01.2027 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klimaschutz"
+    ],
+    "deadline": "03.01.2027 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund-4061279821239109026",
+    "title": "Anlagenmechaniker/in (w/m/d) mit Schwerpunkt Klima- und Lüftungstechnik",
+    "company": "Bundesanstalt für Immobilienaufgaben",
+    "location": "65193 Wiesbaden",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516478.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Bundesanstalt für Immobilienaufgaben Ort: 65193 Wiesbaden Bewerbungsfrist: 10.01.2027 00:00 Veröffentlichungsende: 11.01.2027 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klima",
+      "r"
+    ],
+    "deadline": "10.01.2027 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--5920906529547454962",
+    "title": "Anlagenmechanikerin / Anlagenmechaniker für Sanitär, Heizung und Klima (m/w/d)",
+    "company": "Bundeswehr-Dienstleistungszentrum Bruchsal",
+    "location": "74865 Neckarzimmern",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/bundeswehr/2026/11/B7506533B-2026-00005973-B.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Bundeswehr-Dienstleistungszentrum Bruchsal Ort: 74865 Neckarzimmern Bewerbungsfrist: 22.12.2026 23:59 Veröffentlichungsende: 22.12.2026 23:59",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klima"
+    ],
+    "deadline": "22.12.2026 23:59",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--2329677389139617281",
+    "title": "Fachbauleitung Heizung/Lüftung/Sanitär/Klima (m/w/d)",
+    "company": "Stadtverwaltung Mainz",
+    "location": "55116 Mainz",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516474.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Stadtverwaltung Mainz Ort: 55116 Mainz Bewerbungsfrist: 17.12.2026 00:00 Veröffentlichungsende: 18.12.2026 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klima"
+    ],
+    "deadline": "17.12.2026 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--8590499790636982998",
     "title": "Leitung Waldschule (w/m/d) - Chransdorf",
     "company": "Landesbetrieb Forst Brandenburg",
     "location": "03229 Altdöbern",
@@ -326,7 +526,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -336,7 +536,150 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-4332266065453508209",
+    "id": "bund-7138251387328617455",
+    "title": "Chemikerin / Chemiker (w/m/d) für den Bereich Organische Analytik zur Aufklärung von Umweltschadensfällen",
+    "company": "Bayerisches Landesamt für Umwelt",
+    "location": "86179 Augsburg",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516381.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Bayerisches Landesamt für Umwelt Ort: 86179 Augsburg Bewerbungsfrist: 17.12.2026 00:00 Veröffentlichungsende: 18.12.2026 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "umwelt",
+      "r"
+    ],
+    "deadline": "17.12.2026 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund-406765133853780499",
+    "title": "Umweltingenieur/in (m/w/d) Gefahrenabwehr",
+    "company": "Landesbetrieb für Küstenschutz, Nationalpark und Meeresschutz Schleswig-Holstein",
+    "location": "25524 Itzehoe",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1510992.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Landesbetrieb für Küstenschutz, Nationalpark und Meeresschutz Schleswig-Holstein Ort: 25524 Itzehoe Bewerbungsfrist: 03.01.2027 00:00 Veröffentlichungsende: 04.01.2027 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "umwelt",
+      "r"
+    ],
+    "deadline": "03.01.2027 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund--6392341105499810293",
+    "title": "Ständige persönliche Fahrerin / Ständiger persönlicher Fahrer (w/m/d)",
+    "company": "Hessisches Ministerium für Landwirtschaft und Umwelt, Weinbau, Forsten, Jagd und Heimat",
+    "location": "65189 Wiesbaden",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515702.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Hessisches Ministerium für Landwirtschaft und Umwelt, Weinbau, Forsten, Jagd und Heimat Ort: 65189 Wiesbaden Bewerbungsfrist: 17.12.2026 00:00 Veröffentlichungsende: 18.12.2026 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "umwelt",
+      "r"
+    ],
+    "deadline": "17.12.2026 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund-2209188301266340476",
+    "title": "Mitarbeiter*in (m/w/d) für den Bereich Straßenreinigung",
+    "company": "Umweltbetriebe der Stadt Kleve",
+    "location": "47533 Kleve",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1516182.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Umweltbetriebe der Stadt Kleve Ort: 47533 Kleve Bewerbungsfrist: 13.12.2026 00:00 Veröffentlichungsende: 14.12.2026 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "umwelt"
+    ],
+    "deadline": "13.12.2026 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund-3547033687680913193",
+    "title": "Sachbearbeiter:in im Vorzimmer des Beigeordneten für Stadtplanung Bauen und Klimaschutz",
+    "company": "Stadt Königswinter",
+    "location": "53639 Königswinter",
+    "country": "Alemania",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/11/fa706914-c7a0-4594-9829-5cb4ef9e8d7c.html#track=feed-jobs",
+    "sourceId": "src-bund-rss",
+    "sourceName": "service.bund.de (Sector Público Alemán)",
+    "publishedDate": "Thu, 26 Nov 2026",
+    "rawDescription": "Arbeitgeber: Stadt Königswinter Ort: 53639 Königswinter Bewerbungsfrist: 03.01.2027 00:00 Veröffentlichungsende: 03.01.2027 00:00",
+    "requirements": [
+      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
+      "Bewerbung über interamt.de / service.bund.de"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "klimaschutz"
+    ],
+    "deadline": "03.01.2027 00:00",
+    "salary": "TVöD Bund / TV-L (E13 / E14)"
+  },
+  {
+    "id": "bund-2519557985736690171",
     "title": "Wissenschaftliche:r Mitarbeiter:in (m/w/d) - Fokus Drittmittelmanagement",
     "company": "Helmholtz Zentrum München, Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH)",
     "location": "85764 Oberschleißheim",
@@ -354,7 +697,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -365,7 +708,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-4564217343616473651",
+    "id": "bund--5768275456549157869",
     "title": "Master's Thesis in Metabolic Physiology (f/m/x)",
     "company": "Helmholtz Zentrum München, Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH)",
     "location": "85764 Oberschleißheim",
@@ -383,7 +726,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -394,7 +737,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--2259539268260269845",
+    "id": "bund-7862373161774088524",
     "title": "Lab Technician - Type 1 Diabetes (f/m/x)",
     "company": "Helmholtz Zentrum München, Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH)",
     "location": "85764 Oberschleißheim",
@@ -412,7 +755,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -423,7 +766,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund--6130066731063368219",
+    "id": "bund-4838466823679994261",
     "title": "Grant Writer (f/m/x) in Bioengineering",
     "company": "Helmholtz Zentrum München, Deutsches Forschungszentrum für Gesundheit und Umwelt (GmbH)",
     "location": "85764 Oberschleißheim",
@@ -441,7 +784,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -452,7 +795,7 @@
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
-    "id": "bund-2591453960835620658",
+    "id": "bund--7358091074983013019",
     "title": "Sachbearbeiter: in Geodaten-Projekte (w/m/d)",
     "company": "Stadt Frankfurt am Main",
     "location": "60327 Frankfurt am Main",
@@ -470,359 +813,13 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
       "geodaten"
     ],
     "deadline": "03.01.2027 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund--3118725842668401906",
-    "title": "Agrarwissenschaftler/in (m/w/d) am Dienstsitz Berlin oder Bonn",
-    "company": "Bundesministerium für Landwirtschaft, Ernährung und Heimat (BMLEH)",
-    "location": "10117 Berlin",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/editor/Bundesministerium-fuer-Landwirtschaft-Ernaehrung-und-Heimat/2026/11/6727011.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Bundesministerium für Landwirtschaft, Ernährung und Heimat (BMLEH) Ort: 10117 Berlin Bewerbungsfrist: 11.12.2026 00:00 Veröffentlichungsende: 11.12.2026 23:59",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "agrar",
-      "r"
-    ],
-    "deadline": "11.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund--2202077177255344149",
-    "title": "Agrarwissenschaftler/in (m/w/d) am Dienstsitz Bonn oder Berlin",
-    "company": "Bundesministerium für Landwirtschaft, Ernährung und Heimat (BMLEH)",
-    "location": "53123 Bonn",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/editor/Bundesministerium-fuer-Landwirtschaft-Ernaehrung-und-Heimat/2026/11/6727020.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Bundesministerium für Landwirtschaft, Ernährung und Heimat (BMLEH) Ort: 53123 Bonn Bewerbungsfrist: 11.12.2026 00:00 Veröffentlichungsende: 11.12.2026 23:59",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "agrar",
-      "r"
-    ],
-    "deadline": "11.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund-1734815866561872891",
-    "title": "Architekt (m/w/d) mit Schwerpunkt im Bereich Projektmanagement",
-    "company": "Stadt Bad Waldsee",
-    "location": "88339 Bad Waldsee",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515820.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Stadt Bad Waldsee Ort: 88339 Bad Waldsee Bewerbungsfrist: 10.01.2027 00:00 Veröffentlichungsende: 11.01.2027 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "wald"
-    ],
-    "deadline": "10.01.2027 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund--7461131536586056267",
-    "title": "Referentin/Referent (m/w/d) für den nachsorgenden Bodenschutz",
-    "company": "Bayerisches Staatsministerium f. Umwelt u. Verbraucherschutz",
-    "location": "81925 München",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515752.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Bayerisches Staatsministerium f. Umwelt u. Verbraucherschutz Ort: 81925 München Bewerbungsfrist: 18.12.2026 00:00 Veröffentlichungsende: 19.12.2026 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "bodenschutz",
-      "umwelt"
-    ],
-    "deadline": "18.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund--2802383059523409038",
-    "title": "Spezialistin / Spezialist (m/w/d) für Moorschutz",
-    "company": "Niedersächsischer Landesbetrieb für Wasserwirtschaft, Küsten- und Naturschutz",
-    "location": "21337 Lüneburg",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515755.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Niedersächsischer Landesbetrieb für Wasserwirtschaft, Küsten- und Naturschutz Ort: 21337 Lüneburg Bewerbungsfrist: 03.01.2027 00:00 Veröffentlichungsende: 04.01.2027 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "moorschutz",
-      "r"
-    ],
-    "deadline": "03.01.2027 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund--2375058757196433693",
-    "title": "Technische Sachbearbeiterin / Technischer Sachbearbeiter (w/m/d)  für den Bereich Immissionsschutz und Kreislaufwirtschaft",
-    "company": "Bayerisches Landesamt für Umwelt",
-    "location": "95326 Kulmbach",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515716.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Bayerisches Landesamt für Umwelt Ort: 95326 Kulmbach Bewerbungsfrist: 16.12.2026 00:00 Veröffentlichungsende: 17.12.2026 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt",
-      "r"
-    ],
-    "deadline": "16.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund-1031130520262319273",
-    "title": "Technische Sachbearbeiterin / Technischer Sachbearbeiter (w/m/d)  für den Bereich Immissionsschutz und Kreislaufwirtschaft",
-    "company": "Bayerisches Landesamt für Umwelt",
-    "location": "86179 Augsburg",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515715.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Bayerisches Landesamt für Umwelt Ort: 86179 Augsburg Bewerbungsfrist: 16.12.2026 00:00 Veröffentlichungsende: 17.12.2026 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt",
-      "r"
-    ],
-    "deadline": "16.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund-7922069331635988619",
-    "title": "Sachbearbeiter/in (m/w/d) im Referat 42 \"Stauanlagenaufsicht/Wasserbuch\"",
-    "company": "Thüringer Landesamt für Umwelt, Bergbau und Naturschutz",
-    "location": "99423 Weimar",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1515697.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Thüringer Landesamt für Umwelt, Bergbau und Naturschutz Ort: 99423 Weimar Bewerbungsfrist: 04.01.2027 00:00 Veröffentlichungsende: 05.01.2027 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt",
-      "r"
-    ],
-    "deadline": "04.01.2027 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund-4141288596410399006",
-    "title": "Referentin / Referent für das Referat II A.1 \"Haushalts- und Querschnittsaufgaben, Grundsatzfragen der Agrarpolitik\"",
-    "company": "Ministerium für Landwirtschaft und Verbraucherschutz NRW",
-    "location": "40219 Düsseldorf",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/11/2e33cf2c-12f2-4556-9c79-8e83d66dd14b.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Wed, 25 Nov 2026",
-    "rawDescription": "Arbeitgeber: Ministerium für Landwirtschaft und Verbraucherschutz NRW Ort: 40219 Düsseldorf Bewerbungsfrist: 15.12.2026 00:00 Veröffentlichungsende: 15.12.2026 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "agrar",
-      "r"
-    ],
-    "deadline": "15.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund--4067167495139562699",
-    "title": "Umwelttechnologin / Umweltechnologe (m/w/d), Grafenwöhr",
-    "company": "Bundeswehr-Dienstleistungszentrum Amberg",
-    "location": "92655 Grafenwöhr",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/bundeswehr/2026/11/B7506609B-2026-00009147-B.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Tue, 24 Nov 2026",
-    "rawDescription": "Arbeitgeber: Bundeswehr-Dienstleistungszentrum Amberg Ort: 92655 Grafenwöhr Bewerbungsfrist: 23.12.2026 23:59 Veröffentlichungsende: 23.12.2026 23:59",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt"
-    ],
-    "deadline": "23.12.2026 23:59",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund-4982636605846064858",
-    "title": "Hygienekontrolleur (m/w/d) im Fachbereich 7.4 - Umwelthygiene und Infektionsschutz -",
-    "company": "Kreisverwaltung Kaiserslautern",
-    "location": "67655 Kaiserslautern",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/11/1508478.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Tue, 24 Nov 2026",
-    "rawDescription": "Arbeitgeber: Kreisverwaltung Kaiserslautern Ort: 67655 Kaiserslautern Bewerbungsfrist: 09.12.2026 00:00 Veröffentlichungsende: 10.12.2026 00:00",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt"
-    ],
-    "deadline": "09.12.2026 00:00",
-    "salary": "TVöD Bund / TV-L (E13 / E14)"
-  },
-  {
-    "id": "bund-1697003892965336589",
-    "title": "Sachbearbeitung Ordnungsbehördliche Verfahren im Zusammenhang mit Schutzgebieten und –objekten nach §§ 22 NatSchGBln (m/w/d) - E10",
-    "company": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
-    "location": "10179 Berlin",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/editor/Senatsverwaltung-fuer-Mobilitaet-Verkehr-Klimaschutz-und-Umwelt/2026/11/6725847.html#track=feed-jobs",
-    "sourceId": "src-bund-rss",
-    "sourceName": "service.bund.de (Sector Público Alemán)",
-    "publishedDate": "Tue, 24 Nov 2026",
-    "rawDescription": "Arbeitgeber: Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt Ort: 10179 Berlin Bewerbungsfrist: 10.12.2026 23:59 Veröffentlichungsende: 10.12.2026 23:59",
-    "requirements": [
-      "Tarifvertrag des öffentlichen Dienstes (TVöD Bund / TV-L)",
-      "Bewerbung über interamt.de / service.bund.de"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "klimaschutz",
-      "umwelt",
-      "r"
-    ],
-    "deadline": "10.12.2026 23:59",
     "salary": "TVöD Bund / TV-L (E13 / E14)"
   },
   {
@@ -843,7 +840,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -871,7 +868,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -897,33 +894,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "earth\\s+observation",
-      "python"
-    ]
-  },
-  {
-    "id": "gh-planetlabs-8346050",
-    "title": "Senior Software Engineer",
-    "company": "Planet Labs PBC",
-    "location": "Graz, Austria",
-    "country": "Alemania / EE.UU. / Remoto",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://job-boards.greenhouse.io/planetlabs/jobs/8346050",
-    "sourceId": "src-planet-greenhouse",
-    "sourceName": "Planet Labs PBC (Greenhouse API)",
-    "publishedDate": "2026-11-06",
-    "rawDescription": "Welcome to Planet. We believe in using space to help life on Earth. Planet designs, builds, and operates the largest constellation of imaging satellites in history. This constellation delivers an unprecedented dataset of empirical information via a revolutionary cloud-based platform to authoritative figures in commercial, environmental, and humanitarian sectors. We are both a space company and data company all rolled into one. Customers and users across the globe use Planet's data to develop new technologies, drive revenue, power research, and solve our world’s toughest obstacles. As we control every component of hardware design, manufacturing, data processing, and software engineering, our office is a truly inspiring mix of experts from a variety of domains. We have a people-centric approach toward culture and community and we strive to iterate in a way that puts our team members first and prepares our company for growth. Join Planet and be a part of our mission to change the way people see the world. Planet is a global company with employees working remotely world wide and joining us from offices in San Francisco, Washington DC, Germany, Austria, Slovenia, and The Netherlands. About the Role: Planet is building sovereign deployments of its platform for customers who need to keep control of where their data and services run, and we are looking for a Senior DevOps Engineer to help us deliver and run them. The flagship example is the Copernicus Data Space Ecosystem (CDSE), whi",
-    "requirements": [
-      "CG&C Solution Operations & Delivery"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -949,7 +920,33 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "earth\\s+observation",
+      "python"
+    ]
+  },
+  {
+    "id": "gh-planetlabs-8346050",
+    "title": "Senior Software Engineer",
+    "company": "Planet Labs PBC",
+    "location": "Graz, Austria",
+    "country": "Alemania / EE.UU. / Remoto",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://job-boards.greenhouse.io/planetlabs/jobs/8346050",
+    "sourceId": "src-planet-greenhouse",
+    "sourceName": "Planet Labs PBC (Greenhouse API)",
+    "publishedDate": "2026-11-06",
+    "rawDescription": "Welcome to Planet. We believe in using space to help life on Earth. Planet designs, builds, and operates the largest constellation of imaging satellites in history. This constellation delivers an unprecedented dataset of empirical information via a revolutionary cloud-based platform to authoritative figures in commercial, environmental, and humanitarian sectors. We are both a space company and data company all rolled into one. Customers and users across the globe use Planet's data to develop new technologies, drive revenue, power research, and solve our world’s toughest obstacles. As we control every component of hardware design, manufacturing, data processing, and software engineering, our office is a truly inspiring mix of experts from a variety of domains. We have a people-centric approach toward culture and community and we strive to iterate in a way that puts our team members first and prepares our company for growth. Join Planet and be a part of our mission to change the way people see the world. Planet is a global company with employees working remotely world wide and joining us from offices in San Francisco, Washington DC, Germany, Austria, Slovenia, and The Netherlands. About the Role: Planet is building sovereign deployments of its platform for customers who need to keep control of where their data and services run, and we are looking for a Senior DevOps Engineer to help us deliver and run them. The flagship example is the Copernicus Data Space Ecosystem (CDSE), whi",
+    "requirements": [
+      "CG&C Solution Operations & Delivery"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -975,7 +972,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1002,7 +999,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1012,14 +1009,14 @@
     ]
   },
   {
-    "id": "gh-planetlabs-8190766",
+    "id": "gh-planetlabs-8233192",
     "title": "Software Engineer",
     "company": "Planet Labs PBC",
-    "location": "Berlin, Germany",
-    "country": "Alemania",
+    "location": "Haarlem, Netherlands",
+    "country": "Alemania / EE.UU. / Remoto",
     "isBilbaoLocation": false,
     "isRemote": false,
-    "url": "https://job-boards.greenhouse.io/planetlabs/jobs/8190766",
+    "url": "https://job-boards.greenhouse.io/planetlabs/jobs/8233192",
     "sourceId": "src-planet-greenhouse",
     "sourceName": "Planet Labs PBC (Greenhouse API)",
     "publishedDate": "2026-11-04",
@@ -1029,7 +1026,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1055,7 +1052,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1064,14 +1061,14 @@
     ]
   },
   {
-    "id": "gh-planetlabs-8233192",
+    "id": "gh-planetlabs-8190766",
     "title": "Software Engineer",
     "company": "Planet Labs PBC",
-    "location": "Haarlem, Netherlands",
-    "country": "Alemania / EE.UU. / Remoto",
+    "location": "Berlin, Germany",
+    "country": "Alemania",
     "isBilbaoLocation": false,
     "isRemote": false,
-    "url": "https://job-boards.greenhouse.io/planetlabs/jobs/8233192",
+    "url": "https://job-boards.greenhouse.io/planetlabs/jobs/8190766",
     "sourceId": "src-planet-greenhouse",
     "sourceName": "Planet Labs PBC (Greenhouse API)",
     "publishedDate": "2026-11-04",
@@ -1081,7 +1078,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1107,7 +1104,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1133,7 +1130,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1159,7 +1156,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1186,7 +1183,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1214,7 +1211,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1239,7 +1236,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1248,31 +1245,6 @@
       "earth\\s+observation",
       "gis",
       "python"
-    ]
-  },
-  {
-    "id": "gh-constellrgmbh-4989761101",
-    "title": "Front-End IT Specialist",
-    "company": "ConstellR GmbH",
-    "location": "Munich | Hybrid",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://job-boards.eu.greenhouse.io/constellrgmbh/jobs/4989761101",
-    "sourceId": "src-constellr-greenhouse",
-    "sourceName": "ConstellR GmbH (Greenhouse API)",
-    "publishedDate": "2026-11-12",
-    "rawDescription": "Job description Team & Reporting Line: IT Team, reporting to the Director - IT Our Mission At constellr, we use thermal intelligence from space to understand what is happening on Earth - where, when and at scale. Our satellite constellation delivers high-resolution land surface temperature data, giving governments, defence organisations, commercial operators and global institutions the intelligence they need to monitor change, assess risk and make better-informed decisions. From national security and critical infrastructure to agriculture and climate resilience, constellr turns temperature into actionable intelligence for a changing world. Your Role You'll build and maintain the internal tools and interfaces that constellr's teams rely on every day. Your goal is to make our internal systems as usable and well designed as the technology we send into orbit, so our people can focus on their work rather than their tools. Key responsibilities Build and maintain the web tools and applications our internal teams use Support our users on the front end by providing training, answering questions and troubleshooting issues Make sure our apps integrate seamlessly with one another, giving users a smooth and connected experience Work closely with back-end IT and business stakeholders to understand and shape the requirements for each tool Keep clear, up-to-date documentation for all our internal tools Job requirements About you Required: Experience managing corporate IT applications and web",
-    "requirements": [
-      "IT"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "climate"
     ]
   },
   {
@@ -1293,7 +1265,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1319,7 +1291,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1345,7 +1317,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1372,37 +1344,12 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
       "climate",
       "earth\\s+observation"
-    ]
-  },
-  {
-    "id": "gh-constellrgmbh-4989823101",
-    "title": "Senior Infrastructure Operations Engineer",
-    "company": "ConstellR GmbH",
-    "location": "Munich | On-site",
-    "country": "Alemania",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://job-boards.eu.greenhouse.io/constellrgmbh/jobs/4989823101",
-    "sourceId": "src-constellr-greenhouse",
-    "sourceName": "ConstellR GmbH (Greenhouse API)",
-    "publishedDate": "2026-11-12",
-    "rawDescription": "Job description Team & Reporting Line: IT Team, reporting to the IT Director Our Mission At constellr, we use thermal intelligence from space to understand what is happening on Earth - where, when and at scale. Our satellite constellation delivers high-resolution land surface temperature data, giving governments, defence organisations, commercial operators and global institutions the intelligence they need to monitor change, assess risk and make better-informed decisions. From national security and critical infrastructure to agriculture and climate resilience, constellr turns temperature into actionable intelligence for a changing world. Your Role You'll design and maintain the infrastructure backbone that keeps constellr's operations reliable and scalable, from our office networks to the server room that supports our satellite data. This is a hands-on role with a high degree of ownership, right at the core of our technical operations. Key responsibilities Design, deploy and maintain our network and server infrastructure Take ownership of capacity planning across our compute, storage and network resources Lead our response to infrastructure incidents, identifying root causes and resolving them Maintain clear documentation and standard operating procedures for our infrastructure Evaluate and implement new infrastructure technologies as the company scales Job requirements About you Required: Strong hands-on experience in network and systems infrastructure engineering Experience",
-    "requirements": [
-      "IT"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "climate"
     ]
   },
   {
@@ -1423,7 +1370,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1448,7 +1395,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1471,7 +1418,7 @@
     "requirements": [],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1499,7 +1446,7 @@
     "requirements": [],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1527,7 +1474,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1555,7 +1502,7 @@
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1565,24 +1512,76 @@
     "salary": "TVöD Bund E13 / E14 (100% o 75% según proyecto)"
   },
   {
-    "id": "arbeitnow-senior-business-performance-analyst-all-genders-munchen-277175",
-    "title": "(Senior) Business Performance Analyst (all genders)",
-    "company": "Foodji GmbH",
-    "location": "München, Bayern, Deutschland",
+    "id": "arbeitnow-senior-structures-analysis-engineer-launch-vehicle-structure-parsdorf-bavaria-208788",
+    "title": "Senior Structures Analysis Engineer, Launch Vehicle Structure (m/f/d)",
+    "company": "isaraerospace",
+    "location": "Parsdorf, Bavaria",
     "country": "Europa / Remoto",
     "isBilbaoLocation": false,
     "isRemote": false,
-    "url": "https://www.arbeitnow.com/jobs/companies/foodji-gmbh/senior-business-performance-analyst-all-genders-munchen-277175",
+    "url": "https://www.arbeitnow.com/jobs/companies/isaraerospace/senior-structures-analysis-engineer-launch-vehicle-structure-parsdorf-bavaria-208788",
     "sourceId": "src-arbeitnow-scraped",
     "sourceName": "Arbeitnow (Europa & DACH)",
-    "publishedDate": "2026-11-26",
-    "rawDescription": "Foodji macht frisches, gutes Essen im Büro jederzeit verfügbar. Unsere autonomen Foodjis stehen in bald tausend Unternehmen in Deutschland, jede Transaktion, jede Lieferung und jedes Gericht erzeugt Daten. Diesen Datenschatz wollen wir noch konsequenter nutzen und die ganze Organisation befähigen, mit starkem AI-Enablement selbst mit Daten zu arbeiten. Dafür suchen wir dich. Du wirst Teil unseres Finance & BI Teams und arbeitest eng mit Controlling und BI. Wir bauen zusammen die Zahlenbasis, auf der Foodji gesteuert wird und gehen Fragen aus dem Business gemeinsam an: schnell, präzise und mit dem Anspruch, jede Frage bis zur Entscheidung durchzudenken. Deine Mission bei Foodji Ist-Zahlen & Treiber: Du analysierst gemeinsam mit dem Controlling die operativen Treiber hinter den Ist-Zahlen und leitest konkrete Maßnahmen ab für alle Teams. Planung: Du baust treiberbasierte Modelle für Budget und rollierenden Forecast, inklusive Szenarien und Annahmen aus den Fachbereichen. Reporting: Du entwickelst gemeinsam mit dem Controlling das Management-, Board- und Investorenreporting weiter, mit Fokus auf Treiber und Ausblick. Business Cases & Unit Economics: Du bewertest neue Standorte, Kunden",
+    "publishedDate": "2026-11-27",
+    "rawDescription": "Mission Brief&nbsp; You will be responsible for the structural analysis of entire assemblies belonging to our rocket’s primary and secondary structures. From trading design concepts to sizing and validating design iterations and examining the impact of manufacturing deviations, you will play an important role in guiding design decisions and pushing performance and reliability of our structures forward. As a Senior Structural Analysis Engineer you will play a major role in improving our overall analysis and verification workflow by defining standards, sharing technical knowledge and reviewing your colleagues’ results and identifying action points. &nbsp; Your Role in Our Space Mission:&nbsp; Perform detailed stress analysis of aerospace structures and components using both classical hand calculations and advanced finite element methods (FEM), mostly of CFRP structures &nbsp; Identify failure scenarios and collaborate with design engineers to review and optimize structural designs. &nbsp; Define applicable load cases, addressing the impact of thermal,&nbsp;quasi-static loads&nbsp;(arising from random vibrations) etc. &nbsp; Analise and provide possible solutions to manufacturing non-",
     "requirements": [
-      "Business Intelligence"
+      "Launch Vehicle Structures"
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "carbon"
+    ]
+  },
+  {
+    "id": "arbeitnow-automotive-data-engineer-vehicle-data-engineer-memmingen-214777",
+    "title": "Automotive Data Engineer / Vehicle Data Engineer (m/w/d)",
+    "company": "GreenTech Hub GmbH",
+    "location": "Memmingen",
+    "country": "Europa / Remoto",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.arbeitnow.com/jobs/companies/greentech-hub-gmbh/automotive-data-engineer-vehicle-data-engineer-memmingen-214777",
+    "sourceId": "src-arbeitnow-scraped",
+    "sourceName": "Arbeitnow (Europa & DACH)",
+    "publishedDate": "2026-11-27",
+    "rawDescription": "Reisacher Software Team @ GreenTech Hub Memmingen | Vollzeit | ab sofort | Vergütung nach Erfahrung und Verantwortungsumfang Arbeitgeber: Reisacher Recruiting: GreenTech Hub im Auftrag von Reisacher Aus Fahrzeugdaten belastbare Informationen machen. Moderne Fahrzeuge liefern große Mengen technischer Daten. Die spannende Aufgabe beginnt dort, wo diese Daten noch keine fertigen Antworten liefern. Für das Reisacher Software Team suchen wir einen Automotive Data Engineer, der Fahrzeug- und Telematikdaten erschließt, unterschiedliche Datenquellen verbindet und daraus robuste Datenservices und neue digitale Anwendungen entwickelt. Du bist bei Reisacher angestellt und arbeitest als Teil des Reisacher Software Teams im GreenTech Hub in Memmingen – eingebettet in ein Umfeld aus Software, Startups, KI, GreenTech und neuen Geschäftsmodellen. Deine Mission Fahrzeug- und Telematikdaten verschiedener Hersteller über APIs, Streams und weitere technische Schnittstellen erschließen Daten mit Python automatisiert aufbereiten, normalisieren, analysieren und validieren technische Events in Zeitreihen und Datenstreams erkennen unterschiedliche Datenquellen anhand von Zeit, Ort und Fahrzeugzuständen zus",
+    "requirements": [
+      "Data Processing",
+      "Data Engineer"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
+    "isVerified": true,
+    "verificationStatus": "Vigente y Verificada",
+    "matchedKeywords": [
+      "geodaten",
+      "python"
+    ]
+  },
+  {
+    "id": "arbeitnow-anlagenkonstrukteur-magdeburg-392900",
+    "title": "Anlagenkonstrukteur (m/w/d)",
+    "company": "STORK Unternehmensgruppe",
+    "location": "Magdeburg",
+    "country": "Europa / Remoto",
+    "isBilbaoLocation": false,
+    "isRemote": false,
+    "url": "https://www.arbeitnow.com/jobs/companies/stork-unternehmensgruppe/anlagenkonstrukteur-magdeburg-392900",
+    "sourceId": "src-arbeitnow-scraped",
+    "sourceName": "Arbeitnow (Europa & DACH)",
+    "publishedDate": "2026-11-27",
+    "rawDescription": "Gestalte mit uns Anlagen, die wirklich etwas bewegen – von der Idee bis zur Umsetzung. Die STORK-​Unternehmensgruppe ist ein innovatives, mittelständisches Unternehmen im Bereich Recycling, Umwelttechnik und Anlagenbetrieb mit rund 550 Mitarbeitenden. Was uns besonders macht? Wir planen und bauen unsere Anlagen selbst. Dadurch entstehen spannende, praxisnahe Projekte mit echtem Einfluss auf Nachhaltigkeit und Ressourcenschonung. Zur Verstärkung unseres Teams suchen wir dich als Technischen Zeichner / Projektplaner (m/w/d) im Bereich Anlagenbau. Deine Aufgaben – technisch, vielseitig, praxisnah Du erstellst technische Zeichnungen und Konstruktionsunterlagen für unsere Anlagen (2D/3D) Du unterstützt bei der Planung und Umsetzung von Anlagenprojekten – von der Idee bis zur Inbetriebnahme Du arbeitest eng mit Produktion, Betrieb und externen Partnern zusammen Du wirkst bei der Weiterentwicklung bestehender Anlagen mit und bringst eigene Ideen ein Du unterstützt bei Projektkoordination, Terminplanung und Dokumentation Du erstellst Stücklisten, Layouts und technische Dokumentationen Das bringst Du mit Abgeschlossene Ausbildung als Technischer Zeichner / Technischer Systemplaner (m/w/d) o",
+    "requirements": [
+      "Development"
+    ],
+    "responsibilities": [],
+    "status": "Nueva",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
@@ -1591,82 +1590,55 @@
     ]
   },
   {
-    "id": "arbeitnow-projektmanager-wegerecht-und-flachensicherung-erneuerbare-energien-molbergen-41492",
-    "title": "Projektmanager (m/w/d) Wegerecht und Flächensicherung - Erneuerbare Energien",
-    "company": "Deutscher Bauservice GmbH",
-    "location": "Molbergen",
+    "id": "arbeitnow-payment-operations-specialist-12-month-maternity-cover-london-457770",
+    "title": "Payment Operations Specialist (12-month Maternity Cover)",
+    "company": "Goodstack",
+    "location": "🇬🇧 London",
     "country": "Europa / Remoto",
     "isBilbaoLocation": false,
     "isRemote": false,
-    "url": "https://www.arbeitnow.com/jobs/companies/deutscher-bauservice-gmbh/projektmanager-wegerecht-und-flachensicherung-erneuerbare-energien-molbergen-41492",
+    "url": "https://www.arbeitnow.co.uk/jobs/companies/goodstack/payment-operations-specialist-12-month-maternity-cover-london-457770",
     "sourceId": "src-arbeitnow-scraped",
     "sourceName": "Arbeitnow (Europa & DACH)",
-    "publishedDate": "2026-11-26",
-    "rawDescription": "Du willst die Energiewende nicht nur begleiten – Du willst sie aktiv gestalten? Dann bist Du bei uns genau richtig. Wir entwickeln und realisieren Projekte im Bereich Windenergie, Photovoltaik, Batteriespeicher (BESS) und Stromtrassen – und treiben damit die Energiewende aktiv voran. Für unser wachsendes Team suchen wir eine erfahrene Koordinationspersönlichkeit, die unsere Flächensicherungsprozesse strukturiert und zuverlässig steuert. Bewirb Dich noch heute und komm in unser Team! Aufgaben Gesamtverantwortung für die Steuerung und das Monitoring aller Flächensicherungs- und Wegerechtsverfahren Enge Abstimmung mit dem Außendienstteam (Flächenakquisiteure) sowie internen Fachabteilungen (Legal, Projektentwicklung, Genehmigung) Begleitung und Qualitätssicherung von Vertragsverhandlungen zu Pacht-, Gestattungs- und Dienstbarkeitsverträgen Erstellung von Projektplänen, Statusberichten und KPI-Reportings an das Management Pflege des Flächenregisters sowie Fristenmanagement (Optionen, Laufzeiten, Verlängerungen) Ansprechpartner für Notare, Behörden und Grundbuchämter Qualifikation Abgeschlossenes technisches und betriebswirtschaftliches Studium, z.B. Wirtschaftsingenieurwesen mit dem Sc",
+    "publishedDate": "2026-11-27",
+    "rawDescription": "If you've been looking to join a fast-growing startup with a bold vision, exciting challenges and the opportunity to make a genuine difference in the world, you've found the right place. Backed by General Catalyst , the investors behind companies like Stripe and Airbnb, we're building something extraordinary. Our Mission 🌎 At Goodstack, our mission is to revolutionize how the world does good. We envision a world where doing good is built into everything we do. As a fast-growing, AI-native social impact startup, we're building the technology and infrastructure that connects businesses and good causes, making it easier to give, grow and create meaningful impact at scale. We do this in two ways: Goodstack for Business helps some of the world's leading companies power their social impact programmes. Goodstack for Causes helps nonprofits access the funding, technology and resources they need to thrive. And we're already making a difference: $11 billion in donations facilitated since 2022. Over 13 million mission-driven organisations in the world's largest verified database. 500,000+ nonprofits on our platform, with thousands more joining every week. Trusted by global companies including",
     "requirements": [
-      "Power Engineering and Environmental Engineering"
+      "Operations"
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
-      "umwelt",
-      "qgis",
-      "arcgis",
-      "gis"
+      "carbon",
+      "ecolog"
     ]
   },
   {
-    "id": "arbeitnow-responsable-qualite-h-f-cosse-le-vivien-336064",
-    "title": "Responsable Qualité H/F",
-    "company": "RH Partners",
-    "location": "Cossé-le-Vivien, Pays de la Loire, France",
+    "id": "arbeitnow-senior-business-data-scientist-data-transformation-services-paris-74609",
+    "title": "Senior Business Data Scientist - Data & Transformation services",
+    "company": "Ekimetrics",
+    "location": "Paris",
     "country": "Europa / Remoto",
     "isBilbaoLocation": false,
     "isRemote": false,
-    "url": "https://www.arbeitnow.fr/jobs/companies/rh-partners/responsable-qualite-h-f-cosse-le-vivien-336064",
+    "url": "https://www.arbeitnow.fr/jobs/companies/ekimetrics/senior-business-data-scientist-data-transformation-services-paris-74609",
     "sourceId": "src-arbeitnow-scraped",
     "sourceName": "Arbeitnow (Europa & DACH)",
-    "publishedDate": "2026-11-26",
-    "rawDescription": "Notre client, le Groupe OTERRA, groupe international de 1700 personnes, est le leader mondial dans la fabrication de colorants alimentaires naturels à base de fruits, légumes et fleurs. En France, son activité est organisée autour de 2 sites de production et ses principaux clients sont les grands marques du secteur agro-alimentaire (Nestlé, Coca-Cola, Haribo, ..). Dans un contexte de développement, la direction de l’entreprise souhaite renforcer ses équipes et recrute, sur le site de Cossé-le-Vivien un.e : RESPONSABLE QUALITE H/F Rattaché.e au Directeur de Site, vous avez pour mission de garantir la satisfaction clients par la mise en place et l’évolution du système contrôle qualité, management de la qualité et de la sécurité des aliments sur le site, dans le cadre défini par la Direction Qualité Groupe. Dans ce cadre, vous assurez plus particulièrement les missions suivantes : · Manager l’équipe qualité (10 collaborateurs) · Superviser et animer le système de management de la qualité et de la sécurité des aliments (FSSC 22000, HACCP) selon les guidelines qualité globale Groupe. · Assurer la conformité et la libération des produits en adéquation avec les exigences clients, la régle",
+    "publishedDate": "2026-11-27",
+    "rawDescription": "Ekimetrics is a global leader in Marketing & Commercial effectiveness and AI-powered solutions. Since 2006, we’ve been helping businesses optimize marketing and operations by combining AI with business and tech expertise across 4 domains: Marketing & commercial effectiveness, Customer analytics, Operational excellence, ESG & sustainability. With a full in-house team and offices in Paris, London, New York, Hong Kong, and Shanghai, we deliver tailor-made solutions that turn data into real positive impact, leveraging our unique combination of technology and services. We excel at delivering AI impact at scale. Our mission is to harness this power to tackle the world’s most urgent issues. We commit to responsibility and frugality in AI, systematic AI impact at scale, and loyalty to our values and DNA. You join as Senior Business Scientist within our Data & AI Transformation Services (DATS). You bridge business, consulting, AI & data expertise: you frame high-value use cases, turn business needs into AI opportunities, and drive adoption. You work alongside AI, Data and Software Engineers. Clients' Projects Lead the day-to-day relationship with business and CDO/CIO sponsors, and understan",
     "requirements": [
-      "AGRI-AGRO"
+      "Data Science & AI"
     ],
     "responsibilities": [],
     "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
+    "extractedAt": "2026-11-27 18:10",
     "isVerified": true,
     "verificationStatus": "Vigente y Verificada",
     "matchedKeywords": [
-      "agro"
-    ]
-  },
-  {
-    "id": "arbeitnow-projektleiter-in-hochbau-ausfuhrung-grossprojekt-wohnungsbau-80-100-opfikon-282285",
-    "title": "Projektleiter/in Hochbau – Ausführung Grossprojekt Wohnungsbau, 80–100%",
-    "company": "two.jobs",
-    "location": "Opfikon",
-    "country": "Europa / Remoto",
-    "isBilbaoLocation": false,
-    "isRemote": false,
-    "url": "https://www.arbeitnow.ch/jobs/companies/twojobs/projektleiter-in-hochbau-ausfuhrung-grossprojekt-wohnungsbau-80-100-opfikon-282285",
-    "sourceId": "src-arbeitnow-scraped",
-    "sourceName": "Arbeitnow (Europa & DACH)",
-    "publishedDate": "2026-11-26",
-    "rawDescription": "Im Auftrag unseres Kunden Allreal-Gruppe suchen wir eine/n Projektleiter/in Hochbau – Ausführung Grossprojekt Wohnungsbau, 80–100% Sechs Wohnhäuser, 223 Wohnungen, 33 Monate Bauzeit. Mit dem Projekt Roswisen entsteht in Zürich-Schwamendingen eine nachhaltige Wohnüberbauung mit hohem Qualitätsanspruch. Steig direkt in die Realisierung ein, übernimm Verantwortung und bring gemeinsam mit deinem Projektteam Grosses ins Ziel. Deine Aufgaben Du übernimmst die operative Projektverantwortung für die Realisierung der Wohnüberbauung Roswisen bis zur erfolgreichen Gesamtübergabe. Du koordinierst und steuerst sämtliche projektbezogenen Planungs- und Ausführungsprozesse und sorgst für einen reibungslosen Projektverlauf. Du führst das Projektteam, die Bauleitung sowie externe Partner und stellst eine effiziente Zusammenarbeit aller Projektbeteiligten sicher. Du agierst als zentrale Ansprechperson für die Bauherrschaft, interne Fachstellen, Planer, Behörden und Unternehmer. Du verantwortest die Einhaltung der Termine, Kosten und Qualitätsvorgaben und stellst die Umsetzung der projektspezifischen Nachhaltigkeitsanforderungen sicher. Du erkennst Herausforderungen frühzeitig, entwickelst tragfähige ",
-    "requirements": [
-      "Project Management"
-    ],
-    "responsibilities": [],
-    "status": "Nueva",
-    "extractedAt": "2026-11-26 18:24",
-    "isVerified": true,
-    "verificationStatus": "Vigente y Verificada",
-    "matchedKeywords": [
-      "umwelt",
-      "nachhaltig"
+      "climate",
+      "sustainability"
     ]
   }
 ]
