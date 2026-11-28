@@ -203,28 +203,31 @@ const SECTION_TITLES: Record<CvSection, Record<CvLang, string>> = {
 const CV_CSS = `
 @page { size: A4 portrait; margin: 0; }
 * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; background: #fff; font-size: 9.2pt; line-height: 1.38; }
-.page { width: 210mm; height: 297mm; padding: 8mm 11mm 7mm 11mm; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; background: #fff; }
+html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #1e293b; background: #fff; font-size: 9.3pt; line-height: 1.38; }
+.page { width: 210mm; height: 297mm; padding: 14mm 16mm 12mm 16mm; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; background: #fff; }
 .page:last-child { page-break-after: avoid; }
-@media screen { html, body { background: #cbd5e1; } .page { margin: 0 auto 12px auto; box-shadow: 0 2px 12px rgba(15,23,42,.25); } }
-.hd { border-bottom: 2px solid #0f172a; padding-bottom: 5px; margin-bottom: 6px; }
-.name { font-size: 18pt; font-weight: 800; letter-spacing: -.5px; color: #0f172a; line-height: 1; margin: 0; text-transform: uppercase; }
-.name.small { font-size: 13pt; }
-.headline { font-size: 8.8pt; font-weight: 600; color: #0369a1; margin: 2px 0 3px; }
-.contact { display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 7.5pt; color: #475569; font-weight: 500; }
-.contact b { color: #0f172a; font-weight: 600; }
-.summary { font-size: 8pt; line-height: 1.32; background: #f8fafc; padding: 4px 6px; border-left: 3px solid #0284c7; border-radius: 2px; margin-bottom: 2px; }
-.st { font-size: 8.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #0f172a; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 2px; margin: 5px 0 3px; }
+@media screen { html, body { background: #cbd5e1; } .page { margin: 0 auto 12px auto; box-shadow: 0 2px 14px rgba(15,23,42,.22); } }
+.hd { border-bottom: 0.75pt solid #0f3d5e; padding-bottom: 5px; margin-bottom: 6px; }
+.name { font-size: 17.5pt; font-weight: 800; letter-spacing: -.3px; color: #0f3d5e; line-height: 1.1; margin: 0; text-transform: uppercase; }
+.name.small { font-size: 12.5pt; }
+.headline { font-size: 9pt; font-weight: 600; color: #2d6a4f; margin: 2px 0 3px; letter-spacing: 0.2px; }
+.contact { display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 7.6pt; color: #475569; font-weight: 500; }
+.contact b { color: #0f3d5e; font-weight: 600; }
+.contact a { color: #2a6f97; text-decoration: none; }
+.contact a:hover { text-decoration: underline; }
+.summary { font-size: 8.2pt; line-height: 1.36; background: #f8fafc; padding: 5px 7px; border-left: 0.75pt solid #2d6a4f; border-radius: 2px; margin-bottom: 4px; color: #1e293b; }
+.st { font-size: 8.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #0f3d5e; border-bottom: 0.75pt solid #2d6a4f; padding-bottom: 2px; margin: 5px 0 3px; }
 .it { margin-bottom: 3.5px; }
-.row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 8.1pt; }
-.t { font-weight: 700; color: #0f172a; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 8.2pt; }
+.t { font-weight: 700; color: #0f3d5e; }
 .o { font-weight: 600; color: #334155; }
 .m { font-size: 7.4pt; font-weight: 600; color: #64748b; white-space: nowrap; }
-.d { font-size: 8pt; color: #334155; margin-top: 1px; line-height: 1.28; }
+.d { font-size: 8pt; color: #334155; margin-top: 1px; line-height: 1.32; }
+.d a { color: #2a6f97; font-weight: 600; text-decoration: none; }
 ul.b { margin: 1px 0 2px; padding-left: 14px; }
-ul.b li { font-size: 8pt; color: #334155; margin-bottom: 1.5px; line-height: 1.28; }
-.ft { border-top: 1px solid #cbd5e1; padding-top: 3px; margin-top: 3px; display: flex; justify-content: space-between; gap: 10px; font-size: 6.8pt; color: #64748b; }
-.ft b { color: #0f172a; }
+ul.b li { font-size: 8pt; color: #334155; margin-bottom: 1.5px; line-height: 1.30; }
+.ft { border-top: 0.75pt solid #cbd5e1; padding-top: 3px; margin-top: 3px; display: flex; justify-content: space-between; gap: 10px; font-size: 6.8pt; color: #64748b; }
+.ft b { color: #0f3d5e; }
 `;
 
 /** Ajusta la tipografía de forma uniforme para que el contenido llene la hoja A4 sin cortar jamás el pie ni los idiomas. */

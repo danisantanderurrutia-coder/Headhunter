@@ -27,22 +27,22 @@ class NumberedCanvas(canvas.Canvas):
     def draw_page_decorations(self, page_count):
         self.saveState()
         self.setFont("Helvetica-Bold", 7.5)
-        self.setFillColor(colors.HexColor("#64748b"))
+        self.setFillColor(colors.HexColor("#0f3d5e"))
         
         # Header (páginas > 1)
         if self._pageNumber > 1:
-            self.drawString(40, 810, "OPERATIVE CORE DOSSIER // EXPEDIENTE MAESTRO & RECETA DE COVER LETTER")
-            self.drawRightString(555, 810, "DANIEL SANTANDER URRUTIA")
-            self.setStrokeColor(colors.HexColor("#cbd5e1"))
-            self.setLineWidth(0.6)
+            self.drawString(40, 810, "OPERATIVE CORE DOSSIER // EXPEDIENTE MAESTRO & GUÍA DE POSTULACIÓN")
+            self.drawRightString(555, 810, "DANIEL SANTANDER URRUTIA · GEOFÍSICO & CIENTÍFICO AMBIENTAL")
+            self.setStrokeColor(colors.HexColor("#2d6a4f"))
+            self.setLineWidth(0.75)
             self.line(40, 804, 555, 804)
 
         # Footer
         self.setFont("Helvetica", 7.5)
         self.setStrokeColor(colors.HexColor("#cbd5e1"))
-        self.setLineWidth(0.6)
+        self.setLineWidth(0.75)
         self.line(40, 34, 555, 34)
-        self.drawString(40, 24, "CONFIDENCIAL // RECURSO DE GROUND TRUTH TÁCTICO PARA GOOGLE GEMINI")
+        self.drawString(40, 24, "EXPEDIENTE CIENTÍFICO CANÓNICO // GROUND TRUTH TÁCTICO & GUÍA OPERATIVA")
         self.drawRightString(555, 24, f"Página {self._pageNumber} de {page_count}")
         self.restoreState()
 
@@ -64,7 +64,7 @@ def build_pdf(filename):
         fontName='Helvetica-Bold',
         fontSize=13,
         leading=15.5,
-        textColor=colors.HexColor("#0f172a"),
+        textColor=colors.HexColor("#0f3d5e"),
         spaceAfter=2
     )
 
@@ -74,7 +74,7 @@ def build_pdf(filename):
         fontName='Helvetica-Bold',
         fontSize=8.0,
         leading=10,
-        textColor=colors.HexColor("#0284c7"),
+        textColor=colors.HexColor("#2d6a4f"),
         spaceAfter=5
     )
 
@@ -84,7 +84,7 @@ def build_pdf(filename):
         fontName='Helvetica-Bold',
         fontSize=9.2,
         leading=11.5,
-        textColor=colors.HexColor("#0f172a"),
+        textColor=colors.HexColor("#0f3d5e"),
         spaceBefore=7,
         spaceAfter=2.5,
         keepWithNext=True
@@ -96,7 +96,7 @@ def build_pdf(filename):
         fontName='Helvetica-Bold',
         fontSize=8.0,
         leading=10,
-        textColor=colors.HexColor("#0369a1"),
+        textColor=colors.HexColor("#2a6f97"),
         spaceBefore=4,
         spaceAfter=2,
         keepWithNext=True
@@ -115,7 +115,7 @@ def build_pdf(filename):
         fontName='Helvetica-Bold',
         fontSize=6.8,
         leading=8.3,
-        textColor=colors.HexColor("#0f172a")
+        textColor=colors.HexColor("#0f3d5e")
     )
 
     id_body = ParagraphStyle(
@@ -147,7 +147,7 @@ def build_pdf(filename):
         fontName='Helvetica-Bold',
         fontSize=6.6,
         leading=8.0,
-        textColor=colors.HexColor("#0f172a")
+        textColor=colors.HexColor("#0f3d5e")
     )
 
     body = ParagraphStyle(
@@ -163,7 +163,8 @@ def build_pdf(filename):
     body_bold = ParagraphStyle(
         'BodyBold',
         parent=body,
-        fontName='Helvetica-Bold'
+        fontName='Helvetica-Bold',
+        textColor=colors.HexColor("#0f3d5e")
     )
 
     callout_text = ParagraphStyle(
@@ -172,7 +173,7 @@ def build_pdf(filename):
         fontName='Helvetica',
         fontSize=7.0,
         leading=9.2,
-        textColor=colors.HexColor("#0f172a")
+        textColor=colors.HexColor("#0f3d5e")
     )
 
     code_text = ParagraphStyle(
@@ -220,13 +221,13 @@ def build_pdf(filename):
     # =========================================================================
     story.append(Paragraph("OPERATIVE CORE DOSSIER // DIRECTIVA MAESTRA DE CONTEXTO", title_style))
     story.append(Paragraph("Expediente Exhaustivo Ground Truth, Dual-Lens Audit & Receta Universal de Cover Letter", sub_title))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#0284c7"), spaceAfter=8))
+    story.append(HRFlowable(width="100%", thickness=0.75, color=colors.HexColor("#2d6a4f"), spaceAfter=8))
 
     mandate_html = """<b>MANDATO SUPREMO PARA GOOGLE GEMINI / LLM:</b> Este documento constituye el 'Menú Completo de Antecedentes Verificados' de Daniel Sebastián Santander Urrutia. Cuando se te asigne una oferta laboral, <b>tu tarea es seleccionar ('servirte') exactamente las herramientas, proyectos, logros y publicaciones afines a la vacante</b>, combinándolos con la Receta Maestra de Cover Letter y la norma de extensión adecuada (1 página para cartas y CVs de startups; 2 páginas para CVs científicos/DACH TVöD). Queda prohibido inventar empresas, cargos o datos no incluidos en este dossier."""
     mandate_table = Table([[Paragraph(mandate_html, callout_text)]], colWidths=[519])
     mandate_table.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#fffbeb")),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#f59e0b")),
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
+        ('BOX', (0,0), (-1,-1), 0.75, colors.HexColor("#0f3d5e")),
         ('LEFTPADDING', (0,0), (-1,-1), 7),
         ('RIGHTPADDING', (0,0), (-1,-1), 7),
         ('TOPPADDING', (0,0), (-1,-1), 5),
